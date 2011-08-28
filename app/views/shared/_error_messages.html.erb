@@ -1,0 +1,14 @@
+<% if object.errors.any? %>
+	<div id="error_explanation">
+		<% if object.errors.count == 1 %>
+			<h3>Formularz zawiera jeden błąd:</h3>
+		<% else%>
+			<h3>Formularz zawiera kilka błędów:</h3>
+		<% end %>
+		<ul>
+			<% object.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

@@ -1,0 +1,25 @@
+<header>
+	<div id="logo">
+		<%= link_to "Home", root_path, :class => 'logo' %>
+	</div>
+	<nav>
+		<ul id="nav">
+			<li><%= link_to "Start", root_path %></li>
+			<li><%= link_to "Znajdź trasę", test_path %></li>
+			<li><%= link_to "Dodaj trasę", "#" %></li>
+			<li><%= link_to "Trasy", "#" %></li>
+			<li><%= link_to "Użytkownicy", users_path %></li>
+			
+			<% if signed_in? %>
+			<li><%= link_to "Profil", user_path(current_user) %></li>
+			<% end %>
+		</ul>
+	</nav>
+	<div id="login-header">
+		<% if signed_in? %>
+			<%= link_to "Wyloguj się: #{current_user.username}", signout_path, :method => :delete %>
+		<% else %>
+			<%= link_to "Zaloguj / Zarejestruj", signin_path %>
+		<% end %>
+	</div>
+</header>

@@ -1,0 +1,130 @@
+<%= render 'shared/with_map' %>
+	
+	<div id="user-profile-wrapper">
+		<div class="user-profile">
+			<div class="user-avatar">
+				<%= user_avatar @user %>
+			</div>
+			<div class="user-info">
+				<h4><%= @user.username %></h4>
+				<ul>
+					<% if @user.name %><li>Imię: <%= @user.name %></li><% end %>
+					<% if @user.age %><li>Wiek: <%= @user.age %></li><% end %>
+					<% if @user.place %><li>Miejscowość: <%= @user.place %></li><% end %>
+					<li>Płeć: mężczyzna</li>
+					<% if correct_user? %>
+					<li class="edit-user"><%= link_to "Edytuj swoje dane", edit_user_path(@user) %></li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		
+		<h4>Liczby</h4>
+		<table class="user-numbers" summary="Users numbers">
+			<tr>
+				<td>Dodane trasy:</td>
+				<td>32</td>
+			</tr>
+			<tr>
+				<td>Suma kilometrów:</td>
+				<td>321 km</td>
+			</tr>
+			<tr>
+				<td>Czas na rowerze:</td>
+				<td>2g:32m12s</td>
+			</tr>
+			<tr>
+				<td>Średnia prędkość:</td>
+				<td>24,4 km/h</td>
+			</tr>
+			<tr>
+				<td>Ulubione:</td>
+				<td>4</td>
+			</tr>
+		</table>
+		
+		<%= link_to "Statystyki", "#", :class => "user-stats-btn btn-base" %>
+		
+		
+		
+		
+		
+	</div> <!-- END user-profile-wrapper -->
+	<div class="clear"></div>
+	<h4>Ostatnio dodane trasy:</h4>
+		<div id="last-routes" class="routes-list">
+			<ul>
+				<li><div class="route">
+					<div class="route-img">
+						<%= image_tag("route-map-small-img.jpg", :alt => "Miniaturka trasy" ) %>
+					</div>
+					<div class="route-info">
+						<h4>Przejazd po parku w Chorzowie</h4>
+						<ul>
+							<li>30 km, asfalt <%= image_tag "profile-green.png", :alt => "Profil trasy" %> 61 m</li>
+							<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
+						</ul>
+					</div>
+				</div></li>
+
+				<li><div class="route">
+					<div class="route-img">
+						<%= image_tag("route-map-small-img.jpg", :alt => "Miniaturka trasy" ) %>
+					</div>
+					<div class="route-info">
+						<h4>Przejazd po parku w Chorzowie</h4>
+						<ul>
+							<li>30 km, asfalt <%= image_tag "profile-green.png", :alt => "Profil trasy" %> 61 m</li>
+							<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
+						</ul>
+					</div>
+				</div></li>
+				<li><div class="route">
+					<div class="route-img">
+						<%= image_tag("route-map-small-img.jpg", :alt => "Miniaturka trasy" ) %>
+					</div>
+					<div class="route-info">
+						<h4>Przejazd po parku w Chorzowie</h4>
+						<ul>
+							<li>30 km, asfalt <%= image_tag "profile-green.png", :alt => "Profil trasy" %> 61 m</li>
+							<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
+						</ul>
+					</div>
+				</div></li>	<li><div class="route">
+						<div class="route-img">
+							<%= image_tag("route-map-small-img.jpg", :alt => "Miniaturka trasy" ) %>
+						</div>
+						<div class="route-info">
+							<h4>Przejazd po parku w Chorzowie</h4>
+							<ul>
+								<li>30 km, asfalt <%= image_tag "profile-green.png", :alt => "Profil trasy" %> 61 m</li>
+								<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
+							</ul>
+						</div>
+					</div></li>
+					<li><div class="route">
+						<div class="route-img">
+							<%= image_tag("route-map-small-img.jpg", :alt => "Miniaturka trasy" ) %>
+						</div>
+						<div class="route-info">
+							<h4>Przejazd po parku w Chorzowie</h4>
+							<ul>
+								<li>30 km, asfalt <%= image_tag "profile-green.png", :alt => "Profil trasy" %> 61 m</li>
+								<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
+							</ul>
+						</div>
+					</div></li>
+			</ul>
+		</div>
+	
+	
+	<div class="clear"></div>
+
+	
+	
+	
+	</div>
+	</div>
+	<div id="map"></div>
+</div>

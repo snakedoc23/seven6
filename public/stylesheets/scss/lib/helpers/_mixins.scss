@@ -1,0 +1,83 @@
+/* Custom Mixins. You can delare your own mixins here. */
+
+/* Add rounded corners to all sides */
+@mixin rounded($radius: 10px) {
+	border-radius: $radius;
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+}
+
+/* Add rounded corners to certain sides */
+@mixin roundedSides($topLeft, $topRight, $bottomRight, $bottomLeft) {
+	-moz-border-radius-topleft: $topLeft;
+	-moz-border-radius-topright: $topRight;
+	-moz-border-radius-bottomright: $bottomRight;
+	-moz-border-radius-bottomleft: $bottomLeft;
+	border-top-left-radius: $topLeft;
+	border-top-right-radius: $topRight;
+	border-bottom-right-radius: $bottomRight;
+	border-bottom-left-radius: $bottomLeft;
+}
+
+@mixin textShadow($x-axis:1px, $y-axis:1px, $casting:1px, $color:#FFF) {
+	text-shadow: $x-axis $y-axis $casting $color;
+}
+
+@mixin shadow( $off-y:1px, $off-x:1px, $blur:2px, $color:#444) {
+	-moz-box-shadow: $off-y $off-x $blur $color;
+	-webkit-box-shadow: $off-y $off-x $blur $color;
+	box-shadow: $off-y $off-x $blur $color;
+}
+
+@mixin gradient($from:#111, $to:#333) {
+	background: $from; /* for non-css3 browsers */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to'); /* for IE */
+	background: -webkit-gradient(linear, left top, left bottom, from($from), to($to)); /* for webkit browsers */
+	background: -moz-linear-gradient(top,  $from,  $to); /* for firefox 3.6+ */
+}
+
+/* This is a particularly useful mixin if you want to add slick CSS3 animations to elements */
+@mixin transition($property:all, $duration:0.5s, $function: ease-in-out) {
+	-moz-transition: $property $duration $function; /* FF3.7+ */
+	-o-transition: $property $duration $function; /* Opera 10.5 */
+	-webkit-transition: $property $duration $function; /* Saf3.2+, Chrome */
+	transition: $property $duration $function;
+}
+
+@mixin scale($scale:1) {
+	-moz-transform: scale($scale);
+	-webkit-transform: scale($scale);
+	-o-transform: scale($scale);
+	-ms-transform: scale($scale);
+	transform: scale($scale);
+}
+
+@mixin rotate($angle) {
+	-moz-transform: rotate($angle);
+	-webkit-transform: rotate($angle);
+	-o-transform: rotate($angle);
+	-ms-transform: rotate($angle);
+	transform: rotate($angle);
+	filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($angle)}, M12=-#{sin($angle)}, M21=#{sin($angle)}, M22=#{cos($angle)});
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($angle)}, M12=-#{sin($angle)}, M21=#{sin($angle)}, M22=#{cos($angle)})";
+  zoom: 1;
+}
+
+/* Cross browser opacity mixin */
+@mixin opacity($value:0.8){
+	opacity:$value;
+	filter:alpha(opacity=$value*100);	
+}
+
+@mixin fontFace ($name, $src:fonts) {
+	@font-face {
+		font-family: 'FontName';
+		src: url('$src/$name.eot');
+		src: url('$src/$name.eot?iefix') format('eot'),
+		url('$src/$name.woff') format('woff'),
+		url('$src/$name.ttf') format('truetype'),
+		url('$src/$name.svg#webfontZam02nTh') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}
+}

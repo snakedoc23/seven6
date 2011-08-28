@@ -1,0 +1,39 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  username: MyString
+  name: MyString
+  email: MyString
+  age: 1
+  palce: MyString
+  gender: false
+
+two:
+  username: MyString
+  name: MyString
+  email: MyString
+  age: 1
+  palce: MyString
+  gender: false
+
+
+
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :integer         not null, primary key
+#  username           :string(255)
+#  name               :string(255)
+#  email              :string(255)
+#  age                :integer
+#  palce              :string(255)
+#  gender             :boolean
+#  created_at         :datetime
+#  updated_at         :datetime
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  avatar_url         :string(255)
+#
+

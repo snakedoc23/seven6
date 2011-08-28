@@ -1,0 +1,21 @@
+<%= render 'shared/without_map' %>
+		
+		<div id="user-form">
+			<%= form_for(:session, :url => sessions_path) do |f| %>
+				<div class="form-field">
+					<%= f.label :username, "Podaj swoją nazwę:" %>
+					<%= f.text_field :username, :placeholder => "Login" %>
+				</div>
+				<div class="form-field">
+					<%= f.label :password, "Podaj hasło:" %>
+					<%= f.password_field :password, :placeholder => "hasło" %>
+				</div>
+				<div class="form-btn">
+					<%= f.submit "Zaloguj", :class => "btn-big" %>
+				</div>
+			<% end %>
+			
+				<p>Nie masz konta? <%= link_to "Zarejestruj się", signup_path %></p>
+		</div>
+	</div>
+</div>

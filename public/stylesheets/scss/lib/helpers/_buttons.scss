@@ -1,0 +1,22 @@
+@mixin button($color, $text_color,$width) {
+	@include rounded(10px);
+	@include gradient(lighten($color,30%),$color);
+	cursor: pointer;
+	font-weight: bold;
+	color:$text_color;
+	display: block;
+	border: 1px solid darken($color, 10%);
+	text-align: center;
+	padding: 10px 20px;
+	margin: 0 0 20px 0;
+	@if ($width){
+		width:$width;
+	}
+
+	&:hover {
+		@include gradient(lighten($color,40%),lighten($color,10%));
+	}
+}
+
+
+

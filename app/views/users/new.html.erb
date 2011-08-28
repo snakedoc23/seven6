@@ -1,0 +1,28 @@
+<%= render 'shared/without_map' %>
+		
+		<div id="user-form">
+			<%= form_for(@user) do |f| %>
+				<%= render 'shared/error_messages', :object => f.object %>
+				<div class="form-field">
+					<%= f.label :username, "Podaj swoją nazwę:" %>
+					<%= f.text_field :username, :placeholder => "nazwa" %>
+				</div>
+				<div class="form-field">
+					<%= f.label :email, "Podaj swój adres email:" %>
+					<%= f.text_field :email, :placeholder => "email@adres.com" %>
+				</div>
+				<div class="form-field">
+					<%= f.label :password, "Wymyśl hasło:" %>
+					<%= f.password_field :password, :placeholder => "hasło" %>
+				</div>
+				<div class="form-field">
+					<%= f.label :password_confirmation, "Powtórz hasło:" %>
+					<%= f.password_field :password_confirmation, :placeholder => "hasło" %>
+				</div>
+				<div class="form-btn">
+					<%= f.submit "Rejestracja", :class => "btn-big" %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

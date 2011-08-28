@@ -1,0 +1,56 @@
+ul {
+	list-style: none;
+}
+ol {
+	list-style-type: decimal;
+}
+dl dt {
+	font-weight: bold;
+}
+address {
+	font-style: italic;
+}
+del {
+	color: #000;
+}
+a {
+	color: $links;
+	text-decoration: none;
+	
+	/* Force a hand pointer for all links */
+	cursor:pointer;
+}
+a:hover {
+	text-decoration: underline;
+}
+blockquote {
+	display:block;
+}
+strong {
+	font-weight: bold;
+}
+em, dfn {
+	font-style: italic;
+}
+dfn {
+	font-weight: bold;
+}
+pre, code {
+	white-space: pre;
+}
+pre, code, tt {
+	font: 1em monospace;
+	line-height: 1.5;
+}
+tt {
+	display: block;
+}
+q {
+	font-style: italic;
+	font-weight: bold;
+	font-family:$serif;
+}
+cite {
+	display: block;
+	font-weight: bold;
+}

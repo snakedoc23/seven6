@@ -1,0 +1,36 @@
+<%= render 'shared/without_map' %>
+		<div class="users-index-table">
+		<table class="users-index big-table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Nazwa</th>
+					<th>Avatar</th>
+					<th>Miejscowość</th>
+					<th>Dodane trasy</th>
+					<th>Kilometry</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% i = 0 %>
+			<% @users.each do |user| %>
+				<tr>
+					<td><%= i += 1 %></td>
+					<td><%= link_to user.username, user_path(user) %></td>
+					<td><%= user_avatar user, "20x20" %></td>
+					<td><%= user.place %></td>
+					<td><%= i * 13 %></td>
+					<td><%= i * 89 %></td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+		
+		<%= will_paginate %>
+		
+		</div> <!-- END users-index-table -->
+
+	</div> <!-- END content -->
+</div> <!-- END without-map -->
+
+
