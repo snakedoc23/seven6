@@ -771,8 +771,7 @@ PAGINATION
 
 */
 .pagination {
-  margin: 10px 0 0 109px;
-  width: 295px; }
+  margin: 10px 0 0 109px; }
   .pagination * {
     width: 24px;
     height: 24px;

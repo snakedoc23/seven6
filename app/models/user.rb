@@ -55,6 +55,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -71,5 +72,6 @@ end
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #  avatar_url         :string(255)
+#  admin              :boolean
 #
 

@@ -10,6 +10,8 @@ end
 
 
 
+
+
 # == Schema Information
 #
 # Table name: users
@@ -19,12 +21,13 @@ end
 #  name               :string(255)
 #  email              :string(255)
 #  age                :integer
-#  palce              :string(255)
+#  place              :string(255)
 #  gender             :boolean
 #  created_at         :datetime
 #  updated_at         :datetime
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #  avatar_url         :string(255)
+#  admin              :boolean
 #
 
