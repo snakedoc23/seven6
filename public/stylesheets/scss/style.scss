@@ -57,6 +57,7 @@ header {
 	border-top: 2px solid $red;
 	border-bottom: 1px solid $blue;
 	height: 60px;
+	min-width: 750px;
 	#logo {
 		position: absolute;
 		top: 10px;
@@ -133,6 +134,7 @@ form#search-title {
 
 #container {
 	width: 100%;
+	min-width: 750px;
 }
 #with-map {
 	float: left;
@@ -155,6 +157,7 @@ form#search-title {
 #aside-content { margin-top: 60px; }
 #aside {
 	width: 370px;
+	height: 830px;
 	float: left;
 	border-right: 1px solid $blue;
 	#last-routes {
@@ -193,8 +196,8 @@ form#search-title {
 	}
 }
 #map {
-	width: 700px;
-	height: 300px;
+/*	width: 700px;*/
+	height: 830px;
 	float: left;
 	margin: 0;
 }

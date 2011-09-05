@@ -8,6 +8,8 @@ gem 'rails', '3.0.10'
 gem 'sqlite3'
 gem 'sass'
 gem 'will_paginate'
+gem "jquery-rails"
+
 
 group :development do
 	gem 'annotate'

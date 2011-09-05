@@ -378,7 +378,8 @@ h2 {
 header {
   border-top: 2px solid #c84446;
   border-bottom: 1px solid #283a43;
-  height: 60px; }
+  height: 60px;
+  min-width: 750px; }
   header #logo {
     position: absolute;
     top: 10px;
@@ -453,7 +454,8 @@ form#search-title input[type="submit"] {
     background: url("../images/search-small-btn-hover.png") no-repeat; }
 
 #container {
-  width: 100%; }
+  width: 100%;
+  min-width: 750px; }
 
 #with-map {
   float: left; }
@@ -475,6 +477,7 @@ form#search-title input[type="submit"] {
 
 #aside {
   width: 370px;
+  height: 830px;
   float: left;
   border-right: 1px solid #283a43; }
   #aside #last-routes li .route {
@@ -503,8 +506,8 @@ form#search-title input[type="submit"] {
     font-weight: normal; }
 
 #map {
-  width: 700px;
-  height: 300px;
+  /*	width: 700px;*/
+  height: 830px;
   float: left;
   margin: 0; }
 
