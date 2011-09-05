@@ -1,11 +1,40 @@
-@import "lib/_settings";
-@import "lib/_core";
-
+$red: #c84446;
+$blue: #283a43;
 $table-border: 1px solid #caced0;
 
 
+
+@import "lib/_reset";
+@import "lib/_mixins";
+@import "lib/_forms";
+
+
+
+
+.wrap {
+	width: 960px;
+	margin: 0 auto;
+}
+.clear {
+	clear: both;
+}
+.center {
+	text-align: center;
+}
+.uppercase {
+	text-transform: uppercase;
+}
+.titlecase {
+	text-transform: capitalize;
+}
+.invisible {
+	visibility: hidden;
+}
+
+
 body {
-	background: url("../images/bg.png");
+	background: url("../images/bg.gif");
+/*	background: #fafafa;*/
 }
 body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,input,textarea {
 	line-height: 17px;
@@ -39,7 +68,7 @@ header {
 			display:block;
 			text-indent: -9999px;
 			&:hover {
-				background: url("../images/logo-hover.png");
+				background: url("../images/logo.png") -97px;
 			}
 		}
 	}
@@ -432,7 +461,7 @@ table.big-table {
 			}
 		}
 		tr:hover {
-			background: #f2f2f2;
+			background: #cf5759;
 		}
 	}
 	
@@ -494,6 +523,30 @@ PAGINATION
 }
 
 
+/* 
+	FOOTER
+*/
 
 
-
+footer {
+	/*@include gradient(#cf5759, #bb3f41);*/
+	background: $blue;
+	width: 100%;
+	border-top: 2px solid $blue;
+	#footer-inner {
+		width: 959px;
+		height: 300px;
+		margin: 0 auto;
+		.footer-col {
+			width: 319px;
+			float: left;
+			height: 260px;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			border-right: 1px solid white;
+			&:last-child {
+				border: 0;
+			}
+		}
+	}
+}

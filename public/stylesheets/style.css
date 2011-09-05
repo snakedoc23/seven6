@@ -83,12 +83,6 @@ label, input[type="button"], input[type="submit"], input[type="image"], button {
 button, input, select, textarea {
   margin: 0; }
 
-/* Custom Mixins. You can delare your own mixins here. */
-/* Add rounded corners to all sides */
-/* Add rounded corners to certain sides */
-/* This is a particularly useful mixin if you want to add slick CSS3 animations to elements */
-/* Cross browser opacity mixin */
-/*@import "helpers/_tables";*/
 ul {
   list-style: none; }
 
@@ -107,7 +101,6 @@ del {
 a {
   color: #c84446;
   text-decoration: none;
-  /* Force a hand pointer for all links */
   cursor: pointer; }
 
 a:hover {
@@ -144,30 +137,11 @@ cite {
   display: block;
   font-weight: bold; }
 
-/* --------------------------------------------------------------
-
-GENERAL CLASSES
-
--------------------------------------------------------------- */
-.wrap {
-  width: 960px;
-  margin: 0 auto; }
-
-.clear {
-  clear: both; }
-
-.center {
-  text-align: center; }
-
-.uppercase {
-  text-transform: uppercase; }
-
-.titlecase {
-  text-transform: capitalize; }
-
-.invisible {
-  visibility: hidden; }
-
+/* Custom Mixins. You can delare your own mixins here. */
+/* Add rounded corners to all sides */
+/* Add rounded corners to certain sides */
+/* This is a particularly useful mixin if you want to add slick CSS3 animations to elements */
+/* Cross browser opacity mixin */
 /* --------------------------------------------------------------
 
 Form Settings. 
@@ -254,15 +228,14 @@ input[type="week"] {
   -moz-background-clip: padding;
   -webkit-background-clip: padding;
   background-clip: padding-box;
-  border: 1px solid #dddddd;
-  border-color: #dddddd #dddddd #dddddd;
-  color: black;
+  border: 1px solid #caced0;
+  color: #283a43;
   padding: 5px;
   outline: none;
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
-  font: 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
   margin: 0 0 20px 0;
   width: 100%;
   display: block;
@@ -311,9 +284,8 @@ textarea:-moz-placeholder {
   ::-webkit-validation-bubble-message {
     box-shadow: rgba(0, 0, 0, 0.5) 0 0 5px;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666666), color-stop(1, black));
-    border: #dddddd;
+    border: #caced0;
     color: #fff;
-    font: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 15px 15px 17px;
     text-shadow: #000 0 0 1px; }
 
@@ -360,8 +332,32 @@ input[type="text"], input[type="password"] {
   -webkit-border-radius: 4px;
   border-color: #d5d8d9; }
 
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #d5d8d9; }
+
+.wrap {
+  width: 960px;
+  margin: 0 auto; }
+
+.clear {
+  clear: both; }
+
+.center {
+  text-align: center; }
+
+.uppercase {
+  text-transform: uppercase; }
+
+.titlecase {
+  text-transform: capitalize; }
+
+.invisible {
+  visibility: hidden; }
+
 body {
-  background: url("../images/bg.png"); }
+  background: url("../images/bg.gif");
+  /*	background: #fafafa;*/ }
 
 body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, input, textarea {
   line-height: 17px;
@@ -394,7 +390,7 @@ header {
       display: block;
       text-indent: -9999px; }
       header #logo a.logo:hover {
-        background: url("../images/logo-hover.png"); }
+        background: url("../images/logo.png") -97px; }
   header nav ul#nav {
     float: left;
     margin-top: 20px;
@@ -757,7 +753,7 @@ table.big-table tbody tr {
   table.big-table tbody tr td:nth-child(2) {
     color: #c84446; }
 table.big-table tbody tr:hover {
-  background: #f2f2f2; }
+  background: #cf5759; }
 
 .users-index-table {
   margin: 20px auto;
@@ -822,3 +818,25 @@ PAGINATION
       background: #f9f9f9; }
   .pagination .next_page {
     width: 70px; }
+
+/* 
+	FOOTER
+*/
+footer {
+  /*@include gradient(#cf5759, #bb3f41);*/
+  background: #283a43;
+  width: 100%;
+  border-top: 2px solid #283a43; }
+  footer #footer-inner {
+    width: 959px;
+    height: 300px;
+    margin: 0 auto; }
+    footer #footer-inner .footer-col {
+      width: 319px;
+      float: left;
+      height: 260px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-right: 1px solid white; }
+      footer #footer-inner .footer-col:last-child {
+        border: 0; }

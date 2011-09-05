@@ -59,15 +59,12 @@ hr {
 input,select {
 	vertical-align: middle;
 }
-
 textarea {
 	overflow: auto;
 }
-
 .ie6 legend,.ie7 legend {
 	margin-left: -7px;
 }
-
 input[wtype="radio"] {
 	vertical-align: text-bottom;
 }
@@ -80,11 +77,65 @@ input[type="checkbox"] {
 .ie6 input {
 	vertical-align: text-bottom;
 }
-
 label,input[type="button"],input[type="submit"],input[type="image"],button {
 	cursor: pointer;
 }
-
 button,input,select,textarea {
 	margin: 0;
+}
+
+
+ul {
+	list-style: none;
+}
+ol {
+	list-style-type: decimal;
+}
+dl dt {
+	font-weight: bold;
+}
+address {
+	font-style: italic;
+}
+del {
+	color: #000;
+}
+a {
+	color: #c84446;
+	text-decoration: none;
+	cursor:pointer;
+}
+a:hover {
+	text-decoration: underline;
+}
+blockquote {
+	display:block;
+}
+strong {
+	font-weight: bold;
+}
+em, dfn {
+	font-style: italic;
+}
+dfn {
+	font-weight: bold;
+}
+pre, code {
+	white-space: pre;
+}
+pre, code, tt {
+	font: 1em monospace;
+	line-height: 1.5;
+}
+tt {
+	display: block;
+}
+q {
+	font-style: italic;
+	font-weight: bold;
+	font-family: Georgia, Times, serif;
+}
+cite {
+	display: block;
+	font-weight: bold;
 }

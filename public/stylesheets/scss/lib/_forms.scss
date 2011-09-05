@@ -92,13 +92,12 @@ input[type="week"] {
 		-moz-background-clip: padding;
 		-webkit-background-clip: padding;
 		background-clip: padding-box;
-		border: 1px solid $borders;
-		border-color: $borders $borders $borders;
-		color: $black;
+		border: 1px solid #caced0;
+		color: #283a43;
 		padding: $formPadding;
 		outline: none;
 		@include rounded(2px);
-		font: 12px $sans;
+		font-size: 12px;
 		margin: 0 0 20px 0;
 		width: 100%;
 		display: block;
@@ -147,9 +146,8 @@ box-shadow: none;
   ::-webkit-validation-bubble-message {
     box-shadow: rgba(0, 0, 0, 0.5) 0 0 5px;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #666), color-stop(1, #000));
-    border: $borders;
+    border: #caced0;
     color: #fff;
-    font: $sans;
     padding: 15px 15px 17px;
     text-shadow: #000 0 0 1px;
   }
@@ -194,4 +192,9 @@ input[type="text"], input[type="password"] {
 	padding: 7px;
 	@include rounded(4px);
 	border-color: #d5d8d9;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+	color: #d5d8d9;
 }
