@@ -34,6 +34,7 @@
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to'); /* for IE */
 	background: -webkit-gradient(linear, left top, left bottom, from($from), to($to)); /* for webkit browsers */
 	background: -moz-linear-gradient(top,  $from,  $to); /* for firefox 3.6+ */
+	background: linear-gradient(top,  $from,  $to);
 }
 
 /* This is a particularly useful mixin if you want to add slick CSS3 animations to elements */

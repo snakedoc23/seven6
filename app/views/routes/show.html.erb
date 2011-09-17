@@ -1,0 +1,48 @@
+<%= render 'shared/with_map' %>
+	
+	
+	<div id="route-show">
+		<h3><%= @route.title %></h3>
+
+		<ul class="route-show">
+				<li>
+					<div class="th">Ocena:</div>
+					<div class="td"><%= image_tag "/images/temp-stars.png" %></div>
+				</li>
+				<li>
+					<div class="th">Dystans:</div>
+					<div class="td"><%= @route.distance %> km</div>
+				</li>
+				<li>
+					<div class="th">Nawierzchnia:</div>
+					<div class="td"><%= @route.surface%></div>
+				</li>
+				<li>
+					<div class="th">Przewyższenia:</div>
+					<div class="td"><%= @route.distance %> m</div>
+				</li>
+				<li>
+					<div class="th">Autor:</div>
+					<div class="td"><%= @route.user.name %></div>
+				</li>
+				<li>
+					<div class="th">Data dodania:</div>
+					<div class="td"><%= time_ago_in_words(@route.created_at) %></div>
+				</li>
+				<li class="description">
+					<div class="th">Opis:</div>
+					<div class="td"><%= @route.description %></div>
+				</li>
+		</ul>
+
+		<%= link_to "Komentarze", "#" %>
+
+	</div><!-- /route-show -->
+
+	
+
+	</div><!-- aside-content -->
+	</div><!-- aside -->
+	<div id="map"></div>
+
+</div>

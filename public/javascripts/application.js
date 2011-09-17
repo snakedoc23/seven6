@@ -5,7 +5,7 @@ $(document).ready(function(){
 	$(window).resize(function() {
 		$('#map').width($(window).width() - $('#aside').outerWidth());
 	});
-	initializeMap();
+	// initializeMap();
 });
 
 function initializeMap() {
@@ -16,4 +16,14 @@ function initializeMap() {
   };
   var map = new google.maps.Map(document.getElementById('map'),
       myOptions);
+  
+
+  // rysowanie po kliknieciu w link
+  $('#draw-route-btn').bind('click', function(){
+    drawRoute(map);
+    alert("tetst");
+    return false;
+  });
+
+  
 }

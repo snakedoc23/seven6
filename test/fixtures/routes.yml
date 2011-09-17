@@ -1,11 +1,27 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
+one:
+  title: MyString
+  description: MyText
+  distance: 9.99
+
+two:
+  title: MyString
+  description: MyText
+  distance: 9.99
+
+# == Schema Information
 #
-one: {}
-# column: value
+# Table name: routes
 #
-two: {}
-#  column: value
+#  id          :integer         not null, primary key
+#  title       :string(255)
+#  description :text
+#  distance    :decimal(, )
+#  surface     :string(255)
+#  route_file  :string(255)
+#  user_id     :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

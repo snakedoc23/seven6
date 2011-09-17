@@ -1,0 +1,56 @@
+<footer>
+	<div id="footer-inner">
+
+		<div id="footer-about" class="footer-col">
+			<h3>o 76rowerów</h3>
+			<p>Serwis umożliwia zarządzanie trasami rowerowymi, możesz przeglądać trasy, które znajdują się aktualnie w serwisie, dodawać nowe. Dodatkowo gdy założysz konto masz dostęp do statystyk, możesz dodawać trasy jako ulubione, komentować trasy innych a nawet dodać innych użytkowników do obserwowanych dzięki czemu będziesz wiedział o wszystkich dodanych przez nich trasach.</p>
+		</div>
+
+		<div id="footer-contact" class="footer-col">
+			<h3>Kontakt</h3>
+			<div id="contact-form">
+
+				<form action="#" id="contact">
+					<div class="footer-form-col1">
+						<div class="form-field">
+							<label for="contact-name">Imię:</label>
+							<input id="contact-name" type="text" name="contact-name" value="" placeholder="Imię">
+						</div>
+						<div class="form-field">
+							<label for="contact-email">Email:</label>
+							<input id="contact-email" type="text" name="contact-email" value="" placeholder="adres@email.com">
+						</div>
+					</div>
+					<div class="footer-form-col2">
+						<div class="form-field">
+							<label for="contact-message">Wiadomość:</label>
+							<textarea id="contact-message" name="contact-message" placeholder="Wiadomość..."></textarea>
+						</div>
+						<div class="form-btn">
+							<input id="contact-submit" type="submit" class="btn-big" name="contact-send" value="Wyślij">
+						</div>
+					</div>
+						
+				</form>
+			</div><!-- /contact-form -->
+		</div>
+	</div><!-- /footer-inner -->
+
+
+	<div id="footer-bottom">
+		<nav>
+		<ul id="footer-nav">
+			<li><%= link_to "Start", root_path, :class => "selected", %></li>
+			<li><%= link_to "Znajdź trasę", test_path %></li>
+			<li><%= link_to "Dodaj trasę", "#" %></li>
+			<li><%= link_to "Trasy", "#" %></li>
+			<li><%= link_to "Użytkownicy", users_path %></li>
+			
+			<% if signed_in? %>
+			<li><%= link_to "Profil", user_path(current_user) %></li>
+			<% end %>
+		</ul>
+		</nav>
+		<span>Copyright © 2011 76rowerow.pl</span>
+	</div><!-- /footer-bottom 	-->
+</footer>
