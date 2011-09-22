@@ -727,10 +727,11 @@ footer {
 			margin-right: 10px;
 			float: left;
 			text-align: right;
+			padding-top: 2px;
 		}
-		.value {
+		.value, .km {
 			color: $red;
-			font-size: 17px;
+			font-size: 21px;
 		}
 		margin-bottom: 10px;
 		clear: both;
@@ -742,6 +743,18 @@ footer {
 	float: right;
 	#draw-route-btn {
 		margin-right: 5px;
+	}
+	#draw-controls {
+		display: none;
+		margin-top: 8px;
+		background: white;
+		padding: 7px;
+		border-radius: 4px;
+		border: 1px solid #D5D8D9;
+		
+		a {
+			display: block;
+		}
 	}
 
 }

@@ -7,8 +7,15 @@
 			<%= link_to "Rysuj", "#", :id => "draw-route-btn", :class => "btn-base" %>
 			<span>lub</span>
 			<%= link_to "Wgraj z pliku", "#"%>
+
+
+			<div id="draw-controls">
+				<%= link_to "Przyciągaj do dróg", "#", :id => "snap" %>
+				<%= link_to "Usuń wszystki punkty", "#", :id => "delete-path" %>
+			</div>
+
 		</div><!-- /route-new-draw -->
-		<p class='distance'><span class="label">Dystans:</span><span class="value">20,54 km</span></p>
+		<p class='distance'><span class="label">Dystans:</span><span class="value">0</span> <span class="km">km</span></p>
 
 		<div id="route-form">
 		<%= form_for(@route) do |f| %>

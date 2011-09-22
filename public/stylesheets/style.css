@@ -974,10 +974,11 @@ footer {
       width: 90px;
       margin-right: 10px;
       float: left;
-      text-align: right; }
-    #route-new p.distance .value {
+      text-align: right;
+      padding-top: 2px; }
+    #route-new p.distance .value, #route-new p.distance .km {
       color: #c84446;
-      font-size: 17px; }
+      font-size: 21px; }
 
 #route-new-draw {
   margin-bottom: 20px;
@@ -985,6 +986,15 @@ footer {
   float: right; }
   #route-new-draw #draw-route-btn {
     margin-right: 5px; }
+  #route-new-draw #draw-controls {
+    display: none;
+    margin-top: 8px;
+    background: white;
+    padding: 7px;
+    border-radius: 4px;
+    border: 1px solid #D5D8D9; }
+    #route-new-draw #draw-controls a {
+      display: block; }
 
 #route-form form#new_route input, #route-form form#new_route textarea, #route-form form#new_route select {
   font-size: 12px;

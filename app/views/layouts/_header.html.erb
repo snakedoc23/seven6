@@ -6,8 +6,8 @@
 		<ul id="nav">
 			<li><%= link_to "Start", root_path %></li>
 			<li><%= link_to "Znajdź trasę", test_path %></li>
-			<li><%= link_to "Dodaj trasę", "#" %></li>
-			<li><%= link_to "Trasy", "#" %></li>
+			<li><%= link_to "Dodaj trasę", new_route_path %></li>
+			<li><%= link_to "Trasy", routes_path %></li>
 			<li><%= link_to "Użytkownicy", users_path %></li>
 			
 			<% if signed_in? %>

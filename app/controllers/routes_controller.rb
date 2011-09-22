@@ -8,7 +8,6 @@ class RoutesController < ApplicationController
 		@route = Route.new
 	end
 
-
 	def show
 		@route = Route.find(params[:id])
 		@title_header = "Trasa"
