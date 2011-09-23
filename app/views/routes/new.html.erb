@@ -19,9 +19,17 @@
 
 		<div id="route-form">
 		<%= form_for(@route) do |f| %>
+				<%= f.hidden_field :coordinates_string %>
+				<%= f.hidden_field :distance %>
+				<%= f.hidden_field :max_altitude %>
+				<%= f.hidden_field :min_altitude %>
+				<%= f.hidden_field :total_climb_up %>
+				<%= f.hidden_field :total_climb_down %>
+				
 			<div class="form-field">
 				<%= f.label :title, "Nazwa trasy:" %>
 				<%= f.text_field :title, :placeholder => "Nazwa trasy" %>
+				<p class="error-explanation">Nazwa trasy</p>
 			</div>
 			<div class="form-field">
 				<%= f.label :description, "Opis trasy:" %>
@@ -29,12 +37,42 @@
 			</div>
 			<div class="form-field">
 				<%= f.label :surface, "Nawierzchnia:" %>
-				<%= f.select :surface, {:mieszana => 1, :asfalt => 2, :leśna => 3 }%>
+				<%= f.select :surface, {:mieszana => "mieszana", :asfalt => "asfalt", :leśna => "leśna" }%>
 			</div>
 
-			<div class="form-btn">
-					<%= f.submit "Zapisz Trasę", :class => "btn-big" %>
+			<%= link_to "Pokaż dodatkowe opcje", "#", :id => "show-extra" %>
+			<div id="route-new-extra">
+				<div class="form-field">
+					<%= f.label :total_time, "Czas:" %>
+					<%= f.text_field :total_time, :placeholder => "00:00:00" %>
+					<p class="error-explanation">Po dwie cyfry oddzielone byle czym</p>
 				</div>
+				<div class="form-field">
+					<%= f.label :max_speed, "Max (km/h):" %>
+					<%= f.text_field :max_speed, :placeholder => "32" %>
+					<p class="error-explanation">Po dwie cyfry oddzielone byle czym</p>
+				</div>
+				<p class='avg_speed'><span class="label">Średnia:</span><span class="value">0</span> <span class="km"> km/h</span></p>
+				<%= f.hidden_field :avg_speed %>
+
+				<div class="form-field">
+					<%= f.label :pulse, "Puls:" %>
+					<%= f.text_field :pulse, :placeholder => "120/150" %>
+					<p class="error-explanation">Średni puls / maksymalny</p>
+				</div>
+				<div class="form-field">
+					<%= f.label :temperature, "Temperatura:" %>
+					<%= f.text_field :temperature, :placeholder => "25" %>
+					<p class="error-explanation">Liczba stopni (. nie ,)</p>
+				</div>
+
+			</div>
+			
+
+			
+			<div class="form-btn">
+				<%= f.submit "Zapisz Trasę", :class => "btn-big" %>
+			</div>
 
 		<% end %>
 		</div><!-- /route-form -->

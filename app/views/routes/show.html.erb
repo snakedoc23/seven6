@@ -3,7 +3,8 @@
 	
 	<div id="route-show">
 		<h3><%= @route.title %></h3>
-
+		<div id="elevation-chart"></div>
+		<%= hidden_field_tag 'load_coordinates', @route.id %>
 		<ul class="route-show">
 				<li>
 					<div class="th">Ocena:</div>
@@ -11,15 +12,23 @@
 				</li>
 				<li>
 					<div class="th">Dystans:</div>
-					<div class="td"><%= @route.distance %> km</div>
+					<div class="td distance"><%= @route.distance %> km</div>
 				</li>
 				<li>
 					<div class="th">Nawierzchnia:</div>
 					<div class="td"><%= @route.surface%></div>
 				</li>
 				<li>
-					<div class="th">Przewyższenia:</div>
-					<div class="td"><%= @route.distance %> m</div>
+					<div class="th">Różnica wysokości:</div>
+					<div class="td"><%= (@route.max_altitude - @route.min_altitude).round(2) %> m</div>
+				</li>
+				<li>
+					<div class="th">Suma podjazdów:</div>
+					<div class="td"><%= @route.total_climb_up.round(2) %> m</div>
+				</li>
+				<li>
+					<div class="th">Suma zjazdów:</div>
+					<div class="td"><%= @route.total_climb_down.round(2) %> m</div>
 				</li>
 				<li>
 					<div class="th">Autor:</div>
@@ -33,7 +42,42 @@
 					<div class="th">Opis:</div>
 					<div class="td"><%= @route.description %></div>
 				</li>
+				<% if @route.total_time %>
+				<li>
+					<div class="th">Czas przejazdu:</div>
+					<div class="td"><%= @route.total_time %></div>
+				</li>
+				<% end %>
+				<% if @route.avg_speed %>
+				<li>
+					<div class="th">Średnia prędkość:</div>
+					<div class="td"><%= @route.avg_speed %></div>
+				</li>
+				<% end %>
+				<% if @route.max_speed %>
+				<li>
+					<div class="th">Maksymalna prędkość:</div>
+					<div class="td"><%= @route.max_speed %></div>
+				</li>
+				<% end %>
+				<% if @route.pulse_avg %>
+				<li>
+					<div class="th">Tętno (avg / max):</div>
+					<div class="td"><%= @route.pulse_avg.round %> / <%= @route.pulse_max.round %></div>
+				</li>
+				<% end %>
+				<% if @route.temperature %>
+				<li>
+					<div class="th">Temperatura:</div>
+					<div class="td"><%= @route.temperature %> °C</div>
+				</li>
+				<% end %>
+
 		</ul>
+
+
+		<%= link_to "Pokaż wykres", "#", :id => "show-elevation" %>
+
 
 		<%= link_to "Komentarze", "#" %>
 

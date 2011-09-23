@@ -10,6 +10,8 @@ Seven6::Application.routes.draw do
   match '/',        :to => 'pages#home'
   match '/test',    :to => 'pages#test' 
   
+  post '/load_coordinates' => 'routes#load_coordinates'
+
   get "pages/home"
   get "pages/test"
 

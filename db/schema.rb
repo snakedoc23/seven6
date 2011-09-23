@@ -11,17 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110915075705) do
+ActiveRecord::Schema.define(:version => 20110923072524) do
 
   create_table "routes", :force => true do |t|
     t.string   "title"
     t.text     "description"
-    t.decimal  "distance"
+    t.float    "distance"
     t.string   "surface"
     t.string   "route_file"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "coordinates_string"
+    t.float    "min_altitude"
+    t.float    "max_altitude"
+    t.float    "total_climb_up"
+    t.float    "total_climb_down"
+    t.float    "avg_speed"
+    t.float    "total_time"
+    t.float    "rating"
+    t.float    "pulse_max"
+    t.float    "pulse_avg"
+    t.float    "temperature"
+    t.float    "max_speed"
   end
 
   add_index "routes", ["title"], :name => "index_routes_on_title"

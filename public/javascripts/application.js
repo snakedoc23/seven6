@@ -21,34 +21,174 @@ var chartMarker;
 var polyline
 var map;
 var route;
+
+
+var distance = 0;
+var max_altitude = 0;
+var min_altitude = 0;
+var total_climb_up = 0;
+var total_climb_down = 0;
+
 google.load("visualization", "1", {packages: ["corechart"]});
 
-
-
+var mapWidth;
 
 $(document).ready(function(){
+	mapWidth = $(document).width() - $('#aside').outerWidth();
 	$('#map').width($(document).width() - $('#aside').outerWidth());
 	$(window).resize(function() {
 		$('#map').width($(window).width() - $('#aside').outerWidth());
 	});
 	
-	
-	map = initializeMap();
-
-	polyline = new google.maps.Polyline({
-		strokeColor: '#c84446',
-	    strokeOpacity: .8,
-	    strokeWeight: 5,
-		map: map
+	// routes/new -> dodatkowe opcje 
+	$('#route-new-extra').hide();
+	$('#show-extra').click(function() {
+		$('#route-new-extra').slideToggle('slow', function() {
+			if($('#show-extra').html() == "Pokaż dodatkowe opcje") {
+				$('#show-extra').html("Ukryj dodatkowe opcje");
+			} else {
+				$('#show-extra').html("Pokaż dodatkowe opcje");
+			}
+		});
+		return false;
+		
 	});
 
-	snap = 0;
-	directionsService = new google.maps.DirectionsService();
-	directionsDisplay = new google.maps.DirectionsRenderer();
-	elevator = new google.maps.ElevationService();
+
+
+	if($("#map").length) {
+
+		map = initializeMap();
+
+		polyline = new google.maps.Polyline({
+			strokeColor: '#c84446',
+			strokeOpacity: .8,
+			strokeWeight: 5,
+			map: map
+		});
+
+
+		snap = 0;
+		directionsService = new google.maps.DirectionsService();
+		directionsDisplay = new google.maps.DirectionsRenderer();
+		elevator = new google.maps.ElevationService();
+
+	}
 
 
 
+
+	if($('#load_coordinates').length) {
+		console.log("test ok");
+		var id = $('#load_coordinates').val();
+		console.log(id)
+		$.post('/load_coordinates', {id : id}, function(coordinates) {
+			console.log(coordinates);
+			pathFromString(coordinates, path);
+			polyline.setPath(path);
+
+
+	$("#show-elevation").click(function(){
+		console.log("esdadas");
+		$("#elevation-chart").show();
+		$("#elevation-chart").width(mapWidth);
+
+
+
+
+
+		// redukcja tablicy do 190 elementow 
+		if (path.length > 190) {
+			var reucedPath = new google.maps.MVCArray();
+			reucedPath = path;
+			var ca = 0;
+			while (reucedPath.length > 190) {
+				 reucedPath = reductionPath(reucedPath);
+			}
+			console.log("Do wywalenia: "+  (path.length - 190));
+			// console.log("Nowa: " + reucedPath);
+			// console.log("Stara: " + path);
+			console.log(reucedPath.length);
+		}
+
+		// wywolanie funkcji do stworzenia profilu wysokosciowego
+		if(reucedPath) {
+			createElevation(reucedPath);
+			console.log("reduced");
+		} else {
+			createElevation(path);
+		}
+
+
+
+
+		return false;
+		// createElevation(path);
+		// $("#elevation-chart").css("opacity", ".7");
+		// $("#elevation-chart").show(2000, function(){
+			
+		// });
+	});
+
+
+
+
+
+
+
+		});
+		
+	}
+	
+
+
+	
+
+
+
+///////////////////////////////////////////////////////////
+// ładowanie trasy -- tymczasowe
+
+
+// var ttt = $('#ttt').html();
+
+// if(ttt != null) {
+	
+
+
+// 	// console.log(ttt);
+// 	var routeJson = jQuery.parseJSON(ttt);
+// 	for(var i = 0; i < routeJson.b.length; i++){
+// 		var latS = routeJson.b[i]["Ka"];
+// 		var lngS = routeJson.b[i]["La"];
+// 		var poz = new google.maps.LatLng(latS, lngS);
+// 		path.push(poz);
+// 		// console.log(routeJson.b[i]["Ka"]);
+// 	}
+// 	polyline.setPath(path);
+
+// 	$("#show-elevation").click(function(){
+// 		console.log("esdadas");
+// 		createElevation(path);
+// 		$("#elevation-chart").css("opacity", ".7");
+// 		$("#elevation-chart").show(2000, function(){
+			
+// 		});
+		
+
+		
+// 	});
+	
+// }
+
+	
+
+
+
+
+/////////////////////////////////////////////////////
+
+	//przyciski do rysowania
 	$('#draw-controls').hide();
 	$('#draw-route-btn').bind('click', function(){
 		$('#draw-controls').slideDown('slow');
@@ -70,15 +210,81 @@ $(document).ready(function(){
 
 		if(snap === 0) {
 			snap = 1;
+			$("#snap").css("color", "#283A43");
 			$("#snap").text("Wyłącz przyciąganie");
 		} else {
 			snap = 0;
+			$("#snap").css("color", "#C84446");
 			$("#snap").text("Przyciągaj do dróg");
 		}
 	});
+
+
+
+	//wysyłanie nowej trasy
+	$("#route_submit").click(function() {
+
+		var stringPath = pathToString(path);
+		// createElevation(path);
+		//wypałniam ukryte pola dla formularza
+		$("#route_coordinates_string").val(stringPath);
+		$("#route_distance").val(distance);
+		$("#route_max_altitude").val(max_altitude);
+		$("#route_min_altitude").val(min_altitude);
+		$("#route_total_climb_up").val(total_climb_up);
+		$("#route_total_climb_down").val(total_climb_down);
+
+
+				// <%= f.hidden_field :distance %>
+				// <%= f.hidden_field :max_altitude %>
+				// <%= f.hidden_field :min_altitude %>
+				// <%= f.hidden_field :total_climb_up %>
+				// <%= f.hidden_field :total_climb_down %>
+
+		
+		console.log(stringPath);
+		console.log($("#route_coordinates_string").val());
+		// return false;
+	})
 	
 
 });
+function loadRoute() {
+
+	//ajaksowe zadanie po path, 
+	
+};
+
+
+// przerabia path (polyline.getPath()) na string (do bazy)
+function pathToString(pathToS) {
+	pathToS = route.getPath();
+	var pathString = "";
+	for(var i = 0; i < pathToS.b.length; i++){
+		var lat = pathToS.b[i]["Ja"];
+		var lng = pathToS.b[i]["Ka"];
+		var tmpString = lat + "x" + lng;
+		if(i < pathToS.b.length -1) {
+			tmpString += ","
+		}
+		pathString += tmpString;
+	}
+	return pathString;
+}
+
+// przerabia stringa z bazy na path dla google maps API 
+function pathFromString(string, pathT) {
+	var p = string.split(",");
+		for(var i = 0; i < p.length; i++) {
+			var point = p[i].split("x");
+			var lat = parseFloat(point[0]);
+			var lng = parseFloat(point[1]);
+			pathT.push(new google.maps.LatLng(lat, lng));
+	}
+};
+
+
+
 function initializeMap(){
 	var map = new google.maps.Map(document.getElementById("map"), {
 	   	zoom: 15,
@@ -149,8 +355,38 @@ function drawRoute(map, polyline){
 			editMarker(marker, polyline);
 		}
 		console.log(polyline.getPath().getLength());
-		addDistanceToPage(polyline);
+		
 		polyline.setPath(path);
+		addDistanceToPage(polyline);
+		
+		
+		// redukcja tablicy do 190 elementow 
+		if (path.length > 190) {
+			var reucedPath = new google.maps.MVCArray();
+			reucedPath = path;
+			var ca = 0;
+			while (reucedPath.length > 190) {
+				 reucedPath = reductionPath(reucedPath);
+			}
+			console.log("Do wywalenia: "+  (path.length - 190));
+			// console.log("Nowa: " + reucedPath);
+			// console.log("Stara: " + path);
+			console.log(reucedPath.length);
+		}
+
+		// wywolanie funkcji do stworzenia profilu wysokosciowego
+		if(reucedPath) {
+			createElevation(reucedPath);
+			console.log("reduced");
+		} else {
+			createElevation(path);
+		}
+
+
+
+
+
+
   });
 	return polyline;
 }
@@ -309,7 +545,9 @@ function calculateDistance(polyline) {
 };
 
 function addDistanceToPage(polyline) {
-	$('.distance .value').html(Math.round((calculateDistance(polyline)/1000)*100)/100);
+	distance = Math.round((calculateDistance(polyline)/1000)*100)/100;
+	$('.distance .value').html(distance);
+	
 };
 
 
@@ -339,6 +577,7 @@ function createElevation(pathE) {
 		'path': pathE,
 		'samples': 512
 	}
+	console.log(pathRequest);
     elevator.getElevationAlongPath(pathRequest, plotElevation);
 
 }
@@ -371,6 +610,11 @@ function plotElevation(results, status) {
 				}
 			}
 		}
+		max_altitude = max;
+		min_altitude = min;
+		total_climb_up = sumUp;
+		total_climb_down = sumDown;
+
 		console.log("Zjazdy: " + sumDown + " Podjazdy: " + sumUp);
 		console.log("Min: " + min + " -- Max: " + max);
 
@@ -397,14 +641,18 @@ function plotElevation(results, status) {
 		}
 		var chart = new google.visualization.AreaChart(document.getElementById('elevation-chart'));
 		chart.draw(data, {
-			width: 1000,
-			height: 300,
+			width: mapWidth,
+			height: 200,
 			legend: 'none',
 			colors: ['#c84446'],
+			backgroundColor : '#f1f1f1',
 			titleY: 'Wysokość (m)',
 			titleX: 'Dystans (km)',
+			chartArea:{left:50,top:23,width:"735",height:"157"},
 			// vAxis: {baselineColor: '#283A43'}
-			vAxis: {baselineColor: 'red' }
+			vAxis: {baselineColor: '#283a43' },
+			fontSize: 13,
+			fontName: "Helvetica Neue"
 
 
 		});
