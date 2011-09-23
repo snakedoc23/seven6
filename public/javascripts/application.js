@@ -8,6 +8,8 @@ var snap;
 var path = new Array();
 var markers = [];
 
+//zmienna okresla czy rysowac wykres tak by nie byl generowany gdy go nie widac
+var drawChart = 0;
 
 var startMarkerImage;
 var finishMarkerImage;
@@ -54,6 +56,26 @@ $(document).ready(function(){
 		
 	});
 
+	//ROUTES#NEW
+	// sprawdzanie poprawności czasu 
+	$('#route_total_time').focus(function(){
+		$('#route_total_time').keyup(function(){
+			console.log("sds");
+			var x = $('#route_total_time').val();
+			var timeRegex = /\d{1,3}\D\d{1,2}\D\d{1,2}/;
+			// var d = "33h43m2";
+			// var z = timeRegex.test(x);
+			var z = x.match(timeRegex)
+			console.log(z);
+			if (z == x) {
+				console.log("ok");
+				$('#route_total_time').next().hide();
+			} else {
+				$('#route_total_time').next().show();
+			}
+		});
+	});
+
 
 
 	if($("#map").length) {
@@ -79,12 +101,14 @@ $(document).ready(function(){
 
 
 	if($('#load_coordinates').length) {
+		drawChart = 1;
 		console.log("test ok");
 		var id = $('#load_coordinates').val();
 		console.log(id)
 		$.post('/load_coordinates', {id : id}, function(coordinates) {
 			console.log(coordinates);
-			pathFromString(coordinates, path);
+			var bounds = pathFromString(coordinates, path);
+			map.fitBounds(bounds);
 			polyline.setPath(path);
 
 
@@ -274,13 +298,17 @@ function pathToString(pathToS) {
 
 // przerabia stringa z bazy na path dla google maps API 
 function pathFromString(string, pathT) {
+	var bounds = new google.maps.LatLngBounds();
 	var p = string.split(",");
 		for(var i = 0; i < p.length; i++) {
-			var point = p[i].split("x");
-			var lat = parseFloat(point[0]);
-			var lng = parseFloat(point[1]);
-			pathT.push(new google.maps.LatLng(lat, lng));
+			var pointS = p[i].split("x");
+			var lat = parseFloat(pointS[0]);
+			var lng = parseFloat(pointS[1]);
+			var point = new google.maps.LatLng(lat, lng);
+			pathT.push(point);
+			bounds.extend(point);
 	}
+	return bounds;
 };
 
 
@@ -359,27 +387,28 @@ function drawRoute(map, polyline){
 		polyline.setPath(path);
 		addDistanceToPage(polyline);
 		
-		
-		// redukcja tablicy do 190 elementow 
-		if (path.length > 190) {
-			var reucedPath = new google.maps.MVCArray();
-			reucedPath = path;
-			var ca = 0;
-			while (reucedPath.length > 190) {
-				 reucedPath = reductionPath(reucedPath);
+		if(path.length > 1) {
+			// redukcja tablicy do 190 elementow 
+			if (path.length > 190) {
+				var reucedPath = new google.maps.MVCArray();
+				reucedPath = path;
+				var ca = 0;
+				while (reucedPath.length > 190) {
+					 reucedPath = reductionPath(reucedPath);
+				}
+				console.log("Do wywalenia: "+  (path.length - 190));
+				// console.log("Nowa: " + reucedPath);
+				// console.log("Stara: " + path);
+				console.log(reucedPath.length);
 			}
-			console.log("Do wywalenia: "+  (path.length - 190));
-			// console.log("Nowa: " + reucedPath);
-			// console.log("Stara: " + path);
-			console.log(reucedPath.length);
-		}
 
-		// wywolanie funkcji do stworzenia profilu wysokosciowego
-		if(reucedPath) {
-			createElevation(reucedPath);
-			console.log("reduced");
-		} else {
-			createElevation(path);
+			// wywolanie funkcji do stworzenia profilu wysokosciowego
+			if(reucedPath) {
+				createElevation(reucedPath);
+				console.log("reduced");
+			} else {
+				createElevation(path);
+			}
 		}
 
 
@@ -622,54 +651,56 @@ function plotElevation(results, status) {
 		// console.log(distance);
 		// console.log(results.length);
 
-		// wspolczynnik by na vAxis byly kilometry
-		var x = distance / results.length;
+		if(drawChart) {
+			// wspolczynnik by na vAxis byly kilometry
+			var x = distance / results.length;
 
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'D');
-		data.addColumn('number', 'Wysokość');
-		for(var i = 0; i < results.length; i++) {
-			// if(i % 5 == 0) {
-				// data.addRow([ (i).toString(), results[i].elevation]);
-				data.addRow([ (Math.round(i * x)).toString() + ' km', results[i].elevation]);
-			// }
-			// data.addRow([ (Math.round(i * x)).toString(), results[i].elevation]);
-			
-			// else {
-			// 	data.addRow([ '', results[i].elevation]);
-			// }
-		}
-		var chart = new google.visualization.AreaChart(document.getElementById('elevation-chart'));
-		chart.draw(data, {
-			width: mapWidth,
-			height: 200,
-			legend: 'none',
-			colors: ['#c84446'],
-			backgroundColor : '#f1f1f1',
-			titleY: 'Wysokość (m)',
-			titleX: 'Dystans (km)',
-			chartArea:{left:50,top:23,width:"735",height:"157"},
-			// vAxis: {baselineColor: '#283A43'}
-			vAxis: {baselineColor: '#283a43' },
-			fontSize: 13,
-			fontName: "Helvetica Neue"
-
-
-		});
-
-		// pokazywanie na mapie miejsca z wyjresu
-		google.visualization.events.addListener(chart, 'onmouseover', function(event) {
-			if (chartMarker == null) {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'D');
+			data.addColumn('number', 'Wysokość');
+			for(var i = 0; i < results.length; i++) {
+				// if(i % 5 == 0) {
+					// data.addRow([ (i).toString(), results[i].elevation]);
+					data.addRow([ (Math.round(i * x)).toString() + ' km', results[i].elevation]);
+				// }
+				// data.addRow([ (Math.round(i * x)).toString(), results[i].elevation]);
 				
-				chartMarker = new google.maps.Marker({
-					position: results[event.row].location,
-					map: map,
-					icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-				});
-			} else {
-				chartMarker.setPosition(results[event.row].location);
-				// console.log(event.row);
+				// else {
+				// 	data.addRow([ '', results[i].elevation]);
+				// }
 			}
-		});
+			var chart = new google.visualization.AreaChart(document.getElementById('elevation-chart'));
+			chart.draw(data, {
+				width: mapWidth,
+				height: 200,
+				legend: 'none',
+				colors: ['#c84446'],
+				backgroundColor : '#f1f1f1',
+				titleY: 'Wysokość (m)',
+				titleX: 'Dystans (km)',
+				chartArea:{left:50,top:23,width:"735",height:"157"},
+				// vAxis: {baselineColor: '#283A43'}
+				vAxis: {baselineColor: '#283a43' },
+				fontSize: 13,
+				fontName: "Helvetica Neue"
+
+
+			});
+
+			// pokazywanie na mapie miejsca z wykresu
+			google.visualization.events.addListener(chart, 'onmouseover', function(event) {
+				if (chartMarker == null) {
+					
+					chartMarker = new google.maps.Marker({
+						position: results[event.row].location,
+						map: map,
+						icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+					});
+				} else {
+					chartMarker.setPosition(results[event.row].location);
+					// console.log(event.row);
+				}
+			});
+		}
 	}
 }

@@ -1,6 +1,31 @@
 <%= render 'shared/with_map' %>
 	
 
+	
+
+<% if @route.errors.any? %>
+	<div id="error_explanation"
+		<ul>
+			<% @route.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<div id="route-new">
 		
 		<div id="route-new-draw">
