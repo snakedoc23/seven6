@@ -427,22 +427,27 @@ header {
   header #login-header {
     position: absolute;
     right: 30px;
-    top: 2px; }
+    top: 2px;
+    background: #c84446;
+    padding-bottom: 4px;
+    padding-left: 9px;
+    padding-right: 9px;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px; }
     header #login-header a {
-      background: #c84446;
       color: #fff;
-      padding: 4px 9px;
-      font-size: 13px;
-      -moz-border-radius-topleft: 0;
-      -moz-border-radius-topright: 0;
-      -moz-border-radius-bottomright: 4px;
-      -moz-border-radius-bottomleft: 4px;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      border-bottom-right-radius: 4px;
-      border-bottom-left-radius: 4px; }
+      font-size: 13px; }
       header #login-header a:hover {
         text-decoration: underline; }
+    header #login-header img {
+      position: relative;
+      top: 4px; }
 
 form#search-title input[type="text"] {
   float: left; }
@@ -460,7 +465,8 @@ form#search-title input[type="submit"] {
 
 #container {
   width: 100%;
-  min-width: 750px; }
+  min-width: 750px;
+  min-height: 300px; }
 
 #with-map {
   float: left; }
@@ -519,19 +525,21 @@ form#search-title input[type="submit"] {
 /*
 	PAGES without map
 */
-#without-map form#search-title {
-  float: right;
-  margin-right: 30px;
-  margin-top: 10px; }
-#without-map .h2-bg {
-  background: #283a43;
-  height: 35px; }
-  #without-map .h2-bg h2 {
-    color: white;
-    margin: auto;
-    display: block;
-    width: 220px;
-    line-height: 30px; }
+#without-map {
+  margin-bottom: 50px; }
+  #without-map form#search-title {
+    float: right;
+    margin-right: 30px;
+    margin-top: 10px; }
+  #without-map .h2-bg {
+    background: #283a43;
+    height: 35px; }
+    #without-map .h2-bg h2 {
+      color: white;
+      margin: auto;
+      display: block;
+      width: 220px;
+      line-height: 30px; }
 
 #content {
   margin-bottom: 20px;
@@ -658,27 +666,27 @@ form#search-title input[type="submit"] {
   z-index: 2; }
 
 .success {
-  background: #5cdb8c;
+  background: #354d59;
   /* for non-css3 browsers */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
   /* for IE */
-  background: -webkit-gradient(linear, left top, left bottom, from(#5cdb8c), to(#44c868));
+  background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
   /* for webkit browsers */
-  background: -moz-linear-gradient(top, #5cdb8c, #44c868);
+  background: -moz-linear-gradient(top, #354d59, #283a43);
   /* for firefox 3.6+ */
-  background: linear-gradient(top, #5cdb8c, #44c868);
-  border: 1px solid #34b055; }
+  background: linear-gradient(top, #354d59, #283a43);
+  border: 1px solid #192429; }
 
 .error, .notice {
-  background: #cf5759;
+  background: #d06061;
   /* for non-css3 browsers */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
   /* for IE */
-  background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+  background: -webkit-gradient(linear, left top, left bottom, from(#d06061), to(#c84446));
   /* for webkit browsers */
-  background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+  background: -moz-linear-gradient(top, #d06061, #c84446);
   /* for firefox 3.6+ */
-  background: linear-gradient(top, #cf5759, #bb3f41);
+  background: linear-gradient(top, #d06061, #c84446);
   border: 1px solid #b03436; }
 
 /*
@@ -753,6 +761,8 @@ table.big-table tbody tr {
     padding: 0 10px;
     min-width: 20px;
     border-bottom: 1px solid #caced0; }
+    table.big-table tbody tr td img {
+      vertical-align: middle; }
   table.big-table tbody tr td:last-child {
     border-right: 1px solid #caced0; }
   table.big-table tbody tr td:first-child {
@@ -783,6 +793,13 @@ table.big-table tbody tr:hover {
   margin: 20px auto;
   width: 600px; }
   .users-index-table table.users-index {
+    width: 100%;
+    margin-left: -67px; }
+
+.routes-index-table {
+  margin: 20px auto;
+  width: 600px; }
+  .routes-index-table table.users-index {
     width: 100%;
     margin-left: -67px; }
 
@@ -1057,12 +1074,17 @@ footer {
     font-size: 17px;
     color: #c84446;
     font-weight: normal;
-    line-height: 30px;
+    line-height: 20px;
     margin-top: 10px; }
+  #route-show div.altitude-extra {
+    display: none; }
+    #route-show div.altitude-extra li:last-child {
+      margin-bottom: 21px;
+      border-bottom: 1px solid #283a43; }
   #route-show ul.route-show {
     margin-top: 10px; }
     #route-show ul.route-show li {
-      margin-bottom: 5px;
+      margin-bottom: 3px;
       border: 1px solid #caced0;
       width: 280px;
       float: left;
@@ -1070,14 +1092,14 @@ footer {
       font-size: 13px;
       line-height: 30px; }
       #route-show ul.route-show li .th {
-        width: 150px;
+        width: 160px;
         text-align: left;
         padding-left: 7px;
         float: left;
         font-weight: bold; }
       #route-show ul.route-show li .td {
-        width: 120px;
-        float: right; }
+        width: 100px;
+        float: left; }
         #route-show ul.route-show li .td img {
           position: relative;
           top: 3px; }
@@ -1087,12 +1109,23 @@ footer {
       #route-show ul.route-show li.description {
         line-height: 17px;
         padding-top: 4px;
-        padding-bottom: 4px; }
+        padding-bottom: 4px;
+        min-height: 30px; }
         #route-show ul.route-show li.description .th {
           width: 46px; }
         #route-show ul.route-show li.description .td {
           width: 220px;
           padding-right: 4px; }
+      #route-show ul.route-show li#altitude .td {
+        width: 86px; }
+      #route-show ul.route-show li#altitude .small-arrow {
+        float: left;
+        display: block;
+        height: 11px;
+        width: 13px;
+        top: 11px;
+        position: relative;
+        background: url(../images/arrows.png) no-repeat; }
 
 #elevation-chart {
   position: absolute;

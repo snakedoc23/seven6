@@ -18,6 +18,7 @@
 	<div id="login-header">
 		<% if signed_in? %>
 			<%= link_to "Wyloguj się: #{current_user.username}", signout_path, :method => :delete %>
+			<%= user_avatar current_user, "20x20" %>
 		<% else %>
 			<%= link_to "Zaloguj / Zarejestruj", signin_path %>
 		<% end %>

@@ -25,13 +25,17 @@ var map;
 var route;
 
 
+
 var distance = 0;
 var max_altitude = 0;
 var min_altitude = 0;
 var total_climb_up = 0;
 var total_climb_down = 0;
+var avg_speed = 0;
 
 var total_time_sec = 0;
+
+var colors = ["#283A43", "#c84446", "#CACED0"];
 
 google.load("visualization", "1", {packages: ["corechart"]});
 
@@ -58,10 +62,13 @@ $(document).ready(function(){
 		
 	});
 
+
+	$(".flash").click(function(){$(".flash").slideUp('slow')});
+
 	//ROUTES#NEW
 
 
-	///////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 	//Walidacja formularza
 
 	// sprawdzanie poprawności czasu 
@@ -93,8 +100,8 @@ $(document).ready(function(){
 					time_a[2] = "0";
 				}
 				if(total_time_sec > 0) {
-					var avg = Math.round(distance * 3600 / total_time_sec * 100) / 100;
-					$("p.avg_speed .value").html(avg);
+					avg_speed = Math.round(distance * 3600 / total_time_sec * 100) / 100;
+					$("p.avg_speed .value").html(avg_speed);
 					$("#total-time-show-h").html(time_a[0]);
 					$("#total-time-show-m").html(time_a[1]);
 					$("#total-time-show-s").html(time_a[2]);
@@ -102,8 +109,10 @@ $(document).ready(function(){
 
 
 				$('#error-explanation-time').hide();
+				$('#route_time_string').css("border-color", "#D5D8D9");
 			} else {
 				$('#error-explanation-time').show();
+				$('#route_time_string').css("border-color", "#C84446");
 			}
 		});
 	});
@@ -111,6 +120,7 @@ $(document).ready(function(){
 	$('#route_time_string').blur(function(){
 		if($('#route_time_string').val() == "") {
 			$('#error-explanation-time').hide();
+			$('#route_time_string').css("border-color", "#D5D8D9");
 		}
 	});
 
@@ -121,14 +131,29 @@ $(document).ready(function(){
 		var pulseRegex = /\d{2,3}\/\d{2,3}/;
 		var pulseRegexOk = pulse.match(pulseRegex);
 		if(pulse == pulseRegexOk || $('#route_pulse').val() == "") {
-			console.log(pulseRegexOk);
 			$("#error-explanation-pulse").hide();
+			$('#route_pulse').css("border-color", "#D5D8D9");
 		} else {
 			$("#error-explanation-pulse").show();
+			$('#route_pulse').css("border-color", "#C84446");
 		}
 	});
 
-	
+	//Poprawność prędkość maksymalna
+	$('#route_max_speed').blur(function() {
+		var max_speed = $('#route_max_speed').val();
+		var max_speedRegex = /\d*/;
+		var max_speedRegexOk = max_speed.match(max_speedRegex);
+		if((max_speed == max_speedRegexOk || $('#route_max_speed').val() == "") && max_speed < 200) {
+			$("#error-explanation-max-speed").hide();
+			$('#route_max_speed').css("border-color", "#D5D8D9");
+		} else {
+			$("#error-explanation-max-speed").show();
+			$('#route_max_speed').css("border-color", "#C84446");
+		}
+	});
+
+///////////////////////////////////////////////////////////////////////
 
 
 
@@ -152,13 +177,29 @@ $(document).ready(function(){
 	}
 
 
+// SHOW ROUTE
+
+	$('#altitude').click(function(){
+		if($('.altitude-extra').is(":visible")) {
+			$('.altitude-extra').hide();
+			$('#altitude .small-arrow').css("backgroundPosition", "0");
+			$('#altitude').css("border-top", "1px solid " + colors[2]);
+		} else {
+			$('.altitude-extra').show();
+			$('#altitude .small-arrow').css("backgroundPosition", "-13px");
+			$('#altitude').css("border-top", "1px solid " + colors[0]);
+		}
+
+	});
+
+
+
 
 
 	if($('#load_coordinates').length) {
 		drawChart = 1;
-		console.log("test ok");
 		var id = $('#load_coordinates').val();
-		console.log(id)
+		// console.log(id)
 		$.post('/load_coordinates', {id : id}, function(coordinates) {
 			console.log(coordinates);
 			var bounds = pathFromString(coordinates, path);
@@ -167,7 +208,6 @@ $(document).ready(function(){
 
 
 	$("#show-elevation").click(function(){
-		console.log("esdadas");
 		$("#elevation-chart").show();
 		$("#elevation-chart").width(mapWidth);
 
@@ -260,6 +300,8 @@ $(document).ready(function(){
 		$("#route_total_climb_up").val(total_climb_up);
 		$("#route_total_climb_down").val(total_climb_down);
 		$("#route_total_time").val(total_time_sec);
+		$("#route_avg_speed").val(avg_speed);
+
 
 
 				// <%= f.hidden_field :distance %>
@@ -579,6 +621,11 @@ function calculateDistance(polyline) {
 function addDistanceToPage(polyline) {
 	distance = Math.round((calculateDistance(polyline)/1000)*100)/100;
 	$('.distance .value').html(distance);
+
+	if(total_time_sec > 1) {
+		avg_speed = Math.round(distance * 3600 / total_time_sec * 100) / 100;
+		$("p.avg_speed .value").html(avg_speed);
+	}
 	
 };
 

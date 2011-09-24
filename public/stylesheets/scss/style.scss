@@ -1,6 +1,7 @@
-$red: 			#c84446;
+$red: #c84446;
 $red-light: #db5e60;
 $blue: #283a43;
+$green: #66d490;
 $table-border: 1px solid #caced0;
 
 @import "lib/_reset";
@@ -98,15 +99,25 @@ header {
 		position: absolute;
 		right: 30px;
 		top: 2px;
+		background: $red;
+		padding-bottom: 4px;
+		padding-left: 9px;
+		padding-right: 9px;
+		@include roundedSides(0, 0, 4px, 4px);
 		a {
-			background: $red;
+			
 			color: #fff;
-			padding: 4px 9px;
+			// padding: 4px 9px;
 			font-size: 13px;
-			@include roundedSides(0, 0, 4px, 4px);
+			
 			&:hover {
 				text-decoration: underline;
 			}
+		}
+		img {
+			position: relative;
+			top: 4px;
+			// border: 1px solid #fff
 		}
 	}
 }
@@ -133,6 +144,7 @@ form#search-title {
 #container {
 	width: 100%;
 	min-width: 750px;
+	min-height: 300px;
 }
 #with-map {
 	float: left;
@@ -205,6 +217,7 @@ form#search-title {
 */
 
 #without-map {
+	margin-bottom: 50px;
 	form#search-title {
 		float: right;
 		margin-right: 30px;
@@ -340,12 +353,13 @@ form#search-title {
 }
 
 .success {
-	@include gradient(#5cdb8c, #44C868);
-	border: 1px solid darken(#44C868, 8%);
+	@include gradient(lighten($blue, 7%), $blue);
+	border: 1px solid darken($blue, 8%);
 	
 }
 .error, .notice {
-	@include gradient(#cf5759, #bb3f41);
+	@include gradient(lighten($red, 7%), $red);
+	// @include gradient(#cf5759, #bb3f41);
 	border: 1px solid darken($red, 8%);
 }
 
@@ -453,6 +467,9 @@ table.big-table {
 				padding: 0 10px;
 				min-width: 20px;
 				border-bottom: $table-border;
+				img {
+					vertical-align: middle;
+				}
 			}
 			td:last-child {
 				border-right: $table-border;
@@ -483,6 +500,16 @@ table.big-table {
 
 
 .users-index-table {
+	margin: 20px auto;
+	width: 600px;
+	table.users-index {
+		width: 100%;
+		margin-left: -67px;
+	}
+}
+
+
+.routes-index-table {
 	margin: 20px auto;
 	width: 600px;
 	table.users-index {
@@ -548,7 +575,7 @@ footer {
 	// background: $blue;
 	width: 100%;
 	border-top: 2px solid $blue;
-	
+		
 	#footer-inner {
 		width: 960px;
 		.footer-col {
@@ -847,14 +874,22 @@ footer {
 		font-size: 17px;
 		color: $red;
 		font-weight: normal;
-		line-height: 30px;
+		line-height: 20px;
 		margin-top: 10px;
+	}
+	div.altitude-extra {
+		display: none;
+		li:last-child {
+			margin-bottom: 21px;
+			border-bottom: 1px solid $blue;
+		}
+
 	}
 	ul.route-show {
 		margin-top: 10px;
 
 		li {		
-			margin-bottom: 5px;
+			margin-bottom: 3px;
 			border: $table-border;
 			width: 280px;
 			float: left;
@@ -864,15 +899,15 @@ footer {
 			line-height: 30px;
 
 			.th {
-				width: 150px;
+				width: 160px;
 				text-align: left;
 				padding-left: 7px;
 				float: left;
 				font-weight: bold;
 			}
 			.td {
-				width: 120px;
-				float: right;
+				width: 100px;
+				float: left;
 				img {
 					position: relative;
     				top: 3px;
@@ -887,7 +922,7 @@ footer {
 				line-height: 17px;
 				padding-top: 4px;
 				padding-bottom: 4px;
-
+				min-height: 30px;
 				.th {
 					width: 46px
 				}
@@ -896,6 +931,22 @@ footer {
 					padding-right: 4px;
 				}
 			}
+			&#altitude {
+				.td {
+					width: 86px;
+				}
+				.small-arrow {
+					float: left;
+					display: block;
+					height: 11px;
+					width: 13px;
+					top: 11px;
+					position: relative;
+
+					background: url(../images/arrows.png) no-repeat;
+				}
+			}
+			
 
 			
 		}

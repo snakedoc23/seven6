@@ -79,7 +79,7 @@
 				<div class="form-field">
 					<%= f.label :max_speed, "Max (km/h):" %>
 					<%= f.text_field :max_speed, :placeholder => "32" %>
-					<p class="error-explanation">Po dwie cyfry oddzielone byle czym</p>
+					<p id="error-explanation-max-speed" class="error-explanation">Liczba dodatnia ale bez przesady</p>
 				</div>
 				<p class='avg_speed'><span class="label">Średnia:</span><span class="value">0</span> <span class="km"> km/h</span></p>
 				<%= f.hidden_field :avg_speed %>

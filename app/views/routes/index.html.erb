@@ -1,3 +1,30 @@
-<% @routes.each do |route| %>
-	<%= route.id %>
-<% end %>
+<%= render 'shared/without_map' %>
+
+
+<div class="routes-index-table">
+		<table class="routes-index big-table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Nazwa</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% i = 0 %>
+			<% @routes.each do |route| %>
+				<tr>
+					<td><%= i += 1 %></td>
+					<td><%= link_to route.title, route_path(route) %></td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+		
+	
+		
+		</div> <!-- END routes-index-table -->
+
+
+
+	</div> <!-- END content -->
+</div> <!-- END without-map -->

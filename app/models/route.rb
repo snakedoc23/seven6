@@ -8,10 +8,10 @@ class Route < ActiveRecord::Base
 	time_regex 	= /\A\d{1,3}\D\d{1,2}\D?\d{0,2}\z/
 	pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
 
-	validates :time_string,					:format => { :with => time_regex }
+	# validates :time_string,					:format => { :with => time_regex }
 	validates :coordinates_string,	:presence => true,
 																	:length => { :minimum => 2 }
-	validates :pulse,								:format => { :with => pulse_regex, :message => "Avg/Max" }
+	# validates :pulse,								:format => { :with => pulse_regex, :message => "Avg/Max" }
 
 
 
