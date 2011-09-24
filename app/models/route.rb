@@ -5,13 +5,17 @@ class Route < ActiveRecord::Base
 
 
 
-	time_regex = /\A\d{1,3}[\D]\d{1,2}\D{1}\d{1,2}\z/
+	time_regex 	= /\A\d{1,3}\D\d{1,2}\D?\d{0,2}\z/
+	pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
 
-	validates :time_string, 		:format => { :with => time_regex }
-	validates :coordinates_string, 	:presence => true,
-									:length => { :minimum => 2 }
+	validates :time_string,					:format => { :with => time_regex }
+	validates :coordinates_string,	:presence => true,
+																	:length => { :minimum => 2 }
+	validates :pulse,								:format => { :with => pulse_regex, :message => "Avg/Max" }
 
-	before_save :total_time_calculate
+
+
+	before_save :split_pulse
 
 
 	def total_time_calculate
@@ -25,6 +29,18 @@ class Route < ActiveRecord::Base
 		end
 		time_a = time_s.split(":")
 		self.total_time = time_a[0].to_i  * 3600 + time_a[1].to_i * 60 + time_a[2].to_i
+	end
+
+	def split_pulse
+		self.pulse_avg = self.pulse.split("/").first.to_f
+		self.pulse_max = self.pulse.split("/").last.to_f
+	end
+
+	def time_to_string
+		h_time = (self.total_time / 3600 - 0.5).round
+		m_time = ((self.total_time - h_time * 3600) / 60 - 0.5).round
+		s_time = (self.total_time - h_time * 3600 - m_time * 60).round
+		self.time_string = "#{h_time}h #{m_time}m #{s_time}s"
 	end
 end
 

@@ -786,6 +786,7 @@ footer {
 			display: none;
 			padding-left: 100px;
 			color: $red;
+			clear:both;
 		}
 		a#show-extra {
 			display: block;
@@ -800,6 +801,8 @@ footer {
 		#route-new-extra {
 			border-top: 1px solid $red;
 			padding-top: 10px;
+
+
 			label {
 			}
 			input {
@@ -819,6 +822,15 @@ footer {
 					// font-size: 21px;
 				}
 				margin-bottom: 10px;
+			}
+			#route_time_string {
+				float: left;
+			}
+			#total-time-show {
+				float: left;
+				padding-left: 16px;
+				padding-top: 3px;
+				width: 124px;
 			}
 		}
 	}

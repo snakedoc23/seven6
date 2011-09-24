@@ -42,10 +42,10 @@
 					<div class="th">Opis:</div>
 					<div class="td"><%= @route.description %></div>
 				</li>
-				<% if @route.total_time %>
+				<% if @route.time_string %>
 				<li>
 					<div class="th">Czas przejazdu:</div>
-					<div class="td"><%= @route.total_time %></div>
+					<div class="td"><%= @route.time_string %></div>
 				</li>
 				<% end %>
 				<% if @route.avg_speed %>

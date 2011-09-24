@@ -46,6 +46,7 @@
 		<%= form_for(@route) do |f| %>
 				<%= f.hidden_field :coordinates_string %>
 				<%= f.hidden_field :distance %>
+				<%= f.hidden_field :total_time %>
 				<%= f.hidden_field :max_altitude %>
 				<%= f.hidden_field :min_altitude %>
 				<%= f.hidden_field :total_climb_up %>
@@ -68,9 +69,12 @@
 			<%= link_to "Pokaż dodatkowe opcje", "#", :id => "show-extra" %>
 			<div id="route-new-extra">
 				<div class="form-field">
-					<%= f.label :total_time, "Czas:" %>
-					<%= f.text_field :total_time, :placeholder => "00:00:00" %>
-					<p class="error-explanation">Po dwie cyfry oddzielone byle czym</p>
+					<%= f.label :time_string, "Czas:" %>
+					<%= f.text_field :time_string, :placeholder => "00:00:00" %>
+					<span id="total-time-show"><span id="total-time-show-h">0</span>h <span id="total-time-show-m">0</span>m <span id="total-time-show-s">0</span>s</span>
+
+					<p id="error-explanation-time" class="error-explanation">Godziny minuty sekundy</p>
+					<div class="clear"></div>
 				</div>
 				<div class="form-field">
 					<%= f.label :max_speed, "Max (km/h):" %>
@@ -81,9 +85,9 @@
 				<%= f.hidden_field :avg_speed %>
 
 				<div class="form-field">
-					<%= f.label :pulse, "Puls:" %>
+					<%= f.label :pulse, "Tętno:" %>
 					<%= f.text_field :pulse, :placeholder => "120/150" %>
-					<p class="error-explanation">Średni puls / maksymalny</p>
+					<p id="error-explanation-pulse" class="error-explanation">Średni puls / maksymalny</p>
 				</div>
 				<div class="form-field">
 					<%= f.label :temperature, "Temperatura:" %>

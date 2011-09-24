@@ -31,6 +31,8 @@ var min_altitude = 0;
 var total_climb_up = 0;
 var total_climb_down = 0;
 
+var total_time_sec = 0;
+
 google.load("visualization", "1", {packages: ["corechart"]});
 
 var mapWidth;
@@ -57,24 +59,76 @@ $(document).ready(function(){
 	});
 
 	//ROUTES#NEW
+
+
+	///////////////////////////////////////////////
+	//Walidacja formularza
+
 	// sprawdzanie poprawności czasu 
-	$('#route_total_time').focus(function(){
-		$('#route_total_time').keyup(function(){
-			console.log("sds");
-			var x = $('#route_total_time').val();
-			var timeRegex = /\d{1,3}\D\d{1,2}\D\d{1,2}/;
-			// var d = "33h43m2";
-			// var z = timeRegex.test(x);
-			var z = x.match(timeRegex)
-			console.log(z);
-			if (z == x) {
-				console.log("ok");
-				$('#route_total_time').next().hide();
+	$('#route_time_string').focus(function(){
+		$('#route_time_string').keyup(function(){
+			var time_string = $('#route_time_string').val();
+			var timeRegex = /\d{1,3}\D\d{1,2}\D?\d{0,2}/;
+			var timeRegexOk = time_string.match(timeRegex)
+			// console.log(timeRegexOk);
+			if (timeRegexOk == time_string) {
+				var time_s = "";
+				var time_a = [];
+				for(var i = 0; i < time_string.length; i++) {
+					var c = time_string.charAt(i);
+					if(c.match(/\d/)) {
+						time_s += c;
+					} else {
+						time_s += ":"
+					}
+				}
+				time_a = time_s.split(":");
+				total_time_sec = 0;
+				if(time_a[2] != "" && time_a[2] != null) {
+					total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60 + parseFloat(time_a[2]);
+					// console.log("Trzy");
+				} else {
+					total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60;
+					// console.log("Dwie");
+					time_a[2] = "0";
+				}
+				if(total_time_sec > 0) {
+					var avg = Math.round(distance * 3600 / total_time_sec * 100) / 100;
+					$("p.avg_speed .value").html(avg);
+					$("#total-time-show-h").html(time_a[0]);
+					$("#total-time-show-m").html(time_a[1]);
+					$("#total-time-show-s").html(time_a[2]);
+				}
+
+
+				$('#error-explanation-time').hide();
 			} else {
-				$('#route_total_time').next().show();
+				$('#error-explanation-time').show();
 			}
 		});
 	});
+	//ukrywanie podpowiedzi gdy pole zostaje wyczyszczone
+	$('#route_time_string').blur(function(){
+		if($('#route_time_string').val() == "") {
+			$('#error-explanation-time').hide();
+		}
+	});
+
+
+	//Poprawność tętna
+	$('#route_pulse').blur(function() {
+		var pulse = $('#route_pulse').val();
+		var pulseRegex = /\d{2,3}\/\d{2,3}/;
+		var pulseRegexOk = pulse.match(pulseRegex);
+		if(pulse == pulseRegexOk || $('#route_pulse').val() == "") {
+			console.log(pulseRegexOk);
+			$("#error-explanation-pulse").hide();
+		} else {
+			$("#error-explanation-pulse").show();
+		}
+	});
+
+	
 
 
 
@@ -154,63 +208,11 @@ $(document).ready(function(){
 		// });
 	});
 
-
-
-
-
-
-
 		});
 		
 	}
 	
 
-
-	
-
-
-
-///////////////////////////////////////////////////////////
-// ładowanie trasy -- tymczasowe
-
-
-// var ttt = $('#ttt').html();
-
-// if(ttt != null) {
-	
-
-
-// 	// console.log(ttt);
-// 	var routeJson = jQuery.parseJSON(ttt);
-// 	for(var i = 0; i < routeJson.b.length; i++){
-// 		var latS = routeJson.b[i]["Ka"];
-// 		var lngS = routeJson.b[i]["La"];
-// 		var poz = new google.maps.LatLng(latS, lngS);
-// 		path.push(poz);
-// 		// console.log(routeJson.b[i]["Ka"]);
-// 	}
-// 	polyline.setPath(path);
-
-// 	$("#show-elevation").click(function(){
-// 		console.log("esdadas");
-// 		createElevation(path);
-// 		$("#elevation-chart").css("opacity", ".7");
-// 		$("#elevation-chart").show(2000, function(){
-			
-// 		});
-		
-
-		
-// 	});
-	
-// }
-
-	
-
-
-
-
-/////////////////////////////////////////////////////
 
 	//przyciski do rysowania
 	$('#draw-controls').hide();
@@ -257,6 +259,7 @@ $(document).ready(function(){
 		$("#route_min_altitude").val(min_altitude);
 		$("#route_total_climb_up").val(total_climb_up);
 		$("#route_total_climb_down").val(total_climb_down);
+		$("#route_total_time").val(total_time_sec);
 
 
 				// <%= f.hidden_field :distance %>

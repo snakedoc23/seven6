@@ -1017,7 +1017,8 @@ footer {
   margin-bottom: 5px;
   display: none;
   padding-left: 100px;
-  color: #c84446; }
+  color: #c84446;
+  clear: both; }
 #route-form form#new_route a#show-extra {
   display: block;
   border: 1px solid #1e2c33;
@@ -1041,6 +1042,13 @@ footer {
       float: left;
       text-align: right;
       padding-top: 2px; }
+  #route-form form#new_route #route-new-extra #route_time_string {
+    float: left; }
+  #route-form form#new_route #route-new-extra #total-time-show {
+    float: left;
+    padding-left: 16px;
+    padding-top: 3px;
+    width: 124px; }
 
 #route-show {
   margin-left: 30px;
