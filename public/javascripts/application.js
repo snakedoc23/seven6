@@ -33,6 +33,12 @@ var total_climb_up = 0;
 var total_climb_down = 0;
 var avg_speed = 0;
 
+
+// do wdrozenia
+var start_lat_lng;
+var finish_lat_lng;
+
+
 var total_time_sec = 0;
 
 var colors = ["#283A43", "#c84446", "#CACED0"];

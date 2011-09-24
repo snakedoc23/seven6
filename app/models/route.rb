@@ -1,6 +1,6 @@
 class Route < ActiveRecord::Base
 	# attr_accessible :title, :description, :distance, :surface, :route_file
-	attr_accessor :pulse, :time_string
+	attr_accessor :pulse, :time_string, :altitude
 	belongs_to :user
 
 
@@ -8,6 +8,8 @@ class Route < ActiveRecord::Base
 	time_regex 	= /\A\d{1,3}\D\d{1,2}\D?\d{0,2}\z/
 	pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
 
+
+	validates :title, :presence => true, :length => { :minimum => 2 }
 	# validates :time_string,					:format => { :with => time_regex }
 	validates :coordinates_string,	:presence => true,
 																	:length => { :minimum => 2 }
@@ -16,6 +18,11 @@ class Route < ActiveRecord::Base
 
 
 	before_save :split_pulse
+
+
+	def altitude
+		(self.max_altitude - self.min_altitude).round(2)
+	end
 
 
 	def total_time_calculate
@@ -46,6 +53,8 @@ end
 
 
 
+
+
 # == Schema Information
 #
 # Table name: routes
@@ -70,5 +79,8 @@ end
 #  pulse_max          :float
 #  pulse_avg          :float
 #  temperature        :float
+#  max_speed          :float
+#  start_lat_lng      :string(255)
+#  finish_lat_lng     :string(255)
 #
 

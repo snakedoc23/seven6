@@ -165,6 +165,7 @@ form#search-title {
 	}
 }
 #aside-content { margin-top: 60px; }
+
 #aside {
 	width: 370px;
 	height: 830px;
@@ -172,7 +173,16 @@ form#search-title {
 	border-right: 1px solid $blue;
 	#last-routes {
 		li .route {
-			margin-top: 20px;
+			&:hover {
+				background: $red;
+				a, li {
+					color: white;
+				}
+				img {
+					// background: white;
+				}
+			}
+			padding-top: 20px;
 			border-bottom: 1px solid #caced0;
 			padding-left: 30px;
 			width: 310px;
@@ -203,6 +213,14 @@ form#search-title {
 	h4 { 
 		font-size: 16px;
 		font-weight: normal;
+	}
+	a#last-routes-more {
+		margin: 12px auto;
+		display: block;
+		width: 46px;
+		&:hover {
+			@include gradient(lighten($blue, 7%), $blue);
+		}
 	}
 }
 #map {

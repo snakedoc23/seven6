@@ -9,6 +9,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: routes
@@ -33,5 +34,8 @@ end
 #  pulse_max          :float
 #  pulse_avg          :float
 #  temperature        :float
+#  max_speed          :float
+#  start_lat_lng      :string(255)
+#  finish_lat_lng     :string(255)
 #
 

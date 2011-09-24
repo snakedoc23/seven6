@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110923072524) do
+ActiveRecord::Schema.define(:version => 20110924173325) do
 
   create_table "routes", :force => true do |t|
     t.string   "title"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20110923072524) do
     t.float    "pulse_avg"
     t.float    "temperature"
     t.float    "max_speed"
+    t.string   "start_lat_lng"
+    t.string   "finish_lat_lng"
   end
 
   add_index "routes", ["title"], :name => "index_routes_on_title"

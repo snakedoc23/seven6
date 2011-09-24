@@ -492,11 +492,15 @@ form#search-title input[type="submit"] {
   float: left;
   border-right: 1px solid #283a43; }
   #aside #last-routes li .route {
-    margin-top: 20px;
+    padding-top: 20px;
     border-bottom: 1px solid #caced0;
     padding-left: 30px;
     width: 310px;
     height: 104px; }
+    #aside #last-routes li .route:hover {
+      background: #c84446; }
+      #aside #last-routes li .route:hover a, #aside #last-routes li .route:hover li {
+        color: white; }
     #aside #last-routes li .route .route-img {
       float: left;
       border: 3px solid #fff;
@@ -515,6 +519,20 @@ form#search-title input[type="submit"] {
   #aside h4 {
     font-size: 16px;
     font-weight: normal; }
+  #aside a#last-routes-more {
+    margin: 12px auto;
+    display: block;
+    width: 46px; }
+    #aside a#last-routes-more:hover {
+      background: #354d59;
+      /* for non-css3 browsers */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+      /* for IE */
+      background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+      /* for webkit browsers */
+      background: -moz-linear-gradient(top, #354d59, #283a43);
+      /* for firefox 3.6+ */
+      background: linear-gradient(top, #354d59, #283a43); }
 
 #map {
   /*	width: 700px;*/
