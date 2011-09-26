@@ -495,44 +495,73 @@ form#search-title input[type="submit"] {
     padding-top: 20px;
     border-bottom: 1px solid #caced0;
     padding-left: 30px;
-    width: 310px;
     height: 104px; }
-    #aside #last-routes li .route:hover {
-      background: #c84446; }
-      #aside #last-routes li .route:hover a, #aside #last-routes li .route:hover li {
-        color: white; }
+    #aside #last-routes li .route:hover .route-img {
+      border-color: #d46b6d; }
     #aside #last-routes li .route .route-img {
       float: left;
       border: 3px solid #fff;
       height: 79px;
       width: 79px;
-      margin-right: 5px; }
-    #aside #last-routes li .route .route-info h4 {
-      font-size: 12px;
-      text-transform: uppercase;
-      font-weight: normal; }
-    #aside #last-routes li .route .route-info ul {
-      padding-top: 10px; }
-      #aside #last-routes li .route .route-info ul li {
+      margin-right: 7px;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      cursor: pointer; }
+      #aside #last-routes li .route .route-img.selected {
+        border-color: #3b5663; }
+    #aside #last-routes li .route .route-info {
+      height: 85px;
+      padding: 3px;
+      width: 310px; }
+      #aside #last-routes li .route .route-info h4 {
         font-size: 12px;
-        line-height: 20px; }
+        text-transform: uppercase;
+        font-weight: bold; }
+      #aside #last-routes li .route .route-info ul {
+        padding-top: 3px; }
+        #aside #last-routes li .route .route-info ul .profile-image {
+          width: 58px;
+          height: 18px;
+          float: right;
+          margin-right: 10px; }
+          #aside #last-routes li .route .route-info ul .profile-image.green {
+            background: url(../images/profiles.png); }
+          #aside #last-routes li .route .route-info ul .profile-image.yellow {
+            background: url(../images/profiles.png) 0 -18px no-repeat; }
+          #aside #last-routes li .route .route-info ul .profile-image.orange {
+            background: url(../images/profiles.png) 0 -36px no-repeat; }
+          #aside #last-routes li .route .route-info ul .profile-image.red {
+            background: url(../images/profiles.png) 0 -54px no-repeat; }
+        #aside #last-routes li .route .route-info ul li {
+          font-size: 12px;
+          line-height: 20px; }
   #aside h4 {
     font-size: 16px;
     font-weight: normal; }
   #aside a#last-routes-more {
     margin: 12px auto;
     display: block;
-    width: 46px; }
+    width: 46px;
+    background: #354d59;
+    /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+    /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #354d59, #283a43);
+    /* for firefox 3.6+ */
+    background: linear-gradient(top, #354d59, #283a43); }
     #aside a#last-routes-more:hover {
-      background: #354d59;
+      background: #cf5759;
       /* for non-css3 browsers */
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
       /* for IE */
-      background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+      background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
       /* for webkit browsers */
-      background: -moz-linear-gradient(top, #354d59, #283a43);
+      background: -moz-linear-gradient(top, #cf5759, #bb3f41);
       /* for firefox 3.6+ */
-      background: linear-gradient(top, #354d59, #283a43); }
+      background: linear-gradient(top, #cf5759, #bb3f41); }
 
 #map {
   /*	width: 700px;*/
@@ -584,8 +613,7 @@ form#search-title input[type="submit"] {
     background: #c84446;
     text-decoration: none; }
   .btn-base:active {
-    background: #bb3133;
-    color: #283a43; }
+    background: #bb3133; }
   .btn-base:focus {
     background: #bb3f41;
     /* for non-css3 browsers */
@@ -1153,4 +1181,5 @@ footer {
   border: 1px solid #283a43;
   height: 200px;
   width: 800px;
-  display: none; }
+  display: none;
+  opacity: .6; }

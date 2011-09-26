@@ -9,15 +9,20 @@ class Route < ActiveRecord::Base
 	pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
 
 
-	validates :title, :presence => true, :length => { :minimum => 2 }
-	# validates :time_string,					:format => { :with => time_regex }
-	validates :coordinates_string,	:presence => true,
-																	:length => { :minimum => 2 }
-	# validates :pulse,								:format => { :with => pulse_regex, :message => "Avg/Max" }
+	validates :title,                :presence => true, :length => { :minimum => 2 }
+	# validates :time_string,				 :format => { :with => time_regex }
+	validates :coordinates_string,   :presence => true,
+																   :length => { :minimum => 2 }
+	# validates :pulse,							 :format => { :with => pulse_regex, :message => "Avg/Max" }
 
 
 
-	before_save :split_pulse
+	before_save :split_pulse, :add_start_and_finish
+
+  def add_start_and_finish
+    self.start_lat_lng = self.coordinates_string.split(",").first
+    self.finish_lat_lng = self.coordinates_string.split(",").last
+  end
 
 
 	def altitude
@@ -39,15 +44,19 @@ class Route < ActiveRecord::Base
 	end
 
 	def split_pulse
-		self.pulse_avg = self.pulse.split("/").first.to_f
-		self.pulse_max = self.pulse.split("/").last.to_f
+		if pulse
+      self.pulse_avg = self.pulse.split("/").first.to_f
+		  self.pulse_max = self.pulse.split("/").last.to_f
+    end
 	end
 
 	def time_to_string
-		h_time = (self.total_time / 3600 - 0.5).round
-		m_time = ((self.total_time - h_time * 3600) / 60 - 0.5).round
-		s_time = (self.total_time - h_time * 3600 - m_time * 60).round
-		self.time_string = "#{h_time}h #{m_time}m #{s_time}s"
+    if total_time > 0
+  		h_time = (self.total_time / 3600 - 0.5).round
+  		m_time = ((self.total_time - h_time * 3600) / 60 - 0.5).round
+  		s_time = (self.total_time - h_time * 3600 - m_time * 60).round
+  		self.time_string = "#{h_time}h #{m_time}m #{s_time}s"
+    end
 	end
 end
 

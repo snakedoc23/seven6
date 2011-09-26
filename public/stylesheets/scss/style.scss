@@ -174,38 +174,70 @@ form#search-title {
 	#last-routes {
 		li .route {
 			&:hover {
-				background: $red;
+				
 				a, li {
-					color: white;
+					// color: white;
 				}
-				img {
-					// background: white;
+				.route-img {
+					border-color: lighten($red, 10%);
 				}
+				
 			}
 			padding-top: 20px;
 			border-bottom: 1px solid #caced0;
 			padding-left: 30px;
-			width: 310px;
+			
 			height: 104px;
 			.route-img {
 				float: left;
 				border: 3px solid #fff;
 				height: 79px;
 				width: 79px;
-				margin-right: 5px;
+				margin-right: 7px;
+				@include rounded(4px);
+				cursor: pointer;
+				&.selected {
+					border-color: lighten($blue, 10%);
+				
+				}
 			}
+			
 			.route-info {
+				height: 85px;
+				padding: 3px;
+				// background: white;
+				width: 310px;
 				h4 {
 					font-size: 12px;
 					text-transform: uppercase;
-					font-weight: normal;
+					// font-weight: normal;
+					font-weight: bold;
 				}
 				ul {
-					padding-top: 10px;
-				 li {
-						font-size: 12px;
-						line-height: 20px;
+					padding-top: 3px;
+					.profile-image {
+						width: 58px;
+						height: 18px;
+						float: right;
+						margin-right: 10px;
+						&.green {
+							background: url(../images/profiles.png);
+						}
+						&.yellow {
+							background: url(../images/profiles.png) 0 -18px no-repeat;
+						}
+						&.orange {
+							background: url(../images/profiles.png) 0 -36px no-repeat;
+						}
+						&.red {
+							background: url(../images/profiles.png) 0 -54px no-repeat;
+						}
 					}
+					 li {
+							font-size: 12px;
+							line-height: 20px;
+							
+						}
 				}
 			}
 		}
@@ -218,8 +250,11 @@ form#search-title {
 		margin: 12px auto;
 		display: block;
 		width: 46px;
+		@include gradient(lighten($blue, 7%), $blue);
+
 		&:hover {
-			@include gradient(lighten($blue, 7%), $blue);
+			@include gradient(#cf5759, #bb3f41);
+			// @include gradient(lighten($blue, 7%), $blue);
 		}
 	}
 }
@@ -272,7 +307,7 @@ form#search-title {
 	}
 	&:active {
 		background: #bb3133;
-		color: $blue;
+		// color: $blue;
 	}
 	&:focus {
 		// background: #cf5759;
@@ -980,6 +1015,7 @@ footer {
 	height: 200px;
 	width: 800px;
 	display: none;
+	opacity: .6;
 }
 
 

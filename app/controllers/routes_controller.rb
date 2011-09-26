@@ -8,6 +8,18 @@ class RoutesController < ApplicationController
 		render :text => @route.coordinates_string
 	end
 
+	# ajax post ze strony glownej po wszystki trasy jako markery
+	def start_markers
+		@markers = []
+		Route.all.each do |route|
+			r = []
+			r.push route.id
+			r.push route.start_lat_lng
+			@markers.push r
+		end
+		render :json => @markers
+	end
+
 	def new
 		@title_header = "Nowa Trasa"
 		@route = Route.new
@@ -28,3 +40,5 @@ class RoutesController < ApplicationController
 		@title_header = "Trasa"
 	end
 end
+
+

@@ -31,42 +31,38 @@ var max_altitude = 0;
 var min_altitude = 0;
 var total_climb_up = 0;
 var total_climb_down = 0;
-var avg_speed = 0;
-
-
-// do wdrozenia
-var start_lat_lng;
-var finish_lat_lng;
+var avg_speed = null;
 
 
 var total_time_sec = 0;
 
 var colors = ["#283A43", "#c84446", "#CACED0"];
 
+
+var homeMarkers = [];
+var sMarkerImageHover;
+var sMarkerImage;
+
+
 google.load("visualization", "1", {packages: ["corechart"]});
 
 var mapWidth;
 
 $(document).ready(function(){
+
+
 	mapWidth = $(document).width() - $('#aside').outerWidth();
 	$('#map').width($(document).width() - $('#aside').outerWidth());
 	$(window).resize(function() {
 		$('#map').width($(window).width() - $('#aside').outerWidth());
 	});
+
+
+
+
+
 	
-	// routes/new -> dodatkowe opcje 
-	$('#route-new-extra').hide();
-	$('#show-extra').click(function() {
-		$('#route-new-extra').slideToggle('slow', function() {
-			if($('#show-extra').html() == "Pokaż dodatkowe opcje") {
-				$('#show-extra').html("Ukryj dodatkowe opcje");
-			} else {
-				$('#show-extra').html("Pokaż dodatkowe opcje");
-			}
-		});
-		return false;
-		
-	});
+	
 
 
 	$(".flash").click(function(){$(".flash").slideUp('slow')});
@@ -181,6 +177,47 @@ $(document).ready(function(){
 		elevator = new google.maps.ElevationService();
 
 	}
+
+
+
+	//pages/home --> zawiera listę ostatnich tras
+	if($('#last-routes').length) {
+		loadStartMarkers();
+		$('.route-img').click(function(){
+			// console.log($(this).css("border"));
+			if($('.route-img').hasClass("selected")) {
+				$('.route-img').removeClass("selected");
+			}
+			$(this).addClass("selected");
+
+			var id = $(this).parent().attr("id").split("-")[2];
+			console.log(id);
+
+			// ładuje trase na mapie i zmienia marker nizej 
+			loadRouteToHome(id);
+
+			for(var i = 0; i < homeMarkers.length; i++) {
+				homeMarkers[i].setIcon(sMarkerImage);
+				if(homeMarkers[i].getTitle() == id) {
+					homeMarkers[i].setIcon(sMarkerImageHover);
+				}
+			}
+		});
+	}
+
+	// routes/new -> dodatkowe opcje 
+	$('#route-new-extra').hide();
+	$('#show-extra').click(function() {
+		$('#route-new-extra').slideToggle('slow', function() {
+			if($('#show-extra').html() == "Pokaż dodatkowe opcje") {
+				$('#show-extra').html("Ukryj dodatkowe opcje");
+			} else {
+				$('#show-extra').html("Pokaż dodatkowe opcje");
+			}
+		});
+		return false;
+		
+	});
 
 
 // SHOW ROUTE
@@ -309,13 +346,6 @@ $(document).ready(function(){
 		$("#route_avg_speed").val(avg_speed);
 
 
-
-				// <%= f.hidden_field :distance %>
-				// <%= f.hidden_field :max_altitude %>
-				// <%= f.hidden_field :min_altitude %>
-				// <%= f.hidden_field :total_climb_up %>
-				// <%= f.hidden_field :total_climb_down %>
-
 		
 		console.log(stringPath);
 		console.log($("#route_coordinates_string").val());
@@ -324,10 +354,92 @@ $(document).ready(function(){
 	
 
 });
-function loadRoute() {
 
-	//ajaksowe zadanie po path, 
+// ładowanie wszystkich tras na mapę
+function loadStartMarkers() {
+
+	// zwraca tablice z tablicami dla kazdej trasy [id, start_lat_lng]
+	$.ajax({
+		type: "POST",
+		url: "/start_markers",
+		dataType: "json",
+		success: function(markers) {
+			for(var i = 0; i < markers.length; i++) {
+				var title_id = markers[i][0].toString();
+				// console.log(title_id);
+				var position = markers[i][1].split("x");
+				var lat = parseFloat(position[0]);
+				var lng = parseFloat(position[1]);
+				var point = new google.maps.LatLng(lat, lng);
+				createStartMarker(point, title_id);
+			}
+		}
+	});
+
+
+};
+
+
+function createStartMarker(pos, title) {
+	sMarkerImage = new google.maps.MarkerImage(
+		'../images/markers-home.png',
+		new google.maps.Size(32, 47),
+		new google.maps.Point(0, 0)
+	);
+	sMarkerImageHover = new google.maps.MarkerImage(
+		'../images/markers-home.png',
+		new google.maps.Size(32, 47),
+		new google.maps.Point(32, 0)
+	);
+	var sMarker = new google.maps.Marker({
+		position: pos,
+		map: map,
+		icon: sMarkerImage,
+		title: title
+	});
+	var sMarkerTitle = sMarker.getTitle();
 	
+	// google.maps.event.addListener(sMarker, "mouseover", function() {
+	// 	sMarker.setIcon(sMarkerImageHover);
+
+	// });
+	// google.maps.event.addListener(sMarker, "mouseout", function() {
+	// 	sMarker.setIcon(sMarkerImage);
+	// });
+
+	google.maps.event.addListener(sMarker, "click", function() {
+		// zmiana ikonek na domyślne
+		for(var i = 0; i < homeMarkers.length; i++) {
+			homeMarkers[i].setIcon(sMarkerImage);
+		}
+		sMarker.setIcon(sMarkerImageHover);
+		loadRouteToHome(sMarkerTitle);
+
+		// zaznaczenie wybranej trasy na liscie jesli tam jest 
+		$('.route-img').removeClass("selected");
+		var elements = $('.route-img');
+		for(var i = 0; i < elements.length; i++) {
+			var el = elements[i];
+			var id = $(el).parent().attr("id").split("-")[2];
+			if(id == sMarkerTitle) {
+				$('#route-home-'+ id +' > .route-img').addClass("selected");
+			}
+		}
+	});
+
+	homeMarkers.push(sMarker);
+};
+
+function loadRouteToHome(id) {
+	var id_r = parseFloat(id);
+	path = [];
+	polyline.setPath(path);
+	$.post('/load_coordinates', {id : id_r}, function(coordinates) {
+		var bounds = pathFromString(coordinates, path);
+		map.fitBounds(bounds);
+		polyline.setPath(path);
+	});
+
 };
 
 
@@ -358,7 +470,7 @@ function pathFromString(string, pathT) {
 			var point = new google.maps.LatLng(lat, lng);
 			pathT.push(point);
 			bounds.extend(point);
-	}
+		}
 	return bounds;
 };
 
@@ -366,7 +478,7 @@ function pathFromString(string, pathT) {
 
 function initializeMap(){
 	var map = new google.maps.Map(document.getElementById("map"), {
-	   	zoom: 15,
+	   	zoom: 13,
 	    center: new google.maps.LatLng(40.77333,-73.9723),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
@@ -717,7 +829,7 @@ function plotElevation(results, status) {
 			for(var i = 0; i < results.length; i++) {
 				// if(i % 5 == 0) {
 					// data.addRow([ (i).toString(), results[i].elevation]);
-					data.addRow([ (Math.round(i * x)).toString() + ' km', results[i].elevation]);
+					data.addRow([ (Math.round(i * x)).toString() + ' km', Math.round(results[i].elevation * 100)/100]);
 				// }
 				// data.addRow([ (Math.round(i * x)).toString(), results[i].elevation]);
 				
@@ -730,11 +842,11 @@ function plotElevation(results, status) {
 				width: mapWidth,
 				height: 200,
 				legend: 'none',
-				colors: ['#c84446'],
+				colors: ['#283A43'],
 				backgroundColor : '#f1f1f1',
 				titleY: 'Wysokość (m)',
 				titleX: 'Dystans (km)',
-				chartArea:{left:50,top:23,width:"735",height:"157"},
+				chartArea:{left:50,top:23,width:mapWidth,height:"157"},
 				// vAxis: {baselineColor: '#283A43'}
 				vAxis: {baselineColor: '#283a43' },
 				fontSize: 13,
