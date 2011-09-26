@@ -35,6 +35,10 @@ module SessionsHelper
   def correct_user?
     current_user == @user
   end
+
+  def authenticate
+    deny_access unless signed_in?
+  end
   
   private
   

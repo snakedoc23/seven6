@@ -1,4 +1,14 @@
-<%= render 'shared/without_map' %>
+<div id="without-map">
+	<%= form_tag users_path, :method => 'get', :id => "search-user" do %>
+		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj użytkownika", :id => "search-text" %>
+		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
+	<% end %>
+
+	<h2 class="h2-top clear"><%= @title_header_top %></h2>
+	<div class="h2-bg">
+		<h2><%= @title_header %></h2>	
+	</div>
+	<div id="content">
 		<div class="users-index-table">
 		<table class="users-index big-table">
 			<thead>
@@ -17,22 +27,7 @@
 				</tr>
 			</thead>
 			<tbody>
-			<% i = 0 %>
-			<% @users.each do |user| %>
-				<tr>
-					<td><%= i += 1 %></td>
-					<td><%= link_to user.username, user_path(user) %></td>
-					<td><%= user_avatar user, "20x20" %></td>
-					<td><%= user.place %></td>
-					<td><%= i * 13 %></td>
-					<td><%= i * 89 %></td>
-				<% if current_user %>
-				<% if current_user.admin? %>
-					<td><%= link_to "Usuń", user, :method => :delete, :confirm => "Czy aby na pewno", :title => "Usuń #{user.username}" %></td>
-				<% end %>
-				<% end %>
-				</tr>
-			<% end %>
+			<%= render 'users' %>
 			</tbody>
 		</table>
 		

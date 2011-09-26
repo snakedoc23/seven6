@@ -1,0 +1,16 @@
+<% i = 0 %>
+<% @users.each do |user| %>
+	<tr>
+		<td><%= i += 1 %></td>
+		<td><%= link_to user.username, user_path(user) %></td>
+		<td><%= user_avatar user, "20x20" %></td>
+		<td><%= user.place %></td>
+		<td><%= i * 13 %></td>
+		<td><%= i * 89 %></td>
+	<% if current_user %>
+	<% if current_user.admin? %>
+		<td><%= link_to "Usuń", user, :method => :delete, :confirm => "Czy aby na pewno", :title => "Usuń #{user.username}" %></td>
+	<% end %>
+	<% end %>
+	</tr>
+<% end %>

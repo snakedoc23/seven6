@@ -122,7 +122,7 @@ header {
 	}
 }
 
-form#search-title {
+form#search-title, form#search-user {
 	input[type="text"] {
 		float: left;
 	}
@@ -219,7 +219,7 @@ form#search-title {
 						width: 58px;
 						height: 18px;
 						float: right;
-						margin-right: 10px;
+						// margin-right: 10px;
 						&.green {
 							background: url(../images/profiles.png);
 						}
@@ -360,7 +360,7 @@ form#search-title {
 		}
 	}
 }
-#error_explanation {
+#error_explanation, #error_explanation_route {
 	margin-bottom: 20px;
 	border: 1px solid $red;
 
@@ -388,6 +388,14 @@ form#search-title {
 	input[type="text"], input[type="password"]{
 		border-color: $red;
 	}
+}
+#error_explanation_route {
+	position: absolute;
+	z-index: 3;
+	left: 389px;
+	width: 500px;
+	opacity: .9;
+	background: white;
 }
 
 .flash {
@@ -476,6 +484,11 @@ USERS SHOW PAGE
 TABLE
 
 */
+form#search-user {
+	float: right;
+	margin-right: 30px;
+	margin-top: 10px;
+}
 
 table.big-table {
 	thead {

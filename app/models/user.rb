@@ -18,6 +18,14 @@ class User < ActiveRecord::Base
                         :length       => { :within => 4..40 }
   
   before_save :encrypt_password
+
+   def self.search(search)
+    if search
+      where('username LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
   
   def correct_password?(submitted_password)
     self.encrypted_password == encrypt(submitted_password)
@@ -35,6 +43,7 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
   
+
   
   private
     def encrypt_password

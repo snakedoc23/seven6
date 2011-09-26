@@ -5,8 +5,10 @@ class UsersController < ApplicationController
   before_filter :admin_user,   :only => :destroy
   
   def index
-    @users = User.paginate(:page => params[:page], :per_page => 20)
+    # @users = User.paginate(:page => params[:page], :per_page => 20)
     @title_header = "Uzytkownicy"
+    @users = User.search(params[:search]).paginate(:page => params[:page], :per_page => 20)
+
   end
   
   def show
@@ -55,9 +57,7 @@ class UsersController < ApplicationController
   end
   
   private
-    def authenticate
-      deny_access unless signed_in?
-    end
+
     
     def correct_user
       @user = User.find(params[:id])

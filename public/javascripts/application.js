@@ -59,13 +59,10 @@ $(document).ready(function(){
 
 
 
-
-
-	
-	
-
-
 	$(".flash").click(function(){$(".flash").slideUp('slow')});
+
+
+
 
 	//ROUTES#NEW
 
@@ -203,6 +200,25 @@ $(document).ready(function(){
 				}
 			}
 		});
+		$('.route-img').mouseover(function(){
+			var id = $(this).parent().attr("id").split("-")[2];
+			for(var i = 0; i < homeMarkers.length; i++) {
+				homeMarkers[i].setIcon(sMarkerImage);
+				if(homeMarkers[i].getTitle() == id) {
+					homeMarkers[i].setIcon(sMarkerImageHover);
+				}
+			}
+		});
+		$('.route-img').mouseout(function(){
+			var id = $(this).parent().attr("id").split("-")[2];
+			for(var i = 0; i < homeMarkers.length; i++) {
+				homeMarkers[i].setIcon(sMarkerImage);
+				if(homeMarkers[i].getTitle() == id) {
+					homeMarkers[i].setIcon(sMarkerImage);
+				}
+			}
+		});
+
 	}
 
 	// routes/new -> dodatkowe opcje 

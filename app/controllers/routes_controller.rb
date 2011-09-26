@@ -1,4 +1,6 @@
 class RoutesController < ApplicationController
+
+	before_filter :authenticate, :only => [:new, :create, :edit, :update]
 	def index
 		@routes = Route.all
 	end
@@ -26,7 +28,7 @@ class RoutesController < ApplicationController
 	end
 
 	def create
-		@route = User.first.routes.build(params[:route])
+		@route = current_user.routes.build(params[:route])
 		if @route.save
 			flash[:success] = "Trasa zostala dodana"
 			redirect_to route_path(@route)

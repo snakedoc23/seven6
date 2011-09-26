@@ -449,9 +449,9 @@ header {
       position: relative;
       top: 4px; }
 
-form#search-title input[type="text"] {
+form#search-title input[type="text"], form#search-user input[type="text"] {
   float: left; }
-form#search-title input[type="submit"] {
+form#search-title input[type="submit"], form#search-user input[type="submit"] {
   background: url("../images/search-small-btn.png") no-repeat 0 1px;
   display: block;
   text-indent: -99999px;
@@ -460,7 +460,7 @@ form#search-title input[type="submit"] {
   float: left;
   margin-left: 3px;
   margin-top: 1px; }
-  form#search-title input[type="submit"]:hover {
+  form#search-title input[type="submit"]:hover, form#search-user input[type="submit"]:hover {
     background: url("../images/search-small-btn.png") no-repeat -30px; }
 
 #container {
@@ -523,8 +523,7 @@ form#search-title input[type="submit"] {
         #aside #last-routes li .route .route-info ul .profile-image {
           width: 58px;
           height: 18px;
-          float: right;
-          margin-right: 10px; }
+          float: right; }
           #aside #last-routes li .route .route-info ul .profile-image.green {
             background: url(../images/profiles.png); }
           #aside #last-routes li .route .route-info ul .profile-image.yellow {
@@ -665,14 +664,14 @@ form#search-title input[type="submit"] {
     #user-form p a {
       text-decoration: underline; }
 
-#error_explanation {
+#error_explanation, #error_explanation_route {
   margin-bottom: 20px;
   border: 1px solid #c84446;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   padding-bottom: 15px; }
-  #error_explanation h3 {
+  #error_explanation h3, #error_explanation_route h3 {
     font-size: 1.4em;
     margin-bottom: 15px;
     text-align: center;
@@ -688,15 +687,23 @@ form#search-title input[type="submit"] {
     background: -moz-linear-gradient(top, #cf5759, #bb3f41);
     /* for firefox 3.6+ */
     background: linear-gradient(top, #cf5759, #bb3f41); }
-  #error_explanation ul {
+  #error_explanation ul, #error_explanation_route ul {
     margin-left: 20px; }
-    #error_explanation ul li {
+    #error_explanation ul li, #error_explanation_route ul li {
       color: #c84446;
       font-size: 1.2em;
       margin-bottom: 5px; }
 
 .field_with_errors input[type="text"], .field_with_errors input[type="password"] {
   border-color: #c84446; }
+
+#error_explanation_route {
+  position: absolute;
+  z-index: 3;
+  left: 389px;
+  width: 500px;
+  opacity: .9;
+  background: white; }
 
 .flash {
   position: absolute;
@@ -779,6 +786,11 @@ USERS SHOW PAGE
 TABLE
 
 */
+form#search-user {
+  float: right;
+  margin-right: 30px;
+  margin-top: 10px; }
+
 table.big-table thead {
   color: #fff; }
   table.big-table thead tr {
