@@ -1,0 +1,20 @@
+<div id="with-map">
+	<div id="aside">
+		<div id="aside-content">
+		<%= render 'shared/search_title' %>
+		<h2 class="title-aside clear"><%= @title_header %></h2>
+	
+	<div id="route-show">
+		<%= render 'route_edit' %>
+	</div><!-- /route-show -->
+	<div class="clear"></div>
+	<%= link_to "Pokaż wykres", "#", :id => "show-elevation" %>
+	<%= link_to "Komentarze", "#" %>
+	<%= link_to "Edytuj", "#" %>
+	
+
+	</div><!-- aside-content -->
+	</div><!-- aside -->
+	<div id="map"></div>
+
+</div>

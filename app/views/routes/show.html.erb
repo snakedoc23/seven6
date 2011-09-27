@@ -1,105 +1,30 @@
-<%= render 'shared/with_map' %>
-	
-	
-	<div id="route-show">
-		<h3><%= @route.title %></h3>
-		<div id="elevation-chart"></div>
-		<%= hidden_field_tag 'load_coordinates', @route.id %>
-		<ul class="route-show">
-				<li>
-					<div class="th">Ocena:</div>
-					<div class="td"><%= image_tag "/images/temp-stars.png" %></div>
-				</li>
-				<li>
-					<div class="th">Dystans:</div>
-					<div class="td distance"><%= @route.distance %> km</div>
-				</li>
-				<li>
-					<div class="th">Nawierzchnia:</div>
-					<div class="td"><%= @route.surface%></div>
-				</li>
+<div id="with-map">
+	<div id="aside">
+		<div id="aside-content">
+			<%= render 'shared/search_title' %>
+			<h2 class="title-aside clear"><%= @title_header %></h2>
+			
+			<div id="route-show">
+				<%= render 'route_show' %>
+			</div><!-- /route-show -->
+			<div class="clear"></div>
+			<% if current_user == @route.user %>
+				<%= link_to "Edytuj", edit_route_path(@route), :id => "edit-route-btn" %>
+				<% end %>
+			
 				
-				<li>
-					<div class="th">Autor:</div>
-					<div class="td"><%= @route.user.name %></div>
-				</li>
-				<li>
-					<div class="th">Data dodania:</div>
-					<div class="td"><%= time_ago_in_words(@route.created_at) %></div>
-				</li>
-				<li class="description">
-					<div class="th">Opis:</div>
-					<div class="td"><%= @route.description %></div>
-				</li>
+				<%= link_to (image_tag "chart-icon.png"), "#", :id => "show-elevation" %>
+			<div class="route-show-options">
+				<%= link_to "Komentarze", "#", :id => "show-comments", :class => "btn-base" %>
+				<div id="add-favorite">
 				
-				<% if @route.total_time > 0 %>
-				<li>
-					<div class="th">Czas przejazdu:</div>
-					<div class="td"><%= @route.time_to_string %></div>
-				</li>
-				<% end %>
-				<% if @route.avg_speed %>
-				<li>
-					<div class="th">Średnia prędkość:</div>
-					<div class="td"><%= @route.avg_speed %> km/h</div>
-				</li>
-				<% end %>
-				<% if @route.max_speed %>
-				<li>
-					<div class="th">Maksymalna prędkość:</div>
-					<div class="td"><%= @route.max_speed %> km/h</div>
-				</li>
-				<% end %>
-				<% if @route.pulse_avg > 0 %>
-				<li>
-					<div class="th">Tętno (avg / max):</div>
-					<div class="td"><%= @route.pulse_avg.round %> / <%= @route.pulse_max.round %></div>
-				</li>
-				<% end %>
-				<% if @route.temperature %>
-				<li>
-					<div class="th">Temperatura:</div>
-					<div class="td"><%= @route.temperature %> °C</div>
-				</li>
-				<% end %>
-				<li id="altitude">
-					<div class="th">Różnica wysokości:</div>
-					<div class="td"><%= (@route.max_altitude - @route.min_altitude).round(2) %> m </div>
-					<span class="small-arrow"></span>
-				</li>
-				<div class="altitude-extra"> 
-					<li>
-						<div class="th">Suma podjazdów:</div>
-						<div class="td"><%= @route.total_climb_up.round(2) %> m</div>
-					</li>
-					<li>
-						<div class="th">Suma zjazdów:</div>
-						<div class="td"><%= @route.total_climb_down.round(2) %> m</div>
-					</li>
-					<li>
-						<div class="th">Minimalna wysokość:</div>
-						<div class="td"><%= @route.min_altitude.round(2) %> m</div>
-					</li>
-					<li>
-						<div class="th">Maksymalna wysokość:</div>
-						<div class="td"><%= @route.max_altitude.round(2) %> m</div>
-					</li>
+					<%= link_to (image_tag "like-icon.png"), "#" %>
+					<span>Dodaj do ulubionych</span>
 				</div>
+			</div>
+			
 
-		</ul>
-
-
-		<%= link_to "Pokaż wykres", "#", :id => "show-elevation" %>
-
-
-		<%= link_to "Komentarze", "#" %>
-
-	</div><!-- /route-show -->
-
-	
-
-	</div><!-- aside-content -->
+		</div><!-- aside-content -->
 	</div><!-- aside -->
 	<div id="map"></div>
-
 </div>

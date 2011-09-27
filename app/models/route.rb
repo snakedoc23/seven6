@@ -1,25 +1,33 @@
 class Route < ActiveRecord::Base
-	# attr_accessible :title, :description, :distance, :surface, :route_file
-	attr_accessor :pulse, :time_string, :altitude
-	belongs_to :user
+  # attr_accessible :title, :description, :distance, :surface, :route_file
+  attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit
+  belongs_to :user
 
-	time_regex 	= /\A\d{1,3}\D\d{1,2}\D?\d{0,2}\z/
-	pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
+  time_regex  = /\A\d{1,3}\D\d{1,2}\D?\d{0,2}\z/
+  pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
 
-	validates :title,              :presence => true, 
+  validates :title,              :presence => true, 
                                  :length => { :minimum => 2 }
-	validates :time_string,        :format => { :with => time_regex }, 
+  validates :time_string,        :format => { :with => time_regex }, 
                                  :allow_blank => true
-	validates :coordinates_string, :presence => true, 
+  validates :coordinates_string, :presence => true, 
                                  :length => { :minimum => 2, 
                                               :message => "Trasa musi zawierac co najmniej dwa punkty" }
-	validates :pulse,              :format => { :with => pulse_regex, 
+  validates :pulse,              :format => { :with => pulse_regex, 
                                               :message => "Avg/Max" }, 
                                  :allow_blank => true
 
 
 
-	before_save :split_pulse, :add_start_and_finish
+  before_save :split_pulse, :add_start_and_finish
+
+  def self.search(search)
+    if search
+      where('title LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
 
   def add_start_and_finish
     self.start_lat_lng = self.coordinates_string.split(",").first
@@ -27,39 +35,50 @@ class Route < ActiveRecord::Base
   end
 
 
-	def altitude
-		(self.max_altitude - self.min_altitude).round(2)
-	end
+  def altitude
+    (self.max_altitude - self.min_altitude).round(2)
+  end
 
 
-	def total_time_calculate
-		time_s = ""
-		self.time_string.each_char do |char|
-			if char.match(/\D/)
-				time_s += ":"
-			else
-				time_s += char
-			end 
-		end
-		time_a = time_s.split(":")
-		self.total_time = time_a[0].to_i  * 3600 + time_a[1].to_i * 60 + time_a[2].to_i
-	end
+  def total_time_calculate
+    time_s = ""
+    self.time_string.each_char do |char|
+      if char.match(/\D/)
+        time_s += ":"
+      else
+        time_s += char
+      end 
+    end
+    time_a = time_s.split(":")
+    self.total_time = time_a[0].to_i  * 3600 + time_a[1].to_i * 60 + time_a[2].to_i
+  end
 
-	def split_pulse
-		if pulse
+  def pulse_edit
+    "#{pulse_avg.round}/#{pulse_max.round}"
+  end
+
+
+  def split_pulse
+    if pulse
       self.pulse_avg = self.pulse.split("/").first.to_f
-		  self.pulse_max = self.pulse.split("/").last.to_f
+      self.pulse_max = self.pulse.split("/").last.to_f
     end
-	end
+  end
 
-	def time_to_string
+
+
+  def time_string_edit
+    self.time_to_string
+  end
+
+  def time_to_string
     if total_time > 0
-  		h_time = (self.total_time / 3600 - 0.5).round
-  		m_time = ((self.total_time - h_time * 3600) / 60 - 0.5).round
-  		s_time = (self.total_time - h_time * 3600 - m_time * 60).round
-  		self.time_string = "#{h_time}h #{m_time}m #{s_time}s"
+      h_time = (self.total_time / 3600 - 0.5).round
+      m_time = ((self.total_time - h_time * 3600) / 60 - 0.5).round
+      s_time = (self.total_time - h_time * 3600 - m_time * 60).round
+      self.time_string = "#{h_time}h #{m_time}m #{s_time}s"
     end
-	end
+  end
 end
 
 

@@ -1,5 +1,16 @@
-<%= render 'shared/without_map' %>
+<div id="without-map">
+	<%= form_tag routes_path, :method => 'get', :id => "search-route" do %>
+		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
+		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
+	<% end %>
 
+	<h2 class="h2-top clear"><%= @title_header_top %></h2>
+	<div class="h2-bg">
+		<h2><%= @title_header %></h2>	
+	</div>
+	<div id="content">
+
+	
 
 <div class="routes-index-table">
 		<table class="routes-index big-table">
@@ -7,6 +18,16 @@
 				<tr>
 					<th></th>
 					<th>Nazwa</th>
+					<th>Dystans</th>
+					<th>Wzniesienia</th>
+					<th>Nawierzchnia</th>
+					<th>Ocena</th>
+					<th>Czas jazdy</th>
+					<th>Średnia</th>
+					<th>Data dodania</th>
+					<th>Użytkownik</th>
+					<th class="like"><span></span></th>
+					<th class="comments"><span></span></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -14,12 +35,27 @@
 			<% @routes.each do |route| %>
 				<tr>
 					<td><%= i += 1 %></td>
-					<td><%= link_to route.title, route_path(route) %></td>
+					<td class="title"><%= link_to route.title, route_path(route) %></td>
+					<td class="distance"><%= route.distance %> km</td>
+					<td class="altitude"><%= (route.max_altitude - route.min_altitude).round(2) %> m</td>
+					<td class="surface"><%= route.surface%></td>
+					<td class="rating"><%= image_tag "/images/temp-stars.png" %></td>
+					<td class="time"><%= route.time_to_string %></td>
+					<% if route.avg_speed %>
+					<td class="avg_speed"><%= route.avg_speed %> km/h</td>
+					<% else %>
+					<td></td>
+					<% end %>
+					<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
+					<td class="user"><%= route.user.username %></td>
+					<td class="like"><%= rand(10) %></td>
+					<td class="comments"><%= rand(10) %></td>
 				</tr>
 			<% end %>
 			</tbody>
 		</table>
-		
+
+		<%= will_paginate %>
 	
 		
 		</div> <!-- END routes-index-table -->

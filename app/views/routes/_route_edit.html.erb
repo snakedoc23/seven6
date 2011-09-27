@@ -1,0 +1,88 @@
+		<%= form_for(@route, :class => "edit") do |f| %>
+			<%= f.hidden_field :total_time %>
+			<%= f.hidden_field :pulse %>
+			<%= f.hidden_field :avg_speed %>
+			<%= f.hidden_field :distance %>
+
+		<h3><%= f.text_field :title, :class => "title" %></h3>
+		<div id="elevation-chart"></div>
+		<%= hidden_field_tag 'load_coordinates', @route.id %>
+		<ul class="route-show">
+		
+				<li>
+					<div class="th">Ocena:</div>
+					<div class="td"><%= image_tag "/images/temp-stars.png" %></div>
+				</li>
+				<li>
+					<div class="th">Dystans:</div>
+					<div class="td distance"><%= @route.distance %> km</div>
+				</li>
+				<li>
+					<div class="th">Nawierzchnia:</div>
+					<div class="td"><%= f.select :surface, {:mieszana => "mieszana", :asfalt => "asfalt", :leśna => "leśna" }%></div>
+				</li>
+				
+				<li>
+					<div class="th">Autor:</div>
+					<div class="td"><%= @route.user.username %></div>
+				</li>
+				<li>
+					<div class="th">Data dodania:</div>
+					<div class="td"><%= time_ago_in_words(@route.created_at) %></div>
+				</li>
+				<li class="description">
+					<div class="th">Opis:</div>
+					<div class="td"><%= f.text_area :description, :rows => 5 %></div>
+				</li>				
+				<li>
+					<div class="th">Czas przejazdu:</div>
+					<div class="td"><%= f.text_field :time_string_edit %></div>
+				</li>
+				<% if @route.avg_speed %>
+				<li>
+					<div class="th">Średnia prędkość:</div>
+					<div class="td"><%= @route.avg_speed %> km/h</div>
+				</li>
+				<% end %>
+				<li>
+					<div class="th">Maksymalna prędkość:</div>
+					<div class="td"><%= f.text_field :max_speed %></div>
+				</li>
+				<li>
+					<div class="th">Tętno (avg / max):</div>
+					<div class="td"><%= f.text_field :pulse_edit %></div>
+				</li>
+				<li>
+					<div class="th">Temperatura:</div>
+					<div class="td"><%= f.text_field :temperature %></div>
+				</li>
+		
+				<li id="altitude">
+					<div class="th">Różnica wysokości:</div>
+					<div class="td"><%= (@route.max_altitude - @route.min_altitude).round(2) %> m </div>
+					<span class="small-arrow"></span>
+				</li>
+				<div class="altitude-extra"> 
+					<li>
+						<div class="th">Suma podjazdów:</div>
+						<div class="td"><%= @route.total_climb_up.round(2) %> m</div>
+					</li>
+					<li>
+						<div class="th">Suma zjazdów:</div>
+						<div class="td"><%= @route.total_climb_down.round(2) %> m</div>
+					</li>
+					<li>
+						<div class="th">Minimalna wysokość:</div>
+						<div class="td"><%= @route.min_altitude.round(2) %> m</div>
+					</li>
+					<li>
+						<div class="th">Maksymalna wysokość:</div>
+						<div class="td"><%= @route.max_altitude.round(2) %> m</div>
+					</li>
+				</div>
+
+		</ul>
+		<div class="form-btn">
+			<%= f.submit "Zapisz zmiany",:id => "edit-route", :class => "btn-base edit" %>
+		</div>
+		<% end %>

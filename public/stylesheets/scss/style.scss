@@ -85,12 +85,20 @@ header {
 				color: $blue;
 				font-size: 15px;
 				text-transform: uppercase;
-				padding: 0.5em;
+				padding: 0.5em 0.7em;
 				@include rounded(4px);
+				border: 1px solid #eee;
 				&:hover {
-					background: #e8eced;
-					color: $red;
 					text-decoration: none;
+					color: $red;
+					background: #e8eced;
+				}
+				&.selected {
+					color: $red;
+					@include gradient(#e8eced, #DAE2E2);
+					border: 1px solid #CACED0;
+					// background: #DAE2E2;
+
 				}
 			}
 		}
@@ -122,7 +130,7 @@ header {
 	}
 }
 
-form#search-title, form#search-user {
+form#search-title, form#search-user, form#search-route {
 	input[type="text"] {
 		float: left;
 	}
@@ -168,7 +176,7 @@ form#search-title, form#search-user {
 
 #aside {
 	width: 370px;
-	height: 830px;
+	min-height: 830px;
 	float: left;
 	border-right: 1px solid $blue;
 	#last-routes {
@@ -484,7 +492,7 @@ USERS SHOW PAGE
 TABLE
 
 */
-form#search-user {
+form#search-user, form#search-route {
 	float: right;
 	margin-right: 30px;
 	margin-top: 10px;
@@ -576,11 +584,51 @@ table.big-table {
 
 
 .routes-index-table {
+	width: 1075px;
 	margin: 20px auto;
-	width: 600px;
-	table.users-index {
+	table.routes-index {
 		width: 100%;
-		margin-left: -67px;
+		// margin-left: -67px;
+		.comments, .like {
+			// width: 22px;
+		}
+		tr th.comments span, tr th.like span {
+			width: 14px;
+			height: 14px;
+			
+			display: block;
+			margin: auto;
+			margin-top: 5px;
+
+		}
+		tr th.comments span { background: url(../images/comment-icon.png) no-repeat; }
+		tr th.like span { background: url(../images/like-icon.png) no-repeat; }
+		tr {
+			td {
+				&.title {
+					min-width: 160px;
+				}
+				&.distance {
+					min-width: 58px;
+				}
+				&.altitude {
+					min-width: 58px;
+				}
+				&.time {
+					min-width: 70px;
+				}
+				&.avg_speed {
+					min-width: 66px;
+				}
+				&.created_at, &.user {
+					min-width: 88px;
+				}
+				&.like, &.comments {
+					text-align: center;
+				}
+			}
+		}
+		
 	}
 }
 
@@ -943,17 +991,10 @@ footer {
 		line-height: 20px;
 		margin-top: 10px;
 	}
-	div.altitude-extra {
-		display: none;
-		li:last-child {
-			margin-bottom: 21px;
-			border-bottom: 1px solid $blue;
-		}
+	
 
-	}
 	ul.route-show {
 		margin-top: 10px;
-
 		li {		
 			margin-bottom: 3px;
 			border: $table-border;
@@ -961,9 +1002,7 @@ footer {
 			float: left;
 			background: rgba(255,255,255,.4);
 			font-size: 13px;
-			// height: 30px;
 			line-height: 30px;
-
 			.th {
 				width: 160px;
 				text-align: left;
@@ -1008,15 +1047,102 @@ footer {
 					width: 13px;
 					top: 11px;
 					position: relative;
-
 					background: url(../images/arrows.png) no-repeat;
 				}
 			}
-			
-
-			
+		}
+		div.altitude-extra {
+			display: none;
+			li {
+				&:last-child {
+					margin-bottom: 21px;
+					border-bottom: 1px solid $blue;
+				}
+			}
 		}
 	}
+	
+}
+#edit-route-btn {
+	margin-left: 30px;
+}
+.route-show-options {
+	margin-left: 30px;
+	margin-top: 50px;
+}
+#show-comments {
+	float: left;
+}
+#add-favorite {
+	float: left;
+	margin-left: 20px;
+	a {
+		width: 27px;
+		display: block;
+		float: left;
+		height: 27px;
+		padding: 0;
+		@include gradient(#cf5759, #bb3f41);
+		@include rounded(4px);
+		cursor: pointer;
+		&:hover {
+			background: $red;
+			text-decoration: none;
+		}
+		&:active {
+			background: #bb3133;
+			// color: $blue;
+		}
+		&:focus {
+			// background: #cf5759;
+			@include gradient(#bb3f41, #cf5759);
+			// border: 1px solid #cf5759;
+			box-shadow: 0 0 5px #888;
+
+		}
+		img {
+			margin: 7px;
+		}
+	}
+	span {
+		float: left;
+		display: block;
+		margin-left: 5px;
+		margin-top: 6px;
+	}
+}
+
+#show-elevation {
+	float: right;
+	display: block;
+	height: 40px;
+	width: 40px;
+	margin-top: 5px;
+	@include gradient(#cf5759, #bb3f41);
+
+	border: 1px solid #B03436;
+	border-top-left-radius: 16px;
+	border-bottom-left-radius: 16px;
+	&:hover {
+		width: 150px;
+		background: $red;
+			text-decoration: none;
+	}
+	img {
+		margin: 5px;
+	}
+
+		&:active {
+			background: #bb3133;
+			// color: $blue;
+		}
+		&:focus {
+			// background: #cf5759;
+			@include gradient(#bb3f41, #cf5759);
+			// border: 1px solid #cf5759;
+			box-shadow: 0 0 5px #888;
+
+		}
 }
 
 #elevation-chart {
@@ -1031,4 +1157,30 @@ footer {
 	opacity: .6;
 }
 
+
+// ROUTE EDIT
+form.edit_route {
+	input[type="text"], select, textarea {
+		width: 110px;
+		padding: 1px;
+		border-radius: 0;
+		float: left;
+		margin: 0;
+		margin-top: 20px;
+		font-size: 13px;
+		&.title {
+			color: $red;
+			font-size: 17px;
+			width: 282px;
+			margin-bottom: 5px;
+			padding: 2px;
+		}
+	}
+	textarea {
+		width: 223px;
+	}
+	input[type="submit"].edit {
+		float: right;
+	}
+}
 

@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
 
-   def self.search(search)
+  def self.search(search)
     if search
       where('username LIKE ?', "%#{search}%")
     else

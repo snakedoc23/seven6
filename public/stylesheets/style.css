@@ -416,14 +416,27 @@ header {
         color: #283a43;
         font-size: 15px;
         text-transform: uppercase;
-        padding: 0.5em;
+        padding: 0.5em 0.7em;
         border-radius: 4px;
         -moz-border-radius: 4px;
-        -webkit-border-radius: 4px; }
+        -webkit-border-radius: 4px;
+        border: 1px solid #eee; }
         header nav ul#nav li a:hover {
-          background: #e8eced;
+          text-decoration: none;
           color: #c84446;
-          text-decoration: none; }
+          background: #e8eced; }
+        header nav ul#nav li a.selected {
+          color: #c84446;
+          background: #e8eced;
+          /* for non-css3 browsers */
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+          /* for IE */
+          background: -webkit-gradient(linear, left top, left bottom, from(#e8eced), to(#dae2e2));
+          /* for webkit browsers */
+          background: -moz-linear-gradient(top, #e8eced, #dae2e2);
+          /* for firefox 3.6+ */
+          background: linear-gradient(top, #e8eced, #dae2e2);
+          border: 1px solid #CACED0; }
   header #login-header {
     position: absolute;
     right: 30px;
@@ -449,9 +462,9 @@ header {
       position: relative;
       top: 4px; }
 
-form#search-title input[type="text"], form#search-user input[type="text"] {
+form#search-title input[type="text"], form#search-user input[type="text"], form#search-route input[type="text"] {
   float: left; }
-form#search-title input[type="submit"], form#search-user input[type="submit"] {
+form#search-title input[type="submit"], form#search-user input[type="submit"], form#search-route input[type="submit"] {
   background: url("../images/search-small-btn.png") no-repeat 0 1px;
   display: block;
   text-indent: -99999px;
@@ -460,7 +473,7 @@ form#search-title input[type="submit"], form#search-user input[type="submit"] {
   float: left;
   margin-left: 3px;
   margin-top: 1px; }
-  form#search-title input[type="submit"]:hover, form#search-user input[type="submit"]:hover {
+  form#search-title input[type="submit"]:hover, form#search-user input[type="submit"]:hover, form#search-route input[type="submit"]:hover {
     background: url("../images/search-small-btn.png") no-repeat -30px; }
 
 #container {
@@ -488,7 +501,7 @@ form#search-title input[type="submit"], form#search-user input[type="submit"] {
 
 #aside {
   width: 370px;
-  height: 830px;
+  min-height: 830px;
   float: left;
   border-right: 1px solid #283a43; }
   #aside #last-routes li .route {
@@ -786,7 +799,7 @@ USERS SHOW PAGE
 TABLE
 
 */
-form#search-user {
+form#search-user, form#search-route {
   float: right;
   margin-right: 30px;
   margin-top: 10px; }
@@ -855,11 +868,34 @@ table.big-table tbody tr:hover {
     margin-left: -67px; }
 
 .routes-index-table {
-  margin: 20px auto;
-  width: 600px; }
-  .routes-index-table table.users-index {
-    width: 100%;
-    margin-left: -67px; }
+  width: 1075px;
+  margin: 20px auto; }
+  .routes-index-table table.routes-index {
+    width: 100%; }
+    .routes-index-table table.routes-index tr th.comments span, .routes-index-table table.routes-index tr th.like span {
+      width: 14px;
+      height: 14px;
+      display: block;
+      margin: auto;
+      margin-top: 5px; }
+    .routes-index-table table.routes-index tr th.comments span {
+      background: url(../images/comment-icon.png) no-repeat; }
+    .routes-index-table table.routes-index tr th.like span {
+      background: url(../images/like-icon.png) no-repeat; }
+    .routes-index-table table.routes-index tr td.title {
+      min-width: 160px; }
+    .routes-index-table table.routes-index tr td.distance {
+      min-width: 58px; }
+    .routes-index-table table.routes-index tr td.altitude {
+      min-width: 58px; }
+    .routes-index-table table.routes-index tr td.time {
+      min-width: 70px; }
+    .routes-index-table table.routes-index tr td.avg_speed {
+      min-width: 66px; }
+    .routes-index-table table.routes-index tr td.created_at, .routes-index-table table.routes-index tr td.user {
+      min-width: 88px; }
+    .routes-index-table table.routes-index tr td.like, .routes-index-table table.routes-index tr td.comments {
+      text-align: center; }
 
 /*
 PAGINATION
@@ -1134,11 +1170,6 @@ footer {
     font-weight: normal;
     line-height: 20px;
     margin-top: 10px; }
-  #route-show div.altitude-extra {
-    display: none; }
-    #route-show div.altitude-extra li:last-child {
-      margin-bottom: 21px;
-      border-bottom: 1px solid #283a43; }
   #route-show ul.route-show {
     margin-top: 10px; }
     #route-show ul.route-show li {
@@ -1184,6 +1215,105 @@ footer {
         top: 11px;
         position: relative;
         background: url(../images/arrows.png) no-repeat; }
+    #route-show ul.route-show div.altitude-extra {
+      display: none; }
+      #route-show ul.route-show div.altitude-extra li:last-child {
+        margin-bottom: 21px;
+        border-bottom: 1px solid #283a43; }
+
+#edit-route-btn {
+  margin-left: 30px; }
+
+.route-show-options {
+  margin-left: 30px;
+  margin-top: 50px; }
+
+#show-comments {
+  float: left; }
+
+#add-favorite {
+  float: left;
+  margin-left: 20px; }
+  #add-favorite a {
+    width: 27px;
+    display: block;
+    float: left;
+    height: 27px;
+    padding: 0;
+    background: #cf5759;
+    /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+    /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+    /* for firefox 3.6+ */
+    background: linear-gradient(top, #cf5759, #bb3f41);
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    cursor: pointer; }
+    #add-favorite a:hover {
+      background: #c84446;
+      text-decoration: none; }
+    #add-favorite a:active {
+      background: #bb3133; }
+    #add-favorite a:focus {
+      background: #bb3f41;
+      /* for non-css3 browsers */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+      /* for IE */
+      background: -webkit-gradient(linear, left top, left bottom, from(#bb3f41), to(#cf5759));
+      /* for webkit browsers */
+      background: -moz-linear-gradient(top, #bb3f41, #cf5759);
+      /* for firefox 3.6+ */
+      background: linear-gradient(top, #bb3f41, #cf5759);
+      box-shadow: 0 0 5px #888; }
+    #add-favorite a img {
+      margin: 7px; }
+  #add-favorite span {
+    float: left;
+    display: block;
+    margin-left: 5px;
+    margin-top: 6px; }
+
+#show-elevation {
+  float: right;
+  display: block;
+  height: 40px;
+  width: 40px;
+  margin-top: 5px;
+  background: #cf5759;
+  /* for non-css3 browsers */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+  /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+  /* for webkit browsers */
+  background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+  /* for firefox 3.6+ */
+  background: linear-gradient(top, #cf5759, #bb3f41);
+  border: 1px solid #B03436;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px; }
+  #show-elevation:hover {
+    width: 150px;
+    background: #c84446;
+    text-decoration: none; }
+  #show-elevation img {
+    margin: 5px; }
+  #show-elevation:active {
+    background: #bb3133; }
+  #show-elevation:focus {
+    background: #bb3f41;
+    /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+    /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#bb3f41), to(#cf5759));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #bb3f41, #cf5759);
+    /* for firefox 3.6+ */
+    background: linear-gradient(top, #bb3f41, #cf5759);
+    box-shadow: 0 0 5px #888; }
 
 #elevation-chart {
   position: absolute;
@@ -1195,3 +1325,22 @@ footer {
   width: 800px;
   display: none;
   opacity: .6; }
+
+form.edit_route input[type="text"], form.edit_route select, form.edit_route textarea {
+  width: 110px;
+  padding: 1px;
+  border-radius: 0;
+  float: left;
+  margin: 0;
+  margin-top: 20px;
+  font-size: 13px; }
+  form.edit_route input[type="text"].title, form.edit_route select.title, form.edit_route textarea.title {
+    color: #c84446;
+    font-size: 17px;
+    width: 282px;
+    margin-bottom: 5px;
+    padding: 2px; }
+form.edit_route textarea {
+  width: 223px; }
+form.edit_route input[type="submit"].edit {
+  float: right; }

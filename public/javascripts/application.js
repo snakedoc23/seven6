@@ -58,10 +58,7 @@ $(document).ready(function(){
 	});
 
 
-
 	$(".flash").click(function(){$(".flash").slideUp('slow')});
-
-
 
 
 	//ROUTES#NEW
@@ -141,7 +138,7 @@ $(document).ready(function(){
 	//Poprawność prędkość maksymalna
 	$('#route_max_speed').blur(function() {
 		var max_speed = $('#route_max_speed').val();
-		var max_speedRegex = /\d*/;
+		var max_speedRegex = /\d{1,3}.?\d{0,4}/;
 		var max_speedRegexOk = max_speed.match(max_speedRegex);
 		if((max_speed == max_speedRegexOk || $('#route_max_speed').val() == "") && max_speed < 200) {
 			$("#error-explanation-max-speed").hide();
@@ -155,11 +152,8 @@ $(document).ready(function(){
 ///////////////////////////////////////////////////////////////////////
 
 
-
 	if($("#map").length) {
-
 		map = initializeMap();
-
 		polyline = new google.maps.Polyline({
 			strokeColor: '#c84446',
 			strokeOpacity: .8,
@@ -167,14 +161,11 @@ $(document).ready(function(){
 			map: map
 		});
 
-
 		snap = 0;
 		directionsService = new google.maps.DirectionsService();
 		directionsDisplay = new google.maps.DirectionsRenderer();
 		elevator = new google.maps.ElevationService();
-
 	}
-
 
 
 	//pages/home --> zawiera listę ostatnich tras
@@ -253,24 +244,21 @@ $(document).ready(function(){
 
 
 
-
-
 	if($('#load_coordinates').length) {
 		drawChart = 1;
 		var id = $('#load_coordinates').val();
 		// console.log(id)
 		$.post('/load_coordinates', {id : id}, function(coordinates) {
-			console.log(coordinates);
+			// console.log(coordinates);
 			var bounds = pathFromString(coordinates, path);
 			map.fitBounds(bounds);
 			polyline.setPath(path);
 
 
+	// pokaz wykres
 	$("#show-elevation").click(function(){
 		$("#elevation-chart").show();
 		$("#elevation-chart").width(mapWidth);
-
-
 
 
 
@@ -296,9 +284,6 @@ $(document).ready(function(){
 			createElevation(path);
 		}
 
-
-
-
 		return false;
 		// createElevation(path);
 		// $("#elevation-chart").css("opacity", ".7");
@@ -311,7 +296,6 @@ $(document).ready(function(){
 		
 	}
 	
-
 
 	//przyciski do rysowania
 	$('#draw-controls').hide();
@@ -326,8 +310,6 @@ $(document).ready(function(){
 		deletePath(path);
 		return false;
 	});
-
-
 
 
 	$("#snap").click(function(event){
@@ -360,14 +342,54 @@ $(document).ready(function(){
 		$("#route_total_climb_down").val(total_climb_down);
 		$("#route_total_time").val(total_time_sec);
 		$("#route_avg_speed").val(avg_speed);
-
-
 		
 		console.log(stringPath);
 		console.log($("#route_coordinates_string").val());
 		// return false;
-	})
+	});
 	
+
+
+	//EDIT ROUTE
+		//> walidacje zrobic i automatycznie uzupełniać avg jak w new
+
+	$("#edit-route").click(function() {
+		var time_string_edit = $("#route_time_string_edit").val();
+			console.log(time_string_edit);
+			var time_s = "";
+			var time_a = [];
+			for(var i = 0; i < time_string_edit.length; i++) {
+				var c = time_string_edit.charAt(i);
+				if(c.match(/\d/)) {
+					time_s += c;
+				} else if(c.match(/\s/)) {
+					
+				} else {
+					time_s += ":";
+				}
+			}
+			console.log(time_s);
+			time_a = time_s.split(":");
+			total_time_sec = 0;
+			if(time_a[2] != "" && time_a[2] != null) {
+				total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60 + parseFloat(time_a[2]);
+			} else {
+				total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60;
+				time_a[2] = "0";
+			}
+			
+				distance = $("#route_distance").val();
+				avg_speed = Math.round(distance * 3600 / total_time_sec * 100) / 100;
+
+		var pulse_edit = $("#route_pulse_edit").val();
+		if(pulse_edit == "0/0") {
+			pulse_edit = null;
+		}
+		$("#route_total_time").val(total_time_sec);
+		$("#route_pulse").val(pulse_edit);
+		$("#route_avg_speed").val(avg_speed);
+	});
+
 
 });
 
@@ -391,8 +413,6 @@ function loadStartMarkers() {
 			}
 		}
 	});
-
-
 };
 
 
@@ -442,7 +462,6 @@ function createStartMarker(pos, title) {
 			}
 		}
 	});
-
 	homeMarkers.push(sMarker);
 };
 
@@ -491,7 +510,6 @@ function pathFromString(string, pathT) {
 };
 
 
-
 function initializeMap(){
 	var map = new google.maps.Map(document.getElementById("map"), {
 	   	zoom: 13,
@@ -502,7 +520,6 @@ function initializeMap(){
 }
 
 function drawRoute(map, polyline){
-
 	shadow = new google.maps.MarkerImage(
 		'../images/shadow.png',
 		null,
@@ -590,11 +607,6 @@ function drawRoute(map, polyline){
 			}
 		}
 
-
-
-
-
-
   });
 	return polyline;
 }
@@ -675,7 +687,6 @@ function editMarker(marker, polyline) {
 }
 
 
-
 function deletePath() {
 	//wczytaj ostatni marker 
 	// usun go z tablicy i z mapy
@@ -710,7 +721,6 @@ function setLastMarker() {
 		var lastMarker = markers[markers.length - 1];
 		lastMarker.setIcon(finishMarkerImage);
 		lastMarker.setTitle('Koniec trasy');
-
 	}
 };
 
@@ -764,8 +774,6 @@ function addDistanceToPage(polyline) {
 };
 
 
-
-
 function reductionPath(originalPath) {
 	var pathLength = originalPath.length;
 	console.log("Dlugosc tab: "+ pathLength);
@@ -779,9 +787,6 @@ function reductionPath(originalPath) {
 	}
 	return reucedPath;
 }
-
-
-
 
 
 // obliczanie elevations  -- max path: 193 elementy
@@ -867,7 +872,6 @@ function plotElevation(results, status) {
 				vAxis: {baselineColor: '#283a43' },
 				fontSize: 13,
 				fontName: "Helvetica Neue"
-
 
 			});
 
