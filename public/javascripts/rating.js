@@ -1,33 +1,9 @@
 jQuery(document).ready(function() {
 
 	// ustalanie ikonek dla wartosci z bazy
-	var value = $('#route_rating_value').val();	//obecna ocena
-	console.log(value);
-	if(value > 4.75) {
-		$('#rating li a:lt(5)').addClass('full-fill');
-	} else if(value > 4.25) {
-		$('#rating li a:lt(4)').addClass('full-fill');
-		$('#rating li a.5').addClass('half-fill');
-	} else if(value > 3.75) {
-		$('#rating li a:lt(4)').addClass('full-fill');
-	} else if(value > 3.25) {
-		$('#rating li a:lt(3)').addClass('full-fill');
-		$('#rating li a.4').addClass('half-fill');
-	} else if(value > 2.75) {
-		$('#rating li a:lt(3)').addClass('full-fill');
-	} else if(value > 2.25) {
-		$('#rating li a:lt(2)').addClass('full-fill');
-		$('#rating li a.3').addClass('half-fill');
-	} else if(value > 1.75) {
-		$('#rating li a:lt(2)').addClass('full-fill');
-	} else if(value > 1.25) {
-		$('#rating li a:lt(1)').addClass('full-fill');
-		$('#rating li a.2').addClass('half-fill');
-	} else if(value > 0.75) {
-		console.log('fdsf');
-		$('#rating li a.1').addClass('full-fill');
-	}
-	////////////////////////////////////////////////
+	var value = $('#route_rating_value').val();
+	update_rating(value, '#rating li a');
+	var route_id = $('#route_id').val();
 
 
 	$('#rating li a').mouseover(function() {
@@ -39,56 +15,95 @@ jQuery(document).ready(function() {
 		$('#rating li a:lt(' + hoverVal + ')').removeClass('select');
 	});
 		
-	
 	$('#rating li a').click(function() {
-		var selectVal = $(this).html();
+		var selectVal = $('#user_rating_value').val();
 		$('#rating li a:lt(' + selectVal + ')').addClass('select');
-		$('#rating_value').val(selectVal);
+		
+		var rating_value = parseFloat($(this).html());
 
-
-
-		// var route_id = $('#route_id').val();
-		// var rating_value = parseFloat(selectVal);
-
-		// $.post('/add_rating', {route_id : route_id, value : rating_value }, function(partial) {
-		// 	$('.rating-div').html(partial);
-
-
-			
-		// });
-		// // wyslij ajaxem do rating/create      value,    route_id
-
-		$('form.edit_rating').submit();
-		$('form.new_rating').submit();
+		 $.post('/add_rating', {route_id : route_id, value : rating_value }, function(avg_rating) {
+		 	update_rating(avg_rating, '#rating li a');
+	
+		 });
 		return false;
-		//wywolac licznie avg
 	});
 
-	if($('#rating_value')) {
-		var selectVal = $('#rating_value').val();
+	// zaznaczenie gwiazdeg gdy user wczesniej glosowal
+	if($('#user_rating_value')) {
+		var selectVal = $('#user_rating_value').val();
 		$('#rating li a:lt(' + selectVal + ')').addClass('select');
 	}
 
 
-	//like
-	if($('#rating_like').val()) {
+	if($('#user_rating_like').val() == "true") {
 		$('#add-favorite span').html("Usuń z ulubionych");
 	}
 
-
-	
+	var like = $('#user_rating_like').val();
 	$('#add-favorite a').click(function() {
-		// $('#rating_like').val(true);
-
-		if($('#rating_like').val()) {
-			$('#rating_like').val(null);
+		like = $('#user_rating_like').val();
+		if(like) { // jesli jest true 
+			like = null;
+			$('#add-favorite span').html("Dodaj do ulubionych");
 		} else {
-			$('#rating_like').val(true);
+			like = true;
+			$('#add-favorite span').html("Usuń z ulubionych");
 		}
-		$('form.edit_rating').submit();
-		$('form.new_rating').submit();
+		console.log(like);
+		$('#user_rating_like').val(like);
+		$.post('/add_like', {route_id : route_id, like : like }, function(data) {
+		});
 		return false;
 	});
-	
+
+
+	//index oceny
+
+	// for(var i = 0; i < $('td.rating').length; i++) {
+	// 	value = 
+
+	// 	update_rating(value, 'ul.rating li');
+	// 	var z = $('ul.rating')[i];
+	// 	console.log($(z).html());
+	// }
+
+
+	// var ul = $($('.rating').children());
+	// value = ul.children().first().html();
+	// update_rating(value, '.rating li');
+
+
+
+
 
 });
+
+// aktualizacja gwiazdek
+function update_rating(value, target) {
+
+	$(target).removeClass('full-fill');
+	$(target).removeClass('half-fill');
+	if(value > 4.75) {
+		$(target +':lt(5)').addClass('full-fill');
+	} else if(value > 4.25) {
+		$(target + ':lt(4)').addClass('full-fill');
+		$(target + '.5').addClass('half-fill');
+	} else if(value > 3.75) {
+		$(target + ':lt(4)').addClass('full-fill');
+	} else if(value > 3.25) {
+		$(target + ':lt(3)').addClass('full-fill');
+		$(target + '.4').addClass('half-fill');
+	} else if(value > 2.75) {
+		$(target + ':lt(3)').addClass('full-fill');
+	} else if(value > 2.25) {
+		$(target + ':lt(2)').addClass('full-fill');
+		$(target + '.3').addClass('half-fill');
+	} else if(value > 1.75) {
+		$(target + ':lt(2)').addClass('full-fill');
+	} else if(value > 1.25) {
+		$(target + ':lt(1)').addClass('full-fill');
+		$(target + '.2').addClass('half-fill');
+	} else if(value > 0.75) {
+		$(target + '.1').addClass('full-fill');
+	}
+}

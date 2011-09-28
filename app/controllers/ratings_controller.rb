@@ -1,28 +1,49 @@
 class RatingsController < ApplicationController
 
-	def create
+	def add_rating
 		@route = Route.find(params[:route_id])
-		@rating = Rating.new(params[:rating])
-		@rating.user_id = current_user.id
-		@rating.route_id = @route.id
-		
-		if @rating.save
-			redirect_to route_path(@route.id)
-
-			# render :partial => 'routes/rating_stars'
+		@value = params[:value]
+		if @rating = current_user.ratings.find_by_route_id(@route.id)
+			# update
+			if @rating.update_attributes(:value => @value)
+				@route.avg_rating
+				render :text => @route.avg_rating
+			else
+				# nie zapisalo sie
+			end
 		else
-			flash[:error] = "Ocena nie zostala dodana"
+			# new
+			@rating = Rating.new
+			@rating.value = @value
+			@rating.user_id = current_user.id
+			@rating.route_id = @route.id
+			if @rating.save
+				@route.avg_rating
+				render :text => @route.avg_rating
+			else
+				# nie zapisalo sie
+			end
+
 		end
 	end
 
-	def update
+	def add_like
 		@route = Route.find(params[:route_id])
-		@rating = current_user.ratings.find_by_route_id(@route.id)
+		@like = params[:like]
+		@like = nil unless @like == 'true'
 
-		if @rating.update_attributes(params[:rating])
-			redirect_to route_path(@route.id)
+		if @rating = current_user.ratings.find_by_route_id(@route.id)
+			@rating.update_attributes(:like => @like)
+			@rating.save
+			render :text => @like
 		else
-			flash[:error] = "Ocena nie zostala dodana"
+			@rating = Rating.new
+			@rating.user_id = current_user.id
+			@rating.route_id = @route.id
+			@rating.like = @like
+			@rating.save
+			render :text => "OK create"
 		end
 	end
+
 end

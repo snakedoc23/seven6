@@ -39,7 +39,17 @@
 					<td class="distance"><%= route.distance %> km</td>
 					<td class="altitude"><%= (route.max_altitude - route.min_altitude).round(2) %> m</td>
 					<td class="surface"><%= route.surface%></td>
-					<td class="rating"><%= image_tag "/images/temp-stars.png" %></td>
+					<td class="rating">
+						
+						<ul class="rating <%= route.id %>">
+							<span class="val"><%= route.avg_rating %></span>
+							<li class="1">1</li>
+							<li class="2">2</li>
+							<li class="3">3</li>
+							<li class="4">4</li>
+							<li class="5">5</li>
+						</ul>
+					</td>
 					<td class="time"><%= route.time_to_string %></td>
 					<% if route.avg_speed %>
 					<td class="avg_speed"><%= route.avg_speed %> km/h</td>
@@ -48,7 +58,7 @@
 					<% end %>
 					<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
 					<td class="user"><%= route.user.username %></td>
-					<td class="like"><%= rand(10) %></td>
+					<td class="like"><%= route.ratings.where(:like => true).count %></td>
 					<td class="comments"><%= rand(10) %></td>
 				</tr>
 			<% end %>

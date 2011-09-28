@@ -6,10 +6,9 @@
 	<li class="rate"><a href="#" class="5">5</a></li>
 </ul>
 <%= hidden_field_tag 'route_rating_value', @route.avg_rating %>
+<%= hidden_field_tag 'route_id', @route.id %>
 <% if current_user %>
-	<%= form_for rate_route do |f| %>
-		<%= f.hidden_field :value %>
-		<%= f.hidden_field :like %>
-		<%= hidden_field_tag("route_id", @route.id) %>
-	<% end %>
+	<%= hidden_field_tag 'user_rating_value', @rating.value %>
+	<%= hidden_field_tag 'user_rating_like', @rating.like %>
+	
 <% end %>

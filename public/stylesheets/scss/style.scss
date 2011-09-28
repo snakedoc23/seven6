@@ -1213,3 +1213,29 @@ ul#rating {
 		}
 	}
 }
+td.rating ul.rating span.val {
+	display: none;
+}
+ul.rating {
+	li {
+		width: 18px;
+		height: 17px;
+		display: block;
+		background: url(../images/rating-stars.png) 0 -17px no-repeat; 
+		text-indent: -9999px;
+		outline: none;
+		float: left;
+
+
+		&.full-fill {
+			background: url(../images/rating-stars.png) 0 -34px;
+		}
+		&.half-fill {
+			background: url(../images/rating-stars.png) 0 -51px;
+		}
+		&.select {
+			background-position: 0 0;
+		}
+	}
+
+}

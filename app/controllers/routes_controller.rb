@@ -9,6 +9,14 @@ class RoutesController < ApplicationController
   def show
     @route = Route.find(params[:id])
     @title_header = "Trasa"
+
+    if current_user
+      if @rating = current_user.ratings.find_by_route_id(params[:id])
+        @rating
+      else
+        @rating = current_user.ratings.new
+      end
+    end
   end
 
   def load_coordinates

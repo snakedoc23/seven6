@@ -1,7 +1,4 @@
 Seven6::Application.routes.draw do
-  
-
-  resources :ratings
     
   resources :users
   resources :routes
@@ -12,12 +9,13 @@ Seven6::Application.routes.draw do
   match '/signup',  :to => 'users#new'
   match '/',        :to => 'pages#home'
   match '/test',    :to => 'pages#test' 
+
   
   post '/load_coordinates' => 'routes#load_coordinates'
   post '/start_markers' => 'routes#start_markers'
 
-
-  # post '/add_rating' => 'ratings#create'
+  post '/add_rating' => 'ratings#add_rating'
+  post '/add_like' => 'ratings#add_like'
 
 
   get "pages/home"
