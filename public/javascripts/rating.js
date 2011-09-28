@@ -45,10 +45,18 @@ jQuery(document).ready(function() {
 		$('#rating li a:lt(' + selectVal + ')').addClass('select');
 		$('#rating_value').val(selectVal);
 
-		// $.post('/load_coordinates', {id : selectVal}, function(coordinates) {
+
+
+		// var route_id = $('#route_id').val();
+		// var rating_value = parseFloat(selectVal);
+
+		// $.post('/add_rating', {route_id : route_id, value : rating_value }, function(partial) {
+		// 	$('.rating-div').html(partial);
+
+
 			
 		// });
-
+		// // wyslij ajaxem do rating/create      value,    route_id
 
 		$('form.edit_rating').submit();
 		$('form.new_rating').submit();
@@ -62,6 +70,25 @@ jQuery(document).ready(function() {
 	}
 
 
+	//like
+	if($('#rating_like').val()) {
+		$('#add-favorite span').html("Usuń z ulubionych");
+	}
 
+
+	
+	$('#add-favorite a').click(function() {
+		// $('#rating_like').val(true);
+
+		if($('#rating_like').val()) {
+			$('#rating_like').val(null);
+		} else {
+			$('#rating_like').val(true);
+		}
+		$('form.edit_rating').submit();
+		$('form.new_rating').submit();
+		return false;
+	});
+	
 
 });

@@ -8,6 +8,8 @@ class RatingsController < ApplicationController
 		
 		if @rating.save
 			redirect_to route_path(@route.id)
+
+			# render :partial => 'routes/rating_stars'
 		else
 			flash[:error] = "Ocena nie zostala dodana"
 		end

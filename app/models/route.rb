@@ -86,10 +86,14 @@ class Route < ActiveRecord::Base
 
   def avg_rating
     sum = 0
+    total = 0
     self.ratings.each do |rat|
-      sum += rat.value
+      if !rat.value.nil?
+        sum += rat.value
+        total += 1
+      end
     end
-    self.rating = sum.to_f / self.ratings.count.to_f
+    self.rating = sum.to_f / total.to_f
   end
 
 end

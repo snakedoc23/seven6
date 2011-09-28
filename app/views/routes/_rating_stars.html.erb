@@ -9,6 +9,7 @@
 <% if current_user %>
 	<%= form_for rate_route do |f| %>
 		<%= f.hidden_field :value %>
+		<%= f.hidden_field :like %>
 		<%= hidden_field_tag("route_id", @route.id) %>
 	<% end %>
 <% end %>

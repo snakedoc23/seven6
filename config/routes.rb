@@ -16,6 +16,10 @@ Seven6::Application.routes.draw do
   post '/load_coordinates' => 'routes#load_coordinates'
   post '/start_markers' => 'routes#start_markers'
 
+
+  # post '/add_rating' => 'ratings#create'
+
+
   get "pages/home"
   get "pages/test"
 
