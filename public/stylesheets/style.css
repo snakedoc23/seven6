@@ -896,6 +896,11 @@ table.big-table tbody tr:hover {
       min-width: 88px; }
     .routes-index-table table.routes-index tr td.like, .routes-index-table table.routes-index tr td.comments {
       text-align: center; }
+    .routes-index-table table.routes-index tr td.rating {
+      min-width: 91px; }
+  .routes-index-table .pagination {
+    margin: 20px auto;
+    width: 288px; }
 
 /*
 PAGINATION

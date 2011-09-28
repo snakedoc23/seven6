@@ -2,7 +2,7 @@ class RoutesController < ApplicationController
 
   before_filter :authenticate, :only => [:new, :create, :edit, :update]
   def index
-    @routes = Route.search(params[:search]).paginate(:page => params[:page], :per_page => 5)
+    @routes = Route.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
     @title_header = "Wszystkie trasy"
   end
 

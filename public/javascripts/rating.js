@@ -71,6 +71,73 @@ jQuery(document).ready(function() {
 	// var ul = $($('.rating').children());
 	// value = ul.children().first().html();
 	// update_rating(value, '.rating li');
+	$('ul.rating').each(function(i) {
+		z = $('ul.rating')[i];
+		value = $(z).children().first().html();
+		if(parseFloat(value) > 4.75) {
+			$(z).children().each(function(index) {
+				$(this).addClass('full-fill');
+			});
+		} else if(parseFloat(value) > 4.25) {
+			$(z).children().each(function(index) {
+				if(index < 5) {
+					$(this).addClass('full-fill');
+				} else if (index == 5) {
+					$(this).addClass('half-fill');
+				}
+			});
+		} else if(parseFloat(value) > 3.75) {
+			$(z).children().each(function(index) {
+				if(index < 5) {
+					$(this).addClass('full-fill');
+				}
+			});
+		} else if(parseFloat(value) > 3.25) {
+			$(z).children().each(function(index) {
+				if(index < 4) {
+					$(this).addClass('full-fill');
+				} else if (index == 4) {
+					$(this).addClass('half-fill');
+				}
+			});
+		} else if(parseFloat(value) > 2.75) {
+			$(z).children().each(function(index) {
+				if(index < 4) {
+					$(this).addClass('full-fill');
+				}
+			});
+		} else if(parseFloat(value) > 2.25) {
+			$(z).children().each(function(index) {
+				if(index < 3) {
+					$(this).addClass('full-fill');
+				} else if (index == 3) {
+					$(this).addClass('half-fill');
+				}
+			});
+		} else if(parseFloat(value) > 1.75) {
+			$(z).children().each(function(index) {
+				if(index < 3) {
+					$(this).addClass('full-fill');
+				}
+			});
+		} else if(parseFloat(value) > 1.25) {
+			$(z).children().each(function(index) {
+				if(index < 2) {
+					$(this).addClass('full-fill');
+				} else if (index == 2) {
+					$(this).addClass('half-fill');
+				}
+			});
+		} else if(parseFloat(value) > 0.75) {
+			$(z).children().each(function(index) {
+				if(index < 2) {
+					$(this).addClass('full-fill');
+				}
+			});
+		}
+
+
+	});
 
 
 

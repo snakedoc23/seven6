@@ -626,9 +626,16 @@ table.big-table {
 				&.like, &.comments {
 					text-align: center;
 				}
+				&.rating {
+					min-width: 91px;
+				}
 			}
 		}
 		
+	}
+	.pagination {
+		margin: 20px auto;
+		width: 288px;
 	}
 }
 
@@ -1225,8 +1232,6 @@ ul.rating {
 		text-indent: -9999px;
 		outline: none;
 		float: left;
-
-
 		&.full-fill {
 			background: url(../images/rating-stars.png) 0 -34px;
 		}
