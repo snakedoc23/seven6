@@ -1,7 +1,10 @@
 class Route < ActiveRecord::Base
   # attr_accessible :title, :description, :distance, :surface, :route_file
   attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit
+  
   belongs_to :user
+  has_many :ratings
+  has_many :raters, :through => :ratings, :source => :user
 
   time_regex  = /\A\d{1,3}\D\d{1,2}\D?\d{0,2}\z/
   pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
@@ -79,6 +82,16 @@ class Route < ActiveRecord::Base
       self.time_string = "#{h_time}h #{m_time}m #{s_time}s"
     end
   end
+
+
+  def avg_rating
+    sum = 0
+    self.ratings.each do |rat|
+      sum += rat.value
+    end
+    self.rating = sum.to_f / self.ratings.count.to_f
+  end
+
 end
 
 

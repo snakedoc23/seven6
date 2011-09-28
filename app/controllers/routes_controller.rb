@@ -55,7 +55,7 @@ class RoutesController < ApplicationController
       flash[:success] = "Dane zostaly zaktualizowane"
       redirect_to @route
     else
-      flash[:success] = "Cos poszlo nie tak"
+      flash[:error] = "Cos poszlo nie tak"
       render 'edit'
     end
   end

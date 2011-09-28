@@ -1043,9 +1043,9 @@ footer {
 				.small-arrow {
 					float: left;
 					display: block;
-					height: 11px;
+					height: 13px;
 					width: 13px;
-					top: 11px;
+					top: 9px;
 					position: relative;
 					background: url(../images/arrows.png) no-repeat;
 				}
@@ -1184,3 +1184,32 @@ form.edit_route {
 	}
 }
 
+ul#rating {
+	margin-top: 7px;
+	li.rate {
+		display: inline;
+		width: 17px;
+		height: 17px;
+		border: 0;
+		margin-left: 1px;
+		a {
+			width: 18px;
+			height: 17px;
+			display: block;
+			background: url(../images/rating-stars.png) 0 -17px no-repeat; 
+			text-indent: -9999px;
+			outline: none;
+
+
+			&.full-fill {
+				background: url(../images/rating-stars.png) 0 -34px;
+			}
+			&.half-fill {
+				background: url(../images/rating-stars.png) 0 -51px;
+			}
+			&.select {
+				background-position: 0 0;
+			}
+		}
+	}
+}

@@ -1,0 +1,14 @@
+<ul id="rating">
+	<li class="rate"><a href="#" class="1">1</a></li>
+	<li class="rate"><a href="#" class="2">2</a></li>
+	<li class="rate"><a href="#" class="3">3</a></li>
+	<li class="rate"><a href="#" class="4">4</a></li>
+	<li class="rate"><a href="#" class="5">5</a></li>
+</ul>
+<%= hidden_field_tag 'route_rating_value', @route.avg_rating %>
+<% if current_user %>
+	<%= form_for rate_route do |f| %>
+		<%= f.hidden_field :value %>
+		<%= hidden_field_tag("route_id", @route.id) %>
+	<% end %>
+<% end %>

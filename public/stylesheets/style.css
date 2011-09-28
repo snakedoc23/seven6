@@ -1210,9 +1210,9 @@ footer {
       #route-show ul.route-show li#altitude .small-arrow {
         float: left;
         display: block;
-        height: 11px;
+        height: 13px;
         width: 13px;
-        top: 11px;
+        top: 9px;
         position: relative;
         background: url(../images/arrows.png) no-repeat; }
     #route-show ul.route-show div.altitude-extra {
@@ -1344,3 +1344,25 @@ form.edit_route textarea {
   width: 223px; }
 form.edit_route input[type="submit"].edit {
   float: right; }
+
+ul#rating {
+  margin-top: 7px; }
+  ul#rating li.rate {
+    display: inline;
+    width: 17px;
+    height: 17px;
+    border: 0;
+    margin-left: 1px; }
+    ul#rating li.rate a {
+      width: 18px;
+      height: 17px;
+      display: block;
+      background: url(../images/rating-stars.png) 0 -17px no-repeat;
+      text-indent: -9999px;
+      outline: none; }
+      ul#rating li.rate a.full-fill {
+        background: url(../images/rating-stars.png) 0 -34px; }
+      ul#rating li.rate a.half-fill {
+        background: url(../images/rating-stars.png) 0 -51px; }
+      ul#rating li.rate a.select {
+        background-position: 0 0; }

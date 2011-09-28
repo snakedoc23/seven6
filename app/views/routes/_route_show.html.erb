@@ -3,8 +3,11 @@
 		<%= hidden_field_tag 'load_coordinates', @route.id %>
 		<ul class="route-show">
 				<li>
-					<div class="th">Ocena:</div>
-					<div class="td"><%= image_tag "/images/temp-stars.png" %></div>
+					<div class="th">Ocena: <% if @route.rating %>
+					( <%= @route.ratings.count %> )
+					<% end %>
+					</div>
+					<div class="td rating-div"><%= render 'rating_stars'%></div>
 				</li>
 				<li>
 					<div class="th">Dystans:</div>

@@ -255,42 +255,42 @@ $(document).ready(function(){
 			polyline.setPath(path);
 
 
-	// pokaz wykres
-	$("#show-elevation").click(function(){
-		$("#elevation-chart").show();
-		$("#elevation-chart").width(mapWidth);
+			// pokaz wykres
+			$("#show-elevation").click(function(){
+				$("#elevation-chart").show();
+				$("#elevation-chart").width(mapWidth);
 
 
 
-		// redukcja tablicy do 190 elementow 
-		if (path.length > 190) {
-			var reucedPath = new google.maps.MVCArray();
-			reucedPath = path;
-			var ca = 0;
-			while (reucedPath.length > 190) {
-				 reucedPath = reductionPath(reucedPath);
-			}
-			console.log("Do wywalenia: "+  (path.length - 190));
-			// console.log("Nowa: " + reucedPath);
-			// console.log("Stara: " + path);
-			console.log(reucedPath.length);
-		}
+				// redukcja tablicy do 190 elementow 
+				if (path.length > 190) {
+					var reucedPath = new google.maps.MVCArray();
+					reucedPath = path;
+					var ca = 0;
+					while (reucedPath.length > 190) {
+						 reucedPath = reductionPath(reucedPath);
+					}
+					console.log("Do wywalenia: "+  (path.length - 190));
+					// console.log("Nowa: " + reucedPath);
+					// console.log("Stara: " + path);
+					console.log(reucedPath.length);
+				}
 
-		// wywolanie funkcji do stworzenia profilu wysokosciowego
-		if(reucedPath) {
-			createElevation(reucedPath);
-			console.log("reduced");
-		} else {
-			createElevation(path);
-		}
+				// wywolanie funkcji do stworzenia profilu wysokosciowego
+				if(reucedPath) {
+					createElevation(reucedPath);
+					console.log("reduced");
+				} else {
+					createElevation(path);
+				}
 
-		return false;
-		// createElevation(path);
-		// $("#elevation-chart").css("opacity", ".7");
-		// $("#elevation-chart").show(2000, function(){
-			
-		// });
-	});
+				return false;
+				// createElevation(path);
+				// $("#elevation-chart").css("opacity", ".7");
+				// $("#elevation-chart").show(2000, function(){
+					
+				// });
+			});
 
 		});
 		

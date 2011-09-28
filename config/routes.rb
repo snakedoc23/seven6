@@ -1,5 +1,8 @@
 Seven6::Application.routes.draw do
   
+
+  resources :ratings
+    
   resources :users
   resources :routes
   resources :sessions, :only => [:new, :create, :destroy]
