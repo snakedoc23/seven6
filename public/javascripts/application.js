@@ -257,7 +257,12 @@ $(document).ready(function(){
 
 			// pokaz wykres
 			$("#show-elevation").click(function(){
-				$("#elevation-chart").show();
+				if($("#elevation-chart").is(':visible')) {
+					$("#elevation-chart").hide();
+				} else {
+					$("#elevation-chart").show();
+				}
+				
 				$("#elevation-chart").width(mapWidth);
 
 

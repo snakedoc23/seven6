@@ -1,0 +1,29 @@
+
+<h3><%= @route.comments.count %> komentarze</h3>
+<ul id="comments-list">
+<% @route.comments.each do |comment| %>
+	<li>
+		<%= hidden_field_tag "comment_id_#{comment.id}", comment.id %>
+		<div class="comment-avatar"><%= link_to (user_avatar comment.user, "30x30"), user_path(comment.user) %></div>
+		<div class="comment-body">
+			<%= link_to comment.user.username, user_path(comment.user) %>
+			<div class="comment-content"><%= comment.content %></div>
+			<p class="comment-meta"><%= time_ago_in_words(comment.created_at) %>
+			<% if current_user == comment.user %>
+				<%= link_to "Edytuj", "/", :id => "edit_#{comment.id}" %>
+			<% end %>
+			</p>
+		</div>
+	</li>
+<% end %>
+</ul>
+<% if current_user %>
+<dvi id="add-comment">
+	<h4>Dodaj komentarz</h4>
+	<%= text_area(:comment, :content, :rows => 3, :placeholder => "Treść komentarza") %>
+	<%= link_to "Dodaj", "#", :id => "add-comment-btn", :class => "btn-base" %>
+
+</div>
+<% else %>
+	<p class="unlogged"><%= link_to "Zaloguj się by dodać komantarz" , signin_path %>
+<% end %>

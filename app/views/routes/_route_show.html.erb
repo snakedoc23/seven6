@@ -20,7 +20,7 @@
 				
 				<li>
 					<div class="th">Autor:</div>
-					<div class="td"><%= @route.user.username %></div>
+					<div class="td"><%= link_to @route.user.username, user_path(@route.user) %></div>
 				</li>
 				<li>
 					<div class="th">Data dodania:</div>

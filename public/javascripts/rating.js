@@ -37,6 +37,7 @@ jQuery(document).ready(function() {
 
 	if($('#user_rating_like').val() == "true") {
 		$('#add-favorite span').html("Usuń z ulubionych");
+		$('#add-favorite a').addClass("liked");
 	}
 
 	var like = $('#user_rating_like').val();
@@ -45,9 +46,11 @@ jQuery(document).ready(function() {
 		if(like) { // jesli jest true 
 			like = null;
 			$('#add-favorite span').html("Dodaj do ulubionych");
+			$('#add-favorite a').removeClass("liked");
 		} else {
 			like = true;
 			$('#add-favorite span').html("Usuń z ulubionych");
+			$('#add-favorite a').addClass("liked");
 		}
 		console.log(like);
 		$('#user_rating_like').val(like);
@@ -59,18 +62,6 @@ jQuery(document).ready(function() {
 
 	//index oceny
 
-	// for(var i = 0; i < $('td.rating').length; i++) {
-	// 	value = 
-
-	// 	update_rating(value, 'ul.rating li');
-	// 	var z = $('ul.rating')[i];
-	// 	console.log($(z).html());
-	// }
-
-
-	// var ul = $($('.rating').children());
-	// value = ul.children().first().html();
-	// update_rating(value, '.rating li');
 	$('ul.rating').each(function(i) {
 		z = $('ul.rating')[i];
 		value = $(z).children().first().html();
@@ -138,9 +129,6 @@ jQuery(document).ready(function() {
 
 
 	});
-
-
-
 
 
 });

@@ -164,7 +164,6 @@ textarea:focus {
   color: #444; }
 
 textarea {
-  min-height: 100px;
   resize: none;
   overflow: auto;
   width: 100%; }
@@ -614,11 +613,11 @@ form#search-title input[type="submit"], form#search-user input[type="submit"], f
   /* for non-css3 browsers */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
   /* for IE */
-  background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+  background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#c84446));
   /* for webkit browsers */
-  background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+  background: -moz-linear-gradient(top, #cf5759, #c84446);
   /* for firefox 3.6+ */
-  background: linear-gradient(top, #cf5759, #bb3f41);
+  background: linear-gradient(top, #cf5759, #c84446);
   border: 0;
   color: #FFF; }
   .btn-base:hover {
@@ -1240,42 +1239,21 @@ footer {
   float: left;
   margin-left: 20px; }
   #add-favorite a {
-    width: 27px;
+    width: 28px;
+    text-indent: -999px;
     display: block;
     float: left;
-    height: 27px;
+    height: 28px;
+    background: url(../images/like-btn.png) no-repeat;
     padding: 0;
-    background: #cf5759;
-    /* for non-css3 browsers */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
-    /* for IE */
-    background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
-    /* for webkit browsers */
-    background: -moz-linear-gradient(top, #cf5759, #bb3f41);
-    /* for firefox 3.6+ */
-    background: linear-gradient(top, #cf5759, #bb3f41);
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
     cursor: pointer; }
     #add-favorite a:hover {
-      background: #c84446;
+      background: url(../images/like-btn.png) 0 -28px no-repeat;
       text-decoration: none; }
-    #add-favorite a:active {
-      background: #bb3133; }
-    #add-favorite a:focus {
-      background: #bb3f41;
-      /* for non-css3 browsers */
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
-      /* for IE */
-      background: -webkit-gradient(linear, left top, left bottom, from(#bb3f41), to(#cf5759));
-      /* for webkit browsers */
-      background: -moz-linear-gradient(top, #bb3f41, #cf5759);
-      /* for firefox 3.6+ */
-      background: linear-gradient(top, #bb3f41, #cf5759);
-      box-shadow: 0 0 5px #888; }
-    #add-favorite a img {
-      margin: 7px; }
+    #add-favorite a.liked {
+      background: url(../images/like-btn.png) 0 -28px no-repeat; }
+      #add-favorite a.liked:hover {
+        background: url(../images/like-btn.png) no-repeat; }
   #add-favorite span {
     float: left;
     display: block;
@@ -1389,3 +1367,75 @@ ul.rating li {
     background: url(../images/rating-stars.png) 0 -51px; }
   ul.rating li.select {
     background-position: 0 0; }
+
+#comments-container {
+  width: 310px;
+  margin-top: 90px;
+  margin-left: 30px;
+  margin-right: 30px;
+  display: none; }
+  #comments-container h3 {
+    width: 310px;
+    border-bottom: 2px solid #283a43; }
+  #comments-container ul li {
+    border-bottom: 1px solid #caced0;
+    padding-top: 10px;
+    padding-bottom: 5px; }
+    #comments-container ul li .comment-avatar {
+      float: left;
+      width: 32px;
+      height: 32px; }
+      #comments-container ul li .comment-avatar a img {
+        border: 1px solid white; }
+        #comments-container ul li .comment-avatar a img:hover {
+          border-color: #d46b6d; }
+    #comments-container ul li .comment-body {
+      width: 258px;
+      margin-left: 42px; }
+      #comments-container ul li .comment-body a {
+        font-size: 14px; }
+      #comments-container ul li .comment-body .comment-content {
+        margin-bottom: 3px;
+        margin-top: 3px; }
+      #comments-container ul li .comment-body .comment-meta {
+        font-size: 11px;
+        color: #999; }
+        #comments-container ul li .comment-body .comment-meta a {
+          font-size: 11px;
+          color: #999;
+          float: right; }
+          #comments-container ul li .comment-body .comment-meta a:hover {
+            color: #c84446; }
+        #comments-container ul li .comment-body .comment-meta:hover {
+          color: #283a43; }
+      #comments-container ul li .comment-body textarea#newCommentContent {
+        width: 258px;
+        margin: 0;
+        padding: 0.3em; }
+      #comments-container ul li .comment-body a.editCommentBtn {
+        font-size: 11px;
+        float: right;
+        margin-top: 2px; }
+  #comments-container #add-comment h4 {
+    font-weight: 900;
+    font-size: 13px;
+    padding-top: 13px;
+    cursor: pointer; }
+  #comments-container #add-comment textarea {
+    width: 258px;
+    margin-left: 42px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 0; }
+  #comments-container .unlogged {
+    margin-left: 42px;
+    margin-top: 13px; }
+  #comments-container #add-comment-btn {
+    margin-left: 42px;
+    display: block;
+    width: 258px;
+    padding: 5px 0;
+    margin-right: 10px;
+    margin-top: 4px;
+    width: 258px;
+    margin-bottom: 10px; }

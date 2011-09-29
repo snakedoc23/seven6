@@ -1,0 +1,13 @@
+<li>
+	<%= hidden_field_tag 'comment_id', @comment.id %>
+	<div class="comment-avatar"><%= link_to (user_avatar @comment.user, "30x30"), user_path(@comment.user) %></div>
+	<div class="comment-body">
+		<%= link_to @comment.user.username, user_path(@comment.user) %>
+		<div class="comment-content"><%= @comment.content %></div>
+		<p class="comment-meta"><%= time_ago_in_words(@comment.created_at) %>
+		<% if current_user == @comment.user %>
+			<%= link_to "Edytuj", "/", :id => "edit_#{@comment.id}" %>
+		<% end %>
+		</p>
+	</div>
+</li>

@@ -17,6 +17,9 @@ Seven6::Application.routes.draw do
   post '/add_rating' => 'ratings#add_rating'
   post '/add_like' => 'ratings#add_like'
 
+  post '/create_comment' => 'comments#create'
+  post '/edit_comment' => 'comments#edit'
+
 
   get "pages/home"
   get "pages/test"

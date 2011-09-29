@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :name, :age, :place, :gender, :password, :password_confirmation
   
   has_many :routes
+  has_many :comments
+  
   has_many :ratings
   has_many :rated_routes, :through => :ratings, :source => :route
 

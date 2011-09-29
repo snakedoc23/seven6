@@ -18,10 +18,13 @@
 				<%= link_to "Komentarze", "#", :id => "show-comments", :class => "btn-base" %>
 				<div id="add-favorite">
 				
-					<%= link_to (image_tag "like-icon.png"), "#" %>
+					<%= link_to "Dodaj", "#", :title => "Dodaj do ulubionych" %>
 					<span>Dodaj do ulubionych</span>
 				</div>
 			</div>
+			<div id="comments-container" class="clear">
+				<%= render 'comments' %>
+			</div><!-- /comments-container -->
 
 		</div><!-- aside-content -->
 	</div><!-- aside -->
