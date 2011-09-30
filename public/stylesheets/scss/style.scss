@@ -86,19 +86,30 @@ header {
 				color: $blue;
 				font-size: 15px;
 				text-transform: uppercase;
-				padding: 0.5em 0.7em;
-				@include rounded(4px);
+				padding: 0.4em 0.6em;
+				@include rounded(6px);
 				border: 1px solid #eee;
 				&:hover {
 					text-decoration: none;
-					color: $red;
-					background: #e8eced;
+					// color: $red;
+					// background: #e8eced;
+					background: $blue;
+					color: white;
 				}
 				&.selected {
 					color: $red;
-					@include gradient(#e8eced, #DAE2E2);
-					border: 1px solid #CACED0;
+					// @include gradient(#e8eced, #DAE2E2);
+					// @include gradient(#cf5759, #bb3f41);
+					// background: $red;
+					// color: white;
+					// border: 1px solid darken($red, 3%);
+					// box-shadow: 0 0 5px #888;
 					// background: #DAE2E2;
+					&:hover {
+						color: white;
+						background: $red;
+					}
+
 
 				}
 			}
@@ -221,6 +232,9 @@ form#search-title, form#search-user, form#search-route {
 					text-transform: uppercase;
 					// font-weight: normal;
 					font-weight: bold;
+					a {
+						color: $blue;
+					}
 				}
 				ul {
 					padding-top: 3px;
@@ -1076,10 +1090,15 @@ footer {
 }
 .route-show-options {
 	margin-left: 30px;
-	margin-top: 50px;
+	margin-top: 10px;
 }
 #show-comments {
 	float: left;
+	@include gradient(lighten($blue, 7%), $blue);
+		&:hover {
+			@include gradient(#cf5759, #bb3f41);
+		}
+
 }
 #add-favorite {
 	float: left;
@@ -1120,16 +1139,17 @@ footer {
 	margin-top: 5px;
 	@include gradient(#cf5759, #bb3f41);
 
-	border: 1px solid #B03436;
+	// border: 1px solid #B03436;
 	border-top-left-radius: 16px;
 	border-bottom-left-radius: 16px;
-	&:hover {
-		width: 150px;
-		background: $red;
-			text-decoration: none;
-	}
+	// &:hover {
+	// 	width: 150px;
+	// 	background: $red;
+	// 		text-decoration: none;
+	// }
 	img {
-		margin: 5px;
+		margin: 6px;
+		margin-left: 8px;
 	}
 
 		&:active {
@@ -1166,7 +1186,7 @@ form.edit_route {
 		border-radius: 0;
 		float: left;
 		margin: 0;
-		margin-top: 20px;
+		margin-top: 4px;;
 		font-size: 13px;
 		&.title {
 			color: $red;
@@ -1181,6 +1201,13 @@ form.edit_route {
 	}
 	input[type="submit"].edit {
 		float: right;
+		font-size: 13px;
+		@include gradient(lighten($blue, 7%), $blue);
+		padding: 0.2em 0.7em;
+		margin-top: 5px;
+		&:hover {
+			@include gradient(#cf5759, #bb3f41);
+		}
 	}
 }
 
@@ -1241,7 +1268,7 @@ ul.rating {
 
 #comments-container {
 	width: 310px;
-	margin-top: 90px;
+	margin-top: 46px;
 	margin-left: 30px;
 	margin-right: 30px;
 	// background: #EBEBEB;
@@ -1261,7 +1288,7 @@ ul.rating {
 				width: 32px;
 				height:32px;
 				a img {
-					border: 1px solid white;
+					border: 2px solid white;
 					&:hover {
 						border-color: lighten($red, 10%);
 					}
@@ -1291,6 +1318,9 @@ ul.rating {
 					&:hover {
 						color: $blue;
 					}
+					span {
+						float: right;
+					}
 				}
 				textarea#newCommentContent {
 					width: 258px;
@@ -1300,7 +1330,7 @@ ul.rating {
 
 
 				}
-				a.editCommentBtn {
+				a.editCommentBtn, a.deleteCommentBtn {
 					font-size: 11px;
 					float: right;
 					margin-top: 2px;

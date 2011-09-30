@@ -19,6 +19,7 @@ Seven6::Application.routes.draw do
 
   post '/create_comment' => 'comments#create'
   post '/edit_comment' => 'comments#edit'
+  post '/delete_comment' => 'comments#delete'
 
 
   get "pages/home"

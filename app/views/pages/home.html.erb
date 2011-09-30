@@ -12,7 +12,7 @@
 						<ul>
 							<div class="profile-image <%= profile_image route %>"></div>
 							<li><%= route.distance %> km, <%= route.surface %>, <%= route.altitude %> m </li>
-							<li>Dodał <%= link_to route.user.username, user_path(route.user) %>, <%= time_ago_in_words(route.created_at) %></li>
+							<li>Dodał <%= link_to route.user.username, user_path(route.user) %>, <%= time_ago_in_words(route.created_at) %> temu</li>
 						</ul>
 					</div>
 				</div></li>

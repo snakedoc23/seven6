@@ -27,4 +27,9 @@ class CommentsController < ApplicationController
 		
 	end
 
+	def delete
+		@comment = Comment.find(params[:comment_id]).destroy
+		render :text => "#{@comment.id}"
+	end
+
 end

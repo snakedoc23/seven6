@@ -8,9 +8,9 @@
 		<div class="comment-body">
 			<%= link_to comment.user.username, user_path(comment.user) %>
 			<div class="comment-content"><%= comment.content %></div>
-			<p class="comment-meta"><%= time_ago_in_words(comment.created_at) %>
+			<p class="comment-meta">Dodany <%= time_ago_in_words(comment.created_at) %> temu
 			<% if current_user == comment.user %>
-				<%= link_to "Edytuj", "/", :id => "edit_#{comment.id}" %>
+				<%= link_to "Edytuj", "/",:class => "edit_comment", :id => "edit_#{comment.id}" %>
 			<% end %>
 			</p>
 		</div>
