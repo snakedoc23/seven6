@@ -9,7 +9,7 @@ gem 'sqlite3'
 gem 'sass'
 gem 'will_paginate'
 gem "jquery-rails"
-
+gem 'carrierwave'
 
 group :development do
 	gem 'annotate'

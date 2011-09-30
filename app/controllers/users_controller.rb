@@ -38,12 +38,19 @@ class UsersController < ApplicationController
     @title_header_top = "Edytuj profil"
     @title_header = @user.username.to_s
   end
+
+  def edit_password
+    @user = User.find(params[:id])
+    @title_header_top = "Zmien haslo"
+    @title_header = @user.username.to_s
+  end
   
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:success] = "Dane zostaly zaktualizowane"
-      redirect_to @user
+      # redirect_to @user
+      render 'edit'
     else
       render 'edit'
     end

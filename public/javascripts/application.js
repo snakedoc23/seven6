@@ -53,6 +53,10 @@ $(document).ready(function(){
 
 	mapWidth = $(document).width() - $('#aside').outerWidth();
 	$('#map').width($(document).width() - $('#aside').outerWidth());
+	// $('#map').height($('#aside').height());
+	// $(window).resize(function() {
+	// 	$('#map').height($(window).height());
+	// });
 	$(window).resize(function() {
 		$('#map').width($(window).width() - $('#aside').outerWidth());
 	});

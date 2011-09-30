@@ -1,12 +1,14 @@
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :username, :email, :name, :age, :place, :gender, :password, :password_confirmation
+  attr_accessible :username, :email, :name, :age, :place, :gender, :password, :password_confirmation, :avatar, :remote_avatar_url
   
   has_many :routes
   has_many :comments
   
   has_many :ratings
   has_many :rated_routes, :through => :ratings, :source => :route
+
+  mount_uploader :avatar, AvatarUploader
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
@@ -18,7 +20,7 @@ class User < ActiveRecord::Base
                         :uniqueness   => { :case_sensivite => false }
   validates :password,  :presence     => true,
                         :confirmation => true,
-                        :length       => { :within => 4..40 }
+                        :length       => { :within => 4..40 }, :on => :create
   
   before_save :encrypt_password
 
@@ -50,8 +52,10 @@ class User < ActiveRecord::Base
   
   private
     def encrypt_password
-      self.salt = make_salt if new_record?
-      self.encrypted_password = encrypt(password)
+      if password 
+        self.salt = make_salt if new_record?
+        self.encrypted_password = encrypt(password)
+      end
     end
     
     def encrypt(pass)

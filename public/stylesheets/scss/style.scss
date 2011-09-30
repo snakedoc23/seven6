@@ -92,8 +92,7 @@ header {
 				&:hover {
 					text-decoration: none;
 					// color: $red;
-					// background: #e8eced;
-					background: $blue;
+					@include gradient(lighten($blue, 7%), $blue);
 					color: white;
 				}
 				&.selected {
@@ -107,7 +106,7 @@ header {
 					// background: #DAE2E2;
 					&:hover {
 						color: white;
-						background: $red;
+						@include gradient(#cf5759, #bb3f41);
 					}
 
 
@@ -383,6 +382,86 @@ form#search-title, form#search-user, form#search-route {
 		}
 	}
 }
+
+
+#user_edit {
+	width: 760px;
+	margin: auto;
+
+	#user-form {
+		float: left;
+		width: 500px;
+		border-right: $table-border;
+	}
+	#user-form-avatar {
+		margin-top: 40px;
+		margin-left: 10px;
+
+		width: 230px;
+		float: left;
+		height: 200px;
+		
+		h3 {
+			font-size: 15px;
+			text-align: center;
+
+		}
+		.user-avatar {
+			background: #f2f2f2;
+			height: 100px;
+			width: 100px;
+			border: 3px solid #fff;
+			margin-right: 10px;
+			margin-top: 10px;
+			float: left;
+		}
+		.avatar_actions {
+			float: left;
+    		margin-top: 44px;
+    		with: 40px;
+			a {
+				display: block;
+				margin-bottom: 10px;
+				@include gradient(lighten($blue, 7%), $blue);
+				&:hover {
+					@include gradient(#cf5759, #bb3f41);
+				}
+			}
+			#avatar_actions_delete {
+				background: $grey;
+				color: $blue;
+				&:hover {
+					@include gradient(#cf5759, #bb3f41);
+					color: white;
+				}
+			}
+		}
+		#avatar_form {
+			margin-top: 130px;
+			display: none;
+			form {
+				input[type="submit"] {
+					font-size: 13px;
+					padding: 4px 10px;
+					margin-top: 10px;
+
+				}
+			}
+		}
+		
+	}
+}
+#user-form-password {
+	margin: auto;
+    padding: 21px;
+    width: 370px;
+    a {
+    	display:block;
+
+    }
+}
+
+
 #error_explanation, #error_explanation_route {
 	margin-bottom: 20px;
 	border: 1px solid $red;

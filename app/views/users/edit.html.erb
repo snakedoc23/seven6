@@ -1,5 +1,5 @@
 <%= render 'shared/without_map' %>
-		
+	<div id="user_edit">	
 		<div id="user-form">
 			<%= form_for(@user) do |f| %>
 				<%= render 'shared/error_messages', :object => f.object %>
@@ -19,18 +19,33 @@
 					<%= f.label :place, "Miejscowość:" %>
 					<%= f.text_field :place, :placeholder => "Miejscowość" %>
 				</div>
-				<div class="form-field">
-					<%= f.label :password, "Nowe hasło:" %>
-					<%= f.password_field :password, :placeholder => "hasło" %>
-				</div>
-				<div class="form-field">
-					<%= f.label :password_confirmation, "Powtórz nowe hasło:" %>
-					<%= f.password_field :password_confirmation, :placeholder => "hasło" %>
-				</div>
+
 				<div class="form-btn">
 					<%= f.submit "Zapisz", :class => "btn-big" %>
 				</div>
 			<% end %>
 		</div>
+		<div id="user-form-avatar">
+			<h3>Twój avatar</h3>
+			<div class="user-avatar">
+				<%= user_avatar @user %>
+			</div><!-- / -->
+			<div class="avatar_actions">
+			<% if @user.avatar? %>
+				<%= link_to "Zmień", "#", :class => "btn-base", :id => 'avatar_actions_update' %>
+			<% else %>
+				<%= link_to "Dodaj", "#", :class => "btn-base", :id => 'avatar_actions_update' %>
+			<% end %>
+				<%= link_to "Usuń", "#", :id => 'avatar_actions_delete', :class => "btn-base" %>
+
+			</div>
+			<%= render 'avatar' %>
+		</div><!-- /user-avatar -->
+
+	</div> <!-- END user-edit -->
+	<div id="user-form-password" class="clear">
+		<%= link_to "Zmień hasło", edit_password_user_path(@user) %>
+	</div><!-- /user-form-password -->
+	
 	</div> <!-- END content -->
 </div> <!-- END without-map -->

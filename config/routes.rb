@@ -1,6 +1,10 @@
 Seven6::Application.routes.draw do
     
-  resources :users
+  resources :users do
+    member do
+      get 'edit_password'
+    end
+  end
   resources :routes
   resources :sessions, :only => [:new, :create, :destroy]
   

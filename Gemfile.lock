@@ -31,6 +31,8 @@ GEM
     annotate (2.4.0)
     arel (2.0.10)
     builder (2.1.2)
+    carrierwave (0.5.7)
+      activesupport (~> 3.0)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faker (1.0.0)
@@ -81,6 +83,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  carrierwave
   faker
   jquery-rails
   rails (= 3.0.10)
