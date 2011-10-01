@@ -512,14 +512,14 @@ form#search-title input[type="submit"], form#search-user input[type="submit"], f
   min-height: 830px;
   float: left;
   border-right: 1px solid #283a43; }
-  #aside #last-routes li .route {
+  #aside .routes-list li .route {
     padding-top: 20px;
     border-bottom: 1px solid #caced0;
     padding-left: 30px;
     height: 104px; }
-    #aside #last-routes li .route:hover .route-img {
+    #aside .routes-list li .route:hover .route-img {
       border-color: #d46b6d; }
-    #aside #last-routes li .route .route-img {
+    #aside .routes-list li .route .route-img {
       float: left;
       border: 3px solid #fff;
       height: 79px;
@@ -529,35 +529,60 @@ form#search-title input[type="submit"], form#search-user input[type="submit"], f
       -moz-border-radius: 4px;
       -webkit-border-radius: 4px;
       cursor: pointer; }
-      #aside #last-routes li .route .route-img.selected {
+      #aside .routes-list li .route .route-img.selected {
         border-color: #3b5663; }
-    #aside #last-routes li .route .route-info {
+    #aside .routes-list li .route .route-info {
       height: 85px;
       padding: 3px;
       width: 310px; }
-      #aside #last-routes li .route .route-info h4 {
+      #aside .routes-list li .route .route-info h4 {
         font-size: 12px;
         text-transform: uppercase;
         font-weight: bold; }
-        #aside #last-routes li .route .route-info h4 a {
+        #aside .routes-list li .route .route-info h4 a {
           color: #283a43; }
-      #aside #last-routes li .route .route-info ul {
+      #aside .routes-list li .route .route-info ul {
         padding-top: 3px; }
-        #aside #last-routes li .route .route-info ul .profile-image {
+        #aside .routes-list li .route .route-info ul .profile-image {
           width: 58px;
           height: 18px;
           float: right; }
-          #aside #last-routes li .route .route-info ul .profile-image.green {
+          #aside .routes-list li .route .route-info ul .profile-image.green {
             background: url(../images/profiles.png); }
-          #aside #last-routes li .route .route-info ul .profile-image.yellow {
+          #aside .routes-list li .route .route-info ul .profile-image.yellow {
             background: url(../images/profiles.png) 0 -18px no-repeat; }
-          #aside #last-routes li .route .route-info ul .profile-image.orange {
+          #aside .routes-list li .route .route-info ul .profile-image.orange {
             background: url(../images/profiles.png) 0 -36px no-repeat; }
-          #aside #last-routes li .route .route-info ul .profile-image.red {
+          #aside .routes-list li .route .route-info ul .profile-image.red {
             background: url(../images/profiles.png) 0 -54px no-repeat; }
-        #aside #last-routes li .route .route-info ul li {
+        #aside .routes-list li .route .route-info ul li {
           font-size: 12px;
           line-height: 20px; }
+      #aside .routes-list li .route .route-info .comment-likes {
+        float: left;
+        width: 200px;
+        height: 17px; }
+        #aside .routes-list li .route .route-info .comment-likes li {
+          float: left;
+          width: 100px; }
+          #aside .routes-list li .route .route-info .comment-likes li .comment-icon {
+            background: url(../images/comment-icon.png) 0 -14px no-repeat;
+            width: 14px;
+            height: 14px;
+            display: block;
+            float: left;
+            margin-top: 2px;
+            margin-right: 2px; }
+          #aside .routes-list li .route .route-info .comment-likes li:last-child {
+            width: 30px; }
+          #aside .routes-list li .route .route-info .comment-likes li .like-icon {
+            background: url(../images/like-icon.png) 0 -14px no-repeat;
+            width: 14px;
+            height: 14px;
+            display: block;
+            float: left;
+            margin-top: 2px;
+            margin-right: 2px; }
   #aside h4 {
     font-size: 16px;
     font-weight: normal; }

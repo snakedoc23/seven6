@@ -174,7 +174,16 @@ $(document).ready(function(){
 
 	//pages/home --> zawiera listę ostatnich tras
 	if($('#last-routes').length) {
-		loadStartMarkers();
+		loadStartMarkers(0);
+	}
+	// user_show_page
+	if($('#user-last-routes').length) {
+		var user_id = $('#user_id').val();
+		loadStartMarkers(user_id);
+	}
+	//pages/home i users_page
+	if($('.routes-list').length) {
+
 		$('.route-img').click(function(){
 			// console.log($(this).css("border"));
 			if($('.route-img').hasClass("selected")) {
@@ -213,9 +222,9 @@ $(document).ready(function(){
 				}
 			}
 		});
-
 	}
 
+	
 	// routes/new -> dodatkowe opcje 
 	$('#route-new-extra').hide();
 	$('#show-extra').click(function() {
@@ -403,12 +412,13 @@ $(document).ready(function(){
 });
 
 // ładowanie wszystkich tras na mapę
-function loadStartMarkers() {
-
+function loadStartMarkers(user_id) {
+	
 	// zwraca tablice z tablicami dla kazdej trasy [id, start_lat_lng]
 	$.ajax({
 		type: "POST",
 		url: "/start_markers",
+		data: {user_id : user_id},
 		dataType: "json",
 		success: function(markers) {
 			for(var i = 0; i < markers.length; i++) {

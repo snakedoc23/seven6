@@ -190,7 +190,7 @@ form#search-title, form#search-user, form#search-route {
 	min-height: 830px;
 	float: left;
 	border-right: 1px solid $blue;
-	#last-routes {
+	.routes-list {
 		li .route {
 			&:hover {
 				
@@ -258,8 +258,39 @@ form#search-title, form#search-user, form#search-route {
 					 li {
 							font-size: 12px;
 							line-height: 20px;
-							
 						}
+				}
+				.comment-likes {
+					
+					float: left;
+					width: 200px;
+					height: 17px;
+					li {
+						float: left;
+						width: 100px;
+						.comment-icon {
+							background: url(../images/comment-icon.png)0 -14px no-repeat;
+							width: 14px;
+							height: 14px;
+							display: block;
+							float: left;
+							margin-top: 2px;
+							margin-right: 2px;
+						}
+						&:last-child {
+							width: 30px;
+						}
+						.like-icon {
+							background: url(../images/like-icon.png)0 -14px no-repeat;
+							width: 14px;
+							height: 14px;
+							display: block;
+							float: left;
+							margin-top: 2px;
+							margin-right: 2px;
+						}
+					}
+					
 				}
 			}
 		}

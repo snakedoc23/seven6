@@ -1,6 +1,7 @@
 <%= render 'shared/with_map' %>
 	
 		<div class="user-profile">
+			<%= hidden_field_tag 'user_id', @user.id %>
 			<div class="user-avatar">
 				<%= user_avatar @user %>
 			</div>
@@ -49,8 +50,9 @@
 
 	<div class="clear"></div>
 	<h4 class="user_last_route">Ostatnio dodane trasy:</h4>
-
+<div id="user-last-routes" class="routes-list">
 <%= render 'routes/last_routes' %>
+</div> <!-- END last-routes -->
 <%= link_to "Więcej", routes_user_path(@user), :class => "btn-base", :id => "last-routes-more" %>
 	
 	

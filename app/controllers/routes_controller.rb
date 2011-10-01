@@ -26,13 +26,26 @@ class RoutesController < ApplicationController
 
   # ajax post ze strony glownej po wszystki trasy jako markery
   def start_markers
+
+    # @user = User.find(params[:user_id])
     @markers = []
-    Route.all.each do |route|
-      r = []
-      r.push route.id
-      r.push route.start_lat_lng
-      @markers.push r
+
+    if params[:user_id] == "0" 
+      Route.all.each do |route|
+        r = []
+        r.push route.id
+        r.push route.start_lat_lng
+        @markers.push r
+      end
+    else 
+      Route.where(:user_id => params[:user_id]).each do|route|
+        r = []
+        r.push route.id
+        r.push route.start_lat_lng
+        @markers.push r
+      end
     end
+
     render :json => @markers
   end
 
