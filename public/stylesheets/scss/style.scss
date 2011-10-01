@@ -526,62 +526,70 @@ form#search-title, form#search-user, form#search-route {
 	border: 1px solid darken($red, 8%);
 }
 
-/*
-USERS SHOW PAGE
 
-*/
+// USERS SHOW PAGE
 
-#user-profile-wrapper {
+
+h4.user_last_route, h4.user_numbers {
+	margin-right: 30px;
+	background: $blue;
+	color: #fff;
+	padding: 4px 30px;
+}
+
+.user-profile {
 	margin-left: 30px;
 	width: 310px;
-	
-	.user-profile {
-		margin-top: 20px;
+	margin-top: 20px;
+	float: left;
+	width: 310px;
+	.user-avatar {
 		float: left;
-		width: 310px;
-		.user-avatar {
-			float: left;
-			background: #f2f2f2;
-			height: 100px;
-			width: 100px;
-			border: 3px solid #fff;
-			margin-right: 10px;
-		}
-		.user-info {
-			font-size: 13px;
-			h4 { 
-				color: $red;
-				margin-bottom: 10px;
-				font-size: 17px;
-			}
-			ul li.edit-user {
-				margin-top: 5px;
-			}
-		}
-		margin-bottom: 20px;
+		background: #f2f2f2;
+		height: 100px;
+		width: 100px;
+		border: 3px solid #fff;
+		margin-right: 10px;
 	}
-	
-	table.user-numbers {
-		margin-top: 10px;
-		width: 185px;
+	.user-info {
 		font-size: 13px;
-		float: left;
-		td {
-			font-size: 13px;
+		h4 { 
+			color: $red;
+			margin-bottom: 10px;
+			font-size: 17px;
 		}
-		tr {
-			&:hover {
-				background: #f2f2f2;
-			}
+		ul li.edit-user {
+			margin-top: 5px;
 		}
-		margin-bottom: 25px;
 	}
-	.user-stats-btn {
-		float: right;
-		margin-top: 61px;
-	}
-
+	margin-bottom: 20px;
 }
+
+table.user-numbers {
+	margin-top: 20px;
+	width: 205px;
+	font-size: 13px;
+	float: left;
+	margin-left: 30px;
+	border-right: 1px solid #caced0;
+	td {
+		font-size: 13px;
+		padding-bottom: 2px;
+	}
+	tr {
+		&:hover {
+			background: #f2f2f2;
+		}
+	}
+	margin-bottom: 20px;
+}
+.user-stats-btn {
+	float: right;
+	margin-top: 20px;
+	margin-right: 30px;
+}
+
+
 
 /*
 TABLE

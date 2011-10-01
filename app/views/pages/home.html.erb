@@ -1,27 +1,6 @@
 <%= render 'shared/with_map' %>
-		<div id="last-routes" class="routes-list">		
-			<ul>
-			<% @routes.each do |route| %>
-				<li><div class="route" id="route-home-<%= route.id %>">
-					<div class="route-img">
-						
-						<%= image_tag("route-map-small-img.jpg", :alt => route.title ) %>
-					</div>
-					<div class="route-info">
-						<h4><%= link_to truncate(route.title, :length => 50), route_path(route.id) %></h4>
-						<ul>
-							<div class="profile-image <%= profile_image route %>"></div>
-							<li><%= route.distance %> km, <%= route.surface %>, <%= route.altitude %> m </li>
-							<li>Dodał <%= link_to route.user.username, user_path(route.user) %>, <%= time_ago_in_words(route.created_at) %> temu</li>
-						</ul>
-					</div>
-				</div></li>
-			<% end %>
-			</ul>
-		</div> <!-- END last-routes -->
-
-		<%= link_to "Więcej", routes_path, :class => "btn-base", :id => "last-routes-more" %>
-
+	<%= render 'routes/last_routes' %>
+	<%= link_to "Więcej", routes_path, :class => "btn-base", :id => "last-routes-more" %>
 	</div> <!-- END aside-content -->
 	</div> <!-- END aside -->
 	<div id="map"></div>

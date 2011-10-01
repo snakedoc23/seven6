@@ -14,11 +14,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @title_header = "Profil #{@user.username}"
-    @routes = Route.find_all_by_user_id(@user.id, :order => "created_at DESC")
+    @routes_all = Route.find_all_by_user_id(@user.id, :order => "created_at DESC")
+    @routes = Route.find_all_by_user_id(@user.id, :order => "created_at DESC", :limit => 3)
     @total_distance = 0
     @total_distance_with_time = 0
     @total_time = 0
-    @routes.each do |route|
+    @routes_all.each do |route|
       @total_distance += route.distance
       if route.total_time > 0
         @total_time += route.total_time

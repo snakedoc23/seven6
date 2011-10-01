@@ -267,7 +267,7 @@ $(document).ready(function(){
 					$("#elevation-chart").show();
 				}
 				
-				$("#elevation-chart").width(mapWidth);
+				$("#elevation-chart").width(mapWidth - 1);
 
 
 

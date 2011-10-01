@@ -1,6 +1,5 @@
 <%= render 'shared/with_map' %>
 	
-	<div id="user-profile-wrapper">
 		<div class="user-profile">
 			<div class="user-avatar">
 				<%= user_avatar @user %>
@@ -20,11 +19,11 @@
 		</div>
 		<div class="clear"></div>
 		
-		<h4>Liczby</h4>
+		<h4 class="user_numbers">Liczby</h4>
 		<table class="user-numbers" summary="Users numbers">
 			<tr>
 				<td>Dodane trasy:</td>
-				<td><%= link_to @routes.count, routes_user_path(@user) %></td>
+				<td><%= link_to @routes_all.count, routes_user_path(@user) %></td>
 			</tr>
 			<tr>
 				<td>Ulubione:</td>
@@ -47,48 +46,12 @@
 		</table>
 		
 		<%= link_to "Statystyki", "#", :class => "user-stats-btn btn-base" %>
-		
-
-	</div> <!-- END user-profile-wrapper -->
 
 	<div class="clear"></div>
-	<h4>Ostatnio dodane trasy:</h4>
+	<h4 class="user_last_route">Ostatnio dodane trasy:</h4>
 
-	<% @routes.each do |route| %>
-		<%= route.title %>
-	<% end %>
-
-
-
-		<div id="last-routes" class="routes-list">
-			<ul>
-
-				<li><div class="route">
-					<div class="route-img">
-						<%= image_tag("route-map-small-img.jpg", :alt => "Miniaturka trasy" ) %>
-					</div>
-					<div class="route-info">
-						<h4>Przejazd po parku w Chorzowie</h4>
-						<ul>
-							<li>30 km, asfalt, 61 m</li>
-							<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
-						</ul>
-					</div>
-				</div></li>
-				<li><div class="route">
-					<div class="route-img">
-						<%= image_tag("route-map-small-img.jpg", :alt => "Miniaturka trasy" ) %>
-					</div>
-					<div class="route-info">
-						<h4>Przejazd po parku w Chorzowie</h4>
-						<ul>
-							<li>30 km, asfalt, 61 m</li>
-							<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
-						</ul>
-					</div>
-				</div></li>
-			</ul>
-		</div>
+<%= render 'routes/last_routes' %>
+<%= link_to "Więcej", routes_user_path(@user), :class => "btn-base", :id => "last-routes-more" %>
 	
 	
 	<div class="clear"></div>

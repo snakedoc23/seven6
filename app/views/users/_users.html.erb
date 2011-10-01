@@ -5,7 +5,7 @@
 		<td><%= link_to user.username, user_path(user) %></td>
 		<td><%= user_avatar user, "20x20" %></td>
 		<td><%= user.place %></td>
-		<td><%= i * 13 %></td>
+		<td><%= user.routes.count %></td>
 		<td><%= i * 89 %></td>
 	<% if current_user %>
 	<% if current_user.admin? %>

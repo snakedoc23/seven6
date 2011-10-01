@@ -844,46 +844,53 @@ form#search-title input[type="submit"], form#search-user input[type="submit"], f
   background: linear-gradient(top, #d06061, #c84446);
   border: 1px solid #b03436; }
 
-/*
-USERS SHOW PAGE
+h4.user_last_route, h4.user_numbers {
+  margin-right: 30px;
+  background: #283a43;
+  color: #fff;
+  padding: 4px 30px; }
 
-*/
-#user-profile-wrapper {
+.user-profile {
   margin-left: 30px;
-  width: 310px; }
-  #user-profile-wrapper .user-profile {
-    margin-top: 20px;
+  width: 310px;
+  margin-top: 20px;
+  float: left;
+  width: 310px;
+  margin-bottom: 20px; }
+  .user-profile .user-avatar {
     float: left;
-    width: 310px;
-    margin-bottom: 20px; }
-    #user-profile-wrapper .user-profile .user-avatar {
-      float: left;
-      background: #f2f2f2;
-      height: 100px;
-      width: 100px;
-      border: 3px solid #fff;
-      margin-right: 10px; }
-    #user-profile-wrapper .user-profile .user-info {
-      font-size: 13px; }
-      #user-profile-wrapper .user-profile .user-info h4 {
-        color: #c84446;
-        margin-bottom: 10px;
-        font-size: 17px; }
-      #user-profile-wrapper .user-profile .user-info ul li.edit-user {
-        margin-top: 5px; }
-  #user-profile-wrapper table.user-numbers {
-    margin-top: 10px;
-    width: 185px;
+    background: #f2f2f2;
+    height: 100px;
+    width: 100px;
+    border: 3px solid #fff;
+    margin-right: 10px; }
+  .user-profile .user-info {
+    font-size: 13px; }
+    .user-profile .user-info h4 {
+      color: #c84446;
+      margin-bottom: 10px;
+      font-size: 17px; }
+    .user-profile .user-info ul li.edit-user {
+      margin-top: 5px; }
+
+table.user-numbers {
+  margin-top: 20px;
+  width: 205px;
+  font-size: 13px;
+  float: left;
+  margin-left: 30px;
+  border-right: 1px solid #caced0;
+  margin-bottom: 20px; }
+  table.user-numbers td {
     font-size: 13px;
-    float: left;
-    margin-bottom: 25px; }
-    #user-profile-wrapper table.user-numbers td {
-      font-size: 13px; }
-    #user-profile-wrapper table.user-numbers tr:hover {
-      background: #f2f2f2; }
-  #user-profile-wrapper .user-stats-btn {
-    float: right;
-    margin-top: 61px; }
+    padding-bottom: 2px; }
+  table.user-numbers tr:hover {
+    background: #f2f2f2; }
+
+.user-stats-btn {
+  float: right;
+  margin-top: 20px;
+  margin-right: 30px; }
 
 /*
 TABLE

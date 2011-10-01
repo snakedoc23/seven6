@@ -15,7 +15,7 @@
 				
 				<%= link_to (image_tag "chart-icon.png"), "#", :id => "show-elevation" %>
 			<div class="route-show-options">
-				<%= link_to "Komentarze", "#", :id => "show-comments", :class => "btn-base" %>
+				<%= link_to "Komentarze (#{@route.comments.count})", "#", :id => "show-comments", :class => "btn-base" %>
 				<% if current_user %>
 				<div id="add-favorite">
 				
