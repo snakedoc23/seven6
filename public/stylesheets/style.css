@@ -867,7 +867,8 @@ USERS SHOW PAGE
       font-size: 13px; }
       #user-profile-wrapper .user-profile .user-info h4 {
         color: #c84446;
-        margin-bottom: 10px; }
+        margin-bottom: 10px;
+        font-size: 17px; }
       #user-profile-wrapper .user-profile .user-info ul li.edit-user {
         margin-top: 5px; }
   #user-profile-wrapper table.user-numbers {
@@ -1477,7 +1478,7 @@ ul#rating {
       ul#rating li.rate a.select {
         background-position: 0 0; }
 
-td.rating ul.rating span.val {
+td.rating ul.rating .val {
   display: none; }
 
 ul.rating li {

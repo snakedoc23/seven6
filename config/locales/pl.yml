@@ -232,3 +232,8 @@ pl:
 
       full_messages:
         format: "%{attribute} %{message}"
+
+  will_paginate:
+    previous_label: "Poprzednia"
+    next_label: "Następna"
+    page_gap: "&hellip;"

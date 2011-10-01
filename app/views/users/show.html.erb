@@ -24,49 +24,44 @@
 		<table class="user-numbers" summary="Users numbers">
 			<tr>
 				<td>Dodane trasy:</td>
-				<td>32</td>
-			</tr>
-			<tr>
-				<td>Suma kilometrów:</td>
-				<td>321 km</td>
-			</tr>
-			<tr>
-				<td>Czas na rowerze:</td>
-				<td>2g:32m12s</td>
-			</tr>
-			<tr>
-				<td>Średnia prędkość:</td>
-				<td>24,4 km/h</td>
+				<td><%= link_to @routes.count, routes_user_path(@user) %></td>
 			</tr>
 			<tr>
 				<td>Ulubione:</td>
-				<td>4</td>
+				<td><%= link_to @likes.count, favorite_routes_user_path(@user) %></td>
 			</tr>
+			<tr>
+				<td>Suma kilometrów:</td>
+				<td><%= @total_distance.round %> km</td>
+			</tr>
+			<% if @total_time > 0 %>
+			<tr>
+				<td>Czas na rowerze:</td>
+				<td><%= Time.at(@total_time).utc.strftime("%Hh %Mm %Ss") %></td>
+			</tr>
+			<tr>
+				<td>Średnia prędkość:</td>
+				<td><%= (@total_distance_with_time * 3600 / @total_time).round %> km/h</td>
+			</tr>
+			<% end %>
 		</table>
 		
 		<%= link_to "Statystyki", "#", :class => "user-stats-btn btn-base" %>
 		
-		
-		
-		
-		
+
 	</div> <!-- END user-profile-wrapper -->
+
 	<div class="clear"></div>
 	<h4>Ostatnio dodane trasy:</h4>
+
+	<% @routes.each do |route| %>
+		<%= route.title %>
+	<% end %>
+
+
+
 		<div id="last-routes" class="routes-list">
 			<ul>
-				<li><div class="route">
-					<div class="route-img">
-						<%= image_tag("route-map-small-img.jpg", :alt => "Miniaturka trasy" ) %>
-					</div>
-					<div class="route-info">
-						<h4>Przejazd po parku w Chorzowie</h4>
-						<ul>
-							<li>30 km, asfalt <%= image_tag "profile-green.png", :alt => "Profil trasy" %> 61 m</li>
-							<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
-						</ul>
-					</div>
-				</div></li>
 
 				<li><div class="route">
 					<div class="route-img">
@@ -75,7 +70,7 @@
 					<div class="route-info">
 						<h4>Przejazd po parku w Chorzowie</h4>
 						<ul>
-							<li>30 km, asfalt <%= image_tag "profile-green.png", :alt => "Profil trasy" %> 61 m</li>
+							<li>30 km, asfalt, 61 m</li>
 							<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
 						</ul>
 					</div>
@@ -87,7 +82,7 @@
 					<div class="route-info">
 						<h4>Przejazd po parku w Chorzowie</h4>
 						<ul>
-							<li>30 km, asfalt <%= image_tag "profile-green.png", :alt => "Profil trasy" %> 61 m</li>
+							<li>30 km, asfalt, 61 m</li>
 							<li>Dodał: <%= link_to "Diamond", "#" %>, 2 dni temu</li>
 						</ul>
 					</div>

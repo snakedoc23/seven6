@@ -14,6 +14,32 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @title_header = "Profil #{@user.username}"
+    @routes = Route.find_all_by_user_id(@user.id, :order => "created_at DESC")
+    @total_distance = 0
+    @total_distance_with_time = 0
+    @total_time = 0
+    @routes.each do |route|
+      @total_distance += route.distance
+      if route.total_time > 0
+        @total_time += route.total_time
+        @total_distance_with_time += route.distance
+      end
+    end
+    @likes = Rating.where(:user_id => @user.id, :like => true)
+  end
+
+  def routes
+    @user = User.find(params[:id])
+    @routes = Route.find_all_by_user_id(@user.id, :order => "created_at DESC")
+  end
+
+  def favorite_routes
+    @user = User.find(params[:id])
+    @routes = []
+    @likes = Rating.where(:user_id => @user.id, :like => true)
+    @likes.each do |rat|
+      @routes.push rat.route
+    end
   end
   
   def new

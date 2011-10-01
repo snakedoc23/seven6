@@ -3,6 +3,8 @@ Seven6::Application.routes.draw do
   resources :users do
     member do
       get 'edit_password'
+      get 'routes'
+      get 'favorite_routes'
     end
   end
   resources :routes

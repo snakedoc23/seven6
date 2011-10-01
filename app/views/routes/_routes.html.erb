@@ -1,0 +1,51 @@
+		<table class="routes-index big-table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Nazwa</th>
+					<th>Dystans</th>
+					<th>Wzniesienia</th>
+					<th>Nawierzchnia</th>
+					<th>Ocena</th>
+					<th>Czas jazdy</th>
+					<th>Średnia</th>
+					<th>Data dodania</th>
+					<th>Użytkownik</th>
+					<th class="like"><span></span></th>
+					<th class="comments"><span></span></th>
+				</tr>
+			</thead>
+			<tbody>
+			<% i = 0 %>
+			<% @routes.each do |route| %>
+				<tr>
+					<td><%= i += 1 %></td>
+					<td class="title"><%= link_to route.title, route_path(route) %></td>
+					<td class="distance"><%= route.distance %> km</td>
+					<td class="altitude"><%= (route.max_altitude - route.min_altitude).round(2) %> m</td>
+					<td class="surface"><%= route.surface%></td>
+					<td class="rating">
+						
+						<ul class="rating <%= route.id %>">
+							<li class="val"><%= route.avg_rating %></li>
+							<li class="1">1</li>
+							<li class="2">2</li>
+							<li class="3">3</li>
+							<li class="4">4</li>
+							<li class="5">5</li>
+						</ul>
+					</td>
+					<td class="time"><%= route.time_to_string %></td>
+					<% if route.avg_speed %>
+					<td class="avg_speed"><%= route.avg_speed %> km/h</td>
+					<% else %>
+					<td></td>
+					<% end %>
+					<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
+					<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
+					<td class="like"><%= route.ratings.where(:like => true).count %></td>
+					<td class="comments"><%= route.comments.count %></td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
