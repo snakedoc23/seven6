@@ -14,6 +14,9 @@ var drawChart = 0;
 var startMarkerImage;
 var finishMarkerImage;
 var pointMarkerImage;
+var infoBox;
+
+
 
 var shadow;
 
@@ -40,6 +43,9 @@ var colors = ["#283A43", "#c84446", "#CACED0"];
 
 
 var homeMarkers = [];
+var homeInfoBoxes =[];
+
+
 var sMarkerImageHover;
 var sMarkerImage;
 
@@ -197,10 +203,12 @@ $(document).ready(function(){
 			// ładuje trase na mapie i zmienia marker nizej 
 			loadRouteToHome(id);
 
+
 			for(var i = 0; i < homeMarkers.length; i++) {
 				homeMarkers[i].setIcon(sMarkerImage);
 				if(homeMarkers[i].getTitle() == id) {
 					homeMarkers[i].setIcon(sMarkerImageHover);
+					homeInfoBoxes[i].open(map, homeMarkers[i]);
 				}
 			}
 		});
@@ -210,6 +218,7 @@ $(document).ready(function(){
 				homeMarkers[i].setIcon(sMarkerImage);
 				if(homeMarkers[i].getTitle() == id) {
 					homeMarkers[i].setIcon(sMarkerImageHover);
+					homeInfoBoxes[i].open(map, homeMarkers[i]);
 				}
 			}
 		});
@@ -219,6 +228,7 @@ $(document).ready(function(){
 				homeMarkers[i].setIcon(sMarkerImage);
 				if(homeMarkers[i].getTitle() == id) {
 					homeMarkers[i].setIcon(sMarkerImage);
+					homeInfoBoxes[i].close();
 				}
 			}
 		});
@@ -423,19 +433,23 @@ function loadStartMarkers(user_id) {
 		success: function(markers) {
 			for(var i = 0; i < markers.length; i++) {
 				var title_id = markers[i][0].toString();
+				var title_route = markers[i][2].toString();
+				var route_distance = markers[i][3].toString();
+				var user_name = markers[i][4].toString();
 				// console.log(title_id);
 				var position = markers[i][1].split("x");
 				var lat = parseFloat(position[0]);
 				var lng = parseFloat(position[1]);
 				var point = new google.maps.LatLng(lat, lng);
-				createStartMarker(point, title_id);
+				createStartMarker(point, title_id, title_route, route_distance, user_name);
+
 			}
 		}
 	});
 };
 
 
-function createStartMarker(pos, title) {
+function createStartMarker(pos, title, title_route, route_distance, user_name) {
 	sMarkerImage = new google.maps.MarkerImage(
 		'../images/markers-home.png',
 		new google.maps.Size(32, 47),
@@ -453,14 +467,58 @@ function createStartMarker(pos, title) {
 		title: title
 	});
 	var sMarkerTitle = sMarker.getTitle();
-	
-	// google.maps.event.addListener(sMarker, "mouseover", function() {
-	// 	sMarker.setIcon(sMarkerImageHover);
 
-	// });
-	// google.maps.event.addListener(sMarker, "mouseout", function() {
-	// 	sMarker.setIcon(sMarkerImage);
-	// });
+
+
+	// INFOBOX
+	// http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/examples.html
+
+	var boxContent = document.createElement("div");
+	boxContent.id = 'infobox';
+
+	var html = "<h3>"+title_route+"</h3><p>Dystans: <span>"+route_distance+"km</span> Dodał: <span>"+user_name+"</span></p>";
+	boxContent.innerHTML = html;
+	
+	var myOptions = {
+		content: boxContent
+		,disableAutoPan: false
+		,maxWidth: 0
+		,pixelOffset: new google.maps.Size(-140, 0)
+		,zIndex: null
+		,boxStyle: { 
+			// background: "url('../images/info_box_close.png') no-repeat"
+			opacity: 0.9,
+			width: "280px"
+		}
+		,closeBoxMargin: "10px 2px 2px 2px"
+		,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+		,infoBoxClearance: new google.maps.Size(1, 1)
+		,isHidden: false
+		,pane: "floatPane"
+		,enableEventPropagation: false
+	};
+
+	infoBox = new InfoBox(myOptions);
+
+
+
+	homeInfoBoxes.push(infoBox);
+	homeMarkers.push(sMarker);
+
+	addListenersToMarker(sMarker, infoBox, sMarkerTitle);
+
+};
+function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
+		google.maps.event.addListener(sMarker, "mouseover", function() {
+		// sMarker.setIcon(sMarkerImageHover);
+		infoBox.open(map, sMarker);
+	
+
+	});
+	google.maps.event.addListener(sMarker, "mouseout", function() {
+		// sMarker.setIcon(sMarkerImage);
+		infoBox.close();
+	});
 
 	google.maps.event.addListener(sMarker, "click", function() {
 		// zmiana ikonek na domyślne
@@ -480,9 +538,10 @@ function createStartMarker(pos, title) {
 				$('#route-home-'+ id +' > .route-img').addClass("selected");
 			}
 		}
+		infoBox.open(map, sMarker);
 	});
-	homeMarkers.push(sMarker);
 };
+
 
 function loadRouteToHome(id) {
 	var id_r = parseFloat(id);

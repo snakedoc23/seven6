@@ -2,6 +2,8 @@ class Rating < ActiveRecord::Base
 	attr_accessible :value, :like
 	belongs_to :user
 	belongs_to :route
+
+	scope :likes, lambda {|id| where(:user_id => id, :like => true)}
 end
 
 # == Schema Information

@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+	def is_selected?(page)
+		"selected" if current_page? page
+	end
+
 	def user_avatar(user, size = "100x100")
     	if user.avatar?
       		image_tag user.avatar_url, :size => size, :alt => user.username

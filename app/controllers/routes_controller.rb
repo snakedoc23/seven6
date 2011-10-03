@@ -35,6 +35,9 @@ class RoutesController < ApplicationController
         r = []
         r.push route.id
         r.push route.start_lat_lng
+        r.push route.title
+        r.push route.distance
+        r.push route.user.username
         @markers.push r
       end
     else 
@@ -42,6 +45,9 @@ class RoutesController < ApplicationController
         r = []
         r.push route.id
         r.push route.start_lat_lng
+        r.push route.title
+        r.push route.distance
+        r.push route.user.username
         @markers.push r
       end
     end
