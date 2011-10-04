@@ -1,5 +1,3 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
 
 var directionsDisplay;
 var directionsService;
@@ -55,6 +53,15 @@ google.load("visualization", "1", {packages: ["corechart"]});
 var mapWidth;
 
 $(document).ready(function(){
+
+
+	// TODO --> inne okienka dla roznych ajaxow
+	$('body').ajaxStart(function () {
+        $('#ajax-status').show().text("Ładowanie...");
+      });
+      $('body').ajaxStop(function () {
+        $('#ajax-status').fadeOut();
+    });
 
 
 	mapWidth = $(document).width() - $('#aside').outerWidth();
@@ -277,13 +284,46 @@ $(document).ready(function(){
 			map.fitBounds(bounds);
 			polyline.setPath(path);
 
+			//Start i finish markers
+			//TODO
+			//=============>>>
+			var startMarkerPos = path[0];
+			var finishMarkerPos = path[path.length - 1]
+			startMarkerImage = new google.maps.MarkerImage(
+				'../images/markers.png',
+				new google.maps.Size(15, 27),
+				new google.maps.Point(0, 0),
+				new google.maps.Point(7.5, 26)
+			);
+			finishMarkerImage = new google.maps.MarkerImage(
+				'../images/markers.png',
+				new google.maps.Size(15, 27),
+				new google.maps.Point(15, 0),
+				new google.maps.Point(7.5, 26)
+			);
+			var startMarker = new google.maps.Marker({
+				position: startMarkerPos,
+				map: map,
+				title: "Początek trasy",
+				icon: startMarkerImage
+			});
+			var finishMarker = new google.maps.Marker({
+				position: finishMarkerPos,
+				map: map,
+				title: "Koniec trasy",
+				icon: finishMarkerImage
+			});
+			
+			console.log(finishMarkerPos);
+			//poberz ostati i pierwszy punkt i postaw tam markery do rysowania
+
 
 			// pokaz wykres
 			$("#show-elevation").click(function(){
 				if($("#elevation-chart").is(':visible')) {
 					$("#elevation-chart").hide();
 				} else {
-					$("#elevation-chart").show();
+					$("#elevation-chart").slideDown();
 				}
 				
 				$("#elevation-chart").width(mapWidth - 1);
@@ -539,6 +579,10 @@ function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
 			}
 		}
 		infoBox.open(map, sMarker);
+		google.maps.event.addListener(this, "click", function() {
+			var tTitle = sMarker.getTitle();
+			window.location = '/routes/'+tTitle;
+		});
 	});
 };
 
@@ -952,6 +996,11 @@ function plotElevation(results, status) {
 				fontName: "Helvetica Neue"
 
 			});
+			sMarkerImage = new google.maps.MarkerImage(
+				'../images/markers-home.png',
+				new google.maps.Size(32, 47),
+				new google.maps.Point(0, 0)
+			);
 
 			// pokazywanie na mapie miejsca z wykresu
 			google.visualization.events.addListener(chart, 'onmouseover', function(event) {
@@ -960,7 +1009,7 @@ function plotElevation(results, status) {
 					chartMarker = new google.maps.Marker({
 						position: results[event.row].location,
 						map: map,
-						icon: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+						icon: sMarkerImage
 					});
 				} else {
 					chartMarker.setPosition(results[event.row].location);

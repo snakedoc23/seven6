@@ -534,8 +534,8 @@ form#search-title, form#search-user, form#search-route {
 .flash {
 	position: absolute;
 	left: 50%;
-	width: 400px;
-	margin: 15px -200px;
+	width: 300px;
+	margin: 15px -150px;
 	border: 1px solid #fff;
 	text-align: center;
 	font-size: 18px;
@@ -544,6 +544,7 @@ form#search-title, form#search-user, form#search-route {
 	color: white;
 	z-index: 2;
 	// @include rounded(4px);
+	opacity: 0.95;
 }
 
 .success {
@@ -1293,7 +1294,7 @@ footer {
 	height: 200px;
 	width: 800px;
 	display: none;
-	opacity: .6;
+	opacity: .8;
 }
 
 
@@ -1534,7 +1535,27 @@ ul.rating {
 
 
 
-
+#ajax-status {
+	position: absolute;
+	background: #222526;
+	width: 100px;
+	padding: 10px;
+	display: none;
+	left: 50%;
+	margin: 15px -50px;
+	border: 1px solid $blue;
+	text-align: center;
+	font-size: 18px;
+	line-height: 25px;
+	padding: 7px;
+	color: white;
+	z-index: 2;
+	top: 75px;
+	font-size: 13px;
+	@include gradient(lighten($blue, 7%), $blue);
+	@include rounded(4px);
+	opacity: 0.95;
+}
 
 
 

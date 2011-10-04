@@ -24,12 +24,20 @@ class Route < ActiveRecord::Base
 
 
 
+# TODO
+# route model before_create saveStaticMap
+# carrierwave
+# self.remote_static_map_url= self.create_static_map
+
+
+
   before_save :split_pulse, :add_start_and_finish
 
   default_scope :order => 'created_at DESC'
 
   scope :user_routes, lambda {|id| find_all_by_user_id(id) }
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
+
 
   def self.search(search)
     if search
@@ -90,7 +98,6 @@ class Route < ActiveRecord::Base
     end
   end
 
-
   def avg_rating
     sum = 0
     total = 0
@@ -102,6 +109,42 @@ class Route < ActiveRecord::Base
     end
     self.rating = sum.to_f / total.to_f
   end
+
+  # Static Google Maps + redukcja punktow i samych wspolzednych
+  def create_static_map
+    path_array = coordinates_string.split(",")
+
+    while path_array.length > 70
+      path_array = reductionPath(path_array)
+    end
+
+    coordinates_string_temp = ""
+
+    path_array.each do |pos|
+      pos_array = pos.split("x")
+      lat = pos_array[0].to_f.round(6).to_s
+      lng = pos_array[1].to_f.round(6).to_s
+
+      coordinates_string_temp += "|#{lat},#{lng}"
+    end
+
+    "http://maps.googleapis.com/maps/api/staticmap?path=color:0xc84446ff|weight:2#{coordinates_string_temp}&size=79x79&sensor=false"
+  end
+
+  private
+    def reductionPath(path) #Redukcja tablicy by wyslac do google (patrz application.js)
+      path_length = path.length
+
+      x = (path_length.to_f / (path_length.to_f - 70)).ceil
+      reucedPath = [];
+
+      path_length.times do |i|
+        if ((i + 1) % x != 0)
+          reucedPath.push(path[i])
+        end
+      end
+      reucedPath
+    end
 
 end
 

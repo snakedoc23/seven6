@@ -3,7 +3,7 @@
 	<% @routes.each do |route| %>
 		<li><div class="route" id="route-home-<%= route.id %>">
 			<div class="route-img">	
-				<%= image_tag("route-map-small-img.jpg", :alt => route.title ) %>
+				<%= image_tag(route.create_static_map, :alt => route.title ) %>
 			</div>
 			<div class="route-info">
 				<h4><%= link_to truncate(route.title, :length => 50), route_path(route.id) %></h4>

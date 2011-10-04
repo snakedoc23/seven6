@@ -835,15 +835,16 @@ form#search-title input[type="submit"], form#search-user input[type="submit"], f
 .flash {
   position: absolute;
   left: 50%;
-  width: 400px;
-  margin: 15px -200px;
+  width: 300px;
+  margin: 15px -150px;
   border: 1px solid #fff;
   text-align: center;
   font-size: 18px;
   line-height: 25px;
   padding: 7px;
   color: white;
-  z-index: 2; }
+  z-index: 2;
+  opacity: 0.95; }
 
 .success {
   background: #354d59;
@@ -1445,7 +1446,7 @@ footer {
   height: 200px;
   width: 800px;
   display: none;
-  opacity: .6; }
+  opacity: .8; }
 
 form.edit_route input[type="text"], form.edit_route select, form.edit_route textarea {
   width: 110px;
@@ -1633,3 +1634,34 @@ ul.rating li {
     color: white; }
     #infobox p span {
       font-weight: 800; }
+
+#ajax-status {
+  position: absolute;
+  background: #222526;
+  width: 100px;
+  padding: 10px;
+  display: none;
+  left: 50%;
+  margin: 15px -50px;
+  border: 1px solid #283a43;
+  text-align: center;
+  font-size: 18px;
+  line-height: 25px;
+  padding: 7px;
+  color: white;
+  z-index: 2;
+  top: 75px;
+  font-size: 13px;
+  background: #354d59;
+  /* for non-css3 browsers */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+  /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+  /* for webkit browsers */
+  background: -moz-linear-gradient(top, #354d59, #283a43);
+  /* for firefox 3.6+ */
+  background: linear-gradient(top, #354d59, #283a43);
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  opacity: 0.95; }
