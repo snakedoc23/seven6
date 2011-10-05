@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110930134628) do
+ActiveRecord::Schema.define(:version => 20111005125146) do
 
   create_table "comments", :force => true do |t|
-    t.string   "user_id"
-    t.string   "route_id"
+    t.integer  "user_id",    :limit => 255
+    t.integer  "route_id",   :limit => 255
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
