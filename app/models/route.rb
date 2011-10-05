@@ -48,8 +48,8 @@ class Route < ActiveRecord::Base
   end
 
   def add_start_and_finish
-    self.start_lat_lng = self.coordinates_string.split(",").first
-    self.finish_lat_lng = self.coordinates_string.split(",").last
+    self.start_lat_lng = self.coordinates_string.split("|").first
+    self.finish_lat_lng = self.coordinates_string.split("|").last
   end
 
 
@@ -112,7 +112,7 @@ class Route < ActiveRecord::Base
 
   # Static Google Maps + redukcja punktow i samych wspolzednych
   def create_static_map
-    path_array = coordinates_string.split(",")
+    path_array = coordinates_string.split("|")
 
     while path_array.length > 70
       path_array = reductionPath(path_array)
@@ -121,11 +121,12 @@ class Route < ActiveRecord::Base
     coordinates_string_temp = ""
 
     path_array.each do |pos|
-      pos_array = pos.split("x")
-      lat = pos_array[0].to_f.round(6).to_s
-      lng = pos_array[1].to_f.round(6).to_s
+      # pos_array = pos.split(",")
+      # lat = pos_array[0].to_f.round(6).to_s
+      # lng = pos_array[1].to_f.round(6).to_s
 
-      coordinates_string_temp += "|#{lat},#{lng}"
+      # coordinates_string_temp += "|#{lat},#{lng}"
+      coordinates_string_temp += "|#{pos}"
     end
 
     "http://maps.googleapis.com/maps/api/staticmap?path=color:0xc84446ff|weight:2#{coordinates_string_temp}&size=79x79&sensor=false"

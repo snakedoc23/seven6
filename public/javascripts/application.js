@@ -477,7 +477,7 @@ function loadStartMarkers(user_id) {
 				var route_distance = markers[i][3].toString();
 				var user_name = markers[i][4].toString();
 				// console.log(title_id);
-				var position = markers[i][1].split("x");
+				var position = markers[i][1].split(",");
 				var lat = parseFloat(position[0]);
 				var lng = parseFloat(position[1]);
 				var point = new google.maps.LatLng(lat, lng);
@@ -608,13 +608,13 @@ function pathToString(pathToS) {
 		// var lat = pathToS.getAt(i).lat();
 		// var lng = pathToS.getAt(i).lng();
 		
-		var tmpString = pathToS.getAt(i).toUrlValue().replace(",", "x")
+		var tmpString = pathToS.getAt(i).toUrlValue()
 
 		// pathToS.b[i]["Ma"];
 		// pathToS.b[i]["Na"];
 		// var tmpString = lat + "x" + lng;
 		if(i < pathToS.b.length -1) {
-			tmpString += ","
+			tmpString += "|"
 		}
 		pathString += tmpString;
 	}
@@ -624,9 +624,9 @@ function pathToString(pathToS) {
 // przerabia stringa z bazy na path dla google maps API 
 function pathFromString(string, pathT) {
 	var bounds = new google.maps.LatLngBounds();
-	var p = string.split(",");
+	var p = string.split("|");
 		for(var i = 0; i < p.length; i++) {
-			var pointS = p[i].split("x");
+			var pointS = p[i].split(",");
 			var lat = parseFloat(pointS[0]);
 			var lng = parseFloat(pointS[1]);
 			var point = new google.maps.LatLng(lat, lng);
