@@ -605,9 +605,14 @@ function pathToString(pathToS) {
 	pathToS = route.getPath();
 	var pathString = "";
 	for(var i = 0; i < pathToS.b.length; i++){
-		var lat = pathToS.b[i]["Ja"];
-		var lng = pathToS.b[i]["Ka"];
-		var tmpString = lat + "x" + lng;
+		// var lat = pathToS.getAt(i).lat();
+		// var lng = pathToS.getAt(i).lng();
+		
+		var tmpString = pathToS.getAt(i).toUrlValue().replace(",", "x")
+
+		// pathToS.b[i]["Ma"];
+		// pathToS.b[i]["Na"];
+		// var tmpString = lat + "x" + lng;
 		if(i < pathToS.b.length -1) {
 			tmpString += ","
 		}
@@ -730,6 +735,7 @@ function drawRoute(map, polyline){
 		}
 
   });
+  	console.log(polyline);
 	return polyline;
 }
 
