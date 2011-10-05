@@ -43,8 +43,8 @@
 					<% end %>
 					<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
 					<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
-					<td class="like"><%= route.ratings.where(:like => true).count %></td>
-					<td class="comments"><%= route.comments.count %></td>
+					<td class="like"><%= Rating.route_likes(route.id).size %></td>
+					<td class="comments"><%= route.comments.size %></td>
 				</tr>
 			<% end %>
 			</tbody>

@@ -1,12 +1,14 @@
 class Route < ActiveRecord::Base
   # attr_accessible :title, :description, :distance, :surface, :route_file
-  attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit
+  attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit, :route_file
   
   belongs_to :user
   has_many :comments
-  
   has_many :ratings
   has_many :raters, :through => :ratings, :source => :user
+
+  mount_uploader :static_map, StaticMapUploader
+  mount_uploader :route_file, RouteFileUploader
 
   time_regex  = /\A\d{1,3}\D\d{1,2}\D?\d{0,2}\z/
   pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
@@ -24,20 +26,12 @@ class Route < ActiveRecord::Base
 
 
 
-# TODO
-# route model before_create saveStaticMap
-# carrierwave
-# self.remote_static_map_url= self.create_static_map
-
-
-
   before_save :split_pulse, :add_start_and_finish
 
   default_scope :order => 'created_at DESC'
 
   scope :user_routes, lambda {|id| find_all_by_user_id(id) }
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
-
 
   def self.search(search)
     if search
@@ -130,6 +124,10 @@ class Route < ActiveRecord::Base
     end
 
     "http://maps.googleapis.com/maps/api/staticmap?path=color:0xc84446ff|weight:2#{coordinates_string_temp}&size=79x79&sensor=false"
+  end
+
+  def save_static_map
+    self.remote_static_map_url= self.create_static_map
   end
 
   private

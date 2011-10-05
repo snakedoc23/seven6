@@ -3,7 +3,12 @@
 	<% @routes.each do |route| %>
 		<li><div class="route" id="route-home-<%= route.id %>">
 			<div class="route-img">	
-				<%= image_tag(route.create_static_map, :alt => route.title ) %>
+			<% if route.static_map_url.nil? %>
+				<% route.save_static_map %>
+				<%= image_tag(route.static_map_url, :alt => route.title ) %>
+			<% else %>
+				<%= image_tag(route.static_map_url, :alt => route.title ) %>
+			<% end %>
 			</div>
 			<div class="route-info">
 				<h4><%= link_to truncate(route.title, :length => 50), route_path(route.id) %></h4>
@@ -15,7 +20,7 @@
 				</ul>
 				<ul class="comment-likes">
 					<li><span class="comment-icon"></span><%= route.comments.size %></li>
-					<li><span class="like-icon"></span><%= route.ratings.where(:like => true).size %></li>
+					<li><span class="like-icon"></span><%= Rating.route_likes(route.id).size %></li>
 				</ul>
 			</div>
 		</div></li>

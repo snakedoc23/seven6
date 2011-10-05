@@ -4,6 +4,7 @@ class Rating < ActiveRecord::Base
 	belongs_to :route
 
 	scope :likes, lambda {|id| where(:user_id => id, :like => true)}
+	scope :route_likes, lambda {|id| where(:route_id => id, :like => true)}
 end
 
 # == Schema Information

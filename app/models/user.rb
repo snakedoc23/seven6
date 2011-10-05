@@ -47,9 +47,7 @@ class User < ActiveRecord::Base
     user = find_by_id(id)
     (user && user.salt == cookie_salt) ? user : nil
   end
-  
-
-  
+    
   private
     def encrypt_password
       if password 
@@ -70,10 +68,6 @@ class User < ActiveRecord::Base
       Digest::SHA2.hexdigest(string)
     end
 end
-
-
-
-
 
 
 # == Schema Information

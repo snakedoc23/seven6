@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111005125146) do
+ActiveRecord::Schema.define(:version => 20111005142552) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id",    :limit => 255
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20111005125146) do
     t.float    "max_speed"
     t.string   "start_lat_lng"
     t.string   "finish_lat_lng"
+    t.string   "static_map"
   end
 
   add_index "routes", ["title"], :name => "index_routes_on_title"
