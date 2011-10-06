@@ -470,9 +470,9 @@ header {
       position: relative;
       top: 4px; }
 
-form#search-title input[type="text"], form#search-user input[type="text"], form#search-route input[type="text"] {
+form#search-place input[type="text"], form#search-user input[type="text"], form#search-route input[type="text"] {
   float: left; }
-form#search-title input[type="submit"], form#search-user input[type="submit"], form#search-route input[type="submit"] {
+form#search-place input[type="submit"], form#search-user input[type="submit"], form#search-route input[type="submit"] {
   background: url("../images/search-small-btn.png") no-repeat 0 1px;
   display: block;
   text-indent: -99999px;
@@ -481,7 +481,7 @@ form#search-title input[type="submit"], form#search-user input[type="submit"], f
   float: left;
   margin-left: 3px;
   margin-top: 1px; }
-  form#search-title input[type="submit"]:hover, form#search-user input[type="submit"]:hover, form#search-route input[type="submit"]:hover {
+  form#search-place input[type="submit"]:hover, form#search-user input[type="submit"]:hover, form#search-route input[type="submit"]:hover {
     background: url("../images/search-small-btn.png") no-repeat -30px; }
 
 #container {
@@ -491,7 +491,7 @@ form#search-title input[type="submit"], form#search-user input[type="submit"], f
 
 #with-map {
   float: left; }
-  #with-map form#search-title {
+  #with-map form#search-place {
     margin-bottom: 0px;
     margin-left: 30px;
     float: left; }

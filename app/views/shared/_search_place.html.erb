@@ -1,0 +1,4 @@
+<%= form_tag routes_path, :id => "search-place" do %>
+	<%= text_field_tag :search, nil, :placeholder => "Pokaż miejsce", :id => "search-place-text" %>
+	<%= submit_tag "Search", :id => "search-btn", :name => nil %>
+<% end %>

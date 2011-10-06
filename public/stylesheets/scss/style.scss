@@ -141,7 +141,7 @@ header {
 	}
 }
 
-form#search-title, form#search-user, form#search-route {
+form#search-place, form#search-user, form#search-route {
 	input[type="text"] {
 		float: left;
 	}
@@ -167,7 +167,7 @@ form#search-title, form#search-user, form#search-route {
 }
 #with-map {
 	float: left;
-	form#search-title {
+	form#search-place {
 		
 		margin-bottom: 0px;
 		margin-left: 30px;

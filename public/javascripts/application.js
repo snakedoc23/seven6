@@ -2,6 +2,7 @@
 var directionsDisplay;
 var directionsService;
 var elevator;
+var geocoder;
 var snap;
 var path = new Array();
 var markers = [];
@@ -182,7 +183,17 @@ $(document).ready(function(){
 		directionsService = new google.maps.DirectionsService();
 		directionsDisplay = new google.maps.DirectionsRenderer();
 		elevator = new google.maps.ElevationService();
+		geocoder = new google.maps.Geocoder();
+
+
 	}
+	//geocoding
+	$('#search-place').submit(function() {
+		var val = $('#search-place-text').val();
+		centerMap(val);
+		$('#search-place-text').val("");
+		return false;
+	});
 
 
 	//pages/home --> zawiera listę ostatnich tras
@@ -640,7 +651,7 @@ function pathFromString(string, pathT) {
 function initializeMap(){
 	var map = new google.maps.Map(document.getElementById("map"), {
 	   	zoom: 13,
-	    center: new google.maps.LatLng(40.77333,-73.9723),
+	    center: new google.maps.LatLng(50.263888, 19.029007),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
 	return map;
@@ -888,7 +899,7 @@ function calculateDistance(polyline) {
 		polylineDistance += google.maps.geometry.spherical.computeDistanceBetween(polyline.getPath().getAt(i), polyline.getPath().getAt(i+1));
 	};
 	return polylineDistance;
-};
+}
 
 function addDistanceToPage(polyline) {
 	distance = Math.round((calculateDistance(polyline)/1000)*100)/100;
@@ -899,7 +910,7 @@ function addDistanceToPage(polyline) {
 		$("p.avg_speed .value").html(avg_speed);
 	}
 	
-};
+}
 
 
 function reductionPath(originalPath) {
@@ -1024,4 +1035,15 @@ function plotElevation(results, status) {
 			});
 		}
 	}
+}
+//centrowanie mapy przez google maps geocoding service
+function centerMap(address) {
+	geocoder.geocode( { 'address': address}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			map.setCenter(results[0].geometry.location);
+			console.log("Geocoding status:" + status);
+		} else {
+			console.log("Geocoding status:" + status);
+		}
+	});
 }

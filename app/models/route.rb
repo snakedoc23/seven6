@@ -7,8 +7,8 @@ class Route < ActiveRecord::Base
   has_many :ratings
   has_many :raters, :through => :ratings, :source => :user
 
-  # mount_uploader :static_map, StaticMapUploader
-  # mount_uploader :route_file, RouteFileUploader
+  mount_uploader :static_map, StaticMapUploader
+  mount_uploader :route_file, RouteFileUploader
 
   time_regex  = /\A\d{1,3}\D\d{1,2}\D?\d{0,2}\z/
   pulse_regex = /\A\d{2,3}\/\d{2,3}\z/
