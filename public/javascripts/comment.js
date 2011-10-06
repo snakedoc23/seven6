@@ -85,4 +85,5 @@ function updateCommentsNum(value) {
 	var commentsNum = parseFloat($('#comments-container h3').html().split(" ")[0]);
 	console.log(commentsNum);
 	$('#comments-container h3').html(commentsNum + value +" "+$('#comments-container h3').html().split(" ")[1]);
+	$('#show-comments').html("Komentarze (" + (commentsNum + value) + ")");
 };

@@ -87,6 +87,12 @@ class RoutesController < ApplicationController
     end
   end
 
+  def destroy
+    Route.find(params[:id]).destroy
+    flash[:success] = "Trasa zostala usunieta"
+    redirect_to user_path(current_user)
+    
+  end
 
 end
 

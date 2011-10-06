@@ -632,8 +632,10 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
       color: white;
       margin: auto;
       display: block;
-      width: 220px;
+      width: 235px;
       line-height: 30px; }
+      #without-map .h2-bg h2 a {
+        color: white; }
 
 #content {
   margin-bottom: 20px;
@@ -678,7 +680,7 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
 
 .h2-top {
   display: block;
-  width: 220px;
+  width: 235px;
   text-transform: uppercase;
   margin: auto;
   line-height: 26px; }
@@ -1333,16 +1335,18 @@ footer {
         #route-show ul.route-show li.description .td {
           width: 220px;
           padding-right: 4px; }
-      #route-show ul.route-show li#altitude .td {
-        width: 86px; }
-      #route-show ul.route-show li#altitude .small-arrow {
-        float: left;
-        display: block;
-        height: 13px;
-        width: 13px;
-        top: 9px;
-        position: relative;
-        background: url(../images/arrows.png) no-repeat; }
+      #route-show ul.route-show li#altitude {
+        cursor: pointer; }
+        #route-show ul.route-show li#altitude .td {
+          width: 86px; }
+        #route-show ul.route-show li#altitude .small-arrow {
+          float: left;
+          display: block;
+          height: 13px;
+          width: 13px;
+          top: 9px;
+          position: relative;
+          background: url(../images/arrows.png) no-repeat; }
     #route-show ul.route-show div.altitude-extra {
       display: none; }
       #route-show ul.route-show div.altitude-extra li:last-child {
@@ -1665,3 +1669,21 @@ ul.rating li {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   opacity: 0.95; }
+
+#backto_user {
+  display: block;
+  width: 57px;
+  margin: auto; }
+  #backto_user:hover {
+    background: #354d59;
+    /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+    /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #354d59, #283a43);
+    /* for firefox 3.6+ */
+    background: linear-gradient(top, #354d59, #283a43); }
+
+#remove-route-btn {
+  margin-left: 10px; }

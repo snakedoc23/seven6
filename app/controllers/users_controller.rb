@@ -31,11 +31,16 @@ class UsersController < ApplicationController
 
   def routes
     @user = User.find(params[:id])
+    @title_header_top = "Wszystkie trasy"
+    @title_header = @user.username.to_s
+    
     @routes = Route.user_routes(@user.id)
   end
 
   def favorite_routes
     @user = User.find(params[:id])
+    @title_header_top = "Ulubione trasy"
+    @title_header = @user.username.to_s
     @routes = []
     @likes = Rating.likes(@user.id)
     @likes.each do |rat|

@@ -336,8 +336,11 @@ form#search-place, form#search-user, form#search-route {
 			color: white;
 			margin: auto;
 			display: block;
-			width: 220px;
+			width: 235px;
 			line-height: 30px;
+			a {
+				color: white;
+			}
 		}
 	}
 }
@@ -376,7 +379,7 @@ form#search-place, form#search-user, form#search-route {
 }
 .h2-top {
 	display: block;
-	width: 220px;
+	width: 235px;
 	text-transform: uppercase;
 	margin: auto;
 	line-height: 26px;
@@ -1179,8 +1182,10 @@ footer {
 				}
 			}
 			&#altitude {
+				cursor: pointer;
 				.td {
 					width: 86px;
+
 				}
 				.small-arrow {
 					float: left;
@@ -1557,5 +1562,16 @@ ul.rating {
 	opacity: 0.95;
 }
 
-
-
+#backto_user {
+	display: block;
+	width: 57px;
+	margin: auto;
+	
+	&:hover {
+		@include gradient(lighten($blue, 7%), $blue);
+	}
+}
+#remove-route-btn {
+	
+	margin-left: 10px;
+}

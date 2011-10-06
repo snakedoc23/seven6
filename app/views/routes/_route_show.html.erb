@@ -24,7 +24,7 @@
 				</li>
 				<li>
 					<div class="th">Data dodania:</div>
-					<div class="td"><%= time_ago_in_words(@route.created_at) %></div>
+					<div class="td" title="<%= @route.created_at.to_formatted_s(:long) %>"><%= time_ago_in_words(@route.created_at) %></div>
 				</li>
 				<li class="description">
 					<div class="th">Opis:</div>

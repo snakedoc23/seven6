@@ -10,7 +10,8 @@
 			<div class="clear"></div>
 			<% if current_user == @route.user %>
 				<%= link_to "Edytuj", edit_route_path(@route), :id => "edit-route-btn" %>
-				<% end %>
+				<%= link_to "Usuń", @route, :method => :delete, :confirm => "Czy aby na pewno", :id => "remove-route-btn" %>
+			<% end %>
 			
 				
 				<%= link_to (image_tag "chart-icon.png"), "#", :id => "show-elevation" %>
