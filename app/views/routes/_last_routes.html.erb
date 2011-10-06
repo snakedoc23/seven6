@@ -19,7 +19,7 @@
 					
 				</ul>
 				<ul class="comment-likes">
-					<li><span class="comment-icon"></span><%= route.comments.size %></li>
+					<li><span class="comment-icon"></span><%= Comment.route_comments(route.id).size %></li>
 					<li><span class="like-icon"></span><%= Rating.route_likes(route.id).size %></li>
 				</ul>
 			</div>

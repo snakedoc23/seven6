@@ -1,6 +1,8 @@
 class Comment < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :route
+
+	scope :route_comments, lambda {|id| where(:route_id => id)}
 end
 
 
