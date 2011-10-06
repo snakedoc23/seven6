@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :ratings
   has_many :rated_routes, :through => :ratings, :source => :route
 
-  mount_uploader :avatar, AvatarUploader
+  # mount_uploader :avatar, AvatarUploader
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
