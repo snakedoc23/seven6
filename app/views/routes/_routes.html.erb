@@ -2,7 +2,7 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th>Nazwa</th>
+					<th>Nazwa<span class="small-arrow"></span></th>
 					<th>Dystans</th>
 					<th>Wzniesienia</th>
 					<th>Nawierzchnia</th>
@@ -17,6 +17,9 @@
 			</thead>
 			<tbody>
 			<% i = 0 %>
+			<% if params[:page] %>
+			<% i = i + ((params[:page].to_i - 1) * 10) %>
+			<% end %>
 			<% @routes.each do |route| %>
 				<tr>
 					<td><%= i += 1 %></td>

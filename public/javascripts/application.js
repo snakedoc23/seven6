@@ -77,6 +77,7 @@ $(document).ready(function(){
 
 
 	$(".flash").click(function(){$(".flash").slideUp('slow')});
+	$(".flash").delay(3000).slideUp('slow');
 
 
 	//ROUTES#NEW
