@@ -3,9 +3,9 @@ class Route < ActiveRecord::Base
   attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit, :route_file
   
   belongs_to :user
-  has_many :comments
-  has_many :ratings
-  has_many :raters, :through => :ratings, :source => :user
+  has_many :comments, :dependent => :destroy
+  has_many :ratings, :dependent => :destroy
+  has_many :raters, :through => :ratings, :source => :user, :dependent => :destroy
 
   mount_uploader :static_map, StaticMapUploader
   mount_uploader :route_file, RouteFileUploader

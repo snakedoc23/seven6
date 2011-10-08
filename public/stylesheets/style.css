@@ -1028,11 +1028,11 @@ table.big-table tbody tr:hover {
     .routes-index-table table.routes-index tr td.altitude {
       min-width: 58px; }
     .routes-index-table table.routes-index tr td.time {
-      min-width: 70px; }
+      min-width: 80px; }
     .routes-index-table table.routes-index tr td.avg_speed {
       min-width: 66px; }
     .routes-index-table table.routes-index tr td.created_at, .routes-index-table table.routes-index tr td.user {
-      min-width: 88px; }
+      min-width: 95px; }
     .routes-index-table table.routes-index tr td.like, .routes-index-table table.routes-index tr td.comments {
       text-align: center; }
     .routes-index-table table.routes-index tr td.rating {
