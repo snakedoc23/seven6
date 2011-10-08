@@ -2,15 +2,15 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th>Nazwa<span class="small-arrow"></span></th>
-					<th>Dystans</th>
-					<th>Wzniesienia</th>
-					<th>Nawierzchnia</th>
-					<th>Ocena</th>
-					<th>Czas jazdy</th>
-					<th>Średnia</th>
-					<th>Data dodania</th>
-					<th>Użytkownik</th>
+					<th><%= sortable 'Nazwa', 'title' %></th>
+					<th><%= sortable 'Dystans', 'distance' %></th>
+					<th><%= sortable 'Wzniesienia', 'max_altitude' %></th>
+					<th><%= sortable 'Nawierzchnia', 'surface' %></th>
+					<th><%= sortable 'Ocena', 'rating' %></th>
+					<th><%= sortable 'Czas jazdy', 'total_time' %></th>
+					<th><%= sortable 'Średnia', 'avg_speed' %></th>
+					<th><%= sortable 'Data dodania', 'created_at' %></th>
+					<th><%= sortable 'Użytkownik', 'user_id' %></th>
 					<th class="like"><span></span></th>
 					<th class="comments"><span></span></th>
 				</tr>
@@ -25,7 +25,7 @@
 					<td><%= i += 1 %></td>
 					<td class="title"><%= link_to route.title, route_path(route) %></td>
 					<td class="distance"><%= route.distance %> km</td>
-					<td class="altitude"><%= (route.max_altitude - route.min_altitude).round(2) %> m</td>
+					<td class="altitude"><%= route.altitude %> m</td>
 					<td class="surface"><%= route.surface%></td>
 					<td class="rating">
 						

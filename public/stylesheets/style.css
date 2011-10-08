@@ -940,6 +940,20 @@ table.big-table thead {
       border-left: 0;
       min-width: 20px;
       background: #283a43; }
+      table.big-table thead tr th a {
+        color: white;
+        padding-right: 7px;
+        padding-left: 8px; }
+      table.big-table thead tr th .sort-desc {
+        background: url(../images/sort-arrows.png) no-repeat right;
+        padding-right: 13px;
+        padding-left: 0px;
+        background-position: 100% 0; }
+      table.big-table thead tr th .sort-asc {
+        background: url(../images/sort-arrows.png) no-repeat right;
+        background-position: 100% -16px;
+        padding-right: 13px;
+        padding-left: 0px; }
     table.big-table thead tr th:first-child {
       border: 0;
       border-right: 1px solid #caced0;
@@ -1228,15 +1242,19 @@ footer {
   float: right; }
   #route-new-draw #draw-route-btn {
     margin-right: 5px; }
-  #route-new-draw #draw-controls {
+  #route-new-draw .route-new-options {
     display: none;
     margin-top: 8px;
     background: white;
     padding: 7px;
     border-radius: 4px;
     border: 1px solid #D5D8D9; }
-    #route-new-draw #draw-controls a {
-      display: block; }
+  #route-new-draw #draw-controls a {
+    display: block; }
+  #route-new-draw #upload-form input[type="submit"] {
+    font-size: 13px;
+    padding: 4px 10px;
+    margin-top: 6px; }
 
 #route-form form#new_route input, #route-form form#new_route textarea, #route-form form#new_route select {
   font-size: 12px;

@@ -648,6 +648,25 @@ table.big-table {
 				border-left: 0;
 				min-width: 20px;
 				background: $blue;
+
+				a {
+					color: white;
+					padding-right: 7px;
+					padding-left: 8px;
+				}
+				.sort-desc {
+					background: url(../images/sort-arrows.png) no-repeat right;
+					padding-right: 13px;
+					padding-left: 0px;
+
+					background-position: 100% 0;
+				}
+				.sort-asc {
+					background: url(../images/sort-arrows.png) no-repeat right;
+					background-position: 100% -16px;
+					padding-right: 13px;
+					padding-left: 0px;
+				}
 			}
 			th:first-child {
 				border: 0;
@@ -1032,16 +1051,26 @@ footer {
 	#draw-route-btn {
 		margin-right: 5px;
 	}
-	#draw-controls {
+	.route-new-options {
 		display: none;
 		margin-top: 8px;
 		background: white;
 		padding: 7px;
 		border-radius: 4px;
 		border: 1px solid #D5D8D9;
+	}
+	#draw-controls {
+		
 		
 		a {
 			display: block;
+		}
+	}
+	#upload-form {
+		input[type="submit"] {
+			font-size: 13px;
+			padding: 4px 10px;
+			margin-top: 6px;
 		}
 	}
 

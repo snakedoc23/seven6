@@ -375,14 +375,36 @@ $(document).ready(function(){
 		});
 		
 	}
+	//KML upload
+	$('#upload-file-btn').bind('click', function(){
+		if($('#draw-controls').is(':visible')) {
+			$('#draw-controls').slideUp('slow');
+		}
+		if($('#upload-form').is(':visible')) {
+			$('#upload-form').slideUp('slow');
+		} else {
+			$('#upload-form').slideDown('slow');
+			//upload tutaj
+		}
+		return false;
+	});
+	
 	
 
 	//przyciski do rysowania
 	$('#draw-controls').hide();
 	$('#draw-route-btn').bind('click', function(){
-		$('#draw-controls').slideDown('slow');
-		if(route == null)
-		route = drawRoute(map, polyline);
+		if($('#upload-form').is(':visible')) {
+			$('#upload-form').slideUp('slow');
+		}
+		if($('#draw-controls').is(':visible')) {
+			$('#draw-controls').slideUp('slow');
+		} else {
+			$('#draw-controls').slideDown('slow');
+			if(route == null)
+			route = drawRoute(map, polyline);
+		}
+		
     	return false;
   	});
 

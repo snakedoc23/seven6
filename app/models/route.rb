@@ -28,7 +28,7 @@ class Route < ActiveRecord::Base
 
   before_save :split_pulse, :add_start_and_finish
 
-  default_scope :order => 'created_at DESC'
+  # default_scope :order => 'created_at DESC'
 
   scope :user_routes, lambda {|id| find_all_by_user_id(id) }
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
@@ -144,6 +144,8 @@ class Route < ActiveRecord::Base
       end
       reucedPath
     end
+
+    
 
 end
 

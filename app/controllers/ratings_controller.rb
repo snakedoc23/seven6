@@ -6,8 +6,9 @@ class RatingsController < ApplicationController
 		if @rating = current_user.ratings.find_by_route_id(@route.id)
 			# update
 			if @rating.update_attributes(:value => @value)
-				@route.avg_rating
-				render :text => @route.avg_rating
+				@route.rating = @route.avg_rating
+				@route.save
+				render :text => @route.rating
 			else
 				# nie zapisalo sie
 			end
@@ -18,8 +19,9 @@ class RatingsController < ApplicationController
 			@rating.user_id = current_user.id
 			@rating.route_id = @route.id
 			if @rating.save
-				@route.avg_rating
-				render :text => @route.avg_rating
+				@route.rating = @route.avg_rating
+				@route.save
+				render :text => @route.rating
 			else
 				# nie zapisalo sie
 			end

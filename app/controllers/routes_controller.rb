@@ -1,8 +1,11 @@
 class RoutesController < ApplicationController
 
   before_filter :authenticate, :only => [:new, :create, :edit, :update]
+
+  helper_method :sort_column, :sort_direction
+
   def index
-    @routes = Route.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+    @routes = Route.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 10)
     @title_header = "Wszystkie trasy"
   end
 
@@ -93,6 +96,16 @@ class RoutesController < ApplicationController
     redirect_to user_path(current_user)
     
   end
+
+  private
+
+    def sort_column
+      Route.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    end
 
 end
 

@@ -20,12 +20,16 @@
 		<div id="route-new-draw">
 			<%= link_to "Rysuj", "#", :id => "draw-route-btn", :class => "btn-base" %>
 			<span>lub</span>
-			<%= link_to "Wgraj z pliku", "#"%>
+			<%= link_to "Wgraj z pliku", "#", :id => "upload-file-btn" %>
 
 
-			<div id="draw-controls">
+			<div id="draw-controls" class="route-new-options">
 				<%= link_to "Przyciągaj do dróg", "#", :id => "snap" %>
 				<%= link_to "Usuń wszystki punkty", "#", :id => "delete-path" %>
+			</div>
+
+			<div id="upload-form" class="route-new-options">
+
 			</div>
 
 		</div><!-- /route-new-draw -->
