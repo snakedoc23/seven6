@@ -14,11 +14,12 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th>Nazwa</th>
+					<th><%= sortable 'Nazwa', 'username' %></th>
 					<th>Avatar</th>
-					<th>Miejscowość</th>
-					<th>Dodane trasy</th>
-					<th>Kilometry</th>
+					<th><%= sortable 'Miejscowość', 'place' %></th>
+					<th><%= sortable 'Dodane trasy', 'total_routes' %></th>
+					<th><%= sortable 'Kilometry', 'total_distance' %></th>
+					<th><%= sortable 'Data dodania', 'created_at' %></th>
 				<% if current_user %>	
 					<% if current_user.admin? %>
 						<th>Usuń użytkownika</th>

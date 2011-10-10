@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :name, :age, :place, :gender, :password, :password_confirmation, :avatar, :remote_avatar_url
   
   has_many :routes
-  has_many :comments
+  has_many :comments, :dependent => :destroy
   
-  has_many :ratings
-  has_many :rated_routes, :through => :ratings, :source => :route
+  has_many :ratings, :dependent => :destroy
+  has_many :rated_routes, :through => :ratings, :source => :route, :dependent => :destroy
 
   mount_uploader :avatar, AvatarUploader
 
@@ -23,6 +23,14 @@ class User < ActiveRecord::Base
                         :length       => { :within => 4..40 }, :on => :create
   
   before_save :encrypt_password
+
+  def add_total_routes_and_distance
+    self.total_routes = self.routes.count
+    total = 0
+    self.routes.each {|r| total += r.distance }
+    self.total_distance = total.round
+    self.save
+  end
 
   def self.search(search)
     if search
@@ -70,6 +78,7 @@ class User < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -87,5 +96,7 @@ end
 #  salt               :string(255)
 #  admin              :boolean
 #  avatar             :string(255)
+#  total_routes       :float
+#  total_distance     :float
 #
 

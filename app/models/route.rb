@@ -27,11 +27,17 @@ class Route < ActiveRecord::Base
 
 
   before_save :split_pulse, :add_start_and_finish
+  after_save :add_total_distance_and_total_routes_to_user
 
   # default_scope :order => 'created_at DESC'
 
-  scope :user_routes, lambda {|id| find_all_by_user_id(id) }
+  scope :user_routes, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC") }
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
+
+
+  def add_total_distance_and_total_routes_to_user
+    self.user.add_total_routes_and_distance
+  end
 
   def self.search(search)
     if search
@@ -86,7 +92,7 @@ class Route < ActiveRecord::Base
   def time_to_string
     if total_time > 0
       h_time = (self.total_time / 3600 - 0.5).round
-      m_time = ((self.total_time - h_time * 3600) / 60 - 0.5).round
+      m_time = ((self.total_time - h_time * 3600) / 60).round
       s_time = (self.total_time - h_time * 3600 - m_time * 60).round
       self.time_string = "#{h_time}h #{m_time}m #{s_time}s"
     end
@@ -153,6 +159,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: routes
@@ -180,5 +187,6 @@ end
 #  max_speed          :float
 #  start_lat_lng      :string(255)
 #  finish_lat_lng     :string(255)
+#  static_map         :string(255)
 #
 

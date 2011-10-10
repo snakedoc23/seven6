@@ -61,6 +61,43 @@ jQuery(document).ready(function() {
 
 
 	//index oceny
+	update_index_rating();
+
+
+});
+
+// aktualizacja gwiazdek
+function update_rating(value, target) {
+
+	$(target).removeClass('full-fill');
+	$(target).removeClass('half-fill');
+	if(value > 4.75) {
+		$(target +':lt(5)').addClass('full-fill');
+	} else if(value > 4.25) {
+		$(target + ':lt(4)').addClass('full-fill');
+		$(target + '.5').addClass('half-fill');
+	} else if(value > 3.75) {
+		$(target + ':lt(4)').addClass('full-fill');
+	} else if(value > 3.25) {
+		$(target + ':lt(3)').addClass('full-fill');
+		$(target + '.4').addClass('half-fill');
+	} else if(value > 2.75) {
+		$(target + ':lt(3)').addClass('full-fill');
+	} else if(value > 2.25) {
+		$(target + ':lt(2)').addClass('full-fill');
+		$(target + '.3').addClass('half-fill');
+	} else if(value > 1.75) {
+		$(target + ':lt(2)').addClass('full-fill');
+	} else if(value > 1.25) {
+		$(target + ':lt(1)').addClass('full-fill');
+		$(target + '.2').addClass('half-fill');
+	} else if(value > 0.75) {
+		$(target + '.1').addClass('full-fill');
+	}
+}
+
+function update_index_rating() {
+	
 
 	$('ul.rating').each(function(i) {
 		z = $('ul.rating')[i];
@@ -130,35 +167,4 @@ jQuery(document).ready(function() {
 
 	});
 
-
-});
-
-// aktualizacja gwiazdek
-function update_rating(value, target) {
-
-	$(target).removeClass('full-fill');
-	$(target).removeClass('half-fill');
-	if(value > 4.75) {
-		$(target +':lt(5)').addClass('full-fill');
-	} else if(value > 4.25) {
-		$(target + ':lt(4)').addClass('full-fill');
-		$(target + '.5').addClass('half-fill');
-	} else if(value > 3.75) {
-		$(target + ':lt(4)').addClass('full-fill');
-	} else if(value > 3.25) {
-		$(target + ':lt(3)').addClass('full-fill');
-		$(target + '.4').addClass('half-fill');
-	} else if(value > 2.75) {
-		$(target + ':lt(3)').addClass('full-fill');
-	} else if(value > 2.25) {
-		$(target + ':lt(2)').addClass('full-fill');
-		$(target + '.3').addClass('half-fill');
-	} else if(value > 1.75) {
-		$(target + ':lt(2)').addClass('full-fill');
-	} else if(value > 1.25) {
-		$(target + ':lt(1)').addClass('full-fill');
-		$(target + '.2').addClass('half-fill');
-	} else if(value > 0.75) {
-		$(target + '.1').addClass('full-fill');
-	}
 }

@@ -5,11 +5,17 @@
 <% @users.each do |user| %>
 	<tr>
 		<td><%= i += 1 %></td>
-		<td><%= link_to user.username, user_path(user) %></td>
+		<td class="title"><%= link_to user.username, user_path(user) %></td>
 		<td><%= user_avatar user, "20x20" %></td>
-		<td><%= user.place %></td>
-		<td><%= user.routes.count %></td>
-		<td><%= i * 89 %></td>
+		<td class="place"><%= user.place %></td>
+		<td class="created_at"><%= user.total_routes %></td>
+		<% if user.total_distance %>
+			<td><%= user.total_distance %> km</td>
+		<% else %>
+			<td>0 km</td>
+		<% end %>
+		<td class="created_at"><%= time_ago_in_words(user.created_at) %></td>
+
 	<% if current_user %>
 	<% if current_user.admin? %>
 		<td><%= link_to "Usuń", user, :method => :delete, :confirm => "Czy aby na pewno", :title => "Usuń #{user.username}" %></td>

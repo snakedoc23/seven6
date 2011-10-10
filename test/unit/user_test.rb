@@ -13,6 +13,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -30,5 +31,7 @@ end
 #  salt               :string(255)
 #  admin              :boolean
 #  avatar             :string(255)
+#  total_routes       :float
+#  total_distance     :float
 #
 

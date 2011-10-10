@@ -565,7 +565,7 @@ function createStartMarker(pos, title, title_route, route_distance, user_name) {
 			width: "280px"
 		}
 		,closeBoxMargin: "10px 2px 2px 2px"
-		,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+		// ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
 		,infoBoxClearance: new google.maps.Size(1, 1)
 		,isHidden: false
 		,pane: "floatPane"

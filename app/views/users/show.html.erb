@@ -49,18 +49,20 @@
 		<%= link_to "Statystyki", "#", :class => "user-stats-btn btn-base" %>
 
 	<div class="clear"></div>
-	<h4 class="user_last_route">Ostatnio dodane trasy:</h4>
-<div id="user-last-routes" class="routes-list">
-<%= render 'routes/last_routes' %>
-</div> <!-- END last-routes -->
-<%= link_to "Więcej", routes_user_path(@user), :class => "btn-base", :id => "last-routes-more" %>
-	
-	
+	<h4 class="user_last_route">Ostatnie trasy:</h4>
+	<ul id="last_routes_tabs">
+		<li><%= link_to "dodane", "#", :id => "last_routes_added_btn", :class => "selected" %></li>
+		<li><%= link_to "ulubione", "#", :id => "last_routes_favorite_btn" %></li>
+		<li><%= link_to "obserwowani", "#", :id => "last_routes_following_btn" %></li>
+	</ul>
+	<div class="clear"></div>
+	<div id="user-last-routes" class="routes-list">
+		<%= render 'routes/last_routes' %>
+	</div> <!-- END last-routes -->
+	<%= link_to "Więcej", routes_user_path(@user), :class => "btn-base", :id => "last-routes-more" %>
+		
 	<div class="clear"></div>
 
-	
-	
-	
 	</div>
 	</div>
 	<div id="map"></div>

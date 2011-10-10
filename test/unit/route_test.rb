@@ -10,6 +10,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: routes
@@ -37,5 +38,6 @@ end
 #  max_speed          :float
 #  start_lat_lng      :string(255)
 #  finish_lat_lng     :string(255)
+#  static_map         :string(255)
 #
 
