@@ -5,10 +5,13 @@ Seven6::Application.routes.draw do
       get 'edit_password'
       get 'routes'
       get 'favorite_routes'
+      get 'following'
+      get 'followers'
     end
   end
   resources :routes
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :relationships, :only => [:create, :destroy]
   
   match '/signout', :to => 'sessions#destroy'
   match '/signin',  :to => 'sessions#new'

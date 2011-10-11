@@ -1,0 +1,41 @@
+<div id="without-map">
+	<%= form_tag users_path, :method => 'get', :id => "search-user" do %>
+		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj użytkownika", :id => "search-text" %>
+		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
+	<% end %>
+
+	<h2 class="h2-top clear"><%= @title_header_top %></h2>
+	<div class="h2-bg">
+		<h2><%= @title_header %></h2>	
+	</div>
+	<div id="content">
+		<div class="users-index-table">
+		<table class="users-index big-table">
+			<thead>
+				<tr>
+					<th></th>
+					<th><%= sortable 'Nazwa', 'username' %></th>
+					<th>Avatar</th>
+					<th><%= sortable 'Miejscowość', 'place' %></th>
+					<th><%= sortable 'Dodane trasy', 'total_routes' %></th>
+					<th><%= sortable 'Kilometry', 'total_distance' %></th>
+					<th><%= sortable 'Data dodania', 'created_at' %></th>
+				<% if current_user %>	
+					<% if current_user.admin? %>
+						<th>Usuń użytkownika</th>
+					<% end %>
+				<% end %>
+				</tr>
+			</thead>
+			<tbody>
+			<%= render 'users' %>
+			</tbody>
+		</table>
+		
+		
+		</div> <!-- END users-index-table -->
+
+	</div> <!-- END content -->
+</div> <!-- END without-map -->
+
+

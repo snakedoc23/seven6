@@ -8,6 +8,14 @@ class User < ActiveRecord::Base
   has_many :ratings, :dependent => :destroy
   has_many :rated_routes, :through => :ratings, :source => :route, :dependent => :destroy
 
+
+  has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
+  has_many :following, :through => :relationships, :source => :followed
+
+  has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship", :dependent => :destroy
+  has_many :followers, :through => :reverse_relationships, :source => :follower
+
+
   mount_uploader :avatar, AvatarUploader
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -40,6 +48,7 @@ class User < ActiveRecord::Base
     end
   end
   
+
   def correct_password?(submitted_password)
     self.encrypted_password == encrypt(submitted_password)
   end
@@ -55,6 +64,20 @@ class User < ActiveRecord::Base
     user = find_by_id(id)
     (user && user.salt == cookie_salt) ? user : nil
   end
+
+
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+  end
+
+  def follow(followed)
+    relationships.create!(:followed_id => followed.id)
+  end
+
+  def unfollow(followed)
+    relationships.find_by_followed_id(followed).destroy
+  end
+
     
   private
     def encrypt_password
@@ -79,6 +102,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -96,7 +120,7 @@ end
 #  salt               :string(255)
 #  admin              :boolean
 #  avatar             :string(255)
-#  total_routes       :float
-#  total_distance     :float
+#  total_routes       :integer
+#  total_distance     :integer
 #
 

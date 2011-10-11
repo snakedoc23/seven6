@@ -50,6 +50,20 @@ class UsersController < ApplicationController
       @routes.push rat.route
     end
   end
+
+  def following
+    @user = User.find(params[:id])
+    @title_header_top = "Obserwowani"
+    @title_header = "przez #{@user.username.to_s}"
+    @users = @user.following.all
+  end
+
+  def followers
+    @user = User.find(params[:id])
+    @title_header_top = "Followers"
+    @title_header = @user.username.to_s
+    @users = @user.followers.all
+  end
   
   def new
     @title_header_top = "Rejestracja w"

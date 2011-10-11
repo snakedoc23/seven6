@@ -17,6 +17,11 @@
 					<% end %>
 				</ul>
 			</div>
+			<% if current_user.following?(@user) %>
+				<%= render 'unfollow' %>
+			<% else %>
+				<%= render 'follow' %>
+			<% end %>
 		</div>
 		<div class="clear"></div>
 		
