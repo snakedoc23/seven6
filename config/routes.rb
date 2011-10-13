@@ -7,6 +7,7 @@ Seven6::Application.routes.draw do
       get 'favorite_routes'
       get 'following'
       get 'followers'
+      get 'following_routes'
     end
   end
   resources :routes
@@ -29,6 +30,9 @@ Seven6::Application.routes.draw do
   post '/create_comment' => 'comments#create'
   post '/edit_comment' => 'comments#edit'
   post '/delete_comment' => 'comments#delete'
+
+
+  post '/user_last_routes' => 'users#user_last_routes'
 
 
   get "pages/home"

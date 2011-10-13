@@ -635,6 +635,30 @@ ul#last_routes_tabs {
 			margin-top: 5px;
 		}
 	}
+	.user-actions {
+		clear: both;
+		margin-top: 23px;
+		form {
+			width: 111px;
+			float: left;
+			#relationship_submit {
+				font-size: 13px;
+				padding: 5px 17px;
+				@include gradient(lighten($blue, 7%), $blue);
+				&:hover {
+					@include gradient(#cf5759, #bb3f41);
+				}
+				&.unfollow {
+					@include gradient(#cf5759, #bb3f41);
+					padding: 5px 12px;
+					&:hover {
+						background: $grey;
+						color: $blue;
+					}
+				}
+			}
+		}
+	}
 	margin-bottom: 20px;
 }
 
@@ -1645,4 +1669,14 @@ ul.rating {
 #remove-route-btn {
 	
 	margin-left: 10px;
+}
+
+#show_following_routes {
+	display: block;
+	width: 237px;
+	margin: auto;
+	margin-top: 20px;
+	&:hover {
+		@include gradient(lighten($blue, 7%), $blue);
+	}
 }

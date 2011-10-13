@@ -27,14 +27,51 @@ class RoutesController < ApplicationController
     render :text => @route.coordinates_string
   end
 
-  # ajax post ze strony glownej po wszystki trasy jako markery
+  # ajax post ze strony glownej i show users po wszystki trasy jako markery
   def start_markers
 
     # @user = User.find(params[:user_id])
     @markers = []
 
-    if params[:user_id] == "0" 
-      Route.all.each do |route|
+    if params[:route_type] == 'added'
+
+      if params[:user_id] == "0" 
+        Route.all.each do |route|
+          r = []
+          r.push route.id
+          r.push route.start_lat_lng
+          r.push route.title
+          r.push route.distance
+          r.push route.user.username
+          @markers.push r
+        end
+      else 
+        Route.where(:user_id => params[:user_id]).each do|route|
+          r = []
+          r.push route.id
+          r.push route.start_lat_lng
+          r.push route.title
+          r.push route.distance
+          r.push route.user.username
+          @markers.push r
+        end
+      end
+
+    elsif params[:route_type] == 'favorite'
+      @user = User.find(params[:user_id])
+      Rating.likes(@user.id).each do |rat|
+        r = []
+        r.push rat.route.id
+        r.push rat.route.start_lat_lng
+        r.push rat.route.title
+        r.push rat.route.distance
+        r.push rat.route.user.username
+        @markers.push r
+      end
+
+    elsif params[:route_type] == 'following'
+      @user = User.find(params[:user_id])
+      @user.following_routes.each do |route|
         r = []
         r.push route.id
         r.push route.start_lat_lng
@@ -43,17 +80,8 @@ class RoutesController < ApplicationController
         r.push route.user.username
         @markers.push r
       end
-    else 
-      Route.where(:user_id => params[:user_id]).each do|route|
-        r = []
-        r.push route.id
-        r.push route.start_lat_lng
-        r.push route.title
-        r.push route.distance
-        r.push route.user.username
-        @markers.push r
-      end
-    end
+
+    end 
 
     render :json => @markers
   end

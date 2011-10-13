@@ -17,11 +17,23 @@
 					<% end %>
 				</ul>
 			</div>
-			<% if current_user.following?(@user) %>
-				<%= render 'unfollow' %>
-			<% else %>
-				<%= render 'follow' %>
-			<% end %>
+			<div class="user-actions">
+				<div id="user_follow_form">
+				<% if current_user %>
+				<% unless current_user? %>
+					<% if current_user.following?(@user) %>
+						<%= render 'unfollow' %>
+					<% else %>
+						<%= render 'follow' %>
+					<% end %>
+				<% end %>
+				<% end %>
+
+				</div>
+				
+				<%= link_to "Wszystkie trasy", "#" %>
+			</div>
+			
 		</div>
 		<div class="clear"></div>
 		
@@ -30,10 +42,6 @@
 			<tr>
 				<td>Dodane trasy:</td>
 				<td><%= link_to @routes_all.count, routes_user_path(@user) %></td>
-			</tr>
-			<tr>
-				<td>Ulubione:</td>
-				<td><%= link_to @likes.count, favorite_routes_user_path(@user) %></td>
 			</tr>
 			<tr>
 				<td>Suma kilometrów:</td>
@@ -49,6 +57,19 @@
 				<td><%= (@total_distance_with_time * 3600 / @total_time).round %> km/h</td>
 			</tr>
 			<% end %>
+			<tr>
+				<td>Ulubione:</td>
+				<td><%= link_to @likes.count, favorite_routes_user_path(@user) %></td>
+			</tr>
+			<tr>
+				<td class="following">Obserwowani:</td>
+				<td><%= link_to @user.following.size, following_user_path(@user) %></td>
+			</tr>
+			<tr>
+				<td class="followers">Obserwujący:</td>
+				<td><%= link_to @user.followers.size, followers_user_path(@user) %></td>
+			</tr>
+			
 		</table>
 		
 		<%= link_to "Statystyki", "#", :class => "user-stats-btn btn-base" %>
@@ -61,11 +82,9 @@
 		<li><%= link_to "obserwowani", "#", :id => "last_routes_following_btn" %></li>
 	</ul>
 	<div class="clear"></div>
-	<div id="user-last-routes" class="routes-list">
-		<%= render 'routes/last_routes' %>
-	</div> <!-- END last-routes -->
-	<%= link_to "Więcej", routes_user_path(@user), :class => "btn-base", :id => "last-routes-more" %>
-		
+	<div id='last_route_container'>
+		<%= render 'last_routes_added' %>
+	</div>
 	<div class="clear"></div>
 
 	</div>

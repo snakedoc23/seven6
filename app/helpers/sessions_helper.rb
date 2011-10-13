@@ -12,6 +12,10 @@ module SessionsHelper
   def current_user
     @current_user ||= user_from_remember_token # Jeśli @curent_user jest nil to przypisz mu wartość z user_from_remember_token czli nowo zalogowanego usera, jeśli coś tam jest to pozostaw
   end
+
+  def current_user?
+    current_user == @user
+  end
   
   def signed_in?
     !current_user.nil? 

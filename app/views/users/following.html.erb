@@ -9,6 +9,18 @@
 		<h2><%= @title_header %></h2>	
 	</div>
 	<div id="content">
+		
+		<% if @user.following.empty? %>
+			<% if current_user? %>
+				<p>Nikogo jeszcze nie obserwujesz</p>
+				<%= link_to "Użytkownicy", users_path %>
+			<% else %>
+				<p><%= @user.username %> nikogo jescze nie obserwuje</p>
+				<%= link_to "Trasy", routes_path %>
+			<% end %>
+		<% else %>
+		
+		<%= link_to "Pokaz wszystkie trasy obserwowanych", following_routes_user_path(@user), :id => "show_following_routes", :class => "btn-base" %>
 		<div class="users-index-table">
 		<table class="users-index big-table">
 			<thead>
@@ -34,6 +46,8 @@
 		
 		
 		</div> <!-- END users-index-table -->
+
+		<% end %>
 
 	</div> <!-- END content -->
 </div> <!-- END without-map -->

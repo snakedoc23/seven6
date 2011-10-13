@@ -1,0 +1,4 @@
+	<div id="user-last-routes" class="routes-list">
+		<%= render 'routes/last_routes', :routes => @favorite_routes %>
+	</div> <!-- END last-routes -->
+	<%= link_to "Więcej", favorite_routes_user_path(@user), :class => "btn-base", :id => "last-routes-more" %>

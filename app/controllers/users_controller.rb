@@ -30,6 +30,32 @@ class UsersController < ApplicationController
       end
     end
     @likes = Rating.likes(@user.id)
+
+    @following_routes = @user.following_routes.first(3)
+
+
+  end
+
+
+  def user_last_routes
+    @user = User.find(params[:user_id])
+    if params[:last_route_type] == "added"
+      @routes = Route.find_all_by_user_id @user.id, :order => "created_at DESC", :limit => 6
+      render :partial => 'last_routes_added'
+
+    elsif params[:last_route_type] == "favorite"
+      
+      @favorite_routes = []
+      @likes = Rating.likes(@user.id)
+      @likes.each do |rat|
+        @favorite_routes.push rat.route
+      end
+      render :partial => 'last_routes_favorite'
+
+    elsif params[:last_route_type] == "following"
+      @following_routes = @user.following_routes.first(3)
+      render :partial => 'last_routes_following'
+    end 
   end
 
   def routes
@@ -56,6 +82,18 @@ class UsersController < ApplicationController
     @title_header_top = "Obserwowani"
     @title_header = "przez #{@user.username.to_s}"
     @users = @user.following.all
+  end
+
+  def following_routes
+    # wszystie trasy obserwowanych uzytkownikow @routes
+    @user = User.find(params[:id])
+    @routes = []
+    @user.following.each do |followed|
+      followed.routes.each do |route|
+        @routes.push route
+      end
+    end
+
   end
 
   def followers

@@ -947,6 +947,48 @@ ul#last_routes_tabs {
       font-size: 17px; }
     .user-profile .user-info ul li.edit-user {
       margin-top: 5px; }
+  .user-profile .user-actions {
+    clear: both;
+    margin-top: 23px; }
+    .user-profile .user-actions form {
+      width: 111px;
+      float: left; }
+      .user-profile .user-actions form #relationship_submit {
+        font-size: 13px;
+        padding: 5px 17px;
+        background: #354d59;
+        /* for non-css3 browsers */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+        /* for IE */
+        background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+        /* for webkit browsers */
+        background: -moz-linear-gradient(top, #354d59, #283a43);
+        /* for firefox 3.6+ */
+        background: linear-gradient(top, #354d59, #283a43); }
+        .user-profile .user-actions form #relationship_submit:hover {
+          background: #cf5759;
+          /* for non-css3 browsers */
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+          /* for IE */
+          background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+          /* for webkit browsers */
+          background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+          /* for firefox 3.6+ */
+          background: linear-gradient(top, #cf5759, #bb3f41); }
+        .user-profile .user-actions form #relationship_submit.unfollow {
+          background: #cf5759;
+          /* for non-css3 browsers */
+          filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+          /* for IE */
+          background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+          /* for webkit browsers */
+          background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+          /* for firefox 3.6+ */
+          background: linear-gradient(top, #cf5759, #bb3f41);
+          padding: 5px 12px; }
+          .user-profile .user-actions form #relationship_submit.unfollow:hover {
+            background: #caced0;
+            color: #283a43; }
 
 table.user-numbers {
   margin-top: 20px;
@@ -1754,3 +1796,19 @@ ul.rating li {
 
 #remove-route-btn {
   margin-left: 10px; }
+
+#show_following_routes {
+  display: block;
+  width: 237px;
+  margin: auto;
+  margin-top: 20px; }
+  #show_following_routes:hover {
+    background: #354d59;
+    /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+    /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #354d59, #283a43);
+    /* for firefox 3.6+ */
+    background: linear-gradient(top, #354d59, #283a43); }

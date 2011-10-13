@@ -199,17 +199,49 @@ $(document).ready(function(){
 
 	//pages/home --> zawiera listę ostatnich tras
 	if($('#last-routes').length) {
-		loadStartMarkers(0);
+		loadStartMarkers(0, 'added');
 	}
 	// user_show_page
 	if($('#user-last-routes').length) {
 		var user_id = $('#user_id').val();
-		loadStartMarkers(user_id);
+		loadStartMarkers(user_id, 'added');
 	}
+
+
+	//users_page
+	$('#last_routes_added_btn').bind('click', function() {
+		var user_id = $('#user_id').val();
+		loadStartMarkers(user_id, 'added');
+		loadLastRoutes("added", user_id);
+		$('#last_routes_tabs li a.selected').removeClass('selected');
+		$('#last_routes_added_btn').addClass('selected');
+		return false;
+	});
+	$('#last_routes_favorite_btn').bind('click', function() {
+		loadStartMarkers(user_id, 'favorite');
+		loadLastRoutes("favorite", user_id);
+		$('#last_routes_tabs li a.selected').removeClass('selected');
+		$('#last_routes_favorite_btn').addClass('selected');
+		return false;
+	});
+	$('#last_routes_following_btn').bind('click', function() {
+		loadStartMarkers(user_id, 'following');
+		loadLastRoutes("following", user_id);
+		$('#last_routes_tabs li a.selected').removeClass('selected');
+		$('#last_routes_following_btn').addClass('selected');
+		return false;
+	});
+
+	
+	
+
+
+
+
 	//pages/home i users_page
 	if($('.routes-list').length) {
 
-		$('.route-img').click(function(){
+		$('.route-img').live('click', function(){
 			// console.log($(this).css("border"));
 			if($('.route-img').hasClass("selected")) {
 				$('.route-img').removeClass("selected");
@@ -231,7 +263,7 @@ $(document).ready(function(){
 				}
 			}
 		});
-		$('.route-img').mouseover(function(){
+		$('.route-img').live('mouseover', function(){
 			var id = $(this).parent().attr("id").split("-")[2];
 			for(var i = 0; i < homeMarkers.length; i++) {
 				homeMarkers[i].setIcon(sMarkerImage);
@@ -241,7 +273,7 @@ $(document).ready(function(){
 				}
 			}
 		});
-		$('.route-img').mouseout(function(){
+		$('.route-img').live('mouseout', function(){
 			var id = $(this).parent().attr("id").split("-")[2];
 			for(var i = 0; i < homeMarkers.length; i++) {
 				homeMarkers[i].setIcon(sMarkerImage);
@@ -496,13 +528,19 @@ $(document).ready(function(){
 });
 
 // ładowanie wszystkich tras na mapę
-function loadStartMarkers(user_id) {
-	
+function loadStartMarkers(user_id, route_type) {
+
+	for(var i = 0; i < homeMarkers.length; i++) {
+		homeMarkers[i].setMap(null);
+	}
+
+	homeInfoBoxes = [];
+	homeMarkers = [];
 	// zwraca tablice z tablicami dla kazdej trasy [id, start_lat_lng]
 	$.ajax({
 		type: "POST",
 		url: "/start_markers",
-		data: {user_id : user_id},
+		data: {user_id : user_id, route_type: route_type},
 		dataType: "json",
 		success: function(markers) {
 			for(var i = 0; i < markers.length; i++) {
@@ -522,6 +560,16 @@ function loadStartMarkers(user_id) {
 	});
 };
 
+function loadLastRoutes(last_route_type, user_id) {
+	$.post(
+		'/user_last_routes',
+		{last_route_type : last_route_type, user_id : user_id},
+		function(data) {
+			console.log(data);
+			$('#last_route_container').html(data);
+		}
+	);
+};
 
 function createStartMarker(pos, title, title_route, route_distance, user_name) {
 	sMarkerImage = new google.maps.MarkerImage(

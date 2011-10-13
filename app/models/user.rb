@@ -78,6 +78,17 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(followed).destroy
   end
 
+  def following_routes
+    @following_routes = []
+    self.following.each do |followed|
+      followed.routes.each do |route|
+        @following_routes.push route
+      end
+    end
+    @following_routes.sort! { |x,y| y.created_at <=> x.created_at }
+    
+  end
+
     
   private
     def encrypt_password

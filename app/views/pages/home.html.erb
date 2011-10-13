@@ -1,6 +1,6 @@
 <%= render 'shared/with_map' %>
 <div id="last-routes" class="routes-list">
-	<%= render 'routes/last_routes' %>
+	<%= render 'routes/last_routes', :routes => @routes %>
 </div> <!-- END last-routes -->
 	<%= link_to "Więcej", routes_path, :class => "btn-base", :id => "last-routes-more" %>
 	</div> <!-- END aside-content -->
