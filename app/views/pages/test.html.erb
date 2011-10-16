@@ -1,1 +1,79 @@
-<%=  User.last.following.first.routes.first.title %>
+<br />
+<br />
+<br />
+
+
+<table>
+
+		<tr>
+			<td>120</td>
+			<td>120</td>
+			<td>120</td>
+		</tr>
+
+		<tr>
+			<td>2011-03-12</td>
+			<td>2011-03-12</td>
+			<td>2011-03-12</td>
+		</tr>
+
+</table>
+<% sums = Array.new %>
+<% 7.times {sums.push(0) } %>
+
+<% User.first.routes.each do |route| %>
+	<% 7.times do |i| %>
+		<% if route.created_at.to_date == i.days.ago.to_date %>
+			<% sums[i] += 1  %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<p>Data --- dodane trasy</p>
+<% sums.size.times do |i| %>
+<ul>
+	<li><%= i.days.ago.to_date %>  --- <%= sums[i] %></li>
+</ul>
+<% end %>
+
+
+<p>Dystans</p>
+
+<% sums = Array.new %>
+<% 7.times {sums.push(0) } %>
+
+<% User.first.routes.each do |route| %>
+	<% 7.times do |i| %>
+		<% if route.created_at.to_date == i.days.ago.to_date %>
+			<% sums[i] += route.distance  %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<p>Data --- przejechany dystans</p>
+<% sums.size.times do |i| %>
+<ul>
+	<li><%= i.days.ago.to_date %>  --- <%= sums[i] %></li>
+</ul>
+<% end %>
+
+
+<p>Czas</p>
+
+<% sums = Array.new %>
+<% 7.times {sums.push(0) } %>
+
+<% User.first.routes.each do |route| %>
+	<% 7.times do |i| %>
+		<% if route.created_at.to_date == i.days.ago.to_date %>
+			<% sums[i] += route.total_time  %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<p>Data --- przejechany dystans</p>
+<% sums.size.times do |i| %>
+<ul>
+	<li><%= i.days.ago.to_date %>  --- <%= sums[i] %></li>
+</ul>
+<% end %>

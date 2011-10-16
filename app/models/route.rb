@@ -91,8 +91,8 @@ class Route < ActiveRecord::Base
 
   def time_to_string
     if total_time > 0
-      h_time = (self.total_time / 3600 - 0.5).round
-      m_time = ((self.total_time - h_time * 3600) / 60).round
+      h_time = (self.total_time / 3600 ).floor
+      m_time = ((self.total_time - (h_time * 3600)) / 60).floor
       s_time = (self.total_time - h_time * 3600 - m_time * 60).round
       self.time_string = "#{h_time}h #{m_time}m #{s_time}s"
     end

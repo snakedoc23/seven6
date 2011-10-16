@@ -666,6 +666,8 @@ function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
 			window.location = '/routes/'+tTitle;
 		});
 	});
+
+
 };
 
 
@@ -676,6 +678,10 @@ function loadRouteToHome(id) {
 	$.post('/load_coordinates', {id : id_r}, function(coordinates) {
 		var bounds = pathFromString(coordinates, path);
 		map.fitBounds(bounds);
+		polyline.setPath(path);
+	});
+	google.maps.event.addListener(map, "click", function() {
+		path = [];
 		polyline.setPath(path);
 	});
 

@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     @title_header_top = "Wszystkie trasy"
     @title_header = @user.username.to_s
     
-    @routes = Route.user_routes(@user.id)
+    @routes = @user.routes.order('created_at DESC')
   end
 
   def favorite_routes
@@ -103,6 +103,56 @@ class UsersController < ApplicationController
     @users = @user.followers.all
   end
   
+  def stats
+    @user = User.find(params[:id])
+    @routes = @user.routes.order('created_at ASC')
+    @days_since_first = (Time.now.to_date - @routes.first.created_at.to_date).to_i + 1
+
+    @total_routes = Array.new
+    @total_distance = Array.new
+    @total_time = Array.new
+    
+    @days_since_first.times {@total_routes.push(0) }
+    @days_since_first.times {@total_distance.push(0) }
+    @days_since_first.times {@total_time.push(0) }
+
+
+    @routes.each do |route|
+      @days_since_first.times do |i|
+        if route.created_at.to_date == i.days.ago.to_date
+          @total_routes[i] += 1
+          @total_distance[i] += route.distance
+          @total_time[i] += route.total_time
+        end
+      end
+    end
+
+    # @routes.each do |route|
+    #   @days_since_first.times do |i|
+    #     if route.created_at.month == i.month.ago.month
+    #       @total_routes[i] += 1
+    #       @total_distance[i] += route.distance
+    #       @total_time[i] += route.total_time
+    #     end
+    #   end
+    # end
+
+    # @routes.each do |route|
+    #   @days_since_first.times do |i|
+    #     if route.created_at.beginning_of_week == i.week.ago.beginning_of_week
+    #       @total_routes[i] += 1
+    #       @total_distance[i] += route.distance
+    #       @total_time[i] += route.total_time
+    #     end
+    #   end
+    # end
+
+
+
+
+  end
+
+
   def new
     @title_header_top = "Rejestracja w"
     @title_header = "76rowerow.pl"

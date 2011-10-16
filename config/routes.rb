@@ -8,6 +8,7 @@ Seven6::Application.routes.draw do
       get 'following'
       get 'followers'
       get 'following_routes'
+      get 'stats'
     end
   end
   resources :routes

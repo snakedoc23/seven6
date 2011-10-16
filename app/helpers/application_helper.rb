@@ -18,4 +18,13 @@ module ApplicationHelper
 		link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
 	end
 
+	def time_to_string(total_time)
+    if total_time > 0
+      h_time = (total_time / 3600).floor
+      m_time = ((total_time - h_time * 3600) / 60).floor
+      s_time = (total_time - h_time * 3600 - m_time * 60).round
+      time_string = "#{h_time}h #{m_time}m #{s_time}s"
+    end
+  end
+
 end
