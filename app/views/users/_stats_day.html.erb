@@ -1,0 +1,70 @@
+<script>
+	jQuery(document).ready(function() {
+
+		// Dodane trasy
+		new Highcharts.Chart({
+			chart: {
+				renderTo: 'routes_chart',
+				type: 'column'
+			},
+			title: {
+				text: 'Dodane trasy'
+			},
+			xAxis: {
+				categories: [
+					<% (@total_routes.size).times do |i| %>
+						<%= "'#{l (i + 7 * @offset ).days.ago, :format => '%A (%Y.%m.%d)'}'" %>
+						<% if i <  @total_routes.size %>
+							<%= "," %>
+						<% end %>
+					<% end %>
+				]
+			},
+			yAxis: {
+				title: {
+					text: 'Liczba dodanych tras'
+				},
+				allowDecimals: false
+			},
+
+			series: [{
+				name: "Dodane trasy",
+				data: <%= @total_routes %>
+			}]
+		});
+
+		// Kilometry
+		new Highcharts.Chart({
+			chart: {
+				renderTo: 'distance_chart',
+				type: 'column'
+			},
+			title: {
+				text: 'Przejechane kilometry'
+			},
+			xAxis: {
+				categories: [
+					<% (@total_distance.size).times do |i| %>
+						<%= "'#{l (i + 7 * @offset ).days.ago, :format => '%A (%Y.%m.%d)'}'" %>
+						<% if i <  @total_distance.size %>
+							<%= "," %>
+						<% end %>
+					<% end %>
+				]
+			},
+			yAxis: {
+				title: {
+					text: 'Liczba pokonanych kilometrów'
+				}
+			},
+
+			series: [{
+				name: "Przejechane kilometry",
+				data: <%= @total_distance %>
+			}]
+		});
+
+	});
+	
+</script>
+

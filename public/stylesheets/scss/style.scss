@@ -1680,3 +1680,12 @@ ul.rating {
 		@include gradient(lighten($blue, 7%), $blue);
 	}
 }
+
+#charts_container {
+	width: 900px;
+	margin: auto;
+	margin-top: 20px;
+	#routes_chart, #distance_chart {
+		margin-top: 10px;
+	}
+}

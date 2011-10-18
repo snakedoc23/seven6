@@ -1812,3 +1812,10 @@ ul.rating li {
     background: -moz-linear-gradient(top, #354d59, #283a43);
     /* for firefox 3.6+ */
     background: linear-gradient(top, #354d59, #283a43); }
+
+#charts_container {
+  width: 900px;
+  margin: auto;
+  margin-top: 20px; }
+  #charts_container #routes_chart, #charts_container #distance_chart {
+    margin-top: 10px; }

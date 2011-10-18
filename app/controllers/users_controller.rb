@@ -103,53 +103,71 @@ class UsersController < ApplicationController
     @users = @user.followers.all
   end
   
-  def stats
-    @user = User.find(params[:id])
+
+  def show_stats
+    @user = User.find(params[:user_id])
     @routes = @user.routes.order('created_at ASC')
+
+    @total_routes   = Array.new
+    @total_distance = Array.new
+    @total_time     = Array.new
+
+    @offset = params[:offset].to_i
+
     @days_since_first = (Time.now.to_date - @routes.first.created_at.to_date).to_i + 1
 
-    @total_routes = Array.new
-    @total_distance = Array.new
-    @total_time = Array.new
-    
-    @days_since_first.times {@total_routes.push(0) }
-    @days_since_first.times {@total_distance.push(0) }
-    @days_since_first.times {@total_time.push(0) }
-
-
-    @routes.each do |route|
-      @days_since_first.times do |i|
-        if route.created_at.to_date == i.days.ago.to_date
-          @total_routes[i] += 1
-          @total_distance[i] += route.distance
-          @total_time[i] += route.total_time
+    if params[:period] == "day"
+      7.times {@total_routes.push(0) }
+      7.times {@total_distance.push(0) }
+      7.times {@total_time.push(0) }
+      
+      @routes.each do |route|
+        7.times do |i|
+          if route.created_at.to_date == (i + @offset * 7).days.ago.to_date
+            @total_routes[i] += 1
+            @total_distance[i] += route.distance
+            @total_time[i] += route.total_time
+          end
         end
       end
+      render :partial => 'stats_day'
+
+    elsif params[:period] == "month"
+      5.times {@total_routes.push(0) }
+      5.times {@total_distance.push(0) }
+      5.times {@total_time.push(0) }
+
+      @routes.each do |route|
+        5.times do |i|
+          if route.created_at.month == (i + @offset * 5).month.ago.month
+            @total_routes[i] += 1
+            @total_distance[i] += route.distance
+            @total_time[i] += route.total_time
+          end
+        end
+      end
+      render :partial => 'stats_month'
+
+    elsif params[:period] == "week"
+      5.times {@total_routes.push(0) }
+      5.times {@total_distance.push(0) }
+      5.times {@total_time.push(0) }
+      @routes.each do |route|
+        5.times do |i|
+          if route.created_at.beginning_of_week == (i + @offset * 5).week.ago.beginning_of_week
+            @total_routes[i] += 1
+            @total_distance[i] += route.distance
+            @total_time[i] += route.total_time
+          end
+        end
+      end
+      render :partial => 'stats_week'
+
     end
+  end
 
-    # @routes.each do |route|
-    #   @days_since_first.times do |i|
-    #     if route.created_at.month == i.month.ago.month
-    #       @total_routes[i] += 1
-    #       @total_distance[i] += route.distance
-    #       @total_time[i] += route.total_time
-    #     end
-    #   end
-    # end
-
-    # @routes.each do |route|
-    #   @days_since_first.times do |i|
-    #     if route.created_at.beginning_of_week == i.week.ago.beginning_of_week
-    #       @total_routes[i] += 1
-    #       @total_distance[i] += route.distance
-    #       @total_time[i] += route.total_time
-    #     end
-    #   end
-    # end
-
-
-
-
+  def stats
+    @user = User.find(params[:id])
   end
 
 

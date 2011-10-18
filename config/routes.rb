@@ -35,6 +35,8 @@ Seven6::Application.routes.draw do
 
   post '/user_last_routes' => 'users#user_last_routes'
 
+  post '/show_stats' => 'users#show_stats'
+
 
   get "pages/home"
   get "pages/test"

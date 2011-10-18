@@ -1,46 +1,32 @@
-<br>
-<br>
-<br>
-<br>
-<h1>Dodane trasy</h1>
-<h3><%= @days_since_first %> dni od pierwszej trasy</h3>
-<table>
-	<tr>
-	<% ((@total_routes.size) - 1).downto(0) do |i| %>
-		<td><%= @total_routes[i] %></td>
+<div id="without-map">
+	<%= form_tag routes_path, :method => 'get', :id => "search-route" do %>
+		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
+		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
 	<% end %>
-	</tr>
-	<tr>
-	<% ((@total_routes.size) - 1).downto(0) do |i| %>
-		<td><%= l i.days.ago, :format => '%A (%Y.%m.%d)' %></td>
-	<% end %>
-	</tr>
-</table>
 
-<h1>kilometry</h1>
-<table>
-	<tr>
-	<% ((@total_distance.size) - 1).downto(0) do |i| %>
-		<td><%= @total_distance[i].round(2) %></td>
-	<% end %>
-	</tr>
-	<tr>
-	<% ((@total_distance.size) - 1).downto(0) do |i| %>
-		<td><%= l i.days.ago, :format => '%A (%Y.%m.%d)' %></td>
-	<% end %>
-	</tr>
-</table>
+	<h2 class="h2-top clear">Statystyki</h2>
+	<div class="h2-bg">
+		<h2>użytkownika: <%= @user.username %></h2>	
+	</div>
+	<div id="content">
+			
+		<%= hidden_field_tag 'user_id', @user.id %>
+		
 
-<h1>czas</h1>
-<table>
-	<tr>
-	<% ((@total_time.size) -1 ).downto(0) do |i| %>
-		<td><%= time_to_string @total_time[i] %></td>
-	<% end %>
-	</tr>
-	<tr>
-	<% ((@total_time.size) -1 ).downto(0) do |i| %>
-		<td><%= l i.days.ago, :format => '%A (%Y.%m.%d)' %></td>
-	<% end %>
-	</tr>
-</table>
+		<div id="charts_container">
+			
+			<%= link_to "Dni", "#", :id => "stats_day_btn" %>
+			<%= link_to "Tygodnie", "#", :id => "stats_week_btn" %>
+			<%= link_to "Miesiące", "#", :id => "stats_month_btn" %>
+
+			<%= link_to "Poprzednie", "#", :id => "stats_previous_btn" %>
+			<%= link_to "Następne", "#", :id => "stats_next_btn" %>
+			<div id="script_chart"></div>
+			<div id="routes_chart"></div>
+			<div id="distance_chart"></div>
+			<div id="time_chart"></div>
+		</div>
+
+
+	</div> <!-- END content -->
+</div> <!-- END without-map -->

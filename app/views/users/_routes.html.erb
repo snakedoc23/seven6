@@ -58,7 +58,7 @@
 					<% else %>
 					<td></td>
 					<% end %>
-					<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
+					<td class="created_at"><%= l route.created_at, :format => "%m.%d %H:%I" %></td>
 					<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
 					<td class="like"><%= Rating.route_likes(route.id).size %></td>
 					<td class="comments"><%= Comment.route_comments(route.id).size %></td>

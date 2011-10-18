@@ -1,0 +1,35 @@
+<script>
+	jQuery(document).ready(function() {
+
+		new Highcharts.Chart({
+			chart: {
+				renderTo: 'routes_chart',
+				type: 'column'
+			},
+			title: {
+				text: 'Dodane trasy'
+			},
+			xAxis: {
+				categories: [
+					<% (@total_distance.size).times do |i| %>
+						<%= "'#{l (i + 5 * @offset ).week.ago.beginning_of_week, :format => '%d.%m'} - #{l (i + 5 * @offset ).week.ago.end_of_week, :format => '%d.%m'}'" %>
+						<% if i <  @total_routes.size %>
+							<%= "," %>
+						<% end %>
+					<% end %>
+				]
+
+			},
+			yAxis: {
+				title: {
+					text: 'Liczba dodanych tras'
+				},
+				allowDecimals: false
+			},
+			series: [{
+				name: "Dodane trasy",
+				data: <%= @total_routes %>
+			}]
+		});
+	});
+</script>

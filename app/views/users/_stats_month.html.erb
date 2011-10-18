@@ -1,0 +1,36 @@
+<script>
+	jQuery(document).ready(function() {
+
+		new Highcharts.Chart({
+			chart: {
+				renderTo: 'routes_chart',
+				type: 'column'
+			},
+			title: {
+				text: 'Dodane trasy'
+			},
+			xAxis: {
+				categories: [
+					<% (@total_distance.size).times do |i| %>
+						<%= "'#{l (i + 5 * @offset ).month.ago, :format => '%B %Y'}'" %>
+						<% if i <  @total_routes.size %>
+							<%= "," %>
+						<% end %>
+					<% end %>
+				]
+
+			},
+			yAxis: {
+				title: {
+					text: 'Liczba dodanych tras'
+				},
+				allowDecimals: false
+			},
+			series: [{
+				name: "Dodane trasy",
+				data: <%= @total_routes %>
+			}]
+		});
+	});
+</script>
+
