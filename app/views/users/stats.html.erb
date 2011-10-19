@@ -13,19 +13,23 @@
 		<%= hidden_field_tag 'user_id', @user.id %>
 		
 
-		<div id="charts_container">
-			
-			<%= link_to "Dni", "#", :id => "stats_day_btn" %>
-			<%= link_to "Tygodnie", "#", :id => "stats_week_btn" %>
-			<%= link_to "Miesiące", "#", :id => "stats_month_btn" %>
-
+		<div id="stats_container">
+			<div id="stats_actions">
+				<%= link_to "Dni", "#", :id => "stats_day_btn" %>
+				<%= link_to "Tygodnie", "#", :id => "stats_week_btn" %>
+				<%= link_to "Miesiące", "#", :id => "stats_month_btn" %>
+			</div>
 			<%= link_to "Poprzednie", "#", :id => "stats_previous_btn" %>
+			
+			<div id="charts_container">
+				<div id="script_chart"></div>
+				<div id="routes_chart"></div>
+				<div id="distance_chart"></div>
+				<div id="climbup_chart"></div>
+			</div>
 			<%= link_to "Następne", "#", :id => "stats_next_btn" %>
-			<div id="script_chart"></div>
-			<div id="routes_chart"></div>
-			<div id="distance_chart"></div>
-			<div id="time_chart"></div>
 		</div>
+
 
 
 	</div> <!-- END content -->

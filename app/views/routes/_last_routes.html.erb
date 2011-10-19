@@ -10,7 +10,7 @@
 		<% end %>
 		</div>
 		<div class="route-info">
-			<h4><%= link_to truncate(route.title, :length => 50), route_path(route.id) %></h4>
+			<h4><%= link_to truncate(route.title, :length => 25), route_path(route.id) %></h4>
 			<ul>
 				<div class="profile-image <%= profile_image route %>"></div>
 				<li><%= route.distance %> km, <%= route.surface %>, <%= route.altitude %> m </li>

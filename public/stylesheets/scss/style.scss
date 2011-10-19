@@ -1681,11 +1681,83 @@ ul.rating {
 	}
 }
 
-#charts_container {
-	width: 900px;
+#stats_container {
+	width: 960px;
 	margin: auto;
 	margin-top: 20px;
-	#routes_chart, #distance_chart {
-		margin-top: 10px;
+}
+#stats_actions {
+	width: 240px;
+	margin: auto;
+	margin-bottom: 20px;
+
+
+		a {
+			margin-right: 10px;
+			color: $blue;
+			font-size: 12px;
+			padding: 4px 13px;
+			@include rounded(4px);
+			border: 1px solid #EEE;
+			@include shadow( 0, 1px, 1px, #aaa);
+			@include gradient(#f9f9f9, #eaeaea);
+			&:hover {
+				text-decoration: none;
+				background: #EAEAEA;
+			}
+			&.selected {
+				background: #DDD;
+				border: 1px solid #EEE;
+				border-top-color: #C5C5C5;
+				border-left-color: #C5C5C5;
+				@include shadow( 0, 1px, 1px, #fff);
+				padding: 5px 14px;
+				color: darken($blue, 10%);
+			}
+		}
+
+
+}
+
+#charts_container {
+	width: 840px;
+	float: left;
+	#routes_chart, #distance_chart, #climbup_chart {
+		width: 840px;
+		height: 400px;
+		margin-bottom: 20px;
+	}
+
+}
+#stats_previous_btn, #stats_next_btn {
+	float: left;
+	display: block;
+	width: 60px;
+	height: 60px;
+	margin-top: 170px;
+	margin-bottom: 170px;
+	text-indent: -9999px;
+}
+#stats_previous_btn {
+	background: url(../images/stats_btn.png) no-repeat 0 -60px;
+	&:hover {
+		background: url(../images/stats_btn.png) no-repeat 0 -120px;
+	}
+	&:active {
+		background: url(../images/stats_btn.png) no-repeat 0 0;
+	}
+
+}
+#stats_next_btn {
+	background: url(../images/stats_btn.png) no-repeat 0 -180px;
+	&:hover {
+		background: url(../images/stats_btn.png) no-repeat 0 -240px;
+	}
+	&:active {
+		background: url(../images/stats_btn.png) no-repeat 0 -300px;
 	}
 }
+
+
+
+

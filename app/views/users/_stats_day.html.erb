@@ -3,12 +3,33 @@
 
 		// Dodane trasy
 		new Highcharts.Chart({
+			colors: [
+				'#c84446'	
+			],
 			chart: {
 				renderTo: 'routes_chart',
-				type: 'column'
+				type: 'column',
+				borderWidth: 1,
+				borderColor: '#caced0',
+				backgroundColor: null
+			},
+			plotOptions : {
+				series: {
+					borderColor: '#ffffff',
+					shadow: false
+				}
+			},
+			credits: {
+				enabled: false
+			},
+			legend: {
+				enabled: false
 			},
 			title: {
-				text: 'Dodane trasy'
+				text: 'Dodane trasy w ostatnich dniach',
+				style: {
+					color: '#283a43'
+				}
 			},
 			xAxis: {
 				categories: [
@@ -22,7 +43,10 @@
 			},
 			yAxis: {
 				title: {
-					text: 'Liczba dodanych tras'
+					text: 'Liczba dodanych tras',
+					style: {
+						color: '#283a43'
+					}
 				},
 				allowDecimals: false
 			},
@@ -34,13 +58,35 @@
 		});
 
 		// Kilometry
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		new Highcharts.Chart({
+			colors: [
+				'#283a43'	
+			],
 			chart: {
 				renderTo: 'distance_chart',
-				type: 'column'
+				type: 'column',
+				borderWidth: 1,
+				borderColor: '#caced0',
+				backgroundColor: null
+			},
+			plotOptions : {
+				series: {
+					borderColor: '#ffffff',
+					shadow: false
+				}
+			},
+			credits: {
+				enabled: false
+			},
+			legend: {
+				enabled: false
 			},
 			title: {
-				text: 'Przejechane kilometry'
+				text: 'Przejechane kilometry w ostatnich dniach',
+				style: {
+					color: '#283a43'
+				}
 			},
 			xAxis: {
 				categories: [
@@ -54,13 +100,72 @@
 			},
 			yAxis: {
 				title: {
-					text: 'Liczba pokonanych kilometrów'
+					text: 'Liczba przejechanych kilometrów',
+					style: {
+						color: '#283a43'
+					}
 				}
 			},
 
 			series: [{
-				name: "Przejechane kilometry",
+				name: "Kilometry",
 				data: <%= @total_distance %>
+			}]
+		});
+
+		// Suma podjazdów
+		/////////////////////////////////////////////////////////////////////////////////////////////////////
+		new Highcharts.Chart({
+			colors: [
+				'#c84446'	
+			],
+			chart: {
+				renderTo: 'climbup_chart',
+				type: 'column',
+				borderWidth: 1,
+				borderColor: '#caced0',
+				backgroundColor: null
+			},
+			plotOptions : {
+				series: {
+					borderColor: '#ffffff',
+					shadow: false
+				}
+			},
+			credits: {
+				enabled: false
+			},
+			legend: {
+				enabled: false
+			},
+			title: {
+				text: 'Suma pokonanych wzniesień',
+				style: {
+					color: '#283a43'
+				}
+			},
+			xAxis: {
+				categories: [
+					<% (@total_climb_up.size).times do |i| %>
+						<%= "'#{l (i + 7 * @offset ).days.ago, :format => '%A (%Y.%m.%d)'}'" %>
+						<% if i <  @total_climb_up.size %>
+							<%= "," %>
+						<% end %>
+					<% end %>
+				]
+			},
+			yAxis: {
+				title: {
+					text: 'Pokonane wzniesienia (m)',
+					style: {
+						color: '#283a43'
+					}
+				}
+			},
+
+			series: [{
+				name: "Wzniesienia",
+				data: <%= @total_climb_up %>
 			}]
 		});
 

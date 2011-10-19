@@ -111,6 +111,7 @@ class UsersController < ApplicationController
     @total_routes   = Array.new
     @total_distance = Array.new
     @total_time     = Array.new
+    @total_climb_up = Array.new
 
     @offset = params[:offset].to_i
 
@@ -120,13 +121,15 @@ class UsersController < ApplicationController
       7.times {@total_routes.push(0) }
       7.times {@total_distance.push(0) }
       7.times {@total_time.push(0) }
+      7.times {@total_climb_up.push(0) }
       
       @routes.each do |route|
         7.times do |i|
           if route.created_at.to_date == (i + @offset * 7).days.ago.to_date
             @total_routes[i] += 1
-            @total_distance[i] += route.distance
+            @total_distance[i] += route.distance.round(2)
             @total_time[i] += route.total_time
+            @total_climb_up[i] += route.total_climb_up.round(2)
           end
         end
       end
@@ -136,13 +139,15 @@ class UsersController < ApplicationController
       5.times {@total_routes.push(0) }
       5.times {@total_distance.push(0) }
       5.times {@total_time.push(0) }
+      5.times {@total_climb_up.push(0) }
 
       @routes.each do |route|
         5.times do |i|
           if route.created_at.month == (i + @offset * 5).month.ago.month
             @total_routes[i] += 1
-            @total_distance[i] += route.distance
+            @total_distance[i] += route.distance.round(2)
             @total_time[i] += route.total_time
+            @total_climb_up[i] += route.total_climb_up.round(2)
           end
         end
       end
@@ -152,12 +157,14 @@ class UsersController < ApplicationController
       5.times {@total_routes.push(0) }
       5.times {@total_distance.push(0) }
       5.times {@total_time.push(0) }
+      5.times {@total_climb_up.push(0) }
       @routes.each do |route|
         5.times do |i|
           if route.created_at.beginning_of_week == (i + @offset * 5).week.ago.beginning_of_week
             @total_routes[i] += 1
-            @total_distance[i] += route.distance
+            @total_distance[i] += route.distance.round(2)
             @total_time[i] += route.total_time
+            @total_climb_up[i] += route.total_climb_up.round(2)
           end
         end
       end
