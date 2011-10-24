@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111011164846) do
+ActiveRecord::Schema.define(:version => 20111024041039) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -81,9 +81,11 @@ ActiveRecord::Schema.define(:version => 20111011164846) do
     t.string   "encrypted_password"
     t.string   "salt"
     t.boolean  "admin"
-    t.string   "avatar"
     t.integer  "total_routes"
     t.integer  "total_distance"
+    t.string   "avatar_name"
+    t.string   "avatar_content_type"
+    t.binary   "avatar_data"
   end
 
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true

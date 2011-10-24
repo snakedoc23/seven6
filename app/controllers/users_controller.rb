@@ -5,6 +5,16 @@ class UsersController < ApplicationController
   before_filter :admin_user,   :only => :destroy
 
   helper_method :sort_column, :sort_direction
+
+
+  def avatar
+    @user = User.find(params[:id])
+    send_data(@user.avatar_data,
+              :filename => @user.avatar_name,
+              :type => @user.avatar_content_type,
+              :disposition => "inline"
+              )
+  end
   
   def index
     # @users = User.paginate(:page => params[:page], :per_page => 20)

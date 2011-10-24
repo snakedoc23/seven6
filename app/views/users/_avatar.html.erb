@@ -1,9 +1,7 @@
 <div id="avatar_form">
 	<%= form_for @user, :html => {:multipart => true} do |f| %>
-		<%= f.label :avatar, "Wskaż plik" %>
-		<%= f.file_field :avatar %>
-		<%= f.label :remote_avatar_url, "lub podaj URL" %>   
-    	<%= f.text_field :remote_avatar_url %>
+		<%= f.label :uploaded_avatar, "Wskaż plik" %>
+		<%= f.file_field :uploaded_avatar %>
 		<%= f.submit "Zapisz" %>
 	<% end %>
 </div>

@@ -2,12 +2,9 @@
 <% routes.each do |route| %>
 	<li><div class="route" id="route-home-<%= route.id %>">
 		<div class="route-img">	
-		<% if route.static_map_url.nil? %>
-			<% route.save_static_map %>
-			<%= image_tag(route.static_map_url, :alt => route.title ) %>
-		<% else %>
-			<%= image_tag(route.static_map_url, :alt => route.title ) %>
-		<% end %>
+
+			<%= image_tag(route.create_static_map, :alt => route.title ) %>
+
 		</div>
 		<div class="route-info">
 			<h4><%= link_to truncate(route.title, :length => 25), route_path(route.id) %></h4>

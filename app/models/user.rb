@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :username, :email, :name, :age, :place, :gender, :password, :password_confirmation, :avatar, :remote_avatar_url
+  attr_accessible :username, :email, :name, :age, :place, :gender, :password, :password_confirmation, :uploaded_avatar
   
   has_many :routes
   has_many :comments, :dependent => :destroy
@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :followers, :through => :reverse_relationships, :source => :follower
 
 
-  mount_uploader :avatar, AvatarUploader
+  # mount_uploader :avatar, AvatarUploader
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
@@ -31,6 +31,12 @@ class User < ActiveRecord::Base
                         :length       => { :within => 4..40 }, :on => :create
   
   before_save :encrypt_password
+
+  def uploaded_avatar=(avatar_field)
+    self.avatar_name = File.basename(avatar_field.original_filename).gsub(/[^\w._-]/, '')
+    self.avatar_content_type = avatar_field.content_type.chomp
+    self.avatar_data = avatar_field.read
+  end
 
   def add_total_routes_and_distance
     self.total_routes = self.routes.count

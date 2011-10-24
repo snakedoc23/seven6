@@ -31,7 +31,7 @@
 				<%= user_avatar @user %>
 			</div><!-- / -->
 			<div class="avatar_actions">
-			<% if @user.avatar? %>
+			<% if @user.avatar_name %>
 				<%= link_to "Zmień", "#", :class => "btn-base", :id => 'avatar_actions_update' %>
 			<% else %>
 				<%= link_to "Dodaj", "#", :class => "btn-base", :id => 'avatar_actions_update' %>
