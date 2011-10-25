@@ -29,6 +29,11 @@
 			</div>
 
 			<div id="upload-form" class="route-new-options">
+				<%= form_for(@route_file,
+							:html => { :multipart => true, :id => "upload_file" }) do |form| %>
+					<%= form.file_field :uploaded_file %>
+					<%= submit_tag "Wyślij" %>
+				<% end %>
 
 			</div>
 

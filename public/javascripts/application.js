@@ -328,9 +328,7 @@ $(document).ready(function(){
 			map.fitBounds(bounds);
 			polyline.setPath(path);
 
-			//Start i finish markers
-			//TODO
-			//=============>>>
+
 			var startMarkerPos = path[0];
 			var finishMarkerPos = path[path.length - 1]
 			startMarkerImage = new google.maps.MarkerImage(
@@ -420,6 +418,40 @@ $(document).ready(function(){
 		}
 		return false;
 	});
+
+
+	//load_route_from_$("#route_coordinates_string")
+	if($("#route_coordinates_string").val()) {
+		var bounds = pathFromString($("#route_coordinates_string").val(), path);
+		map.fitBounds(bounds);
+		polyline.setPath(path);
+		addDistanceToPage(polyline);
+
+
+		// redukcja tablicy do 190 elementow 
+		if (path.length > 190) {
+			var reucedPath = new google.maps.MVCArray();
+			reucedPath = path;
+			var ca = 0;
+			while (reucedPath.length > 190) {
+				 reucedPath = reductionPath(reucedPath);
+			}
+			console.log("Do wywalenia: "+  (path.length - 190));
+			// console.log("Nowa: " + reucedPath);
+			// console.log("Stara: " + path);
+			console.log(reucedPath.length);
+		}
+
+		// wywolanie funkcji do stworzenia profilu wysokosciowego
+		if(reucedPath) {
+			createElevation(reucedPath);
+			console.log("reduced");
+		} else {
+			createElevation(path);
+		}
+
+	}
+	
 	
 	
 
@@ -465,10 +497,15 @@ $(document).ready(function(){
 	//wysyłanie nowej trasy
 	$("#route_submit").click(function() {
 
-		var stringPath = pathToString(path);
-		// createElevation(path);
-		//wypałniam ukryte pola dla formularza
-		$("#route_coordinates_string").val(stringPath);
+		if(!$("#route_coordinates_string").val()) {
+			var stringPath = pathToString(path);
+			$("#route_coordinates_string").val(stringPath);
+		}
+		// 
+		// // createElevation(path);
+		// //wypałniam ukryte pola dla formularza
+		
+
 		$("#route_distance").val(distance);
 		$("#route_max_altitude").val(max_altitude);
 		$("#route_min_altitude").val(min_altitude);
@@ -477,8 +514,8 @@ $(document).ready(function(){
 		$("#route_total_time").val(total_time_sec);
 		$("#route_avg_speed").val(avg_speed);
 		
-		console.log(stringPath);
-		console.log($("#route_coordinates_string").val());
+		// console.log(stringPath);
+		// console.log($("#route_coordinates_string").val());
 		// return false;
 	});
 	

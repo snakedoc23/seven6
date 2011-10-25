@@ -89,6 +89,7 @@ class RoutesController < ApplicationController
   def new
     @title_header = "Nowa Trasa"
     @route = Route.new
+    @route_file = RouteFile.new
   end
 
   def create

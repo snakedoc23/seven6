@@ -15,24 +15,27 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
 #
-#  id                 :integer         not null, primary key
-#  username           :string(255)
-#  name               :string(255)
-#  email              :string(255)
-#  age                :integer
-#  place              :string(255)
-#  gender             :boolean
-#  created_at         :datetime
-#  updated_at         :datetime
-#  encrypted_password :string(255)
-#  salt               :string(255)
-#  admin              :boolean
-#  avatar             :string(255)
-#  total_routes       :integer
-#  total_distance     :integer
+#  id                  :integer         not null, primary key
+#  username            :string(255)
+#  name                :string(255)
+#  email               :string(255)
+#  age                 :integer
+#  place               :string(255)
+#  gender              :boolean
+#  created_at          :datetime
+#  updated_at          :datetime
+#  encrypted_password  :string(255)
+#  salt                :string(255)
+#  admin               :boolean
+#  total_routes        :integer
+#  total_distance      :integer
+#  avatar_name         :string(255)
+#  avatar_content_type :string(255)
+#  avatar_data         :binary
 #
 

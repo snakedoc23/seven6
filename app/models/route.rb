@@ -1,6 +1,6 @@
 class Route < ActiveRecord::Base
-  # attr_accessible :title, :description, :distance, :surface, :route_file
-  attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit, :route_file
+  # attr_accessible :title, :description, :distance, :surface
+  attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit
   
   belongs_to :user
   has_many :comments, :dependent => :destroy

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024041039) do
+ActiveRecord::Schema.define(:version => 20111025113605) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(:version => 20111024041039) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
 
+  create_table "route_files", :force => true do |t|
+    t.string   "name"
+    t.string   "content_type"
+    t.binary   "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "routes", :force => true do |t|
     t.string   "title"
     t.text     "description"
@@ -63,7 +71,9 @@ ActiveRecord::Schema.define(:version => 20111024041039) do
     t.float    "max_speed"
     t.string   "start_lat_lng"
     t.string   "finish_lat_lng"
-    t.string   "static_map"
+    t.string   "static_map_name"
+    t.string   "static_map_content_type"
+    t.binary   "static_map_data"
   end
 
   add_index "routes", ["title"], :name => "index_routes_on_title"

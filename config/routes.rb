@@ -12,6 +12,7 @@ Seven6::Application.routes.draw do
       get 'avatar'
     end
   end
+  resources :route_files
   resources :routes
   resources :sessions, :only => [:new, :create, :destroy]
   resources :relationships, :only => [:create, :destroy]
