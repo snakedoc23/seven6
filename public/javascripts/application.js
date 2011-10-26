@@ -366,34 +366,34 @@ $(document).ready(function(){
 					$("#elevation-chart").hide();
 				} else {
 					$("#elevation-chart").slideDown();
-				}
 				
-				$("#elevation-chart").width(mapWidth - 1);
+				
+					$("#elevation-chart").width(mapWidth - 1);
 
 
 
-				// redukcja tablicy do 190 elementow 
-				if (path.length > 190) {
-					var reucedPath = new google.maps.MVCArray();
-					reucedPath = path;
-					var ca = 0;
-					while (reucedPath.length > 190) {
-						 reucedPath = reductionPath(reucedPath);
+					// redukcja tablicy do 190 elementow 
+					if (path.length > 190) {
+						var reucedPath = new google.maps.MVCArray();
+						reucedPath = path;
+						var ca = 0;
+						while (reucedPath.length > 190) {
+							 reucedPath = reductionPath(reucedPath);
+						}
+						console.log("Do wywalenia: "+  (path.length - 190));
+						// console.log("Nowa: " + reucedPath);
+						// console.log("Stara: " + path);
+						console.log(reucedPath.length);
 					}
-					console.log("Do wywalenia: "+  (path.length - 190));
-					// console.log("Nowa: " + reucedPath);
-					// console.log("Stara: " + path);
-					console.log(reucedPath.length);
-				}
 
-				// wywolanie funkcji do stworzenia profilu wysokosciowego
-				if(reucedPath) {
-					createElevation(reucedPath);
-					console.log("reduced");
-				} else {
-					createElevation(path);
+					// wywolanie funkcji do stworzenia profilu wysokosciowego
+					if(reucedPath) {
+						createElevation(reucedPath);
+						console.log("reduced");
+					} else {
+						createElevation(path);
+					}
 				}
-
 				return false;
 				// createElevation(path);
 				// $("#elevation-chart").css("opacity", ".7");
@@ -668,7 +668,7 @@ function createStartMarker(pos, title, title_route, route_distance, user_name) {
 
 };
 function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
-		google.maps.event.addListener(sMarker, "mouseover", function() {
+	google.maps.event.addListener(sMarker, "mouseover", function() {
 		// sMarker.setIcon(sMarkerImageHover);
 		infoBox.open(map, sMarker);
 	
@@ -1048,8 +1048,8 @@ function createElevation(pathE) {
 		'path': pathE,
 		'samples': 512
 	}
-	console.log(pathRequest);
-    elevator.getElevationAlongPath(pathRequest, plotElevation);
+	// console.log(pathRequest);
+  elevator.getElevationAlongPath(pathRequest, plotElevation);
 
 }
 

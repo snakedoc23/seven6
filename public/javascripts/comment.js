@@ -1,6 +1,10 @@
 jQuery(document).ready(function() {
 
 	$('#show-comments').click(function() {
+		$('#route_actions a.selected').removeClass('selected');
+		$('#show-comments').addClass('selected');
+		$('#climbs-container').slideUp();
+		$('#workouts-container').slideUp();
 
 		if($('#comments-container').is(":visible")) {
 			$('#comments-container').slideUp("slow");

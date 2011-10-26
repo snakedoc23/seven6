@@ -16,18 +16,30 @@
 				
 				<%= link_to (image_tag "chart-icon.png"), "#", :id => "show-elevation" %>
 			<div class="route-show-options">
-				<%= link_to "Komentarze (#{Comment.route_comments(@route.id).size})", "#", :id => "show-comments", :class => "btn-base" %>
+				<%# link_to "Komentarze (#{Comment.route_comments(@route.id).size})", "#", :id => "show-comments", :class => "btn-base" %>
 				<% if current_user %>
 				<div id="add-favorite">
 				
 					<%= link_to "Dodaj", "#", :title => "Dodaj do ulubionych" %>
+
 					<span>Dodaj do ulubionych</span>
 				</div>
 				<% end %>
 			</div>
+			<div id="route_actions">
+				<%= link_to "Komentarze (#{Comment.route_comments(@route.id).size})", "#", :id => "show-comments" %>
+				<%= link_to "Przejazdy (2)", "#", :id => 'show-workouts' %>
+				<%= link_to "Podjazdy (3)", "#", :id => "show-climbs" %>
+			</div>
 			<div id="comments-container" class="clear">
 				<%= render 'comments' %>
 			</div><!-- /comments-container -->
+			<div id="climbs-container">
+				<%= render 'climbs' %>
+			</div><!-- /climbs-container -->
+			<div id="workouts-container">
+		
+			</div><!-- /climbs-container -->
 
 		</div><!-- aside-content -->
 	</div><!-- aside -->
