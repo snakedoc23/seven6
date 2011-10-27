@@ -1,8 +1,9 @@
 class Route < ActiveRecord::Base
   # attr_accessible :title, :description, :distance, :surface
-  attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit
+  attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit, :total_time, :max_speed, :avg_speed, :pulse_avg, :pulse_max, :temperature
   
   belongs_to :user
+  has_many :workouts, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :ratings, :dependent => :destroy
   has_many :raters, :through => :ratings, :source => :user, :dependent => :destroy
@@ -27,13 +28,26 @@ class Route < ActiveRecord::Base
 
 
   before_save :split_pulse, :add_start_and_finish
-  after_save :add_total_distance_and_total_routes_to_user
+  after_save :add_total_distance_and_total_routes_to_user, :add_workout
 
   # default_scope :order => 'created_at DESC'
 
   scope :user_routes, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC") }
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
 
+
+  def add_workout
+    if self.total_time.to_f > 0
+      workout = self.workouts.new
+      workout.user_id = self.user_id
+      workout.total_time = self.total_time
+      workout.max_speed = self.max_speed
+      workout.pulse_max = self.pulse_max
+      workout.pulse_avg = self.pulse_avg
+      workout.temperature = self.temperature
+      workout.save
+    end
+  end
 
   # kartegorie podjazdow na trasie
   def climbs
@@ -173,13 +187,7 @@ class Route < ActiveRecord::Base
       reucedPath
     end
 
-    
-
 end
-
-
-
-
 
 
 

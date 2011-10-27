@@ -28,7 +28,9 @@
 			</div>
 			<div id="route_actions">
 				<%= link_to "Komentarze (#{Comment.route_comments(@route.id).size})", "#", :id => "show-comments" %>
-				<%= link_to "Przejazdy (2)", "#", :id => 'show-workouts' %>
+
+				<%= link_to "Przejazdy (#{@route.workouts.count})", "#", :id => 'show-workouts' %>
+				
 				<% if @route.climbs_string %>
 					<%= link_to "Podjazdy (#{@route.climbs.count})", "#", :id => "show-climbs" %>
 				<% else %>
@@ -42,7 +44,7 @@
 				<%= render 'climbs' %>
 			</div><!-- /climbs-container -->
 			<div id="workouts-container">
-		
+				<%= render 'workouts' %>
 			</div><!-- /climbs-container -->
 
 		</div><!-- aside-content -->

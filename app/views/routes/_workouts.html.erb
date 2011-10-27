@@ -1,0 +1,71 @@
+<h3>(<%= @route.workouts.count %>) przejazdy</h3>
+
+<ul id="workouts-list">
+<% @route.workouts.each do |workout| %>
+	<li class="workout">
+		<div class="workout-avatar">
+			<%= link_to (user_avatar workout.user, "30x30"), user_path(workout.user) %>
+		</div>
+		<div class="workout-info">
+			<h4><%= link_to workout.user.username, user_path(workout.user) %></h4>
+			<ul>
+				<li><%= workout.time_to_string %>, Średnia:<%= workout.avg_speed %> km/h</li>
+				<li>Max: <%= workout.max_speed %> km/h</li>
+				<li>Tętno: <%= workout.pulse_avg %>/<%= workout.pulse_max %></li>
+				<%= link_to "Pokaż opis", "#" %>
+			</ul>
+			<div class="workout-description">
+				<span class="workut-temp"><%= workout.temperature %></span>
+				<%= workout.description %>
+			</div>
+		
+		</div>
+	</li>
+
+<% end %>
+</ul>
+<% if current_user %>
+	<%= link_to "Dodaj przejazd", "#", :id => "add_workout_btn", :class => "btn-base" %>
+
+<div id="add-workout">
+	<h4>Dodaj przejazd</h4>
+	<%= form_for :workout do |f| %>
+		<div class="form-field">
+			<%= f.label :time_string, "Czas:" %>
+			<%= f.text_field :time_string, :placeholder => "00:00:00" %>
+			<span id="total-time-show"><span id="total-time-show-h">0</span>h <span id="total-time-show-m">0</span>m <span id="total-time-show-s">0</span>s</span>
+
+			<p id="error-explanation-time" class="error-explanation">Godziny minuty sekundy</p>
+			<div class="clear"></div>
+		</div>
+		<div class="form-field">
+			<%= f.label :max_speed, "Max (km/h):" %>
+			<%= f.text_field :max_speed, :placeholder => "32" %>
+
+			<span id="workout-avg-speed">Średnia: <span id="avg_speed_val">23</span> km/h</span>
+
+			<p id="error-explanation-max-speed" class="error-explanation">Liczba dodatnia ale bez przesady</p>
+			<div class="clear"></div>
+		</div>
+		<div class="form-field">
+			<%= f.label :pulse, "Tętno:" %>
+			<%= f.text_field :pulse, :placeholder => "120/150" %>
+			<p id="error-explanation-pulse" class="error-explanation">Średni puls / maksymalny</p>
+		</div>
+		<div class="form-field">
+			<%= f.label :temperature, "Temperatura:" %>
+			<%= f.text_field :temperature, :placeholder => "25" %>
+			<p class="error-explanation">Liczba stopni (. nie ,)</p>
+		</div>
+		<div class="form-field">
+			<%= f.label :description, "Opis" %>
+			<%= f.text_area :description, :rows => 3, :placeholder => "Opis przejazdu..." %>
+		</div>
+			<%= f.submit "Dodaj" %>
+	<% end %>
+
+
+</div>
+<% else %>
+	<p class="unlogged"><%= link_to "Zaloguj się by dodać przejazd" , signin_path %>
+<% end %>

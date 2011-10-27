@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :username, :email, :name, :age, :place, :gender, :password, :password_confirmation, :uploaded_avatar
   
   has_many :routes
+  has_many :workouts, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   
   has_many :ratings, :dependent => :destroy

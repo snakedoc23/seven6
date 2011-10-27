@@ -47,16 +47,16 @@
 				<td>Suma kilometrów:</td>
 				<td><%= @total_distance.round %> km</td>
 			</tr>
-			<% if @total_time > 0 %>
+			<%# if @total_time > 0 %>
 			<tr>
 				<td>Czas na rowerze:</td>
-				<td><%= Time.at(@total_time).utc.strftime("%Hh %Mm %Ss") %></td>
+				<td><%# Time.at(@total_time).utc.strftime("%Hh %Mm %Ss") %></td>
 			</tr>
 			<tr>
 				<td>Średnia prędkość:</td>
-				<td><%= (@total_distance_with_time * 3600 / @total_time).round %> km/h</td>
+				<td><%# (@total_distance_with_time * 3600 / @total_time).round %> km/h</td>
 			</tr>
-			<% end %>
+			<%# end %>
 			<tr>
 				<td>Ulubione:</td>
 				<td><%= link_to @likes.count, favorite_routes_user_path(@user) %></td>

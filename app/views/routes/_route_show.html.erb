@@ -30,37 +30,7 @@
 					<div class="th">Opis:</div>
 					<div class="td"><%= @route.description %></div>
 				</li>
-				
-				<% if @route.total_time %>
-				<li>
-					<div class="th">Czas przejazdu:</div>
-					<div class="td"><%= @route.time_to_string %></div>
-				</li>
-				<% end %>
-				<% if @route.avg_speed %>
-				<li>
-					<div class="th">Średnia prędkość:</div>
-					<div class="td"><%= @route.avg_speed %> km/h</div>
-				</li>
-				<% end %>
-				<% if @route.max_speed %>
-				<li>
-					<div class="th">Maksymalna prędkość:</div>
-					<div class="td"><%= @route.max_speed %> km/h</div>
-				</li>
-				<% end %>
-				<% if @route.pulse_avg > 0 %>
-				<li>
-					<div class="th">Tętno (avg / max):</div>
-					<div class="td"><%= @route.pulse_avg.round %> / <%= @route.pulse_max.round %></div>
-				</li>
-				<% end %>
-				<% if @route.temperature %>
-				<li>
-					<div class="th">Temperatura:</div>
-					<div class="td"><%= @route.temperature %> °C</div>
-				</li>
-				<% end %>
+	
 				<% if @route.max_altitude %>
 				<li id="altitude">
 					<div class="th">Różnica wysokości:</div>

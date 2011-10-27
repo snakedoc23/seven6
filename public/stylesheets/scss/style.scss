@@ -1843,5 +1843,90 @@ ul.rating {
 		}
 	}
 }
-
+#workouts-container {
+	width: 310px;
+	margin-left: 30px;
+	margin-top: 10px;
+	h3 {
+		width: 310px;
+		border-bottom: 2px solid $blue;
+	}
+	ul#workouts-list {
+		li.workout {
+			border-bottom: 1px solid #CACED0;
+			padding-top: 10px;
+			padding-bottom: 5px;
+		}
+	}
+	#add_workout_btn {
+		margin: 12px auto;
+		display: block;
+		width: 87px;
+		@include gradient(lighten($blue, 7%), $blue);
+		&:hover {
+			@include gradient(#cf5759, #bb3f41);
+		}
+	}
+	#add-workout {
+		display: none;
+		h4 {
+			font-weight: 900;
+			font-size: 13px;
+			padding-top: 13px;
+		}
+		
+	}
+	form {
+		margin-top: 5px;
+		padding-top: 5px;
+		border-top: 1px solid $red;
+		input, textarea, select {
+			font-size: 12px;
+			margin-bottom: 10px;
+		}
+		textarea {
+			width: 185px;
+		}
+		input[type="submit"] {
+				margin-left: 100px;
+		}
+		label {
+			float: left;
+			width: 90px;
+			text-align: right;
+			padding-right: 10px;
+			margin-top: 6px;
+		}
+		p.error-explanation {
+			width: 210px;
+			font-size: 11px;
+			margin-top: -8px;
+			padding-top: 0;
+			margin-bottom: 5px;
+			display: none;
+			padding-left: 100px;
+			color: $red;
+			clear:both;
+		}
+		input {
+			width: 64px;
+			padding: 3px;
+		}
+		#workout_time_string, #workout_max_speed {
+			float: left;
+		}
+		#total-time-show {
+			float: left;
+			padding-left: 16px;
+			padding-top: 3px;
+			width: 124px;
+		}
+		#workout-avg-speed {
+			float: left;
+			padding-left: 16px;
+			padding-top: 3px;
+			width: 124px;
+		}
+	}
+}
 

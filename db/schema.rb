@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111027075918) do
+ActiveRecord::Schema.define(:version => 20111027122241) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -53,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20111027075918) do
     t.text     "description"
     t.float    "distance"
     t.string   "surface"
-    t.string   "route_file"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -62,13 +61,7 @@ ActiveRecord::Schema.define(:version => 20111027075918) do
     t.float    "max_altitude"
     t.float    "total_climb_up"
     t.float    "total_climb_down"
-    t.float    "avg_speed"
-    t.float    "total_time"
     t.float    "rating"
-    t.float    "pulse_max"
-    t.float    "pulse_avg"
-    t.float    "temperature"
-    t.float    "max_speed"
     t.string   "start_lat_lng"
     t.string   "finish_lat_lng"
     t.string   "static_map_name"
@@ -100,5 +93,22 @@ ActiveRecord::Schema.define(:version => 20111027075918) do
   end
 
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true
+
+  create_table "workouts", :force => true do |t|
+    t.string   "route_id"
+    t.string   "user_id"
+    t.text     "description"
+    t.float    "total_time"
+    t.float    "avg_speed"
+    t.float    "max_speed"
+    t.float    "pulse_max"
+    t.float    "pulse_avg"
+    t.float    "temperature"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "workouts", ["route_id"], :name => "index_workouts_on_route_id"
+  add_index "workouts", ["user_id"], :name => "index_workouts_on_user_id"
 
 end

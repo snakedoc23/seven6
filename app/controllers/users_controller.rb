@@ -34,10 +34,10 @@ class UsersController < ApplicationController
     @total_time = 0
     @routes_all.each do |route|
       @total_distance += route.distance
-      if route.total_time > 0
-        @total_time += route.total_time
-        @total_distance_with_time += route.distance
-      end
+      # if route.total_time > 0
+      #   @total_time += route.total_time
+      #   @total_distance_with_time += route.distance
+      # end
     end
     @likes = Rating.likes(@user.id)
 

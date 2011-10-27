@@ -7,8 +7,7 @@
 			<th><%= sortable 'Wzniesienia', 'max_altitude' %></th>
 			<th><%= sortable 'Nawierzchnia', 'surface' %></th>
 			<th><%= sortable 'Ocena', 'rating' %></th>
-			<th><%= sortable 'Czas jazdy', 'total_time' %></th>
-			<th><%= sortable 'Średnia', 'avg_speed' %></th>
+
 			<th><%= sortable 'Data dodania', 'created_at' %></th>
 			<th><%= sortable 'Użytkownik', 'user_id' %></th>
 			<th class="like"><span></span></th>
@@ -37,12 +36,7 @@
 					<li class="5">5</li>
 				</ul>
 			</td>
-			<td class="time"><%= route.time_to_string %></td>
-			<% if route.avg_speed %>
-				<td class="avg_speed"><%= route.avg_speed %> km/h</td>
-			<% else %>
-				<td></td>
-			<% end %>
+
 			<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
 			<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
 			<td class="like"><%= Rating.route_likes(route.id).size %></td>

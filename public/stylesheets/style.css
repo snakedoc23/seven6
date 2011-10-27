@@ -1935,3 +1935,86 @@ ul.rating li {
           border-left: 1px solid #caced0; }
         #climbs-container #climbs_table tbody tr td:last-child {
           border-right: 1px solid #caced0; }
+
+#workouts-container {
+  width: 310px;
+  margin-left: 30px;
+  margin-top: 10px; }
+  #workouts-container h3 {
+    width: 310px;
+    border-bottom: 2px solid #283a43; }
+  #workouts-container ul#workouts-list li.workout {
+    border-bottom: 1px solid #CACED0;
+    padding-top: 10px;
+    padding-bottom: 5px; }
+  #workouts-container #add_workout_btn {
+    margin: 12px auto;
+    display: block;
+    width: 87px;
+    background: #354d59;
+    /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+    /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #354d59, #283a43);
+    /* for firefox 3.6+ */
+    background: linear-gradient(top, #354d59, #283a43); }
+    #workouts-container #add_workout_btn:hover {
+      background: #cf5759;
+      /* for non-css3 browsers */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+      /* for IE */
+      background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+      /* for webkit browsers */
+      background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+      /* for firefox 3.6+ */
+      background: linear-gradient(top, #cf5759, #bb3f41); }
+  #workouts-container #add-workout {
+    display: none; }
+    #workouts-container #add-workout h4 {
+      font-weight: 900;
+      font-size: 13px;
+      padding-top: 13px; }
+  #workouts-container form {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid #c84446; }
+    #workouts-container form input, #workouts-container form textarea, #workouts-container form select {
+      font-size: 12px;
+      margin-bottom: 10px; }
+    #workouts-container form textarea {
+      width: 185px; }
+    #workouts-container form input[type="submit"] {
+      margin-left: 100px; }
+    #workouts-container form label {
+      float: left;
+      width: 90px;
+      text-align: right;
+      padding-right: 10px;
+      margin-top: 6px; }
+    #workouts-container form p.error-explanation {
+      width: 210px;
+      font-size: 11px;
+      margin-top: -8px;
+      padding-top: 0;
+      margin-bottom: 5px;
+      display: none;
+      padding-left: 100px;
+      color: #c84446;
+      clear: both; }
+    #workouts-container form input {
+      width: 64px;
+      padding: 3px; }
+    #workouts-container form #workout_time_string, #workouts-container form #workout_max_speed {
+      float: left; }
+    #workouts-container form #total-time-show {
+      float: left;
+      padding-left: 16px;
+      padding-top: 3px;
+      width: 124px; }
+    #workouts-container form #workout-avg-speed {
+      float: left;
+      padding-left: 16px;
+      padding-top: 3px;
+      width: 124px; }
