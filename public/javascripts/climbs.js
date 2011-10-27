@@ -3,8 +3,8 @@ jQuery(document).ready(function() {
 	$('#show-climbs').click(function() {
 		$('#route_actions a.selected').removeClass('selected');
 		$('#show-climbs').addClass('selected');
-		$('#comments-container').slideUp();
-		$('#workouts-container').slideUp();
+		$('#comments-container').hide();
+		$('#workouts-container').hide();
 
 		if($('#climbs-container').is(":visible")) {
 			$('#climbs-container').slideUp("slow");
@@ -12,8 +12,11 @@ jQuery(document).ready(function() {
 			$('#climbs-container').slideDown('slow');
 		
 			// pokaz wykres i obicz elevation 
-			$("#elevation-chart").slideDown();
-								
+
+			if(!$('#elevation-chart').is(":visible")) {
+			
+
+				$("#elevation-chart").slideDown();
 				$("#elevation-chart").width(mapWidth - 1);
 
 				// redukcja tablicy do 190 elementow 
@@ -37,7 +40,9 @@ jQuery(document).ready(function() {
 				} else {
 					createElevation(path);
 				}
+			}
 		}
+
 
 
 

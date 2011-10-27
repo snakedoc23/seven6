@@ -1421,13 +1421,13 @@ footer {
       font-size: 13px;
       line-height: 30px; }
       #route-show ul.route-show li .th {
-        width: 160px;
+        width: 150px;
         text-align: left;
         padding-left: 7px;
         float: left;
         font-weight: bold; }
       #route-show ul.route-show li .td {
-        width: 100px;
+        width: 110px;
         float: left; }
         #route-show ul.route-show li .td img {
           position: relative;
@@ -1910,14 +1910,14 @@ ul.rating li {
 
 #climbs-container {
   width: 310px;
-  height: 200px;
   margin-left: 30px;
   margin-top: 10px;
   display: none; }
   #climbs-container #climbs_table {
     width: 310px;
     margin-top: 10px;
-    font-size: 13px; }
+    font-size: 13px;
+    margin-bottom: 10px; }
     #climbs-container #climbs_table thead tr th {
       background: #283a43;
       color: white;

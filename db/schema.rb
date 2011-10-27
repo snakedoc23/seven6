@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111025113605) do
+ActiveRecord::Schema.define(:version => 20111027075918) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20111025113605) do
     t.string   "static_map_name"
     t.string   "static_map_content_type"
     t.binary   "static_map_data"
+    t.string   "climbs_string"
   end
 
   add_index "routes", ["title"], :name => "index_routes_on_title"

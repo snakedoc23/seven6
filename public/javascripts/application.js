@@ -10,6 +10,9 @@ var markers = [];
 //zmienna okresla czy rysowac wykres tak by nie byl generowany gdy go nie widac
 var drawChart = 0;
 
+//zmienna okresla czy wysylac form po tworzeniu elevation
+var newRoute = 0;
+
 var startMarkerImage;
 var finishMarkerImage;
 var pointMarkerImage;
@@ -497,26 +500,33 @@ $(document).ready(function(){
 	//wysyłanie nowej trasy
 	$("#route_submit").click(function() {
 
-		if(!$("#route_coordinates_string").val()) {
-			var stringPath = pathToString(path);
-			$("#route_coordinates_string").val(stringPath);
-		}
-		// 
-		// // createElevation(path);
-		// //wypałniam ukryte pola dla formularza
-		
+		newRoute = 1;
 
-		$("#route_distance").val(distance);
-		$("#route_max_altitude").val(max_altitude);
-		$("#route_min_altitude").val(min_altitude);
-		$("#route_total_climb_up").val(total_climb_up);
-		$("#route_total_climb_down").val(total_climb_down);
-		$("#route_total_time").val(total_time_sec);
-		$("#route_avg_speed").val(avg_speed);
-		
+		if(path.length > 1) {
+			// redukcja tablicy do 190 elementow 
+			if (path.length > 190) {
+				var reucedPath = new google.maps.MVCArray();
+				reucedPath = path;
+				var ca = 0;
+				while (reucedPath.length > 190) {
+					 reucedPath = reductionPath(reucedPath);
+				}
+				// console.log("Do wywalenia: "+  (path.length - 190));
+				// console.log(reucedPath.length);
+			}
+
+			// wywolanie funkcji do stworzenia profilu wysokosciowego
+			if(reucedPath) {
+				createElevation(reucedPath);
+				// console.log("reduced");
+			} else {
+				createElevation(path);
+			}
+		}
+
 		// console.log(stringPath);
 		// console.log($("#route_coordinates_string").val());
-		// return false;
+		return false;
 	});
 	
 
@@ -835,29 +845,7 @@ function drawRoute(map, polyline){
 		polyline.setPath(path);
 		addDistanceToPage(polyline);
 		
-		if(path.length > 1) {
-			// redukcja tablicy do 190 elementow 
-			if (path.length > 190) {
-				var reucedPath = new google.maps.MVCArray();
-				reucedPath = path;
-				var ca = 0;
-				while (reucedPath.length > 190) {
-					 reucedPath = reductionPath(reucedPath);
-				}
-				console.log("Do wywalenia: "+  (path.length - 190));
-				// console.log("Nowa: " + reucedPath);
-				// console.log("Stara: " + path);
-				console.log(reucedPath.length);
-			}
 
-			// wywolanie funkcji do stworzenia profilu wysokosciowego
-			if(reucedPath) {
-				createElevation(reucedPath);
-				console.log("reduced");
-			} else {
-				createElevation(path);
-			}
-		}
 
   });
   	console.log(polyline);
@@ -1057,45 +1045,117 @@ function createElevation(pathE) {
 function plotElevation(results, status) {
 	if (status == google.maps.ElevationStatus.OK) {
 
-		// min i max wysokość
-		var min = results[0].elevation;
-		var max = results[0].elevation;
-		// suma zjazdów i podjazdów
-		var sumUp = 0;
-		var sumDown = 0;
-
-		for(var i = 0; i < results.length; i++) {
-			var	el = results[i].elevation;
-			if(el < min) {
-				min = el;
-			} else if(el > max) {
-				max = el;
-			}
-			if(i > 0) {
-				var difference = results[i].elevation - results[i - 1].elevation
-				// console.log(difference);
-				if(difference < 0) {
-					sumDown += (difference * -1);
-				} else {
-					sumUp += difference;
-				}
-			}
-		}
-		max_altitude = max;
-		min_altitude = min;
-		total_climb_up = sumUp;
-		total_climb_down = sumDown;
-
-		console.log("Zjazdy: " + sumDown + " Podjazdy: " + sumUp);
-		console.log("Min: " + min + " -- Max: " + max);
-
 		var distance = Math.round((calculateDistance(polyline)/1000)*100)/100;
 		// console.log(distance);
 		// console.log(results.length);
 
+		// wspolczynnik by na vAxis byly kilometry
+		var x = distance * 1000 / results.length;
+
+		//nowa trasa --> wysylaie formularza po storzenniu profilu wys. 
+		if(newRoute) {
+			
+			// min i max wysokość
+			var min = results[0].elevation;
+			var max = results[0].elevation;
+			// suma zjazdów i podjazdów
+			var sumUp = 0;
+			var sumDown = 0;
+
+			var climbUpTable = [];
+			for(var i = 0; i < results.length; i++) {
+				if( i > 0 ) {
+					var current = results[i].elevation - results[i - 1].elevation;
+					if( i > 1 ) {
+						var previous = results[i - 1].elevation - results[i - 2].elevation;
+					}
+					if( i < results.length - 1) {
+						var next = results[i + 1].elevation - results[i].elevation;
+					}
+					if( current > 0 ) {
+						// podjazd
+						if( i == 1 ) {
+							climbUpFirst = { "F" : {position : (Math.round(i * x)), elevation : results[i].elevation} };
+							climbUpTable.push(climbUpFirst);
+						} else if( previous < 0 ) {
+							climbUpFirst = { "F" : {position : (Math.round(i * x)), elevation : results[i].elevation} };
+							climbUpTable.push(climbUpFirst);
+						}
+						if( next < 0 || i == results.length - 1) {
+							climbUpLast = {position : (Math.round(i * x)), elevation : results[i].elevation };
+							climbUpTable[climbUpTable.length - 1]["L"] = climbUpLast;
+							console.log(climbUpLast);
+						}
+					}
+
+				}
+
+
+
+
+				var	el = results[i].elevation;
+				if(el < min) {
+					min = el;
+				} else if(el > max) {
+					max = el;
+				}
+				if(i > 0) {
+					var difference = results[i].elevation - results[i - 1].elevation
+					// console.log(difference);
+					if(difference < 0) {
+						sumDown += (difference * -1);
+					} else {
+						sumUp += difference;
+					}
+				}
+			}
+			max_altitude = max;
+			min_altitude = min;
+			total_climb_up = sumUp;
+			total_climb_down = sumDown;
+
+			var climbs_string = "";
+
+			// console.log(climbUpTable);
+			for(var i = 0; i < climbUpTable.length; i++) {
+				var cu = climbUpTable[i]["L"].elevation - climbUpTable[i]["F"].elevation;
+				var dis = climbUpTable[i]["L"].position - climbUpTable[i]["F"].position;
+				var grade = cu * 100 / dis;
+				if(cu > 30 && dis > 500 && grade > 1) {
+					// console.log("Miejsce: " + climbUpTable[i]["F"].position);
+					
+					console.log("Start: " + climbUpTable[i]["F"].position / 1000 + "; Dystans: " + dis / 1000 + "; Min: " + Math.round(climbUpTable[i]["F"].elevation) + "; Max: " + Math.round(climbUpTable[i]["L"].elevation) + "; Śred: " + Math.round(cu *100 / dis * 10) /10);
+					// console.log(cu *100 / dis);
+					// console.log(climbUpTable[i]);
+					if(climbs_string != "") {
+						climbs_string += "|";
+					}
+					climbs_string += climbUpTable[i]["F"].position + "," + climbUpTable[i]["F"].elevation + "," + climbUpTable[i]["L"].position + "," + climbUpTable[i]["L"].elevation;
+				}
+			}
+			console.log(climbs_string);
+
+
+			$("#route_climbs_string").val(climbs_string);
+			$("#route_distance").val(distance);
+			$("#route_max_altitude").val(max_altitude);
+			$("#route_min_altitude").val(min_altitude);
+			$("#route_total_climb_up").val(total_climb_up);
+			$("#route_total_climb_down").val(total_climb_down);
+			$("#route_total_time").val(total_time_sec);
+			$("#route_avg_speed").val(avg_speed);
+			if(!$("#route_coordinates_string").val()) {
+				var stringPath = pathToString(path);
+				$("#route_coordinates_string").val(stringPath);
+			}
+			// console.log($("#route_coordinates_string").val());
+			//wysylam form
+
+			$('#new_route').submit();
+		}
+
 		if(drawChart) {
-			// wspolczynnik by na vAxis byly kilometry
-			var x = distance / results.length;
+			
 
 			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'D');
@@ -1103,7 +1163,7 @@ function plotElevation(results, status) {
 			for(var i = 0; i < results.length; i++) {
 				// if(i % 5 == 0) {
 					// data.addRow([ (i).toString(), results[i].elevation]);
-					data.addRow([ (Math.round(i * x)).toString() + ' km', Math.round(results[i].elevation * 100)/100]);
+					data.addRow([ (Math.round(i * x) / 1000).toString() + ' km', Math.round(results[i].elevation * 100)/100]);
 				// }
 				// data.addRow([ (Math.round(i * x)).toString(), results[i].elevation]);
 				

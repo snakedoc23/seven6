@@ -1,4 +1,5 @@
-<h4>Podjazdy na trasnie (3)</h4>
+<% if @route.climbs_string %>
+	<h4>Podjazdy na trasnie (<%= @route.climbs.size %>)</h4>
 
 
 <table id="climbs_table">
@@ -14,21 +15,21 @@
 		</tr>
 	</thead>
 	<tbody>
+	<% @route.climbs.each do |climb| %>
 		<tr>
 			<td>5</td>
-			<td>21.43 km</td>
-			<td>3 km</td>
-			<td>210 m</td>
-			<td>410 m</td>
-			<td>5%</td>
+			<td><%= (climb[:start_pos] / 1000).round(2) %> km</td>
+			<td><%= (climb[:length] / 1000).round(2) %> km</td>
+			<td><%= climb[:start_el] %> m</td>
+			<td><%= climb[:end_el] %> m</td>
+			<td><%= climb[:grade] %> %</td>
 		</tr>
-		<tr>
-			<td>5</td>
-			<td>21.43 km</td>
-			<td>3 km</td>
-			<td>210 m</td>
-			<td>410 m</td>
-			<td>5%</td>
-		</tr>
+	<% end %>
 	</tbody>
 </table>
+
+
+	
+		
+	
+<% end %>

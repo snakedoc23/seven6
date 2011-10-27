@@ -35,6 +35,28 @@ class Route < ActiveRecord::Base
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
 
 
+  # kartegorie podjazdow na trasie
+  def climbs
+    if self.climbs_string
+
+      # "72487,100.1278839111328,85801,147.2848510742188|201190,99.21577453613281,202669,131.0301055908203"
+      climbs_array = []
+      self.climbs_string.split("|").each do |climb|
+        climb_array = climb.split(",")
+        start_pos = climb_array[0]
+        start_el = climb_array[1]
+        end_pos = climb_array[2]
+        end_el = climb_array[3]
+
+        length = end_pos.to_f - start_pos.to_f
+        grade = ((end_el.to_f - start_el.to_f) * 100 / length).round(1)
+        
+        climbs_array.push Hash[ :grade, grade, :length, length, :start_pos, start_pos.to_f, :start_el, start_el.to_f.round(1), :end_pos, end_pos.to_f, :end_el, end_el.to_f.round(1) ]
+      end
+      climbs_array
+    end
+  end
+
   def add_total_distance_and_total_routes_to_user
     self.user.add_total_routes_and_distance
   end
@@ -160,33 +182,37 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: routes
 #
-#  id                 :integer         not null, primary key
-#  title              :string(255)
-#  description        :text
-#  distance           :float
-#  surface            :string(255)
-#  route_file         :string(255)
-#  user_id            :integer
-#  created_at         :datetime
-#  updated_at         :datetime
-#  coordinates_string :text
-#  min_altitude       :float
-#  max_altitude       :float
-#  total_climb_up     :float
-#  total_climb_down   :float
-#  avg_speed          :float
-#  total_time         :float
-#  rating             :float
-#  pulse_max          :float
-#  pulse_avg          :float
-#  temperature        :float
-#  max_speed          :float
-#  start_lat_lng      :string(255)
-#  finish_lat_lng     :string(255)
-#  static_map         :string(255)
+#  id                      :integer         not null, primary key
+#  title                   :string(255)
+#  description             :text
+#  distance                :float
+#  surface                 :string(255)
+#  route_file              :string(255)
+#  user_id                 :integer
+#  created_at              :datetime
+#  updated_at              :datetime
+#  coordinates_string      :text
+#  min_altitude            :float
+#  max_altitude            :float
+#  total_climb_up          :float
+#  total_climb_down        :float
+#  avg_speed               :float
+#  total_time              :float
+#  rating                  :float
+#  pulse_max               :float
+#  pulse_avg               :float
+#  temperature             :float
+#  max_speed               :float
+#  start_lat_lng           :string(255)
+#  finish_lat_lng          :string(255)
+#  static_map_name         :string(255)
+#  static_map_content_type :string(255)
+#  static_map_data         :binary
+#  climbs_string           :string(255)
 #
 
