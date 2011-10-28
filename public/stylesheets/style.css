@@ -453,10 +453,6 @@ header {
     padding-bottom: 4px;
     padding-left: 9px;
     padding-right: 9px;
-    -moz-border-radius-topleft: 0;
-    -moz-border-radius-topright: 0;
-    -moz-border-radius-bottomright: 4px;
-    -moz-border-radius-bottomleft: 4px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 4px;
@@ -544,7 +540,7 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
       #aside .routes-list li .route .route-info ul {
         padding-top: 3px; }
         #aside .routes-list li .route .route-info ul .profile-image {
-          width: 58px;
+          width: 56px;
           height: 18px;
           float: right; }
           #aside .routes-list li .route .route-info ul .profile-image.green {
@@ -1094,10 +1090,6 @@ table.big-table tbody tr {
     font-weight: bold;
     background: none;
     padding-right: 2px;
-    -moz-border-radius-topleft: 20px;
-    -moz-border-radius-topright: 0;
-    -moz-border-radius-bottomright: 0;
-    -moz-border-radius-bottomleft: 20px;
     border-top-left-radius: 20px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -1109,10 +1101,9 @@ table.big-table tbody tr:hover {
 
 .users-index-table {
   margin: 20px auto;
-  width: 600px; }
+  width: 1075px; }
   .users-index-table table.users-index {
-    width: 100%;
-    margin-left: -132px; }
+    width: 100%; }
 
 .routes-index-table {
   width: 1075px;
@@ -1130,15 +1121,16 @@ table.big-table tbody tr:hover {
     .routes-index-table table.routes-index tr th.like span {
       background: url(../images/like-icon.png) no-repeat; }
   .routes-index-table .pagination {
-    margin: 20px auto;
-    width: 288px; }
+    margin: 20px auto; }
 
 /*
 PAGINATION
 
 */
 .pagination {
-  margin: 10px 0 0 109px; }
+  width: 300px;
+  margin: auto;
+  margin-top: 10px; }
   .pagination * {
     width: 24px;
     height: 24px;
@@ -1759,7 +1751,7 @@ ul.rating li {
 
 #backto_user {
   display: block;
-  width: 57px;
+  width: 60px;
   margin: auto; }
   #backto_user:hover {
     background: #354d59;
@@ -1913,6 +1905,10 @@ ul.rating li {
   margin-left: 30px;
   margin-top: 10px;
   display: none; }
+  #climbs-container h4 {
+    font-size: 13px;
+    font-weight: 900;
+    border-bottom: 2px solid #283a43; }
   #climbs-container #climbs_table {
     width: 310px;
     margin-top: 10px;
@@ -1939,14 +1935,46 @@ ul.rating li {
 #workouts-container {
   width: 310px;
   margin-left: 30px;
-  margin-top: 10px; }
+  margin-top: 10px;
+  display: none; }
   #workouts-container h3 {
     width: 310px;
     border-bottom: 2px solid #283a43; }
   #workouts-container ul#workouts-list li.workout {
     border-bottom: 1px solid #CACED0;
     padding-top: 10px;
-    padding-bottom: 5px; }
+    padding-bottom: 13px; }
+    #workouts-container ul#workouts-list li.workout .workout-avatar {
+      width: 32px;
+      height: 32px;
+      float: left; }
+      #workouts-container ul#workouts-list li.workout .workout-avatar a img {
+        border: 2px solid white; }
+    #workouts-container ul#workouts-list li.workout .workout-info {
+      margin-left: 42px;
+      width: 258px; }
+      #workouts-container ul#workouts-list li.workout .workout-info h4 a {
+        font-size: 14px; }
+      #workouts-container ul#workouts-list li.workout .workout-info h4 span {
+        font-size: 11px;
+        color: #999;
+        float: right; }
+      #workouts-container ul#workouts-list li.workout .workout-info ul li {
+        font-size: 13px;
+        margin-top: 1px; }
+        #workouts-container ul#workouts-list li.workout .workout-info ul li span {
+          float: right;
+          width: 120px; }
+      #workouts-container ul#workouts-list li.workout .workout-info .workout-description {
+        margin-top: 3px; }
+        #workouts-container ul#workouts-list li.workout .workout-info .workout-description span {
+          font-weight: 900; }
+      #workouts-container ul#workouts-list li.workout .workout-info .workout-meta {
+        text-align: right;
+        margin-bottom: -10px; }
+        #workouts-container ul#workouts-list li.workout .workout-info .workout-meta a.edit_workout {
+          color: #999999;
+          font-size: 11px; }
   #workouts-container #add_workout_btn {
     margin: 12px auto;
     display: block;
@@ -2018,3 +2046,8 @@ ul.rating li {
       padding-left: 16px;
       padding-top: 3px;
       width: 124px; }
+
+.empty {
+  width: 300px;
+  margin: 20px auto;
+  text-align: center; }

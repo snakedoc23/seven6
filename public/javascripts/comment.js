@@ -8,6 +8,7 @@ jQuery(document).ready(function() {
 
 		if($('#comments-container').is(":visible")) {
 			$('#comments-container').slideUp("slow");
+			$('#route_actions a.selected').removeClass('selected');
 		} else {
 			$('#comments-container').slideDown('slow');
 			// $(this).css('background', '#caced0');

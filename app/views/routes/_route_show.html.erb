@@ -1,6 +1,7 @@
 <h3><%= @route.title %></h3>
 		<div id="elevation-chart"></div>
 		<%= hidden_field_tag 'load_coordinates', @route.id %>
+		<%= hidden_field_tag 'route_distance', @route.distance %>
 		<ul class="route-show">
 				<li>
 					<div class="th">Ocena: <% if @route.rating %>
@@ -26,11 +27,12 @@
 					<div class="th">Data dodania:</div>
 					<div class="td" title="<%= @route.created_at.to_formatted_s(:long) %>"><%= time_ago_in_words(@route.created_at) %></div>
 				</li>
+				<% unless @route.description.nil? || @route.description == "" %>
 				<li class="description">
 					<div class="th">Opis:</div>
 					<div class="td"><%= @route.description %></div>
 				</li>
-	
+				<% end %>
 				<% if @route.max_altitude %>
 				<li id="altitude">
 					<div class="th">Różnica wysokości:</div>

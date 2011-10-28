@@ -8,6 +8,7 @@ jQuery(document).ready(function() {
 
 		if($('#climbs-container').is(":visible")) {
 			$('#climbs-container').slideUp("slow");
+			$('#route_actions a.selected').removeClass('selected');
 		} else {
 			$('#climbs-container').slideDown('slow');
 		

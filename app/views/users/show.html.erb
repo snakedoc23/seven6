@@ -44,19 +44,33 @@
 				<td><%= link_to @routes_all.count, routes_user_path(@user) %></td>
 			</tr>
 			<tr>
-				<td>Suma kilometrów:</td>
-				<td><%= @total_distance.round %> km</td>
+				<td>Przejechane trasy:</td>
+				<td><%= link_to @workouts_all.count, workouts_user_path(@user) %></td>
 			</tr>
-			<%# if @total_time > 0 %>
+			<tr>
+				<td>Kilometry (dodane):</td>
+				<% if @user.total_distance %>
+				<td><%= @user.total_distance.round %> km</td>
+				<% else %>
+				<td>0 km</td>
+				<% end %>
+			</tr>
+			<% if @user.total_workouts_distance %>
+			<tr>
+				<td>Kilometry (przejechane):</td>
+				<td><%= @user.total_workouts_distance.round %> km</td>
+			</tr>
+			<% end %>
+			<% if @total_time > 0 %>
 			<tr>
 				<td>Czas na rowerze:</td>
-				<td><%# Time.at(@total_time).utc.strftime("%Hh %Mm %Ss") %></td>
+				<td><%= Time.at(@total_time).utc.strftime("%Hh %Mm") %></td>
 			</tr>
 			<tr>
 				<td>Średnia prędkość:</td>
-				<td><%# (@total_distance_with_time * 3600 / @total_time).round %> km/h</td>
+				<td><%= (@workouts_total_distance * 3600 / @total_time).round %> km/h</td>
 			</tr>
-			<%# end %>
+			<% end %>
 			<tr>
 				<td>Ulubione:</td>
 				<td><%= link_to @likes.count, favorite_routes_user_path(@user) %></td>

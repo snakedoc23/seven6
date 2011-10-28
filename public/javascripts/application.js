@@ -83,6 +83,12 @@ $(document).ready(function(){
 	$(".flash").delay(3000).slideUp('slow');
 
 
+	//pagination -- wyznaczenie szerokosci by wysrodkowac na stronie
+	if($('.pagination').length) {
+		$('.pagination').width(75+75+(29*($('.pagination').children().length - 2)));
+	}
+
+
 	//ROUTES#NEW
 
 

@@ -238,7 +238,7 @@ form#search-place, form#search-user, form#search-route {
 				ul {
 					padding-top: 3px;
 					.profile-image {
-						width: 58px;
+						width: 56px;
 						height: 18px;
 						float: right;
 						// margin-right: 10px;
@@ -822,10 +822,10 @@ table.big-table {
 
 .users-index-table {
 	margin: 20px auto;
-	width: 600px;
+	width: 1075px;
 	table.users-index {
 		width: 100%;
-		margin-left: -132px;
+		// margin-left: -132px;
 	}
 }
 
@@ -859,7 +859,6 @@ table.big-table {
 	}
 	.pagination {
 		margin: 20px auto;
-		width: 288px;
 	}
 }
 
@@ -871,7 +870,10 @@ PAGINATION
 */
 
 .pagination {
-	margin: 10px 0 0 109px;
+
+	width: 300px;
+	margin: auto;
+	margin-top: 10px;
 	* {
 		width: 24px;
 		height: 24px;
@@ -1624,20 +1626,6 @@ ul.rating {
 }
 
 
-
-
-// color: white;
-// border-radius: 5px;
-// border: 1px solid black;
-// margin-top: 8px;
-// background: #313436;
-// padding: 10px;
-
-
-
-
-
-
 #ajax-status {
 	position: absolute;
 	background: #222526;
@@ -1662,7 +1650,7 @@ ul.rating {
 
 #backto_user {
 	display: block;
-	width: 57px;
+	width: 60px;
 	margin: auto;
 	
 	&:hover {
@@ -1801,6 +1789,11 @@ ul.rating {
 	margin-left: 30px;
 	margin-top: 10px;
 	display: none;
+	h4 {
+		font-size: 13px;
+		font-weight: 900;
+		border-bottom: 2px solid $blue;
+	}
 	#climbs_table {
 		// border: 1px solid $grey;
 		width: 310px;
@@ -1847,6 +1840,7 @@ ul.rating {
 	width: 310px;
 	margin-left: 30px;
 	margin-top: 10px;
+	display: none;
 	h3 {
 		width: 310px;
 		border-bottom: 2px solid $blue;
@@ -1855,7 +1849,54 @@ ul.rating {
 		li.workout {
 			border-bottom: 1px solid #CACED0;
 			padding-top: 10px;
-			padding-bottom: 5px;
+			padding-bottom: 13px;
+			.workout-avatar {
+				width: 32px;
+				height: 32px;
+				float: left;
+				a {
+					img {
+						border: 2px solid white;
+					}
+				}
+			}
+			.workout-info {
+				margin-left: 42px;
+    		width: 258px;
+    		h4 {
+    			a {
+    				font-size: 14px;
+    			}
+    			span {
+    				font-size: 11px;
+    				color: #999;
+    				float: right;
+    			}
+    		}
+    		ul li {
+    			font-size: 13px;
+    			margin-top: 1px;
+    			span {
+    				float: right;
+    				width: 120px;
+    			}
+    		}
+    		.workout-description {
+    			margin-top: 3px;
+    			span {
+    				font-weight: 900;
+    			}
+    		}
+    		.workout-meta {
+    			text-align: right;
+    			margin-bottom: -10px;
+    			a.edit_workout {
+    				color: #999999;
+			    	font-size: 11px;
+    			}
+    		}
+    	
+			}
 		}
 	}
 	#add_workout_btn {
@@ -1928,5 +1969,10 @@ ul.rating {
 			width: 124px;
 		}
 	}
+}
+.empty {
+	width: 300px;
+	margin: 20px auto;
+	text-align: center;
 }
 

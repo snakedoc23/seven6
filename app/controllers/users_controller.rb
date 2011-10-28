@@ -27,17 +27,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title_header = "Profil #{@user.username}"
     @routes_all = Route.user_routes(@user.id)
+    @workouts_all = Workout.where(:user_id => @user.id)
     @routes = Route.last_three(@user.id)
     @routes = Route.find_all_by_user_id @user.id, :order => "created_at DESC", :limit => 3
-    @total_distance = 0
-    @total_distance_with_time = 0
+    @workouts_total_distance = 0
     @total_time = 0
-    @routes_all.each do |route|
-      @total_distance += route.distance
-      # if route.total_time > 0
-      #   @total_time += route.total_time
-      #   @total_distance_with_time += route.distance
-      # end
+    @workouts_all.each do |workout|
+      @workouts_total_distance += workout.route.distance
+      @total_time += workout.total_time
     end
     @likes = Rating.likes(@user.id)
 
@@ -66,6 +63,14 @@ class UsersController < ApplicationController
       @following_routes = @user.following_routes.first(3)
       render :partial => 'last_routes_following'
     end 
+  end
+
+  def workouts
+    @user = User.find(params[:id])
+    @title_header_top = "Przejechane"
+    @title_header = @user.username.to_s
+    
+    @workouts = @user.workouts.order('created_at DESC')
   end
 
   def routes
@@ -120,7 +125,7 @@ class UsersController < ApplicationController
 
     @total_routes   = Array.new
     @total_distance = Array.new
-    @total_time     = Array.new
+    # @total_time     = Array.new
     @total_climb_up = Array.new
 
     @offset = params[:offset].to_i
@@ -130,7 +135,7 @@ class UsersController < ApplicationController
     if params[:period] == "day"
       7.times {@total_routes.push(0) }
       7.times {@total_distance.push(0) }
-      7.times {@total_time.push(0) }
+      # 7.times {@total_time.push(0) }
       7.times {@total_climb_up.push(0) }
       
       @routes.each do |route|
@@ -138,7 +143,7 @@ class UsersController < ApplicationController
           if route.created_at.to_date == (i + @offset * 7).days.ago.to_date
             @total_routes[i] += 1
             @total_distance[i] += route.distance.round(2)
-            @total_time[i] += route.total_time
+            # @total_time[i] += route.total_time
             @total_climb_up[i] += route.total_climb_up.round(2)
           end
         end
@@ -148,7 +153,7 @@ class UsersController < ApplicationController
     elsif params[:period] == "month"
       5.times {@total_routes.push(0) }
       5.times {@total_distance.push(0) }
-      5.times {@total_time.push(0) }
+      # 5.times {@total_time.push(0) }
       5.times {@total_climb_up.push(0) }
 
       @routes.each do |route|
@@ -156,7 +161,7 @@ class UsersController < ApplicationController
           if route.created_at.month == (i + @offset * 5).month.ago.month
             @total_routes[i] += 1
             @total_distance[i] += route.distance.round(2)
-            @total_time[i] += route.total_time
+            # @total_time[i] += route.total_time
             @total_climb_up[i] += route.total_climb_up.round(2)
           end
         end
@@ -166,14 +171,14 @@ class UsersController < ApplicationController
     elsif params[:period] == "week"
       5.times {@total_routes.push(0) }
       5.times {@total_distance.push(0) }
-      5.times {@total_time.push(0) }
+      # 5.times {@total_time.push(0) }
       5.times {@total_climb_up.push(0) }
       @routes.each do |route|
         5.times do |i|
           if route.created_at.beginning_of_week == (i + @offset * 5).week.ago.beginning_of_week
             @total_routes[i] += 1
             @total_distance[i] += route.distance.round(2)
-            @total_time[i] += route.total_time
+            # @total_time[i] += route.total_time
             @total_climb_up[i] += route.total_climb_up.round(2)
           end
         end
@@ -248,7 +253,7 @@ class UsersController < ApplicationController
     end
 
     def sort_column
-      %w[username place total_distance total_routes created_at].include?(params[:sort]) ? params[:sort] : "created_at"
+      %w[username place total_distance total_routes total_workouts total_workouts_distance created_at].include?(params[:sort]) ? params[:sort] : "created_at"
     end
     
     def sort_direction

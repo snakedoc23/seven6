@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111027122241) do
+ActiveRecord::Schema.define(:version => 20111028122037) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(:version => 20111027122241) do
     t.string   "static_map_content_type"
     t.binary   "static_map_data"
     t.string   "climbs_string"
+    t.integer  "total_workouts"
   end
 
   add_index "routes", ["title"], :name => "index_routes_on_title"
@@ -90,6 +91,9 @@ ActiveRecord::Schema.define(:version => 20111027122241) do
     t.string   "avatar_name"
     t.string   "avatar_content_type"
     t.binary   "avatar_data"
+    t.integer  "total_workouts"
+    t.float    "total_workouts_distance"
+    t.integer  "total_workouts_time"
   end
 
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true

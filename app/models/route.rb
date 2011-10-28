@@ -35,6 +35,10 @@ class Route < ActiveRecord::Base
   scope :user_routes, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC") }
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
 
+  def add_total_workouts
+    self.total_workouts = self.workouts.count
+    self.save
+  end
 
   def add_workout
     if self.total_time.to_f > 0
@@ -126,7 +130,7 @@ class Route < ActiveRecord::Base
   end
 
   def time_to_string
-    if total_time > 0
+    if total_time
       h_time = (self.total_time / 3600 ).floor
       m_time = ((self.total_time - (h_time * 3600)) / 60).floor
       s_time = (self.total_time - h_time * 3600 - m_time * 60).round
@@ -191,6 +195,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: routes
@@ -200,7 +205,6 @@ end
 #  description             :text
 #  distance                :float
 #  surface                 :string(255)
-#  route_file              :string(255)
 #  user_id                 :integer
 #  created_at              :datetime
 #  updated_at              :datetime
@@ -209,13 +213,7 @@ end
 #  max_altitude            :float
 #  total_climb_up          :float
 #  total_climb_down        :float
-#  avg_speed               :float
-#  total_time              :float
 #  rating                  :float
-#  pulse_max               :float
-#  pulse_avg               :float
-#  temperature             :float
-#  max_speed               :float
 #  start_lat_lng           :string(255)
 #  finish_lat_lng          :string(255)
 #  static_map_name         :string(255)

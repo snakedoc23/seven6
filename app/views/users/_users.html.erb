@@ -9,12 +9,18 @@
 		<td><%= user_avatar user, "20x20" %></td>
 		<td class="place"><%= user.place %></td>
 		<td class="created_at"><%= user.total_routes %></td>
+		<td class="created_at"><%= user.total_workouts %></td>
 		<% if user.total_distance %>
 			<td><%= user.total_distance %> km</td>
 		<% else %>
 			<td>0 km</td>
 		<% end %>
-		<td class="created_at"><%= time_ago_in_words(user.created_at) %></td>
+		<% if user.total_workouts_distance %>
+			<td><%= user.total_workouts_distance %> km</td>
+		<% else %>
+			<td>0 km</td>
+		<% end %>
+		<td class="created_at"><%= l user.created_at, :format => "%Y.%m.%d" %></td>
 
 	<% if current_user %>
 	<% if current_user.admin? %>

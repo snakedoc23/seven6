@@ -9,6 +9,17 @@
 		<h2><%= @title_header %></h2>	
 	</div>
 	<div id="content">
+		<% if @user.followers.empty? %>
+			<% if current_user? %>
+				<div class="empty">
+					<p>Nikt Ciebie jeszcze nie obserwuje</p>
+					<%= link_to "Użytkownicy", users_path %>
+				</div>
+			<% else %>
+				<p><%= @user.username %> nikt jescze nie obserwuje</p>
+				<%= link_to "Trasy", routes_path %>
+			<% end %>
+		<% else %>
 		<div class="users-index-table">
 		<table class="users-index big-table">
 			<thead>
@@ -18,7 +29,9 @@
 					<th>Avatar</th>
 					<th><%= sortable 'Miejscowość', 'place' %></th>
 					<th><%= sortable 'Dodane trasy', 'total_routes' %></th>
+					<th><%= sortable 'Przejechane', 'total_workouts' %></th>
 					<th><%= sortable 'Kilometry', 'total_distance' %></th>
+					<th><%= sortable 'Kilometry', 'total_workouts_distance' %></th>
 					<th><%= sortable 'Data dodania', 'created_at' %></th>
 				<% if current_user %>	
 					<% if current_user.admin? %>
@@ -31,10 +44,9 @@
 			<%= render 'users' %>
 			</tbody>
 		</table>
-		
-		
 		</div> <!-- END users-index-table -->
-
+		<% end %>
+		<%= link_to raw("&larr; Powrót"), user_path(@user), :id => "backto_user", :class => "btn-base" %>
 	</div> <!-- END content -->
 </div> <!-- END without-map -->
 

@@ -12,8 +12,10 @@
 		
 		<% if @user.following.empty? %>
 			<% if current_user? %>
-				<p>Nikogo jeszcze nie obserwujesz</p>
-				<%= link_to "Użytkownicy", users_path %>
+				<div class="empty">
+					<p>Nikogo jeszcze nie obserwujesz</p>
+					<%= link_to "Użytkownicy", users_path %>
+				</div>
 			<% else %>
 				<p><%= @user.username %> nikogo jescze nie obserwuje</p>
 				<%= link_to "Trasy", routes_path %>
@@ -30,7 +32,9 @@
 					<th>Avatar</th>
 					<th><%= sortable 'Miejscowość', 'place' %></th>
 					<th><%= sortable 'Dodane trasy', 'total_routes' %></th>
+					<th><%= sortable 'Przejechane', 'total_workouts' %></th>
 					<th><%= sortable 'Kilometry', 'total_distance' %></th>
+					<th><%= sortable 'Kilometry', 'total_workouts_distance' %></th>
 					<th><%= sortable 'Data dodania', 'created_at' %></th>
 				<% if current_user %>	
 					<% if current_user.admin? %>
@@ -48,7 +52,7 @@
 		</div> <!-- END users-index-table -->
 
 		<% end %>
-
+		<%= link_to raw("&larr; Powrót"), user_path(@user), :id => "backto_user", :class => "btn-base" %>
 	</div> <!-- END content -->
 </div> <!-- END without-map -->
 

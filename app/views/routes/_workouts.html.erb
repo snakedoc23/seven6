@@ -1,4 +1,4 @@
-<h3>(<%= @route.workouts.count %>) przejazdy</h3>
+<h3>przejazdy (<%= @route.workouts.count %>)</h3>
 
 <ul id="workouts-list">
 <% @route.workouts.each do |workout| %>
@@ -7,19 +7,30 @@
 			<%= link_to (user_avatar workout.user, "30x30"), user_path(workout.user) %>
 		</div>
 		<div class="workout-info">
-			<h4><%= link_to workout.user.username, user_path(workout.user) %></h4>
+			<h4><%= link_to workout.user.username, user_path(workout.user) %><span><%= l workout.created_at, :format => "%y.%m.%d %H:%I" %></span></h4>
 			<ul>
-				<li><%= workout.time_to_string %>, Średnia:<%= workout.avg_speed %> km/h</li>
-				<li>Max: <%= workout.max_speed %> km/h</li>
-				<li>Tętno: <%= workout.pulse_avg %>/<%= workout.pulse_max %></li>
-				<%= link_to "Pokaż opis", "#" %>
+				<li>Czas: <%= workout.time_to_string %><span>Średnia:<%= workout.avg_speed %> km/h</span></li>
+				
+				<li>Max: <%= workout.max_speed %> km/h
+				<% if workout.pulse_avg %>
+					<span>Tętno: <%= workout.pulse_avg.round %>/<%= workout.pulse_max.round %></span>
+				<% end %>
+				</li>
+				<% if workout.temperature %>
+				<li class="workout-temp">Temperatura: <%= workout.temperature %></li>
+				<% end %>
 			</ul>
-			<div class="workout-description">
-				<span class="workut-temp"><%= workout.temperature %></span>
-				<%= workout.description %>
-			</div>
+
+			<% unless workout.description.nil? || workout.description == "" %>
+				<div class="workout-description"><span>Opis:</span> <%= workout.description %></div>
+			<% end %>
+
+			<% if current_user == workout.user %>
+				<p class="workout-meta"><%= link_to "Edytuj", "/",:class => "edit_workout", :id => "edit_workout_#{workout.id}" %></p>
+			<% end %>
 		
 		</div>
+			
 	</li>
 
 <% end %>
@@ -42,7 +53,7 @@
 			<%= f.label :max_speed, "Max (km/h):" %>
 			<%= f.text_field :max_speed, :placeholder => "32" %>
 
-			<span id="workout-avg-speed">Średnia: <span id="avg_speed_val">23</span> km/h</span>
+			<span id="workout-avg-speed">Średnia: <span id="avg_speed_val">--</span> km/h</span>
 
 			<p id="error-explanation-max-speed" class="error-explanation">Liczba dodatnia ale bez przesady</p>
 			<div class="clear"></div>
@@ -55,7 +66,7 @@
 		<div class="form-field">
 			<%= f.label :temperature, "Temperatura:" %>
 			<%= f.text_field :temperature, :placeholder => "25" %>
-			<p class="error-explanation">Liczba stopni (. nie ,)</p>
+			<p id="error-explanation-temperature" class="error-explanation">Liczba stopni (. nie ,)</p>
 		</div>
 		<div class="form-field">
 			<%= f.label :description, "Opis" %>

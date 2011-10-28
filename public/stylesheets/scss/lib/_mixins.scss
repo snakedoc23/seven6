@@ -9,14 +9,12 @@
 
 /* Add rounded corners to certain sides */
 @mixin roundedSides($topLeft, $topRight, $bottomRight, $bottomLeft) {
-	-moz-border-radius-topleft: $topLeft;
-	-moz-border-radius-topright: $topRight;
-	-moz-border-radius-bottomright: $bottomRight;
-	-moz-border-radius-bottomleft: $bottomLeft;
+
 	border-top-left-radius: $topLeft;
 	border-top-right-radius: $topRight;
 	border-bottom-right-radius: $bottomRight;
 	border-bottom-left-radius: $bottomLeft;
+
 }
 
 @mixin textShadow($x-axis:1px, $y-axis:1px, $casting:1px, $color:#FFF) {

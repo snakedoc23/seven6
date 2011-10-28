@@ -18,7 +18,9 @@
 					<th>Avatar</th>
 					<th><%= sortable 'Miejscowość', 'place' %></th>
 					<th><%= sortable 'Dodane trasy', 'total_routes' %></th>
+					<th><%= sortable 'Przejechane', 'total_workouts' %></th>
 					<th><%= sortable 'Kilometry', 'total_distance' %></th>
+					<th><%= sortable 'Kilometry', 'total_workouts_distance' %></th>
 					<th><%= sortable 'Data dodania', 'created_at' %></th>
 				<% if current_user %>	
 					<% if current_user.admin? %>

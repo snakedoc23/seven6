@@ -4,6 +4,7 @@ Seven6::Application.routes.draw do
     member do
       get 'edit_password'
       get 'routes'
+      get 'workouts'
       get 'favorite_routes'
       get 'following'
       get 'followers'

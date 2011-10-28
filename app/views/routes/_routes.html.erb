@@ -7,9 +7,9 @@
 			<th><%= sortable 'Wzniesienia', 'max_altitude' %></th>
 			<th><%= sortable 'Nawierzchnia', 'surface' %></th>
 			<th><%= sortable 'Ocena', 'rating' %></th>
-
 			<th><%= sortable 'Data dodania', 'created_at' %></th>
 			<th><%= sortable 'Użytkownik', 'user_id' %></th>
+			<th><%= sortable 'Przejazdy', 'total_workouts' %></th>
 			<th class="like"><span></span></th>
 			<th class="comments"><span></span></th>
 		</tr>
@@ -39,6 +39,7 @@
 
 			<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
 			<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
+			<td class="workouts"><%= route.total_workouts %></td>
 			<td class="like"><%= Rating.route_likes(route.id).size %></td>
 			<td class="comments"><%= Comment.route_comments(route.id).size %></td>
 		</tr>
