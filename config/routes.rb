@@ -24,6 +24,8 @@ Seven6::Application.routes.draw do
   match '/',        :to => 'pages#home'
   match '/test',    :to => 'pages#test' 
 
+
+  post '/show_all_routes' => 'users#show_all_routes'
   
   post '/load_coordinates' => 'routes#load_coordinates'
   post '/start_markers' => 'routes#start_markers'

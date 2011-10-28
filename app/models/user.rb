@@ -33,6 +33,12 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
 
+  def show_all_routes
+    reduced_array = Array.new
+    routes.each { |route| reduced_array.push route.reduced_coordinates_string }
+    reduced_array
+  end
+
   def uploaded_avatar=(avatar_field)
     self.avatar_name = File.basename(avatar_field.original_filename).gsub(/[^\w._-]/, '')
     self.avatar_content_type = avatar_field.content_type.chomp

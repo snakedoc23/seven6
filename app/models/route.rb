@@ -176,6 +176,24 @@ class Route < ActiveRecord::Base
     self.remote_static_map_url= self.create_static_map
   end
 
+  def reduced_coordinates_string
+    path_array = coordinates_string.split("|")
+
+    while path_array.length > 70
+      path_array = reductionPath(path_array)
+    end
+
+    coordinates_string_temp = ""
+    path_array.each do |pos|
+      if coordinates_string_temp == ""
+        coordinates_string_temp += "#{pos}"
+      else
+        coordinates_string_temp += "|#{pos}"
+      end
+    end
+    coordinates_string_temp
+  end
+
   private
     def reductionPath(path) #Redukcja tablicy by wyslac do google (patrz application.js)
       path_length = path.length

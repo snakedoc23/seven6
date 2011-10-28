@@ -52,11 +52,35 @@ var sMarkerImageHover;
 var sMarkerImage;
 
 
+var allPolylines = [];
+
 google.load("visualization", "1", {packages: ["corechart"]});
 
 var mapWidth;
 
 $(document).ready(function(){
+
+
+	// pokaz wszystkie trasy usera na mapie
+	$('#show_all_routes_btn').click(function(){
+		var userId = $('#user_id').val();
+		$.post('/show_all_routes', {user_id : userId}, function(coordinates_array) {
+			for (var i = 0; i < coordinates_array.length; i++) {
+				var poly = new google.maps.Polyline({
+					strokeColor: '#283A43',
+					strokeOpacity: .6,
+					strokeWeight: 5,
+					map: map
+				});
+				var path1 = new Array();
+				pathFromString(coordinates_array[i], path1);
+				poly.setPath(path1);
+				allPolylines.push(poly);
+				//TODO add bound to 
+			};
+		});
+		return false;
+	});
 
 
 	// TODO --> inne okienka dla roznych ajaxow
@@ -702,6 +726,9 @@ function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
 		}
 		sMarker.setIcon(sMarkerImageHover);
 		loadRouteToHome(sMarkerTitle);
+		for(var i = 0; i < allPolylines.length; i++) {
+			allPolylines[i].setMap(null);
+		}
 
 		// zaznaczenie wybranej trasy na liscie jesli tam jest 
 		$('.route-img').removeClass("selected");
