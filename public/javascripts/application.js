@@ -65,6 +65,8 @@ $(document).ready(function(){
 	$('#show_all_routes_btn').click(function(){
 		var userId = $('#user_id').val();
 		$.post('/show_all_routes', {user_id : userId}, function(coordinates_array) {
+			
+			var newBounds = new google.maps.LatLngBounds();
 			for (var i = 0; i < coordinates_array.length; i++) {
 				var poly = new google.maps.Polyline({
 					strokeColor: '#283A43',
@@ -73,11 +75,17 @@ $(document).ready(function(){
 					map: map
 				});
 				var path1 = new Array();
-				pathFromString(coordinates_array[i], path1);
+				var bounds = pathFromString(coordinates_array[i], path1);
 				poly.setPath(path1);
 				allPolylines.push(poly);
+
 				//TODO add bound to map
+				console.log(bounds.getNorthEast());
+				newBounds.extend(bounds.getNorthEast());
+				newBounds.extend(bounds.getSouthWest());
+
 			};
+			map.fitBounds(newBounds);
 		});
 		return false;
 	});
