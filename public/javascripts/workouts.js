@@ -12,34 +12,14 @@ jQuery(document).ready(function() {
 		} else {
 			$('#workouts-container').slideDown('slow');
 		}
-
-
 		return false;
-
 	});
-
 
 	$('#add_workout_btn').click(function(){
 		$('#add_workout_btn').hide();
 		$('#add-workout').slideDown('slow');
 		return false;
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	// sprawdzanie poprawności czasu 
 	$('#workout_time_string').focus(function(){
@@ -90,7 +70,6 @@ jQuery(document).ready(function() {
 		}
 	});
 
-
 	//Poprawność tętna
 	$('#workout_pulse').blur(function() {
 		var pulse = $('#workout_pulse').val();
@@ -133,44 +112,16 @@ jQuery(document).ready(function() {
 		}
 	});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	// dodawanie przejazdu
 	var route_id = $('#route_id').val();
 	$('#workout_submit').click(function() {
 		var time_string = $("#workout_time_string").val();
 		var max_speed = $("#workout_max_speed").val();
 		var pulse = $("#workout_pulse").val();
-		var pulse = $("#workout_pulse").val();
-		var temperature = $("#workout_temperature").val();
 		var temperature = $("#workout_temperature").val();
 		var description = $("#workout_description").val();
 		$.post(
-			'/create_workout',
-			{
+			'/create_workout', {
 				route_id : route_id,
 				time_string : time_string,
 				max_speed : max_speed,
@@ -181,15 +132,37 @@ jQuery(document).ready(function() {
 			function(data) {
 				console.log(data);
 				$('#workouts-list').append(data);
+				updateWorkoutsNum(1);
 			}
 		);
-		//TODO
-		//wyczysc pola formularza 
+		$("#workout_time_string").val("");
+		$("#workout_max_speed").val("");
+		$("#workout_pulse").val("");
+		$("#workout_temperature").val("");
+		$("#workout_description").val("");
 
 
 		$('#add-workout').hide();
 		$('#add_workout_btn').show();
 		return false;
 	});
+
+	//edit
+	$('p.workout-meta .edit_workout').live('click', function(){
+		alert("test ok");
+		var id_a = $(this).attr("id").split('_');
+		var id = id_a[2];
+		console.log(id);
+		var test = "32 (32)".split("(")[1].replace(")", "");
+		
+		return false;
+	});
 });
+
+function updateWorkoutsNum(value) {
+	var workoutsNum = parseFloat($('#workouts-container h3').html().split("(")[1].replace(")", ""));
+	console.log(workoutsNum);
+	$('#workouts-container h3').html("Przejazdy (" + (value + workoutsNum) + ")");
+	$('#show-workouts').html("Przejazdy (" + (value + workoutsNum) + ")");
+};
 

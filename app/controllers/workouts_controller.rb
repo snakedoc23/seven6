@@ -12,8 +12,7 @@ class WorkoutsController < ApplicationController
     @workout.user_id = current_user.id
     @workout.route_id = @route.id
     if @workout.save
-      # render :partial => 'workout'
-      render :text => @workout.pulse.nil?
+      render :partial => 'workout'
     else
       render :text => 'fail'
     end

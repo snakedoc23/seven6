@@ -14,7 +14,7 @@ class Workout < ActiveRecord::Base
   before_save :total_time_calculate, :split_pulse, :calculate_avg_speed
   after_save :add_total_workouts_to_user_and_route
 
-  default_scope :order => 'created_at DESC'
+  # default_scope :order => 'created_at DESC'
 
   def add_total_workouts_to_user_and_route
     self.user.add_total_workouts

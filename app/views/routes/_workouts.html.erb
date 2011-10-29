@@ -1,4 +1,4 @@
-<h3>przejazdy (<%= @route.workouts.count %>)</h3>
+<h3>Przejazdy (<%= @route.workouts.count %>)</h3>
 
 <ul id="workouts-list">
 <% @route.workouts.each do |workout| %>
@@ -7,11 +7,13 @@
 			<%= link_to (user_avatar workout.user, "30x30"), user_path(workout.user) %>
 		</div>
 		<div class="workout-info">
-			<h4><%= link_to workout.user.username, user_path(workout.user) %><span><%= l workout.created_at, :format => "%y.%m.%d %H:%I" %></span></h4>
+			<h4><%= link_to workout.user.username, user_path(workout.user) %><span><%= l workout.created_at.localtime, :format => "%y.%m.%d %H:%I" %></span></h4>
 			<ul>
 				<li>Czas: <%= workout.time_to_string %><span>Średnia:<%= workout.avg_speed %> km/h</span></li>
-				
-				<li>Max: <%= workout.max_speed %> km/h
+				<li>
+				<% if workout.max_speed %>
+				Max: <%= workout.max_speed %> km/h
+				<% end %>
 				<% if workout.pulse_avg %>
 					<span>Tętno: <%= workout.pulse_avg.round %>/<%= workout.pulse_max.round %></span>
 				<% end %>
@@ -20,24 +22,18 @@
 				<li class="workout-temp">Temperatura: <%= workout.temperature %></li>
 				<% end %>
 			</ul>
-
 			<% unless workout.description.nil? || workout.description == "" %>
 				<div class="workout-description"><span>Opis:</span> <%= workout.description %></div>
 			<% end %>
-
 			<% if current_user == workout.user %>
 				<p class="workout-meta"><%= link_to "Edytuj", "/",:class => "edit_workout", :id => "edit_workout_#{workout.id}" %></p>
 			<% end %>
-		
 		</div>
-			
 	</li>
-
 <% end %>
 </ul>
 <% if current_user %>
 	<%= link_to "Dodaj przejazd", "#", :id => "add_workout_btn", :class => "btn-base" %>
-
 <div id="add-workout">
 	<h4>Dodaj przejazd</h4>
 	<%= form_for :workout do |f| %>
@@ -45,16 +41,13 @@
 			<%= f.label :time_string, "Czas:" %>
 			<%= f.text_field :time_string, :placeholder => "00:00:00" %>
 			<span id="total-time-show"><span id="total-time-show-h">0</span>h <span id="total-time-show-m">0</span>m <span id="total-time-show-s">0</span>s</span>
-
 			<p id="error-explanation-time" class="error-explanation">Godziny minuty sekundy</p>
 			<div class="clear"></div>
 		</div>
 		<div class="form-field">
 			<%= f.label :max_speed, "Max (km/h):" %>
 			<%= f.text_field :max_speed, :placeholder => "32" %>
-
 			<span id="workout-avg-speed">Średnia: <span id="avg_speed_val">--</span> km/h</span>
-
 			<p id="error-explanation-max-speed" class="error-explanation">Liczba dodatnia ale bez przesady</p>
 			<div class="clear"></div>
 		</div>
@@ -74,8 +67,6 @@
 		</div>
 			<%= f.submit "Dodaj" %>
 	<% end %>
-
-
 </div>
 <% else %>
 	<p class="unlogged"><%= link_to "Zaloguj się by dodać przejazd" , signin_path %>

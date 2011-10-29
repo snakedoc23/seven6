@@ -58,7 +58,7 @@
 					<% else %>
 					<td></td>
 					<% end %>
-					<td class="created_at"><%= l workout.created_at, :format => "%y.%m.%d %H:%I" %></td>
+					<td class="created_at"><%= l workout.created_at.localtime, :format => "%y.%m.%d %H:%I" %></td>
 					<td class="user"><%= link_to workout.route.user.username, user_path(workout.route.user) %></td>
 					<td class="like"><%= Rating.route_likes(workout.route.id).size %></td>
 					<td class="comments"><%= Comment.route_comments(workout.route.id).size %></td>

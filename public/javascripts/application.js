@@ -76,7 +76,7 @@ $(document).ready(function(){
 				pathFromString(coordinates_array[i], path1);
 				poly.setPath(path1);
 				allPolylines.push(poly);
-				//TODO add bound to 
+				//TODO add bound to map
 			};
 		});
 		return false;
@@ -1108,16 +1108,20 @@ function plotElevation(results, status) {
 					if( current > 0 ) {
 						// podjazd
 						if( i == 1 ) {
-							climbUpFirst = { "F" : {position : (Math.round(i * x)), elevation : results[i].elevation} };
+							var climbUpFirst = { "F" : {position : (Math.round(i * x)), elevation : results[i].elevation} };
 							climbUpTable.push(climbUpFirst);
 						} else if( previous < 0 ) {
-							climbUpFirst = { "F" : {position : (Math.round(i * x)), elevation : results[i].elevation} };
+							var climbUpFirst = { "F" : {position : (Math.round(i * x)), elevation : results[i].elevation} };
 							climbUpTable.push(climbUpFirst);
 						}
-						if( next < 0 || i == results.length - 1) {
-							climbUpLast = {position : (Math.round(i * x)), elevation : results[i].elevation };
+						if( next <= 0 || i == results.length - 1) {
+							// console.log(results[i]);
+							// console.log(i * x);
+							
+
+							var climbUpLast = {position : (Math.round(i * x)), elevation : results[i].elevation };
 							climbUpTable[climbUpTable.length - 1]["L"] = climbUpLast;
-							console.log(climbUpLast);
+							// console.log(climbUpLast);
 						}
 					}
 
@@ -1151,6 +1155,11 @@ function plotElevation(results, status) {
 
 			// console.log(climbUpTable);
 			for(var i = 0; i < climbUpTable.length; i++) {
+				// if(!climbUpTable[i]["L"]) {
+				// 	climbUpTable[i]["L"] = climbUpTable[i]["F"];
+				// 	console.log(climbUpTable[i]["L"]);
+				// }
+				// console.log(climbUpTable);
 				var cu = climbUpTable[i]["L"].elevation - climbUpTable[i]["F"].elevation;
 				var dis = climbUpTable[i]["L"].position - climbUpTable[i]["F"].position;
 				var grade = cu * 100 / dis;

@@ -25,7 +25,7 @@
 				</li>
 				<li>
 					<div class="th">Data dodania:</div>
-					<div class="td" title="<%= @route.created_at.to_formatted_s(:long) %>"><%= time_ago_in_words(@route.created_at) %></div>
+					<div class="td"><%= l @route.created_at.localtime, :format => "%y.%m.%d %H:%I" %></div>
 				</li>
 				<% unless @route.description.nil? || @route.description == "" %>
 				<li class="description">
