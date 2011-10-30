@@ -79,8 +79,6 @@ $(document).ready(function(){
 				poly.setPath(path1);
 				allPolylines.push(poly);
 
-				//TODO add bound to map
-				console.log(bounds.getNorthEast());
 				newBounds.extend(bounds.getNorthEast());
 				newBounds.extend(bounds.getSouthWest());
 
@@ -101,14 +99,16 @@ $(document).ready(function(){
 
 
 	mapWidth = $(document).width() - $('#aside').outerWidth();
-	$('#map').width($(document).width() - $('#aside').outerWidth());
-	// $('#map').height($('#aside').height());
-	// $(window).resize(function() {
-	// 	$('#map').height($(window).height());
-	// });
+	$('#map').width(mapWidth);
+	$('#map').height($(window).height() - 63);
+	$('#aside').css('min-height', ($(window).height() - 63));
+
 	$(window).resize(function() {
 		$('#map').width($(window).width() - $('#aside').outerWidth());
+		$('#map').height($(window).height() - 63);
+		$('#aside').css('min-height', ($(window).height() - 63));
 	});
+
 
 
 	$(".flash").click(function(){$(".flash").slideUp('slow')});
@@ -641,6 +641,29 @@ function loadStartMarkers(user_id, route_type) {
 				createStartMarker(point, title_id, title_route, route_distance, user_name);
 
 			}
+			var mcOptions = {
+				gridSize: 50,
+				maxZoom: 14,
+				styles: [{
+					url: "../images/cluster_1.png",
+					height: 35,
+		        	width: 35,
+		        	textColor: "white"
+		        }, {
+					url: "../images/cluster_2.png",
+					height: 48,
+		        	width: 48,
+		        	textColor: "white",
+		        	textSize: 13
+		        }, {
+		        	url: "../images/cluster_3.png",
+		        	height: 56,
+		        	width: 56,
+		        	textColor: "white",
+		        	textSize: 13
+		        }]
+			};
+			var mc = new MarkerClusterer(map, homeMarkers, mcOptions);
 		}
 	});
 };
@@ -669,7 +692,7 @@ function createStartMarker(pos, title, title_route, route_distance, user_name) {
 	);
 	var sMarker = new google.maps.Marker({
 		position: pos,
-		map: map,
+		// map: map,
 		icon: sMarkerImage,
 		title: title
 	});

@@ -1682,9 +1682,6 @@ ul.rating li {
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 0; }
-  #comments-container .unlogged {
-    margin-left: 42px;
-    margin-top: 13px; }
   #comments-container #add-comment-btn {
     margin-left: 42px;
     display: block;
@@ -1694,6 +1691,9 @@ ul.rating li {
     margin-top: 4px;
     width: 258px;
     margin-bottom: 10px; }
+
+.unlogged {
+  margin-top: 13px; }
 
 #infobox {
   width: 280px;

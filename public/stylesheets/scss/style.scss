@@ -1587,10 +1587,6 @@ ul.rating {
 			margin-bottom: 0;
 		}
 	}
-	.unlogged {
-		margin-left: 42px;
-    	margin-top: 13px;
-	}
 	#add-comment-btn {
 		margin-left: 42px;
 		display: block;
@@ -1601,6 +1597,10 @@ ul.rating {
 		width: 258px;
 		margin-bottom: 10px;
 	}
+}
+.unlogged {
+
+	margin-top: 13px;
 }
 
 #infobox {
