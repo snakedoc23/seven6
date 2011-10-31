@@ -1974,3 +1974,48 @@ ul.rating {
 	text-align: center;
 }
 
+
+
+//edit workout
+#workout_edit_form {
+	width: 258px;
+	div {
+		clear: both;
+		padding-top: 3px;
+	}
+	input[type="text"], select, textarea {
+		width: 60px;
+		padding: 1px;
+		border-radius: 0;
+		margin: 0;
+		font-size: 13px;
+	}
+	#workout_max_speed {
+		float: left;
+		margin-right: 64px;
+	}
+	#workout_time_string {
+		float: left;
+	}
+	#workout_edit_pulse {
+		float: right;
+	}
+	textarea {
+		width: 221px;
+	}
+	label {
+		float: left;
+		padding: 2px;
+	}
+	#workout_edit_avg_speed {
+		padding: 2px;
+		float: right;
+	}
+	input[type="submit"] {
+		font-size: 12px;
+		background: none;
+		padding: 0;
+		color: #999;
+		float: right;
+	}
+}

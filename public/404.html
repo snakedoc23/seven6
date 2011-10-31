@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
+  <title>404</title>
   <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
+    body {
+      background: url(images/bg.gif) repeat;
     }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
+    #logo {
+      margin: 10px auto;
+      width: 97px;
+    }
+    a.logo {
+      background: url("images/logo.png");
+      width: 97px;
+      height: 97px;
+      display:block;
+      text-indent: -9999px;
+    }
+    .logo:hover {
+        background: url("images/logo.png") -97px;
+    }
+    #container {
+      width: 266px;
+      margin: 70px auto 0;
+      text-align: center;
+    }
+
   </style>
 </head>
 
 <body>
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <h1>The page you were looking for doesn't exist.</h1>
-    <p>You may have mistyped the address or the page may have moved.</p>
+  <div id="logo">
+    <a href="#" title="76" class="logo">76</a>
+  </div>
+  <div id="container">
+    <img src="images/404.png" alt="404">
   </div>
 </body>
 </html>

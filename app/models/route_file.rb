@@ -6,6 +6,19 @@ class RouteFile < ActiveRecord::Base
     self.content_type = route_field.content_type.chomp
     self.data = route_field.read
   end
+
+  def string_from_kml
+	  string = ""
+    self.data.split("<coordinates>").each_with_index do |segment, index|
+      unless index == 0
+        segment.split("</coordinates>")[0].split(" ").each_with_index do |line, i|
+          string += "#{line.split(",")[1]},#{line.split(",")[0]}|"
+        end
+      end
+    end
+    string.chop!
+  end
+
 end
 
 # == Schema Information

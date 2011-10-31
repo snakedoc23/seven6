@@ -21,10 +21,9 @@
 					<th>Wzniesienia</th>
 					<th>Nawierzchnia</th>
 					<th>Ocena</th>
-					<th>Czas jazdy</th>
-					<th>Średnia</th>
 					<th>Data dodania</th>
 					<th>Użytkownik</th>
+					<th>Przejazdy</th>
 					<th class="like"><span></span></th>
 					<th class="comments"><span></span></th>
 				</tr>
@@ -52,14 +51,10 @@
 							<li class="5">5</li>
 						</ul>
 					</td>
-					<td class="time"><%= route.time_to_string %></td>
-					<% if route.avg_speed %>
-					<td class="avg_speed"><%= route.avg_speed %> km/h</td>
-					<% else %>
-					<td></td>
-					<% end %>
+					
 					<td class="created_at"><%= l route.created_at, :format => "%y.%m.%d %H:%I" %></td>
 					<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
+					<td class="workouts"><%= route.total_workouts || 0 %></td>
 					<td class="like"><%= Rating.route_likes(route.id).size %></td>
 					<td class="comments"><%= Comment.route_comments(route.id).size %></td>
 				</tr>

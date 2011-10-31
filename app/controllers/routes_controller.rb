@@ -93,6 +93,7 @@ class RoutesController < ApplicationController
   end
 
   def create
+    @route_file = RouteFile.new
     @route = current_user.routes.build(params[:route])
     if @route.save
       flash[:success] = "Trasa zostala dodana"

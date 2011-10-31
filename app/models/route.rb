@@ -27,7 +27,7 @@ class Route < ActiveRecord::Base
 
 
 
-  before_save :split_pulse, :add_start_and_finish
+  before_save :split_pulse, :add_start_and_finish, :total_time_calculate
   after_save :add_total_distance_and_total_routes_to_user, :add_workout
 
   # default_scope :order => 'created_at DESC'
@@ -99,16 +99,18 @@ class Route < ActiveRecord::Base
 
 
   def total_time_calculate
-    time_s = ""
-    self.time_string.each_char do |char|
-      if char.match(/\D/)
-        time_s += ":"
-      else
-        time_s += char
-      end 
+    if time_string.to_f > 0
+      time_s = ""
+      self.time_string.each_char do |char|
+        if char.match(/\D/)
+          time_s += ":"
+        else
+          time_s += char
+        end 
+      end
+      time_a = time_s.split(":")
+      self.total_time = time_a[0].to_i  * 3600 + time_a[1].to_i * 60 + time_a[2].to_i
     end
-    time_a = time_s.split(":")
-    self.total_time = time_a[0].to_i  * 3600 + time_a[1].to_i * 60 + time_a[2].to_i
   end
 
   def pulse_edit
@@ -147,7 +149,11 @@ class Route < ActiveRecord::Base
         total += 1
       end
     end
-    self.rating = sum.to_f / total.to_f
+    if total > 0
+      self.rating = sum.to_f / total.to_f
+    else
+      self.rating = 0
+    end 
   end
 
   # Static Google Maps + redukcja punktow i samych wspolzednych

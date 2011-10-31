@@ -203,9 +203,9 @@ pl:
       confirmation: "nie zgadza się z potwierdzeniem"
       accepted: "musi zostać zaakceptowane"
       empty: "nie może być puste"
-      blank: "nie może być puste"
+      blank: "nie może być pusta"
       too_long: "jest za długie (maksymalnie %{count} znaków)"
-      too_short: "jest za krótkie (przynajmniej %{count} znaków)"
+      too_short: "jest za krótka (przynajmniej %{count} znaków)"
       wrong_length: "ma nieprawidłową długość (powinna wynosić %{count} znaków)"
       not_a_number: "nie jest liczbą"
       not_an_integer: "musi być liczbą całkowitą"
@@ -218,6 +218,12 @@ pl:
       even: "musi być parzyste"
 
   activerecord:
+    attributes:
+      route:
+        title: Nazwa trasy
+      user:
+        username: Nazwa
+        password: Hasło
     errors:
       template:
         header:
@@ -226,7 +232,7 @@ pl:
         body: "Błędy dotyczą następujących pól:"
 
       messages:
-        taken: "zostało już zajęte"
+        taken: "został już zajęty"
         record_invalid: "Negatywne sprawdzenie poprawności: %{errors}"
         <<: *errors_messages
 

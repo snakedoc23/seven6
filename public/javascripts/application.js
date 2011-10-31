@@ -112,7 +112,10 @@ $(document).ready(function(){
 
 
 	$(".flash").click(function(){$(".flash").slideUp('slow')});
+	$("#error_explanation_route").click(function(){$("#error_explanation_route").slideUp('slow')});
 	$(".flash").delay(3000).slideUp('slow');
+
+
 
 
 	//pagination -- wyznaczenie szerokosci by wysrodkowac na stronie
@@ -838,7 +841,7 @@ function pathFromString(string, pathT) {
 
 function initializeMap(){
 	var map = new google.maps.Map(document.getElementById("map"), {
-	   	zoom: 13,
+	   	zoom: 11,
 	    center: new google.maps.LatLng(50.263888, 19.029007),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	});

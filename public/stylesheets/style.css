@@ -2060,3 +2060,36 @@ ul.rating li {
   width: 300px;
   margin: 20px auto;
   text-align: center; }
+
+#workout_edit_form {
+  width: 258px; }
+  #workout_edit_form div {
+    clear: both;
+    padding-top: 3px; }
+  #workout_edit_form input[type="text"], #workout_edit_form select, #workout_edit_form textarea {
+    width: 60px;
+    padding: 1px;
+    border-radius: 0;
+    margin: 0;
+    font-size: 13px; }
+  #workout_edit_form #workout_max_speed {
+    float: left;
+    margin-right: 64px; }
+  #workout_edit_form #workout_time_string {
+    float: left; }
+  #workout_edit_form #workout_edit_pulse {
+    float: right; }
+  #workout_edit_form textarea {
+    width: 221px; }
+  #workout_edit_form label {
+    float: left;
+    padding: 2px; }
+  #workout_edit_form #workout_edit_avg_speed {
+    padding: 2px;
+    float: right; }
+  #workout_edit_form input[type="submit"] {
+    font-size: 12px;
+    background: none;
+    padding: 0;
+    color: #999;
+    float: right; }
