@@ -2,16 +2,16 @@
 	<thead>
 		<tr>
 			<th></th>
-			<th><%= sortable 'Nazwa', 'title' %></th>
-			<th><%= sortable 'Dystans', 'distance' %></th>
-			<th><%= sortable 'Wzniesienia', 'max_altitude' %></th>
-			<th><%= sortable 'Nawierzchnia', 'surface' %></th>
-			<th><%= sortable 'Ocena', 'rating' %></th>
-			<th><%= sortable 'Data dodania', 'created_at' %></th>
-			<th><%= sortable 'Użytkownik', 'user_id' %></th>
-			<th><%= sortable 'Przejazdy', 'total_workouts' %></th>
-			<th class="like"><span></span></th>
-			<th class="comments"><span></span></th>
+			<th class="ajax"><%= sortable 'Nazwa', 'title' %></th>
+			<th class="ajax"><%= sortable 'Dystans', 'distance' %></th>
+			<th class="ajax"><%= sortable 'Wzniesienia', 'max_altitude' %></th>
+			<th class="ajax"><%= sortable 'Nawierzchnia', 'surface' %></th>
+			<th class="ajax"><%= sortable 'Ocena', 'rating' %></th>
+			<th class="ajax"><%= sortable 'Data dodania', 'created_at' %></th>
+			<th class="ajax"><%= sortable 'Użytkownik', 'user_id' %></th>
+			<th class="ajax"><%= sortable 'Przejazdy', 'total_workouts' %></th>
+			<th class="ajax like"><span><%= sortable '', 'total_likes' %></span></th>
+			<th class="ajax comments"><span><%= sortable '', 'total_comments' %></span></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -28,7 +28,7 @@
 			<td class="surface"><%= route.surface%></td>
 			<td class="rating">
 				<ul class="rating <%= route.id %>">
-					<li class="val"><%= route.avg_rating %></li>
+					<li class="val"><%= route.rating %></li>
 					<li class="1">1</li>
 					<li class="2">2</li>
 					<li class="3">3</li>
@@ -39,9 +39,9 @@
 
 			<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
 			<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
-			<td class="workouts"><%= route.total_workouts %></td>
-			<td class="like"><%= Rating.route_likes(route.id).size %></td>
-			<td class="comments"><%= Comment.route_comments(route.id).size %></td>
+			<td class="workouts"><%= route.total_workouts || 0 %></td>
+			<td class="like"><%= route.show_total_likes %></td>
+			<td class="comments"><%= route.show_total_comments %></td>
 		</tr>
 	<% end %>
 	</tbody>

@@ -1,15 +1,15 @@
 <% i = 0 %>
 <% if params[:page] %>
-			<% i = i + ((params[:page].to_i - 1) * 20) %>
-			<% end %>
+	<% i = i + ((params[:page].to_i - 1) * 20) %>
+<% end %>
 <% @users.each do |user| %>
 	<tr>
 		<td><%= i += 1 %></td>
 		<td class="title"><%= link_to user.username, user_path(user) %></td>
 		<td><%= user_avatar user, "20x20" %></td>
 		<td class="place"><%= user.place %></td>
-		<td class="created_at"><%= user.total_routes %></td>
-		<td class="created_at"><%= user.total_workouts %></td>
+		<td class="created_at"><%= user.total_routes || 0 %></td>
+		<td class="created_at"><%= user.total_workouts || 0 %></td>
 		<% if user.total_distance %>
 			<td><%= user.total_distance %> km</td>
 		<% else %>

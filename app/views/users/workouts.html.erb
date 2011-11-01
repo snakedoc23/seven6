@@ -44,7 +44,7 @@
 					<td class="rating">
 						
 						<ul class="rating <%= workout.route.id %>">
-							<li class="val"><%= workout.route.avg_rating %></li>
+							<li class="val"><%= workout.route.rating %></li>
 							<li class="1">1</li>
 							<li class="2">2</li>
 							<li class="3">3</li>
@@ -60,8 +60,8 @@
 					<% end %>
 					<td class="created_at"><%= l workout.created_at.localtime, :format => "%y.%m.%d %H:%I" %></td>
 					<td class="user"><%= link_to workout.route.user.username, user_path(workout.route.user) %></td>
-					<td class="like"><%= Rating.route_likes(workout.route.id).size %></td>
-					<td class="comments"><%= Comment.route_comments(workout.route.id).size %></td>
+					<td class="like"><%= workout.route.show_total_likes %></td>
+					<td class="comments"><%= workout.route.show_total_comments %></td>
 				</tr>
 			<% end %>
 			</tbody>

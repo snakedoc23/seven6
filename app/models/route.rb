@@ -35,6 +35,36 @@ class Route < ActiveRecord::Base
   scope :user_routes, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC") }
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
 
+  def show_total_comments
+    if total_comments
+      self.total_comments    
+    else 
+      self.total_comments = self.comments.count
+      self.save
+    end
+    self.total_comments
+  end
+
+  def show_total_likes
+    if total_likes
+      self.total_likes
+    else 
+      self.total_likes = Rating.route_likes(self.id).count
+      self.save
+    end
+    self.total_likes
+  end
+
+  def add_total_comments
+    self.total_comments = self.comments.count
+    self.save
+  end
+
+  def add_total_likes
+    self.total_likes = Rating.route_likes(self.id).count
+    self.save
+  end
+
   def add_total_workouts
     self.total_workouts = self.workouts.count
     self.save
@@ -220,6 +250,8 @@ end
 
 
 
+
+
 # == Schema Information
 #
 # Table name: routes
@@ -244,5 +276,9 @@ end
 #  static_map_content_type :string(255)
 #  static_map_data         :binary
 #  climbs_string           :string(255)
+#  total_workouts          :integer
+#  total_comments          :integer
+#  total_ratings           :integer
+#  total_likes             :integer
 #
 

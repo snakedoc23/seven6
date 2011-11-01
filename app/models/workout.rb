@@ -61,13 +61,12 @@ class Workout < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: workouts
 #
 #  id          :integer         not null, primary key
-#  route_id    :string(255)
-#  user_id     :string(255)
 #  description :text
 #  total_time  :float
 #  avg_speed   :float
@@ -77,5 +76,7 @@ end
 #  temperature :float
 #  created_at  :datetime
 #  updated_at  :datetime
+#  user_id     :integer
+#  route_id    :integer
 #
 

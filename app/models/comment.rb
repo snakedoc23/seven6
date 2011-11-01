@@ -2,9 +2,14 @@ class Comment < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :route
 
-	scope :route_comments, lambda {|id| where(:route_id => id)}
-end
+	after_save :add_total_comments_to_route
 
+	scope :route_comments, lambda {|id| where(:route_id => id)}
+
+	def add_total_comments_to_route
+		self.route.add_total_comments
+	end
+end
 
 
 # == Schema Information

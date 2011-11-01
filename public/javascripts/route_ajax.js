@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-	$('.routes-index-table th a, .routes-index-table .pagination a').live('click', function() {
+	$('.routes-index-table th.ajax a, .routes-index-table .pagination a').live('click', function() {
 
 		$.getScript(this.href);
 		return false;

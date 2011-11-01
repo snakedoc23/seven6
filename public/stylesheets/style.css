@@ -1125,6 +1125,8 @@ table.big-table tbody tr:hover {
       background: url(../images/comment-icon.png) no-repeat; }
     .routes-index-table table.routes-index tr th.like span {
       background: url(../images/like-icon.png) no-repeat; }
+    .routes-index-table table.routes-index tr th.like a, .routes-index-table table.routes-index tr th.comments a {
+      background: none; }
   .routes-index-table .pagination {
     margin: 20px auto; }
 

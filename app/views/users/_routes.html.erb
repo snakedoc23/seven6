@@ -11,21 +11,19 @@
 	<div id="content">
 		<div class="routes-index-table">
 			<%# render 'routes/routes' %>
-
-					<table class="routes-index big-table">
+		<table class="routes-index big-table">
 			<thead>
 				<tr>
 					<th></th>
-					<th>Nazwa</th>
-					<th>Dystans</th>
-					<th>Wzniesienia</th>
-					<th>Nawierzchnia</th>
-					<th>Ocena</th>
-					<th>Data dodania</th>
-					<th>Użytkownik</th>
-					<th>Przejazdy</th>
-					<th class="like"><span></span></th>
-					<th class="comments"><span></span></th>
+					<th><%= sortable 'Nazwa', 'title' %></th>
+					<th><%= sortable 'Dystans', 'distance' %></th>
+					<th><%= sortable 'Wzniesienia', 'max_altitude' %></th>
+					<th><%= sortable 'Nawierzchnia', 'surface' %></th>
+					<th><%= sortable 'Ocena', 'rating' %></th>
+					<th><%= sortable 'Data dodania', 'created_at' %></th>
+					<th><%= sortable 'Przejazdy', 'total_workouts' %></th>
+					<th class="like"><span><%= sortable '', 'total_likes' %></span></th>
+					<th class="comments"><span><%= sortable '', 'total_comments' %></span></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,7 +41,7 @@
 					<td class="rating">
 						
 						<ul class="rating <%= route.id %>">
-							<li class="val"><%= route.avg_rating %></li>
+							<li class="val"><%= route.rating %></li>
 							<li class="1">1</li>
 							<li class="2">2</li>
 							<li class="3">3</li>
@@ -53,14 +51,12 @@
 					</td>
 					
 					<td class="created_at"><%= l route.created_at, :format => "%y.%m.%d %H:%I" %></td>
-					<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
 					<td class="workouts"><%= route.total_workouts || 0 %></td>
-					<td class="like"><%= Rating.route_likes(route.id).size %></td>
-					<td class="comments"><%= Comment.route_comments(route.id).size %></td>
+					<td class="like"><%= route.show_total_likes %></td>
+					<td class="comments"><%= route.show_total_comments %></td>
 				</tr>
 			<% end %>
 			</tbody>
 		</table>
-
 		</div> <!-- END routes-index-table -->
 

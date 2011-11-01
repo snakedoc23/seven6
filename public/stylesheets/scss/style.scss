@@ -863,6 +863,11 @@ table.big-table {
 
 			}
 		}
+		tr th.like, tr th.comments {
+			a {
+				background: none;
+			}
+		}
 		
 	}
 	.pagination {

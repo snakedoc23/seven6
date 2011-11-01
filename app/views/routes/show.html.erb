@@ -27,7 +27,7 @@
 				<% end %>
 			</div>
 			<div id="route_actions">
-				<%= link_to "Komentarze (#{Comment.route_comments(@route.id).size})", "#", :id => "show-comments" %>
+				<%= link_to "Komentarze (#{@route.total_comments})", "#", :id => "show-comments" %>
 
 				<%= link_to "Przejazdy (#{@route.workouts.count})", "#", :id => 'show-workouts' %>
 				

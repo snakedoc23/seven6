@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     @title_header_top = "Wszystkie trasy"
     @title_header = @user.username.to_s
     
-    @routes = @user.routes.order('created_at DESC')
+    @routes = @user.routes.order(sort_column + " " + sort_direction)
   end
 
   def favorite_routes
@@ -90,13 +90,14 @@ class UsersController < ApplicationController
     @likes.each do |rat|
       @routes.push rat.route
     end
+    @routes
   end
 
   def following
     @user = User.find(params[:id])
     @title_header_top = "Obserwowani"
     @title_header = "przez #{@user.username.to_s}"
-    @users = @user.following.all
+    @users = @user.following.order(sort_column + " " + sort_direction)
   end
 
   def following_routes
@@ -115,7 +116,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title_header_top = "Followers"
     @title_header = @user.username.to_s
-    @users = @user.followers.all
+    @users = @user.followers.order(sort_column + " " + sort_direction)
   end
   
 
@@ -258,7 +259,7 @@ class UsersController < ApplicationController
     end
 
     def sort_column
-      %w[username place total_distance total_routes total_workouts total_workouts_distance created_at].include?(params[:sort]) ? params[:sort] : "created_at"
+      %w[title distance max_altitude surface rating total_workouts total_comments total_likes username place total_distance total_routes total_workouts total_workouts_distance created_at].include?(params[:sort]) ? params[:sort] : "created_at"
     end
     
     def sort_direction

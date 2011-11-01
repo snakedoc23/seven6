@@ -13,6 +13,8 @@ end
 
 
 
+
+
 # == Schema Information
 #
 # Table name: routes
@@ -37,5 +39,9 @@ end
 #  static_map_content_type :string(255)
 #  static_map_data         :binary
 #  climbs_string           :string(255)
+#  total_workouts          :integer
+#  total_comments          :integer
+#  total_ratings           :integer
+#  total_likes             :integer
 #
 
