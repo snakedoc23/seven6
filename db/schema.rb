@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111102115701) do
+ActiveRecord::Schema.define(:version => 20111102175249) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(:version => 20111102115701) do
     t.integer  "route_id"
   end
 
+  add_index "comments", ["route_id"], :name => "index_comments_on_route_id"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
   create_table "ratings", :force => true do |t|
     t.integer  "user_id"
     t.integer  "route_id"
@@ -29,6 +32,9 @@ ActiveRecord::Schema.define(:version => 20111102115701) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "ratings", ["route_id"], :name => "index_ratings_on_route_id"
+  add_index "ratings", ["user_id"], :name => "index_ratings_on_user_id"
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -115,5 +121,8 @@ ActiveRecord::Schema.define(:version => 20111102115701) do
     t.integer  "user_id"
     t.integer  "route_id"
   end
+
+  add_index "workouts", ["route_id"], :name => "index_workouts_on_route_id"
+  add_index "workouts", ["user_id"], :name => "index_workouts_on_user_id"
 
 end
