@@ -6,6 +6,7 @@
 		<%= hidden_field_tag :distance_max, params[:distance_max] %>
 		<%= hidden_field_tag :altitude_min, params[:altitude_min] %>
 		<%= hidden_field_tag :altitude_max, params[:altitude_max] %>
+		<%= hidden_field_tag :road, params[:road] %>
 		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
 		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
 	<% end %>
@@ -19,7 +20,7 @@
 		<div id="filters">
 			<div id="distance_filter" class="filter_div">
 				<h4>Długość trasy</h4>
-				<div class="filter-label">
+				<div class="filter_label">
 					<span class="min">0</span>
 					<span class="max">100+</span>
 				</div>
@@ -28,12 +29,16 @@
 			</div>
 			<div id="altitude_filter" class="filter_div">
 				<h4>Różnica wysokości</h4>
-				<div class="filter-label">
+				<div class="filter_label">
 					<span class="min">0</span>
 					<span class="max">400+</span>
 				</div>
 				<div id="altitude_slider" class="slider"></div>
 				<div id="altitude_range"></div>
+			</div>
+			<div id="road_filter" class="filter_div">
+				<%= label(:route, 'road', 'Tylko asfalt') %>
+				<%= check_box(:route, 'road') %>
 			</div>
 
 			<%= link_to 'Filtruj', params.merge(:distance_min => 0, :distance_max => 100, :altitude_min => 0, :altitude_max => 100, :page => nil), :id => 'routes_filter_btn', :class => 'btn-base' %>

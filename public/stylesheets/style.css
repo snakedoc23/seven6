@@ -2126,11 +2126,11 @@ ul.rating li {
       width: 260px;
       text-align: center;
       margin-bottom: -7px; }
-    #filters .filter_div .filter-label {
+    #filters .filter_div .filter_label {
       color: #CACED0;
       font-size: 15px;
       padding-bottom: 2px; }
-      #filters .filter_div .filter-label .max {
+      #filters .filter_div .filter_label .max {
         margin-left: 213px; }
   #filters #distance_range, #filters #altitude_range {
     text-align: center;
@@ -2139,9 +2139,17 @@ ul.rating li {
     margin-right: 30px;
     margin-left: 47px; }
   #filters #altitude_filter {
-    margin-left: 100px; }
+    margin-left: 83px; }
+  #filters #road_filter {
+    width: 175px;
+    margin-left: 102px;
+    padding-top: 23px;
+    font-weight: 900; }
+    #filters #road_filter label {
+      float: left;
+      margin-right: 6px; }
   #filters #routes_filter_btn {
-    margin-top: 28px;
+    margin-top: 18px;
     float: right; }
     #filters #routes_filter_btn:hover {
       background: #354d59;
@@ -2154,7 +2162,7 @@ ul.rating li {
       /* for firefox 3.6+ */
       background: linear-gradient(top, #354d59, #283a43); }
   #filters #routes_filter_reset {
-    margin-top: 34px;
+    margin-top: 23px;
     float: right;
     margin-right: 10px;
     color: #283a43; }

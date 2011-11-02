@@ -64,8 +64,13 @@ jQuery(document).ready(function() {
 		$('#routes_filter_reset').click(function() {
 			$('#altitude_slider').slider( "option", "values", [0,400] );
 			$('#distance_slider').slider( "option", "values", [0,100] );
+			$('#route_road').attr('checked', false);
 			return false;
 		});
+
+		if($('#road').val() == 1) {
+			$('#route_road').attr('checked', true);
+		}
 
 		$('#routes_filter_btn').click(function() {
 			var href = $(this).attr("href");
@@ -84,7 +89,15 @@ jQuery(document).ready(function() {
 					newHref += paramsArray[i] + '&';
 				}
 			}
+			if($('#route_road').attr('checked')) {
+				newHref += 'road=1';
+			} else {
+				newHref += 'road=0';
+			}
+			console.log(newHref);
+			
 			$(this).attr("href", newHref);
 		});
+
 
 });

@@ -5,7 +5,7 @@ class RoutesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @routes = Route.where('distance > ? AND distance < ? AND altitude > ? AND altitude < ?', distance_min, distance_max, altitude_min, altitude_max)
+    @routes = Route.where('distance > ? AND distance < ? AND altitude > ? AND altitude < ? AND surface LIKE ?', distance_min, distance_max, altitude_min, altitude_max, only_road)
                    .search(params[:search]).order(sort_column + " " + sort_direction)
                    .paginate(:page => params[:page], :per_page => 10)
     
@@ -158,6 +158,10 @@ class RoutesController < ApplicationController
       else
         params[:altitude_min].empty? ? 0 : params[:altitude_min]
       end
+    end
+
+    def only_road
+      params[:road] == '1' ? 'asfalt' : '%%'
     end
 
     def altitude_max
