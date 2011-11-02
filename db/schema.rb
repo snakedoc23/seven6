@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111101153721) do
+ActiveRecord::Schema.define(:version => 20111102115701) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20111101153721) do
     t.integer  "total_comments"
     t.integer  "total_ratings"
     t.integer  "total_likes"
+    t.float    "altitude"
   end
 
   add_index "routes", ["title"], :name => "index_routes_on_title"

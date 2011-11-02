@@ -1,6 +1,6 @@
 class Route < ActiveRecord::Base
   # attr_accessible :title, :description, :distance, :surface
-  attr_accessor :pulse, :time_string, :altitude, :pulse_edit, :time_string_edit, :total_time, :max_speed, :avg_speed, :pulse_avg, :pulse_max, :temperature
+  attr_accessor :pulse, :time_string, :pulse_edit, :time_string_edit, :total_time, :max_speed, :avg_speed, :pulse_avg, :pulse_max, :temperature
   
   belongs_to :user
   has_many :workouts, :dependent => :destroy
@@ -27,7 +27,7 @@ class Route < ActiveRecord::Base
 
 
 
-  before_save :split_pulse, :add_start_and_finish, :total_time_calculate
+  before_save :split_pulse, :add_start_and_finish, :total_time_calculate, :calculate_altitude
   after_save :add_total_distance_and_total_routes_to_user, :add_workout
 
   # default_scope :order => 'created_at DESC'
@@ -123,8 +123,8 @@ class Route < ActiveRecord::Base
   end
 
 
-  def altitude
-    (self.max_altitude - self.min_altitude).round(2)
+  def calculate_altitude
+    self.altitude = (self.max_altitude - self.min_altitude).round(2)
   end
 
 

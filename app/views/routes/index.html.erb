@@ -2,6 +2,10 @@
 	<%= form_tag routes_path, :method => 'get', :id => "search-route" do %>
 		<%= hidden_field_tag :direction, params[:direction] %>
 		<%= hidden_field_tag :sort, params[:sort] %>
+		<%= hidden_field_tag :distance_min, params[:distance_min] %>
+		<%= hidden_field_tag :distance_max, params[:distance_max] %>
+		<%= hidden_field_tag :altitude_min, params[:altitude_min] %>
+		<%= hidden_field_tag :altitude_max, params[:altitude_max] %>
 		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
 		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
 	<% end %>
@@ -11,6 +15,30 @@
 		<h2><%= @title_header %></h2>	
 	</div>
 	<div id="content">
+
+		<div id="filters">
+			<div id="distance_filter" class="filter_div">
+				<h4>Długość trasy</h4>
+				<div class="filter-label">
+					<span class="min">0</span>
+					<span class="max">100+</span>
+				</div>
+				<div id="distance_slider" class="slider"></div>
+				<div id="distance_range"></div>
+			</div>
+			<div id="altitude_filter" class="filter_div">
+				<h4>Maksymalna wysokości</h4>
+				<div class="filter-label">
+					<span class="min">0</span>
+					<span class="max">400+</span>
+				</div>
+				<div id="altitude_slider" class="slider"></div>
+				<div id="altitude_range"></div>
+			</div>
+
+			<%= link_to 'Filtruj', params.merge(:distance_min => 0, :distance_max => 100, :altitude_min => 0, :altitude_max => 100, :page => nil), :id => 'routes_filter_btn', :class => 'btn-base' %>
+			<%= link_to 'Reset', '#', :id => 'routes_filter_reset' %>
+		</div>
 
 		<div class="routes-index-table">
 			<%= render 'routes' %>

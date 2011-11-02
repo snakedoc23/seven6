@@ -719,6 +719,7 @@ table.big-table {
 				border-left: 0;
 				min-width: 20px;
 				background: $blue;
+				@include gradient(lighten($blue, 7%), $blue);
 
 				a {
 					color: white;
@@ -1809,6 +1810,7 @@ ul.rating {
 			tr {
 				th {
 					background: $blue;
+					@include gradient(lighten($blue, 7%), $blue);
 					color: white;
 					border: 1px solid $grey;
 					padding: 3px 2px;
@@ -2024,3 +2026,93 @@ ul.rating {
 		float: right;
 	}
 }
+
+
+#filters {
+	width: 1075px;
+	margin: auto;
+	margin-top: 20px;
+	height: 55px;
+	.filter_div {
+		float: left;
+		width: 260px;
+		// margin-left: 20px;
+		h4 {
+			width: 260px;
+			text-align: center;
+			margin-bottom: -7px;
+		}
+		.filter-label {
+			color: #CACED0;
+			font-size: 15px;
+			padding-bottom: 2px;
+			.max {
+				margin-left: 213px;
+			}
+		}
+	}
+	#distance_range, #altitude_range {
+		text-align: center;
+		padding-top: 3px;
+	}
+	#distance_filter {
+		margin-right: 30px;
+		margin-left: 47px;
+
+	}
+	#altitude_filter {
+		margin-left: 100px;
+	}
+	#routes_filter_btn {
+		margin-top: 28px;
+		float: right;
+		&:hover {
+			@include gradient(lighten($blue, 7%), $blue);
+		}
+	}
+	#routes_filter_reset {
+		margin-top: 34px;
+		float: right;
+		margin-right: 10px;
+		color: $blue;
+	}
+
+}
+
+
+// SLIDER
+.slider {
+	height: 9px;
+	border: 1px solid #caced0;
+	background: #fff;
+	position: relative;
+	text-align: left;
+	@include rounded(4px);
+	width: 250px;
+	.ui-slider-range {
+		position: absolute;
+		z-index: 1;
+		font-size: .7em;
+		display: block;
+		border: 0;
+		background-position: 0 0;
+		top: 0;
+		height: 100%;
+		@include gradient(#CF5759, #BB3F41);
+	}
+	.ui-slider-handle {
+		background: #f8f8f8;
+		border: 1px solid #caced0;
+		top: -3px;
+		margin-left: -3px;
+		position: absolute;
+		z-index: 2;
+		width: 14px;
+		height: 14px;
+		cursor: default;
+		@include rounded(10px);
+		outline: none;
+	}
+}
+
+

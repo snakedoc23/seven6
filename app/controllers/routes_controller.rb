@@ -5,7 +5,10 @@ class RoutesController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @routes = Route.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 10)
+    @routes = Route.where('distance > ? AND distance < ? AND altitude > ? AND altitude < ?', distance_min, distance_max, altitude_min, altitude_max)
+                   .search(params[:search]).order(sort_column + " " + sort_direction)
+                   .paginate(:page => params[:page], :per_page => 10)
+    
     @title_header = "Wszystkie trasy"
   end
 
@@ -128,6 +131,46 @@ class RoutesController < ApplicationController
   end
 
   private
+
+    def distance_min
+      if params[:distance_min].nil?
+        0
+      else
+        params[:distance_min].empty? ? 0 : params[:distance_min]
+      end
+    end
+
+    def distance_max
+      if params[:distance_max].nil?
+        9999
+      else
+        if params[:distance_max].empty?
+          9999
+        else
+          params[:distance_max] == '100' ? 9999 : params[:distance_max]
+        end
+      end
+    end
+
+    def altitude_min
+      if params[:altitude_min].nil?
+        0
+      else
+        params[:altitude_min].empty? ? 0 : params[:altitude_min]
+      end
+    end
+
+    def altitude_max
+      if params[:altitude_max].nil?
+        9999
+      else
+        if params[:altitude_max].empty?
+          9999
+        else
+          params[:altitude_max] == '400' ? 9999 : params[:altitude_max]
+        end
+      end
+    end
 
     def sort_column
       Route.column_names.include?(params[:sort]) ? params[:sort] : "created_at"

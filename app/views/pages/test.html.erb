@@ -30,3 +30,6 @@
 	<%= f.submit "Zapisz" %>
 <% end %>
 </div>
+
+
+<%= link_to 'title', params.merge(:sort => 'column', :direction => 'direction', :page => nil) %>

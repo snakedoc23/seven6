@@ -14,8 +14,8 @@
 				<li>Dodał <%= link_to route.user.username, user_path(route.user) %>, <%= time_ago_in_words(route.created_at) %> temu</li>
 			</ul>
 			<ul class="comment-likes">
-				<li><span class="comment-icon"></span><%= Comment.route_comments(route.id).size %></li>
-				<li><span class="like-icon"></span><%= Rating.route_likes(route.id).size %></li>
+				<li><span class="comment-icon"></span><%= route.total_comments %></li>
+				<li><span class="like-icon"></span><%= route.total_likes %></li>
 			</ul>
 		</div>
 	</div></li>
