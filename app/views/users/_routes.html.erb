@@ -1,5 +1,5 @@
 <div id="without-map">
-	<%= form_tag routes_path, :method => 'get', :id => "search-route" do %>
+	<%= form_tag routes_user_path(@user), :method => 'get', :id => "search-route" do %>
 		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
 		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
 	<% end %>

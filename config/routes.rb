@@ -17,6 +17,8 @@ Seven6::Application.routes.draw do
   resources :routes
   resources :sessions, :only => [:new, :create, :destroy]
   resources :relationships, :only => [:create, :destroy]
+
+  resources :contacts, :only => [:new, :create]
   
   match '/signout', :to => 'sessions#destroy'
   match '/signin',  :to => 'sessions#new'

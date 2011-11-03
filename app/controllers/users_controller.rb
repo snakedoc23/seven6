@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     @title_header_top = "Wszystkie trasy"
     @title_header = @user.username.to_s
     
-    @routes = @user.routes.order(sort_column + " " + sort_direction)
+    @routes = @user.routes.search(params[:search]).order(sort_column + " " + sort_direction)
   end
 
   def favorite_routes
@@ -259,7 +259,7 @@ class UsersController < ApplicationController
     end
 
     def sort_column
-      %w[title distance max_altitude surface rating total_workouts total_comments total_likes username place total_distance total_routes total_workouts total_workouts_distance created_at].include?(params[:sort]) ? params[:sort] : "created_at"
+      %w[title distance altitude max_altitude surface rating total_workouts total_comments total_likes username place total_distance total_routes total_workouts total_workouts_distance created_at].include?(params[:sort]) ? params[:sort] : "created_at"
     end
     
     def sort_direction
