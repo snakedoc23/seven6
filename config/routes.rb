@@ -1,5 +1,5 @@
 Seven6::Application.routes.draw do
-    
+
   resources :users do
     member do
       get 'edit_password'
@@ -19,6 +19,8 @@ Seven6::Application.routes.draw do
   resources :relationships, :only => [:create, :destroy]
 
   resources :contacts, :only => [:new, :create]
+
+  resources :workout
   
   match '/signout', :to => 'sessions#destroy'
   match '/signin',  :to => 'sessions#new'
@@ -36,12 +38,13 @@ Seven6::Application.routes.draw do
   post '/add_like' => 'ratings#add_like'
 
   post '/create_comment' => 'comments#create'
-  post '/edit_comment' => 'comments#edit'
+  post '/edit_comment'   => 'comments#edit'
   post '/delete_comment' => 'comments#delete'
 
-
   post '/create_workout' => 'workouts#create'
-
+  post '/edit_workout'   => 'workouts#edit'
+  post '/update_workout' => 'workouts#update'
+  post '/delete_workout' => 'workouts#delete'
 
   post '/user_last_routes' => 'users#user_last_routes'
 

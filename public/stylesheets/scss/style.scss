@@ -1897,6 +1897,7 @@ ul.rating {
 	    		.workout-meta {
 	    			text-align: right;
 	    			margin-bottom: -10px;
+	    			clear: both;
 	    			a.edit_workout {
 	    				color: #999999;
 				    	font-size: 11px;
@@ -1921,59 +1922,60 @@ ul.rating {
 			font-size: 13px;
 			padding-top: 13px;
 		}
+		form {
+			margin-top: 5px;
+			padding-top: 5px;
+			border-top: 1px solid $red;
+			input, textarea, select {
+				font-size: 12px;
+				margin-bottom: 10px;
+			}
+			textarea {
+				width: 185px;
+			}
+			input[type="submit"] {
+					margin-left: 100px;
+			}
+			label {
+				float: left;
+				width: 90px;
+				text-align: right;
+				padding-right: 10px;
+				margin-top: 6px;
+			}
+			p.error-explanation {
+				width: 210px;
+				font-size: 11px;
+				margin-top: -8px;
+				padding-top: 0;
+				margin-bottom: 5px;
+				display: none;
+				padding-left: 100px;
+				color: $red;
+				clear:both;
+			}
+			input {
+				width: 64px;
+				padding: 3px;
+			}
+			#workout_time_string, #workout_max_speed {
+				float: left;
+			}
+			#total-time-show {
+				float: left;
+				padding-left: 16px;
+				padding-top: 3px;
+				width: 124px;
+			}
+			#workout-avg-speed {
+				float: left;
+				padding-left: 16px;
+				padding-top: 3px;
+				width: 124px;
+			}
+		}
 	}
-	form {
-		margin-top: 5px;
-		padding-top: 5px;
-		border-top: 1px solid $red;
-		input, textarea, select {
-			font-size: 12px;
-			margin-bottom: 10px;
-		}
-		textarea {
-			width: 185px;
-		}
-		input[type="submit"] {
-				margin-left: 100px;
-		}
-		label {
-			float: left;
-			width: 90px;
-			text-align: right;
-			padding-right: 10px;
-			margin-top: 6px;
-		}
-		p.error-explanation {
-			width: 210px;
-			font-size: 11px;
-			margin-top: -8px;
-			padding-top: 0;
-			margin-bottom: 5px;
-			display: none;
-			padding-left: 100px;
-			color: $red;
-			clear:both;
-		}
-		input {
-			width: 64px;
-			padding: 3px;
-		}
-		#workout_time_string, #workout_max_speed {
-			float: left;
-		}
-		#total-time-show {
-			float: left;
-			padding-left: 16px;
-			padding-top: 3px;
-			width: 124px;
-		}
-		#workout-avg-speed {
-			float: left;
-			padding-left: 16px;
-			padding-top: 3px;
-			width: 124px;
-		}
-	}
+	
 }
 .empty {
 	width: 300px;
@@ -2001,7 +2003,7 @@ ul.rating {
 		float: left;
 		margin-right: 64px;
 	}
-	#workout_time_string {
+	#workout_time_string_edit {
 		float: left;
 	}
 	#workout_edit_pulse {
@@ -2022,7 +2024,7 @@ ul.rating {
 		font-size: 12px;
 		background: none;
 		padding: 0;
-		color: #999;
+		color: $red;
 		float: right;
 	}
 }
@@ -2129,3 +2131,54 @@ ul.rating {
 }
 
 
+
+#contact_container {
+
+	margin-left: 30px;
+	width: 505px;
+	form {
+		.footer-form-col1 {
+			float: left;
+			width: 200px;
+			input[type="text"], textarea {
+				width: 150px;
+				margin-bottom: 10px;
+			}
+		}
+		label {
+			float: left;
+			width: 37px;
+			line-height: 33px;
+			font-size: 13px;
+			padding-right: 7px;
+			text-align: right;
+		}
+		.footer-form-col2 {
+			float: left;
+			label {
+				width: 80px;
+				margin-left: -87px;
+				margin-top: 75px;
+			}
+		 	textarea {
+				width: 275px;
+				margin-bottom: 10px;
+				@include rounded(4px);
+				padding: 7px;
+				font-size: 14px;
+				height: 120px;
+			}
+			input[type="submit"] {
+				width: 275px;
+				border: 1px solid lighten($blue, 7%);
+				@include gradient(lighten($blue, 7%), $blue);
+				&:hover {
+					background: lighten($blue, 7%);
+				}
+				&:active {
+					background: $blue;
+				}
+			}
+		}			
+	}
+}

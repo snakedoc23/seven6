@@ -141,7 +141,6 @@ jQuery(document).ready(function() {
 		$("#workout_temperature").val("");
 		$("#workout_description").val("");
 
-
 		$('#add-workout').hide();
 		$('#add_workout_btn').show();
 		return false;
@@ -149,10 +148,64 @@ jQuery(document).ready(function() {
 
 	//edit
 	$('p.workout-meta .edit_workout').live('click', function(){
-		alert("test ok");
+		// $('p.workout-meta .edit_workout').die();
+		// alert("test ok");
 		var id_a = $(this).attr("id").split('_');
 		var id = id_a[2];
+		var workout_body = $(this).parent().parent().children('ul');
+		var edit_workout_btn = $(this);
 		console.log(id);
+		$.post(
+			'/edit_workout',
+			{ workout_id : id },
+			function(data) {
+				console.log(data);
+				workout_body.html(data);
+				edit_workout_btn.hide();
+				workout_body.parent().children('.workout-description').remove();
+				$('#workout_submit').click(function(){
+					var time_string = $('#workout_time_string_edit').val();
+					var max_speed = $('#workout_max_speed').val();
+					var pulse = $('#workout_pulse_edit').val();
+					var temperature = $('#workout_temperature').val();
+					var description = $('#workout_description').val();
+					$.post(
+						'/update_workout',
+						{
+							workout_id : id,
+							time_string : time_string,
+							max_speed : max_speed,
+							pulse : pulse,
+							temperature : temperature,
+							description : description
+						},
+						function(data) {
+							console.log(data);
+							workout_body.parent().parent().html(data);
+							
+
+						}
+					);
+					return false;
+				});
+				$('.deleteWorkoutBtn').live('click', function() {
+					$('.edit_workout').die();
+					$(this).parent().parent().parent().parent().remove();
+						$.post(
+						'/delete_workout',
+						{ workout_id : id },
+						function(data) {
+							console.log(data);
+							updateWorkoutsNum(-1);
+						}
+					);
+					return false;
+				});
+			}
+		);
+
+		// element do zamiany
+		console.log($(this).parent().parent().children('ul'));
 		var test = "32 (32)".split("(")[1].replace(")", "");
 		
 		return false;

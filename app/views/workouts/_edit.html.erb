@@ -1,23 +1,15 @@
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
-
 <div id="workout_edit_form">
-<%= form_for :workout do |f| %>
+<%= form_for(@workout) do |f| %>
 	<div id="workout_edit_time">
-		<%= f.label :time_string, "Czas:" %>
-		<%= f.text_field :time_string, :placeholder => "00:00:00" %>
+		<%= f.label :time_string_edit, "Czas:" %>
+		<%= f.text_field :time_string_edit, :placeholder => "00:00:00" %>
 		<span id="workout_edit_avg_speed">Średnia: <span id="workout_edit_avg_speed_val">--</span> km/h</span>
 	</div>
 	<div id="workout_edit_max">
 		<%= f.label :max_speed, "Max:" %>
 		<%= f.text_field :max_speed, :placeholder => "32" %>
-		<%= f.label :pulse, "Tętno:" %>
-		<%= f.text_field :pulse, :placeholder => "120/150" %>
+		<%= f.label :pulse_edit, "Tętno:" %>
+		<%= f.text_field :pulse_edit, :placeholder => "120/150" %>
 	</div>
 	<div id="workout_edit_temp">
 		<%= f.label :temperature, "Temperatura:" %>
@@ -29,4 +21,5 @@
 	</div>
 	<%= f.submit "Zapisz" %>
 <% end %>
+<%= link_to "Usuń", "#", :class => 'deleteWorkoutBtn' %>
 </div>

@@ -1,3 +1,6 @@
+<% if @routes.empty? %>
+	Nie ma tras
+<% else %>
 <table class="routes-index big-table">
 	<thead>
 		<tr>
@@ -47,3 +50,5 @@
 	</tbody>
 </table>
 <%= will_paginate %>
+
+<% end %>

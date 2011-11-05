@@ -23,8 +23,13 @@ class Workout < ActiveRecord::Base
 
   def split_pulse
     if pulse
-      self.pulse_avg = self.pulse.split("/").first.to_f
-      self.pulse_max = self.pulse.split("/").last.to_f
+      if pulse.empty?
+        self.pulse_avg = nil
+        self.pulse_max = nil
+      else
+        self.pulse_avg = self.pulse.split("/").first.to_f
+        self.pulse_max = self.pulse.split("/").last.to_f
+      end
     end
   end
 
@@ -49,9 +54,25 @@ class Workout < ActiveRecord::Base
       end
       time_a = time_s.split(":")
       self.total_time = time_a[0].to_i  * 3600 + time_a[1].to_i * 60 + time_a[2].to_i
-  end
+    end
   end
 
+
+  def pulse_edit
+    if pulse_avg
+      "#{pulse_avg.round}/#{pulse_max.round}"
+    end
+  end
+
+
+  def time_string_edit
+    if total_time
+      h_time = (self.total_time / 3600 ).floor
+      m_time = ((self.total_time - (h_time * 3600)) / 60).floor
+      s_time = (self.total_time - h_time * 3600 - m_time * 60).round
+      "#{h_time}:#{m_time}:#{s_time}"
+    end
+  end
 
   def calculate_avg_speed
     if total_time

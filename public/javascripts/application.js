@@ -54,6 +54,9 @@ var sMarkerImage;
 
 var allPolylines = [];
 
+
+var mc;
+
 google.load("visualization", "1", {packages: ["corechart"]});
 
 var mapWidth;
@@ -624,6 +627,11 @@ function loadStartMarkers(user_id, route_type) {
 
 	homeInfoBoxes = [];
 	homeMarkers = [];
+	if (mc) {
+		mc.clearMarkers();
+	}
+
+	
 	// zwraca tablice z tablicami dla kazdej trasy [id, start_lat_lng]
 	$.ajax({
 		type: "POST",
@@ -666,7 +674,7 @@ function loadStartMarkers(user_id, route_type) {
 		        	textSize: 13
 		        }]
 			};
-			var mc = new MarkerClusterer(map, homeMarkers, mcOptions);
+			mc = new MarkerClusterer(map, homeMarkers, mcOptions);
 		}
 	});
 };

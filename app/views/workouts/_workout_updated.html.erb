@@ -1,0 +1,30 @@
+<div class="workout-avatar">
+	<%= link_to (user_avatar @workout.user, "30x30"), user_path(@workout.user) %>
+</div>
+<div class="workout-info">
+	<h4><%= link_to @workout.user.username, user_path(@workout.user) %><span><%= l @workout.created_at, :format => "%y.%m.%d %H:%I" %></span></h4>
+	<ul>
+		<li>Czas: <%= @workout.time_to_string %><span>Średnia:<%= @workout.avg_speed %> km/h</span></li>
+		
+		<li>
+		<% if @workout.max_speed %>
+		Max: <%= @workout.max_speed %> km/h
+		<% end %>
+		<% if @workout.pulse_avg %>
+			<span>Tętno: <%= @workout.pulse_avg.round %>/<%= @workout.pulse_max.round %></span>
+		<% end %>
+		</li>
+		<% if @workout.temperature %>
+		<li class="workout-temp">Temperatura: <%= @workout.temperature %></li>
+		<% end %>
+	</ul>
+
+	<% unless @workout.description.nil? || @workout.description == "" %>
+		<div class="workout-description"><span>Opis:</span> <%= @workout.description %></div>
+	<% end %>
+
+	<% if current_user == @workout.user %>
+		<p class="workout-meta"><%= link_to "Edytuj", "/",:class => "edit_workout", :id => "edit_workout_#{@workout.id}" %></p>
+	<% end %>
+
+</div>

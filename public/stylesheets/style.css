@@ -2000,7 +2000,8 @@ ul.rating li {
           font-weight: 900; }
       #workouts-container ul#workouts-list li.workout .workout-info .workout-meta {
         text-align: right;
-        margin-bottom: -10px; }
+        margin-bottom: -10px;
+        clear: both; }
         #workouts-container ul#workouts-list li.workout .workout-info .workout-meta a.edit_workout {
           color: #999999;
           font-size: 11px; }
@@ -2033,48 +2034,48 @@ ul.rating li {
       font-weight: 900;
       font-size: 13px;
       padding-top: 13px; }
-  #workouts-container form {
-    margin-top: 5px;
-    padding-top: 5px;
-    border-top: 1px solid #c84446; }
-    #workouts-container form input, #workouts-container form textarea, #workouts-container form select {
-      font-size: 12px;
-      margin-bottom: 10px; }
-    #workouts-container form textarea {
-      width: 185px; }
-    #workouts-container form input[type="submit"] {
-      margin-left: 100px; }
-    #workouts-container form label {
-      float: left;
-      width: 90px;
-      text-align: right;
-      padding-right: 10px;
-      margin-top: 6px; }
-    #workouts-container form p.error-explanation {
-      width: 210px;
-      font-size: 11px;
-      margin-top: -8px;
-      padding-top: 0;
-      margin-bottom: 5px;
-      display: none;
-      padding-left: 100px;
-      color: #c84446;
-      clear: both; }
-    #workouts-container form input {
-      width: 64px;
-      padding: 3px; }
-    #workouts-container form #workout_time_string, #workouts-container form #workout_max_speed {
-      float: left; }
-    #workouts-container form #total-time-show {
-      float: left;
-      padding-left: 16px;
-      padding-top: 3px;
-      width: 124px; }
-    #workouts-container form #workout-avg-speed {
-      float: left;
-      padding-left: 16px;
-      padding-top: 3px;
-      width: 124px; }
+    #workouts-container #add-workout form {
+      margin-top: 5px;
+      padding-top: 5px;
+      border-top: 1px solid #c84446; }
+      #workouts-container #add-workout form input, #workouts-container #add-workout form textarea, #workouts-container #add-workout form select {
+        font-size: 12px;
+        margin-bottom: 10px; }
+      #workouts-container #add-workout form textarea {
+        width: 185px; }
+      #workouts-container #add-workout form input[type="submit"] {
+        margin-left: 100px; }
+      #workouts-container #add-workout form label {
+        float: left;
+        width: 90px;
+        text-align: right;
+        padding-right: 10px;
+        margin-top: 6px; }
+      #workouts-container #add-workout form p.error-explanation {
+        width: 210px;
+        font-size: 11px;
+        margin-top: -8px;
+        padding-top: 0;
+        margin-bottom: 5px;
+        display: none;
+        padding-left: 100px;
+        color: #c84446;
+        clear: both; }
+      #workouts-container #add-workout form input {
+        width: 64px;
+        padding: 3px; }
+      #workouts-container #add-workout form #workout_time_string, #workouts-container #add-workout form #workout_max_speed {
+        float: left; }
+      #workouts-container #add-workout form #total-time-show {
+        float: left;
+        padding-left: 16px;
+        padding-top: 3px;
+        width: 124px; }
+      #workouts-container #add-workout form #workout-avg-speed {
+        float: left;
+        padding-left: 16px;
+        padding-top: 3px;
+        width: 124px; }
 
 .empty {
   width: 300px;
@@ -2095,7 +2096,7 @@ ul.rating li {
   #workout_edit_form #workout_max_speed {
     float: left;
     margin-right: 64px; }
-  #workout_edit_form #workout_time_string {
+  #workout_edit_form #workout_time_string_edit {
     float: left; }
   #workout_edit_form #workout_edit_pulse {
     float: right; }
@@ -2111,7 +2112,7 @@ ul.rating li {
     font-size: 12px;
     background: none;
     padding: 0;
-    color: #999;
+    color: #c84446;
     float: right; }
 
 #filters {
@@ -2209,3 +2210,51 @@ ul.rating li {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     outline: none; }
+
+#contact_container {
+  margin-left: 30px;
+  width: 505px; }
+  #contact_container form .footer-form-col1 {
+    float: left;
+    width: 200px; }
+    #contact_container form .footer-form-col1 input[type="text"], #contact_container form .footer-form-col1 textarea {
+      width: 150px;
+      margin-bottom: 10px; }
+  #contact_container form label {
+    float: left;
+    width: 37px;
+    line-height: 33px;
+    font-size: 13px;
+    padding-right: 7px;
+    text-align: right; }
+  #contact_container form .footer-form-col2 {
+    float: left; }
+    #contact_container form .footer-form-col2 label {
+      width: 80px;
+      margin-left: -87px;
+      margin-top: 75px; }
+    #contact_container form .footer-form-col2 textarea {
+      width: 275px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      padding: 7px;
+      font-size: 14px;
+      height: 120px; }
+    #contact_container form .footer-form-col2 input[type="submit"] {
+      width: 275px;
+      border: 1px solid #354d59;
+      background: #354d59;
+      /* for non-css3 browsers */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+      /* for IE */
+      background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+      /* for webkit browsers */
+      background: -moz-linear-gradient(top, #354d59, #283a43);
+      /* for firefox 3.6+ */
+      background: linear-gradient(top, #354d59, #283a43); }
+      #contact_container form .footer-form-col2 input[type="submit"]:hover {
+        background: #354d59; }
+      #contact_container form .footer-form-col2 input[type="submit"]:active {
+        background: #283a43; }
