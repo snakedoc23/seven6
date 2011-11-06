@@ -5,7 +5,7 @@ class Rating < ActiveRecord::Base
 
 	scope :likes, lambda {|id| where(:user_id => id, :like => true)}
 	scope :route_likes, lambda {|id| where(:route_id => id, :like => true)}
-	scope :route_ratings, lambda {|id| where('value > ? AND route_id == ?', '0', id)}
+	scope :route_ratings, lambda {|id| where('value > ? AND route_id = ?', '0', id)}
 
 	after_save :add_total_likes_to_route
 
