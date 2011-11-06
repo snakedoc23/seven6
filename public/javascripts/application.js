@@ -656,18 +656,18 @@ function loadStartMarkers(user_id, route_type) {
 				gridSize: 50,
 				maxZoom: 14,
 				styles: [{
-					url: "../images/cluster_1.png",
+					url: "../images/cluster_1n.png",
 					height: 35,
 		        	width: 35,
 		        	textColor: "white"
 		        }, {
-					url: "../images/cluster_2.png",
+					url: "../images/cluster_2n.png",
 					height: 48,
 		        	width: 48,
 		        	textColor: "white",
 		        	textSize: 13
 		        }, {
-		        	url: "../images/cluster_3.png",
+		        	url: "../images/cluster_3n.png",
 		        	height: 56,
 		        	width: 56,
 		        	textColor: "white",
@@ -692,14 +692,14 @@ function loadLastRoutes(last_route_type, user_id) {
 
 function createStartMarker(pos, title, title_route, route_distance, user_name) {
 	sMarkerImage = new google.maps.MarkerImage(
-		'../images/markers-home.png',
-		new google.maps.Size(32, 47),
+		'../images/markers_h.png',
+		new google.maps.Size(34, 49),
 		new google.maps.Point(0, 0)
 	);
 	sMarkerImageHover = new google.maps.MarkerImage(
-		'../images/markers-home.png',
-		new google.maps.Size(32, 47),
-		new google.maps.Point(32, 0)
+		'../images/markers_h.png',
+		new google.maps.Size(34, 49),
+		new google.maps.Point(34, 0)
 	);
 	var sMarker = new google.maps.Marker({
 		position: pos,
@@ -1272,8 +1272,8 @@ function plotElevation(results, status) {
 
 			});
 			sMarkerImage = new google.maps.MarkerImage(
-				'../images/markers-home.png',
-				new google.maps.Size(32, 47),
+				'../images/markers_e.png',
+				new google.maps.Size(34, 49),
 				new google.maps.Point(0, 0)
 			);
 
