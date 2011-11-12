@@ -297,6 +297,9 @@ $(document).ready(function(){
 
 			var id = $(this).parent().attr("id").split("-")[2];
 			console.log(id);
+			for(var i = 0; i < allPolylines.length; i++) {
+				allPolylines[i].setMap(null);
+			}
 
 			// ładuje trase na mapie i zmienia marker nizej 
 			loadRouteToHome(id);

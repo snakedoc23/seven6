@@ -103,6 +103,9 @@ class UsersController < ApplicationController
   def following_routes
     # wszystie trasy obserwowanych uzytkownikow @routes
     @user = User.find(params[:id])
+    @title_header_top = "Trasy obserwowanych"
+    @title_header = "przez #{@user.username.to_s}"
+    
     @routes = []
     @user.following.each do |followed|
       followed.routes.each do |route|
@@ -114,7 +117,7 @@ class UsersController < ApplicationController
 
   def followers
     @user = User.find(params[:id])
-    @title_header_top = "Followers"
+    @title_header_top = "Obserwuja"
     @title_header = @user.username.to_s
     @users = @user.followers.order(sort_column + " " + sort_direction)
   end
