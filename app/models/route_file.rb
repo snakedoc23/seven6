@@ -7,6 +7,18 @@ class RouteFile < ActiveRecord::Base
     self.data = route_field.read
   end
 
+  def parse_file
+    file_type = self.name.rpartition(".").last
+
+    if file_type == 'kml'
+      string_from_kml
+    elsif file_type == 'gpx'
+      string_from_gpx
+    else
+      puts 'nieznany typ pliku'
+    end
+  end
+
   def string_from_kml
 	  string = ""
     self.data.split("<coordinates>").each_with_index do |segment, index|
@@ -15,6 +27,16 @@ class RouteFile < ActiveRecord::Base
           string += "#{line.split(",")[1]},#{line.split(",")[0]}|"
         end
       end
+    end
+    string.chop!
+  end
+
+  def string_from_gpx
+    gpx = Nokogiri::XML(self.data)
+    string = ""
+    points = gpx.css('gpx trk trkpt')
+    points.each do |trkpt|
+      string += "#{trkpt['lat']},#{trkpt['lon']}|"
     end
     string.chop!
   end

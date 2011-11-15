@@ -11,6 +11,8 @@ gem 'will_paginate'
 gem "jquery-rails"
 gem 'carrierwave'
 
+gem 'nokogiri'
+
 group :development do
 	gem 'annotate'
 	gem 'faker'
