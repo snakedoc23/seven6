@@ -1,0 +1,39 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  description: MyString
+  lat_lng: MyString
+  file_name: MyString
+  file_data: 
+  user_id: 1
+  route_id: 1
+  altitude: 1.5
+
+two:
+  title: MyString
+  description: MyString
+  lat_lng: MyString
+  file_name: MyString
+  file_data: 
+  user_id: 1
+  route_id: 1
+  altitude: 1.5
+
+# == Schema Information
+#
+# Table name: photos
+#
+#  id          :integer         not null, primary key
+#  title       :string(255)
+#  description :string(255)
+#  lat_lng     :string(255)
+#  file_name   :string(255)
+#  file_data   :binary
+#  user_id     :integer
+#  route_id    :integer
+#  altitude    :float
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+

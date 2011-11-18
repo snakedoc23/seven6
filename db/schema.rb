@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111103151455) do
+ActiveRecord::Schema.define(:version => 20111118162241) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -31,6 +31,22 @@ ActiveRecord::Schema.define(:version => 20111103151455) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "photos", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "lat_lng"
+    t.string   "file_name"
+    t.binary   "file_data"
+    t.integer  "user_id"
+    t.integer  "route_id"
+    t.float    "altitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "photos", ["route_id"], :name => "index_photos_on_route_id"
+  add_index "photos", ["user_id"], :name => "index_photos_on_user_id"
 
   create_table "ratings", :force => true do |t|
     t.integer  "user_id"

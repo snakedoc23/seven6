@@ -1,0 +1,13 @@
+<h3>Dodaj zdjęcie</h3>
+
+<div id="photo_form">
+  <%= form_for @photo, :html => {:multipart => true} do |f| %>
+    <%= f.label :title, "Tytuł zdjęcia" %>
+    <%= f.text_field :title %>
+    <%= f.label :description, "Opis zdjęcia" %>
+    <%= f.text_field :description %>
+    <%= f.label :uploaded_photo, "Wskaż zdjęcie" %>
+    <%= f.file_field :uploaded_photo %>
+    <%= f.submit "Dodaj zdjęcie" %>
+  <% end %>
+</div>

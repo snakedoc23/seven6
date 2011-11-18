@@ -18,6 +18,7 @@ two:
 
 
 
+
 # == Schema Information
 #
 # Table name: routes
@@ -46,5 +47,6 @@ two:
 #  total_comments          :integer
 #  total_ratings           :integer
 #  total_likes             :integer
+#  altitude                :float
 #
 

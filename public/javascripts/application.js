@@ -1,4 +1,3 @@
-
 var directionsDisplay;
 var directionsService;
 var elevator;
@@ -18,8 +17,6 @@ var finishMarkerImage;
 var pointMarkerImage;
 var infoBox;
 
-
-
 var shadow;
 
 var calculatedMarkers;
@@ -29,8 +26,6 @@ var polyline
 var map;
 var route;
 
-
-
 var distance = 0;
 var max_altitude = 0;
 var min_altitude = 0;
@@ -38,22 +33,17 @@ var total_climb_up = 0;
 var total_climb_down = 0;
 var avg_speed = null;
 
-
 var total_time_sec = 0;
 
 var colors = ["#283A43", "#c84446", "#CACED0"];
 
-
 var homeMarkers = [];
 var homeInfoBoxes =[];
-
 
 var sMarkerImageHover;
 var sMarkerImage;
 
-
 var allPolylines = [];
-
 
 var mc;
 
@@ -63,20 +53,15 @@ var mapWidth;
 
 $(document).ready(function(){
 
-
-
-
 	// dodawanie zdjec
 	$('#add-photo').click(function(){
 		//TODO podpowiedz 'kilknij na mapie w miejsce gdzie chcesz dodac zdjecie'
-
-		// addLiatenerToPhoto
-		// z markerem
 		photoMarkerImage = new google.maps.MarkerImage(
-				'../images/markers_p.png',
-				new google.maps.Size(34, 49),
-				new google.maps.Point(0, 0)
-			);
+			'../images/markers_p.png',
+			new google.maps.Size(34, 49),
+			new google.maps.Point(0, 0)
+		);
+
 		google.maps.event.addListenerOnce(map, 'click', function(event){
 			var pos = event.latLng;
 			var marker = new google.maps.Marker({
@@ -87,16 +72,53 @@ $(document).ready(function(){
 				title: 'Dodaj zdjęcie'
 			});
 
+			var route_id = $('#route_id').val();
+			$.post(
+				'/new_photo',
+				{},
+				function(data) {
+
+					//TODO infobox style and fix close
+					var newPhotoContent = document.createElement("div");
+					newPhotoContent.id = 'infobox';
+					newPhotoContent.innerHTML = data;
+					var newPhotoInfoBoxMyOptions = {
+						content: newPhotoContent
+						,disableAutoPan: false
+						,maxWidth: 0
+						,pixelOffset: new google.maps.Size(-140, 0)
+						,zIndex: null
+						,boxStyle: { 
+							// background: "url('../images/info_box_close.png') no-repeat"
+							opacity: 0.9,
+							width: "280px"
+						}
+						,closeBoxMargin: "10px 2px 2px 2px"
+						,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+						,infoBoxClearance: new google.maps.Size(1, 1)
+						,isHidden: false
+						,pane: "floatPane"
+						,enableEventPropagation: false
+					};
+
+					var newPhotoInfoBox = new InfoBox(newPhotoInfoBoxMyOptions);
+					newPhotoInfoBox.open(map, marker);
+
+					// zmusic formularz do wspolpracy
+
+				}
+			);
+
 			// post --> new_photo --> add to infobox
 				// tworzy infobox z formularzem, ktory jest przekazywany jako partial przez ajaxa
 				// submit -- poat --> create_photo (data: route_id, title, description, latLng, file)
 					// data(partial) --> show_photo --> add to infobox
 					// set marker na inny kolor (niebieski) i draggable na false
 			
+
 		});
 		return false;
 	});
-
 
 
 	// pokaz wszystkie trasy usera na mapie
@@ -147,20 +169,14 @@ $(document).ready(function(){
 		$('#aside').css('min-height', ($(window).height() - 63));
 	});
 
-
-
 	$(".flash").click(function(){$(".flash").slideUp('slow')});
 	$("#error_explanation_route").click(function(){$("#error_explanation_route").slideUp('slow')});
 	$(".flash").delay(3000).slideUp('slow');
-
-
-
 
 	//pagination -- wyznaczenie szerokosci by wysrodkowac na stronie
 	if($('.pagination').length) {
 		$('.pagination').width(75+75+(29*($('.pagination').children().length - 2)));
 	}
-
 
 	//ROUTES#NEW
 
@@ -252,7 +268,6 @@ $(document).ready(function(){
 
 ///////////////////////////////////////////////////////////////////////
 
-
 	if($("#map").length) {
 		map = initializeMap();
 		polyline = new google.maps.Polyline({
@@ -268,7 +283,6 @@ $(document).ready(function(){
 		elevator = new google.maps.ElevationService();
 		geocoder = new google.maps.Geocoder();
 
-
 	}
 	//geocoding
 	$('#search-place').submit(function() {
@@ -277,7 +291,6 @@ $(document).ready(function(){
 		$('#search-place-text').val("");
 		return false;
 	});
-
 
 	//pages/home --> zawiera listę ostatnich tras
 	if($('#last-routes').length) {
@@ -288,7 +301,6 @@ $(document).ready(function(){
 		var user_id = $('#user_id').val();
 		loadStartMarkers(user_id, 'added');
 	}
-
 
 	//users_page
 	$('#last_routes_added_btn').bind('click', function() {
@@ -314,11 +326,6 @@ $(document).ready(function(){
 		return false;
 	});
 
-	
-	
-
-
-
 
 	//pages/home i users_page
 	if($('.routes-list').length) {
@@ -338,7 +345,6 @@ $(document).ready(function(){
 
 			// ładuje trase na mapie i zmienia marker nizej 
 			loadRouteToHome(id);
-
 
 			for(var i = 0; i < homeMarkers.length; i++) {
 				homeMarkers[i].setIcon(sMarkerImage);
@@ -369,7 +375,6 @@ $(document).ready(function(){
 			}
 		});
 	}
-
 	
 	// routes/new -> dodatkowe opcje 
 	$('#route-new-extra').hide();
@@ -382,7 +387,6 @@ $(document).ready(function(){
 			}
 		});
 		return false;
-		
 	});
 
 
@@ -398,9 +402,7 @@ $(document).ready(function(){
 			$('#altitude .small-arrow').css("backgroundPosition", "-13px");
 			$('#altitude').css("border-top", "1px solid " + colors[0]);
 		}
-
 	});
-
 
 
 	if($('#load_coordinates').length) {
@@ -412,7 +414,6 @@ $(document).ready(function(){
 			var bounds = pathFromString(coordinates, path);
 			map.fitBounds(bounds);
 			polyline.setPath(path);
-
 
 			var startMarkerPos = path[0];
 			var finishMarkerPos = path[path.length - 1]
@@ -444,18 +445,13 @@ $(document).ready(function(){
 			console.log(finishMarkerPos);
 			//poberz ostati i pierwszy punkt i postaw tam markery do rysowania
 
-
 			// pokaz wykres
 			$("#show-elevation").click(function(){
 				if($("#elevation-chart").is(':visible')) {
 					$("#elevation-chart").hide();
 				} else {
 					$("#elevation-chart").slideDown();
-				
-				
 					$("#elevation-chart").width(mapWidth - 1);
-
-
 
 					// redukcja tablicy do 190 elementow 
 					if (path.length > 190) {
@@ -486,7 +482,6 @@ $(document).ready(function(){
 					
 				// });
 			});
-
 		});
 		
 	}
@@ -534,11 +529,7 @@ $(document).ready(function(){
 		} else {
 			createElevation(path);
 		}
-
 	}
-	
-	
-	
 
 	//przyciski do rysowania
 	$('#draw-controls').hide();
@@ -553,7 +544,6 @@ $(document).ready(function(){
 			if(route == null)
 			route = drawRoute(map, polyline);
 		}
-		
     	return false;
   	});
 
@@ -576,8 +566,6 @@ $(document).ready(function(){
 			$("#snap").text("Przyciągaj do dróg");
 		}
 	});
-
-
 
 	//wysyłanie nowej trasy
 	$("#route_submit").click(function() {
@@ -611,7 +599,6 @@ $(document).ready(function(){
 		return false;
 	});
 	
-
 
 	//EDIT ROUTE
 		//> walidacje zrobic i automatycznie uzupełniać avg jak w new
@@ -652,7 +639,6 @@ $(document).ready(function(){
 		$("#route_pulse").val(pulse_edit);
 		$("#route_avg_speed").val(avg_speed);
 	});
-
 
 });
 
@@ -748,7 +734,6 @@ function createStartMarker(pos, title, title_route, route_distance, user_name) {
 	var sMarkerTitle = sMarker.getTitle();
 
 
-
 	// INFOBOX
 	// http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/docs/examples.html
 
@@ -778,8 +763,6 @@ function createStartMarker(pos, title, title_route, route_distance, user_name) {
 	};
 
 	infoBox = new InfoBox(myOptions);
-
-
 
 	homeInfoBoxes.push(infoBox);
 	homeMarkers.push(sMarker);
@@ -826,7 +809,6 @@ function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
 			window.location = '/routes/'+tTitle;
 		});
 	});
-
 
 };
 
@@ -958,8 +940,6 @@ function drawRoute(map, polyline){
 		polyline.setPath(path);
 		addDistanceToPage(polyline);
 		
-
-
   });
   	console.log(polyline);
 	return polyline;
@@ -1040,7 +1020,6 @@ function editMarker(marker, polyline) {
 	setLastMarker();
 }
 
-
 function deletePath() {
 	//wczytaj ostatni marker 
 	// usun go z tablicy i z mapy
@@ -1058,7 +1037,6 @@ function deletePath() {
 	console.log(markers);
 	console.log(polyline.getPath().length);
 };
-
 
 
 function setFirstMarker(marker) {
@@ -1124,7 +1102,6 @@ function addDistanceToPage(polyline) {
 		avg_speed = Math.round(distance * 3600 / total_time_sec * 100) / 100;
 		$("p.avg_speed .value").html(avg_speed);
 	}
-	
 }
 
 
@@ -1141,7 +1118,6 @@ function reductionPath(originalPath) {
 	}
 	return reucedPath;
 }
-
 
 // obliczanie elevations  -- max path: 193 elementy
 function createElevation(pathE) {
@@ -1198,17 +1174,12 @@ function plotElevation(results, status) {
 							// console.log(results[i]);
 							// console.log(i * x);
 							
-
 							var climbUpLast = {position : (Math.round(i * x)), elevation : results[i].elevation };
 							climbUpTable[climbUpTable.length - 1]["L"] = climbUpLast;
 							// console.log(climbUpLast);
 						}
 					}
-
 				}
-
-
-
 
 				var	el = results[i].elevation;
 				if(el < min) {
@@ -1256,7 +1227,6 @@ function plotElevation(results, status) {
 				}
 			}
 			console.log(climbs_string);
-
 
 			$("#route_climbs_string").val(climbs_string);
 			$("#route_distance").val(distance);

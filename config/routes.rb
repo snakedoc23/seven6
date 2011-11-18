@@ -17,10 +17,14 @@ Seven6::Application.routes.draw do
   resources :routes
   resources :sessions, :only => [:new, :create, :destroy]
   resources :relationships, :only => [:create, :destroy]
-
   resources :contacts, :only => [:new, :create]
-
   resources :workout
+  resources :photos do
+    member do
+      get 'photo_file'
+    end
+  end
+
   
   match '/signout', :to => 'sessions#destroy'
   match '/signin',  :to => 'sessions#new'
@@ -28,28 +32,29 @@ Seven6::Application.routes.draw do
   match '/',        :to => 'pages#home'
   match '/test',    :to => 'pages#test' 
 
-
-  post '/show_all_routes' => 'users#show_all_routes'
+  post '/show_all_routes'  => 'users#show_all_routes'
   
   post '/load_coordinates' => 'routes#load_coordinates'
-  post '/start_markers' => 'routes#start_markers'
+  post '/start_markers'    => 'routes#start_markers'
 
-  post '/add_rating' => 'ratings#add_rating'
-  post '/add_like' => 'ratings#add_like'
+  post '/add_rating'       => 'ratings#add_rating'
+  post '/add_like'         => 'ratings#add_like'
 
-  post '/create_comment' => 'comments#create'
-  post '/edit_comment'   => 'comments#edit'
-  post '/delete_comment' => 'comments#delete'
+  post '/create_comment'   => 'comments#create'
+  post '/edit_comment'     => 'comments#edit'
+  post '/delete_comment'   => 'comments#delete'
 
-  post '/create_workout' => 'workouts#create'
-  post '/edit_workout'   => 'workouts#edit'
-  post '/update_workout' => 'workouts#update'
-  post '/delete_workout' => 'workouts#delete'
+  post '/create_workout'   => 'workouts#create'
+  post '/edit_workout'     => 'workouts#edit'
+  post '/update_workout'   => 'workouts#update'
+  post '/delete_workout'   => 'workouts#delete'
 
   post '/user_last_routes' => 'users#user_last_routes'
 
-  post '/show_stats' => 'users#show_stats'
+  post '/show_stats'       => 'users#show_stats'
 
+  post '/new_photo'        => "photos#new"
+  post '/create_photo'     => "photos#create"
 
   get "pages/home"
   get "pages/test"

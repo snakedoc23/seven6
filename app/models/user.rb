@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   has_many :routes
   has_many :workouts, :dependent => :destroy
   has_many :comments, :dependent => :destroy
-  
   has_many :ratings, :dependent => :destroy
+  has_many :photos, :dependent => :destroy
   has_many :rated_routes, :through => :ratings, :source => :route, :dependent => :destroy
 
 

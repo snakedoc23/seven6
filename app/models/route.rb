@@ -6,6 +6,7 @@ class Route < ActiveRecord::Base
   has_many :workouts, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :ratings, :dependent => :destroy
+  has_many :photos, :dependent => :destroy
   has_many :raters, :through => :ratings, :source => :user, :dependent => :destroy
 
   # mount_uploader :static_map, StaticMapUploader
@@ -252,6 +253,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: routes
@@ -280,5 +282,6 @@ end
 #  total_comments          :integer
 #  total_ratings           :integer
 #  total_likes             :integer
+#  altitude                :float
 #
 
