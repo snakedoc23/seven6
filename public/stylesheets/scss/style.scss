@@ -1368,6 +1368,30 @@ footer {
 		margin-top: 6px;
 	}
 }
+#add-photo {
+	font-size: 12px;
+	a {
+		margin-left: 10px; 
+		width: 28px;
+		text-indent: -999px;
+		display: block;
+		float: left;
+		height: 28px;
+		background: url(../images/photo-btn.png) 0 -28px no-repeat;
+		padding: 0;
+		cursor: pointer;
+		&:hover {
+			background: url(../images/photo-btn.png) no-repeat;
+			text-decoration: none;
+		}
+	}
+	span {
+		float: left;
+		display: block;
+		margin-left: 5px;
+		margin-top: 6px;
+	}
+}
 
 #show-elevation {
 	float: right;

@@ -19,10 +19,12 @@
 				<%# link_to "Komentarze (#{Comment.route_comments(@route.id).size})", "#", :id => "show-comments", :class => "btn-base" %>
 				<% if current_user %>
 				<div id="add-favorite">
-				
 					<%= link_to "Dodaj", "#", :title => "Dodaj do ulubionych" %>
-
 					<span>Dodaj do ulubionych</span>
+				</div>
+				<div id="add-photo">
+					<%= link_to 'Dodaj zdjęcie', '#', :title => "Dodaj zdjęcie" %>
+					<span>Dodaj do zdjęcie</span>
 				</div>
 				<% end %>
 			</div>

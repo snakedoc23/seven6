@@ -35,9 +35,7 @@ class RouteFile < ActiveRecord::Base
     gpx = Nokogiri::XML(self.data)
     string = ""
     points = gpx.css('gpx trk trkpt')
-    points.each do |trkpt|
-      string += "#{trkpt['lat']},#{trkpt['lon']}|"
-    end
+    points.each { |trkpt| string += "#{trkpt['lat']},#{trkpt['lon']}|" }
     string.chop!
   end
 

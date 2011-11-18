@@ -1502,6 +1502,27 @@ footer {
     margin-left: 5px;
     margin-top: 6px; }
 
+#add-photo {
+  font-size: 12px; }
+  #add-photo a {
+    margin-left: 10px;
+    width: 28px;
+    text-indent: -999px;
+    display: block;
+    float: left;
+    height: 28px;
+    background: url(../images/photo-btn.png) 0 -28px no-repeat;
+    padding: 0;
+    cursor: pointer; }
+    #add-photo a:hover {
+      background: url(../images/photo-btn.png) no-repeat;
+      text-decoration: none; }
+  #add-photo span {
+    float: left;
+    display: block;
+    margin-left: 5px;
+    margin-top: 6px; }
+
 #show-elevation {
   float: right;
   display: block;

@@ -64,6 +64,41 @@ var mapWidth;
 $(document).ready(function(){
 
 
+
+
+	// dodawanie zdjec
+	$('#add-photo').click(function(){
+		//TODO podpowiedz 'kilknij na mapie w miejsce gdzie chcesz dodac zdjecie'
+
+		// addLiatenerToPhoto
+		// z markerem
+		photoMarkerImage = new google.maps.MarkerImage(
+				'../images/markers_p.png',
+				new google.maps.Size(34, 49),
+				new google.maps.Point(0, 0)
+			);
+		google.maps.event.addListenerOnce(map, 'click', function(event){
+			var pos = event.latLng;
+			var marker = new google.maps.Marker({
+				position: pos,
+				icon: photoMarkerImage,
+				map: map,
+				draggable: true,
+				title: 'Dodaj zdjęcie'
+			});
+
+			// post --> new_photo --> add to infobox
+				// tworzy infobox z formularzem, ktory jest przekazywany jako partial przez ajaxa
+				// submit -- poat --> create_photo (data: route_id, title, description, latLng, file)
+					// data(partial) --> show_photo --> add to infobox
+					// set marker na inny kolor (niebieski) i draggable na false
+			
+		});
+		return false;
+	});
+
+
+
 	// pokaz wszystkie trasy usera na mapie
 	$('#show_all_routes_btn').click(function(){
 		var userId = $('#user_id').val();
