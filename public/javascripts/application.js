@@ -44,12 +44,13 @@ var sMarkerImageHover;
 var sMarkerImage;
 
 
+var newPhotoMarker;
+var newPhotoInfoBox;
 var photoMarker;
 var photoMarkerImage;
 var photoMarkerImageBlue;
 var photoMarkers = [];
 var photoInfoBoxes = [];
-
 
 var allPolylines = [];
 
@@ -85,97 +86,71 @@ $(document).ready(function(){
 		});
 	}
 
-
 	// dodawanie zdjec
 	$('#add-photo').click(function(){
 		//TODO podpowiedz 'kilknij na mapie w miejsce gdzie chcesz dodac zdjecie'
-		photoMarkerImage = new google.maps.MarkerImage(
+		photoMarkerImageBlue = new google.maps.MarkerImage(
 			'../images/markers_p_b.png',
 			new google.maps.Size(34, 49),
 			new google.maps.Point(0, 0)
 		);
-
+		
+		for(var i = 0; i < photoInfoBoxes.length; i++) {
+			photoInfoBoxes[i].close();
+		}
+		for(var i = 0; i < photoMarkers.length; i++) {
+			photoMarkers[i].setIcon(photoMarkerImage);
+		}
+		
 		google.maps.event.addListenerOnce(map, 'click', function(event){
 			var pos = event.latLng;
-			var marker = new google.maps.Marker({
+			newPhotoMarker = new google.maps.Marker({
 				position: pos,
-				icon: photoMarkerImage,
+				icon: photoMarkerImageBlue,
 				map: map,
 				draggable: true,
 				title: 'Dodaj zdjęcie'
 			});
-
 			$.post(
 				'/new_photo',
 				{},
 				function(data) {
-
-					//TODO infobox style and fix close
 					var newPhotoContent = document.createElement("div");
-					newPhotoContent.id = 'infobox';
+					newPhotoContent.id = 'infobox_add_photo';
 					newPhotoContent.innerHTML = data;
 					var newPhotoInfoBoxMyOptions = {
 						content: newPhotoContent
 						,disableAutoPan: false
 						,maxWidth: 0
-						,pixelOffset: new google.maps.Size(-140, 0)
+						,pixelOffset: new google.maps.Size(-141, 5)
 						,zIndex: null
 						,boxStyle: { 
-							opacity: 0.9,
-							width: "280px"
+							width: "260px"
 						}
-						,closeBoxMargin: "10px 2px 2px 2px"
-						,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+						,closeBoxMargin: "5px"
+						,closeBoxURL: "../images/close.png"
 						,infoBoxClearance: new google.maps.Size(1, 1)
 						,isHidden: false
 						,pane: "floatPane"
 						,enableEventPropagation: false
 					};
+					newPhotoInfoBox = new InfoBox(newPhotoInfoBoxMyOptions);
+					newPhotoInfoBox.open(map, newPhotoMarker);
 
-					var newPhotoInfoBox = new InfoBox(newPhotoInfoBoxMyOptions);
-					newPhotoInfoBox.open(map, marker);
-
-					// zmusic formularz do wspolpracy
-					console.log(data);
+					google.maps.event.addListener(newPhotoInfoBox, 'closeclick', function() {
+						newPhotoMarker.setMap(null);
+					});
 
 					$('#new_photo').live('submit', function() {
 						console.log('working');
 						$('#photo_lat_lng').val(pos.toUrlValue());
 						$('#photo_route_id').val($('#route_id').val());
-
-						// var photo_title = $('#photo_title').val();
-						// var photo_description = $('#photo_description').val();
-						// var photo_uploaded_photo = $('#photo_uploaded_photo').val();
-						// $.post(
-						// 	'/create_photo',
-						// 	{
-						// 		route_id : route_id,
-						// 		title : photo_title,
-						// 		description : photo_description,
-						// 		lat_lng : photo_lat_lng,
-						// 		photo_uploaded_photo : photo_uploaded_photo
-						// 	},
-						// 	function(data){
-						// 		console.log(data);
-						// 	}
-						// );
-						// return false;
 					});
-
 				}
 			);
-
-			// post --> new_photo --> add to infobox
-				// tworzy infobox z formularzem, ktory jest przekazywany jako partial przez ajaxa
-				// submit -- poat --> create_photo (data: route_id, title, description, latLng, file)
-					// data(partial) --> show_photo --> add to infobox
-					// set marker na inny kolor (niebieski) i draggable na false
-			
-
 		});
 		return false;
 	});
-
 
 
 // ************************************************** 
@@ -724,8 +699,7 @@ function createPhotoMarker(pos, title) {
 
 function addListenersToPhotoMarker(photoMarker, title) {
 	google.maps.event.addListener(photoMarker, "click", function() {
-
-// wyczysc markery i infoboxy
+		// wyczysc markery i infoboxy
 		for(var i = 0; i < photoMarkers.length; i++) {
 			photoMarkers[i].setIcon(photoMarkerImage);
 		}
@@ -733,56 +707,50 @@ function addListenersToPhotoMarker(photoMarker, title) {
 			photoInfoBoxes[i].close();
 		}
 		photoMarker.setIcon(photoMarkerImageBlue);
-
-
-
-
 		showPhoto(photoMarker, title);
 	});
 }
 
 function showPhoto(photoMarker, title) {
-			var photo_id = title;
-			$.post(
-				'/show_photo',
-				{
-					id : photo_id
-				},
-				function(data) {
-					//TODO infobox style and fix close
-
-					var showPhotoContent = document.createElement("div");
-					showPhotoContent.id = 'infobox_show_photo';
-					showPhotoContent.innerHTML = data;
-					var showPhotoInfoBoxMyOptions = {
-						content: showPhotoContent
-						,disableAutoPan: false
-						,maxWidth: 0
-						,pixelOffset: new google.maps.Size(-140, 0)
-						,zIndex: null
-						,boxStyle: { 
-							// opacity: 0.9,
-							width: "280px"
-						}
-						,closeBoxMargin: "2px"
-						,closeBoxURL: "../images/close.png"
-						,infoBoxClearance: new google.maps.Size(1, 1)
-						,isHidden: false
-						,pane: "floatPane"
-						,enableEventPropagation: false
-					};
-					var showPhotoInfoBox = new InfoBox(showPhotoInfoBoxMyOptions);
-					photoInfoBoxes.push(showPhotoInfoBox);
-					showPhotoInfoBox.open(map, photoMarker);
-					// zmusic formularz do wspolpracy
+	var photo_id = title;
+	$.post(
+		'/show_photo',
+		{
+			id : photo_id
+		},
+		function(data) {
+			var showPhotoContent = document.createElement("div");
+			showPhotoContent.id = 'infobox_show_photo';
+			showPhotoContent.innerHTML = data;
+			var showPhotoInfoBoxMyOptions = {
+				content: showPhotoContent
+				,disableAutoPan: false
+				,maxWidth: 0
+				,pixelOffset: new google.maps.Size(-333, 5)
+				,zIndex: null
+				,boxStyle: { 
+					width: "666px"
 				}
-			);
+				,closeBoxMargin: "5px"
+				,closeBoxURL: "../images/close.png"
+				,infoBoxClearance: new google.maps.Size(1, 1)
+				,isHidden: false
+				,pane: "floatPane"
+				,enableEventPropagation: false
+			};
+			var showPhotoInfoBox = new InfoBox(showPhotoInfoBoxMyOptions);
+			photoInfoBoxes.push(showPhotoInfoBox);
+			showPhotoInfoBox.open(map, photoMarker);
 
-
-
-
-
-
+			google.maps.event.addListener(showPhotoInfoBox, 'closeclick', function() {
+				photoMarker.setIcon(photoMarkerImage);
+			});
+			if(newPhotoInfoBox) {
+				newPhotoInfoBox.close();
+				newPhotoMarker.setMap(null);
+			}
+		}
+	);
 }
 
 // ładowanie wszystkich tras na mapę
@@ -918,7 +886,6 @@ function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
 		// sMarker.setIcon(sMarkerImageHover);
 		infoBox.open(map, sMarker);
 	
-
 	});
 	google.maps.event.addListener(sMarker, "mouseout", function() {
 		// sMarker.setIcon(sMarkerImage);

@@ -1727,10 +1727,89 @@ ul.rating li {
 .unlogged {
   margin-top: 13px; }
 
+#infobox_add_photo {
+  background: url("../images/bg.gif");
+  box-shadow: 0px 0px 4px #333;
+  padding: 10px;
+  width: 240px; }
+  #infobox_add_photo h3 {
+    color: #c84446;
+    padding-left: 13px;
+    text-align: center;
+    font-size: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #caced0;
+    margin-bottom: 7px; }
+  #infobox_add_photo #photo_form form {
+    font-size: 13px; }
+    #infobox_add_photo #photo_form form label {
+      text-align: center;
+      padding-bottom: 4px; }
+    #infobox_add_photo #photo_form form input, #infobox_add_photo #photo_form form textarea {
+      margin: 0;
+      margin-bottom: 10px;
+      padding: 4px;
+      font-size: 13px;
+      border-radius: 0;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      width: 240px; }
+    #infobox_add_photo #photo_form form #photo_submit {
+      display: block;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      margin: auto;
+      font-size: 13px;
+      padding: 5px;
+      width: 107px;
+      background: #354d59;
+      /* for non-css3 browsers */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+      /* for IE */
+      background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+      /* for webkit browsers */
+      background: -moz-linear-gradient(top, #354d59, #283a43);
+      /* for firefox 3.6+ */
+      background: linear-gradient(top, #354d59, #283a43); }
+      #infobox_add_photo #photo_form form #photo_submit:hover {
+        background: #cf5759;
+        /* for non-css3 browsers */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+        /* for IE */
+        background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+        /* for webkit browsers */
+        background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+        /* for firefox 3.6+ */
+        background: linear-gradient(top, #cf5759, #bb3f41); }
+
 #infobox_show_photo {
   background: url("../images/bg.gif");
   box-shadow: 0px 0px 4px #333;
-  padding: 8px; }
+  width: 666px;
+  height: 380px; }
+  #infobox_show_photo #photo_img {
+    margin: 20px;
+    float: left;
+    width: 400px;
+    height: 300px;
+    background: #c84446;
+    box-shadow: 0px 0px 4px #333; }
+  #infobox_show_photo #photo_info {
+    float: left;
+    margin-top: -3px;
+    width: 206px; }
+    #infobox_show_photo #photo_info h3 {
+      font-size: 15px;
+      margin-bottom: 15px; }
+    #infobox_show_photo #photo_info p {
+      margin-bottom: 10px; }
+    #infobox_show_photo #photo_info .description {
+      margin-bottom: 30px; }
+    #infobox_show_photo #photo_info p span {
+      font-weight: 900; }
+  #infobox_show_photo .edit_photo_link {
+    clear: both; }
 
 #infobox {
   width: 280px;

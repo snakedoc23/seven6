@@ -2,11 +2,7 @@
 		<div id="elevation-chart"></div>
 		<% if @route.photos.size > 0 %>
 			<%= hidden_field_tag "route_photos", @route.photos.size %>
-			<% @route.photos.each do |photo| %>
-				<%= hidden_field_tag "photo_#{photo.id}", photo.id %> 
-			<% end %>
 		<% end %>
-
 
 		<%= hidden_field_tag 'load_coordinates', @route.id %>
 		<%= hidden_field_tag 'route_distance', @route.distance %>

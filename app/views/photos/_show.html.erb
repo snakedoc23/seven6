@@ -1,6 +1,19 @@
+<div id="photo_img">
+<%= image_tag (url_for(:controller => :photos, :action => :photo_file, :id => @photo.id)), :size => "400x300" %>
+</div>
+<div id="photo_info">
+  <h3><%= @photo.title %></h3>
+  <% if @photo.description %>
+    <h5>Opis zdjęcia:</h5>
+    <p class="description"><%= @photo.description %></p>
+  <% end %>
+  <p class="user"><span>Użytkownik: </span><%= link_to @photo.user.username, user_path(@photo.user) %></p>
+  <p class="route"><span>Trasa: </span><%= @photo.route.title %></p>
+  <p class="coordinates"><span>Współrzędne: </span><%= @photo.lat_lng %></p>
+</div>
 
-<%= image_tag (url_for(:controller => :photos, :action => :photo_file, :id => @photo.id)) %>
-<%= @photo.title %>
-<%= @photo.description %>
-<%= @photo.lat_lng %>
-
+<% if current_user && current_user == @photo.user %>
+<div class="edit_photo_link">
+  <%# link_to "Edytuj", "#" %>
+</div>
+<% end %>

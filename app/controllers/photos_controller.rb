@@ -6,6 +6,7 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(params[:photo])
+    @photo.user_id = current_user.id
     if @photo.save
       flash[:success] = 'Zdjecie dodane'
       redirect_to route_path(params[:photo][:route_id])

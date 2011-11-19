@@ -4,13 +4,15 @@
   <%= form_for @photo, :html => {:multipart => true} do |f| %>
     <%= f.hidden_field :lat_lng %>
     <%= f.hidden_field :route_id %>
-    <%= f.label :title, "Tytuł zdjęcia" %>
-    <%= f.text_field :title %>
-    <%= f.label :description, "Opis zdjęcia" %>
-    <%= f.text_field :description %>
+
+    <%= f.label :title, "Tytuł zdjęcia:" %>
+    <%= f.text_field :title, :placeholder => "Tytuł" %>
+    <%= f.label :description, "Opis zdjęcia:" %>
+    <%= f.text_area :description, :rows => 3, :placeholder => "Opis zdjęcia..." %>
+
+
     <%= f.label :uploaded_photo, "Wskaż zdjęcie" %>
     <%= f.file_field :uploaded_photo %>
     <%= f.submit "Dodaj zdjęcie" %>
   <% end %>
 </div>
-<%= link_to "Anuluj", "#", :id => "photo_form_close" %>
