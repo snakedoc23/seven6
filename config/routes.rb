@@ -25,6 +25,8 @@ Seven6::Application.routes.draw do
     end
   end
 
+  match 'photos/photo_file', :to => 'photos#photo_file'
+
   
   match '/signout', :to => 'sessions#destroy'
   match '/signin',  :to => 'sessions#new'
@@ -53,8 +55,10 @@ Seven6::Application.routes.draw do
 
   post '/show_stats'       => 'users#show_stats'
 
-  post '/new_photo'        => "photos#new"
-  post '/create_photo'     => "photos#create"
+  post '/new_photo'        => 'photos#new'
+  post '/create_photo'     => 'photos#create'
+  post '/photo_markers'    => 'photos#markers'
+  post '/show_photo'        => 'photos#show'
 
   get "pages/home"
   get "pages/test"

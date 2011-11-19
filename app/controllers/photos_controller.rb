@@ -6,18 +6,25 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(params[:photo])
-    # @photo.title = params[:title]
-    # @photo.description = params[:description] if params[:description] != ""
-    # @photo.lat_lng = params[:lat_lng] if params[:lat_lng] != ""
-    # @photo.altitude = params[:altitude] if params[:altitude] != ""
-    # @photo.user_id = current_user.id
-    # @photo.route_id = params[:route_id]
     if @photo.save
-      # render :partial => 'show'
-      render :text => params.inspect
+      flash[:success] = 'Zdjecie dodane'
+      redirect_to route_path(params[:photo][:route_id])
     else
-      render :partial => 'new'
+      flash[:error] = 'Zdjecie nie zostalo dodne'
+      redirect_to route_path(params[:photo][:route_id])
     end
+  end
+
+  def markers
+    route = Route.find(params[:route_id])
+    markers = []
+    route.photos.each do |photo|
+      p = []
+      p.push photo.id
+      p.push photo.lat_lng
+      markers.push p
+    end
+    render :json => markers
   end
 
   def show

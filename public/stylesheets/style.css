@@ -1727,6 +1727,11 @@ ul.rating li {
 .unlogged {
   margin-top: 13px; }
 
+#infobox_show_photo {
+  background: url("../images/bg.gif");
+  box-shadow: 0px 0px 4px #333;
+  padding: 8px; }
+
 #infobox {
   width: 280px;
   background: #313435;

@@ -2,6 +2,8 @@
 
 <div id="photo_form">
   <%= form_for @photo, :html => {:multipart => true} do |f| %>
+    <%= f.hidden_field :lat_lng %>
+    <%= f.hidden_field :route_id %>
     <%= f.label :title, "Tytuł zdjęcia" %>
     <%= f.text_field :title %>
     <%= f.label :description, "Opis zdjęcia" %>
@@ -11,3 +13,4 @@
     <%= f.submit "Dodaj zdjęcie" %>
   <% end %>
 </div>
+<%= link_to "Anuluj", "#", :id => "photo_form_close" %>

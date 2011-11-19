@@ -43,6 +43,14 @@ var homeInfoBoxes =[];
 var sMarkerImageHover;
 var sMarkerImage;
 
+
+var photoMarker;
+var photoMarkerImage;
+var photoMarkerImageBlue;
+var photoMarkers = [];
+var photoInfoBoxes = [];
+
+
 var allPolylines = [];
 
 var mc;
@@ -53,11 +61,36 @@ var mapWidth;
 
 $(document).ready(function(){
 
+
+// **** PHOTOS **** 
+	// show photo
+	if($('#route_photos').length) {
+		var route_id = $('#route_id').val();
+		$.ajax({
+			type: "POST",
+			url: "/photo_markers",
+			data: {route_id : route_id},
+			dataType: "json",
+			success: function(markers) {
+				console.log(markers);
+				for(var i = 0; i < markers.length; i++) {
+					var photo_id = markers[i][0].toString();
+					var position = markers[i][1].split(",");
+					var lat = parseFloat(position[0]);
+					var lng = parseFloat(position[1]);
+					var point = new google.maps.LatLng(lat, lng);
+					createPhotoMarker(point, photo_id);
+				}
+			}
+		});
+	}
+
+
 	// dodawanie zdjec
 	$('#add-photo').click(function(){
 		//TODO podpowiedz 'kilknij na mapie w miejsce gdzie chcesz dodac zdjecie'
 		photoMarkerImage = new google.maps.MarkerImage(
-			'../images/markers_p.png',
+			'../images/markers_p_b.png',
 			new google.maps.Size(34, 49),
 			new google.maps.Point(0, 0)
 		);
@@ -72,7 +105,6 @@ $(document).ready(function(){
 				title: 'Dodaj zdjęcie'
 			});
 
-			var route_id = $('#route_id').val();
 			$.post(
 				'/new_photo',
 				{},
@@ -89,7 +121,6 @@ $(document).ready(function(){
 						,pixelOffset: new google.maps.Size(-140, 0)
 						,zIndex: null
 						,boxStyle: { 
-							// background: "url('../images/info_box_close.png') no-repeat"
 							opacity: 0.9,
 							width: "280px"
 						}
@@ -105,6 +136,31 @@ $(document).ready(function(){
 					newPhotoInfoBox.open(map, marker);
 
 					// zmusic formularz do wspolpracy
+					console.log(data);
+
+					$('#new_photo').live('submit', function() {
+						console.log('working');
+						$('#photo_lat_lng').val(pos.toUrlValue());
+						$('#photo_route_id').val($('#route_id').val());
+
+						// var photo_title = $('#photo_title').val();
+						// var photo_description = $('#photo_description').val();
+						// var photo_uploaded_photo = $('#photo_uploaded_photo').val();
+						// $.post(
+						// 	'/create_photo',
+						// 	{
+						// 		route_id : route_id,
+						// 		title : photo_title,
+						// 		description : photo_description,
+						// 		lat_lng : photo_lat_lng,
+						// 		photo_uploaded_photo : photo_uploaded_photo
+						// 	},
+						// 	function(data){
+						// 		console.log(data);
+						// 	}
+						// );
+						// return false;
+					});
 
 				}
 			);
@@ -120,6 +176,9 @@ $(document).ready(function(){
 		return false;
 	});
 
+
+
+// ************************************************** 
 
 	// pokaz wszystkie trasy usera na mapie
 	$('#show_all_routes_btn').click(function(){
@@ -642,6 +701,90 @@ $(document).ready(function(){
 
 });
 
+function createPhotoMarker(pos, title) {
+	photoMarkerImage = new google.maps.MarkerImage(
+		'../images/markers_p.png',
+		new google.maps.Size(34, 49),
+		new google.maps.Point(0, 0)
+	);
+	photoMarkerImageBlue = new google.maps.MarkerImage(
+		'../images/markers_p_b.png',
+		new google.maps.Size(34, 49),
+		new google.maps.Point(0, 0)
+	);
+	photoMarker = new google.maps.Marker({
+		position: pos,
+		icon: photoMarkerImage,
+		map: map,
+		title: title
+	});
+	photoMarkers.push(photoMarker);
+	addListenersToPhotoMarker(photoMarker, title);
+};
+
+function addListenersToPhotoMarker(photoMarker, title) {
+	google.maps.event.addListener(photoMarker, "click", function() {
+
+// wyczysc markery i infoboxy
+		for(var i = 0; i < photoMarkers.length; i++) {
+			photoMarkers[i].setIcon(photoMarkerImage);
+		}
+		for(var i = 0; i < photoInfoBoxes.length; i++) {
+			photoInfoBoxes[i].close();
+		}
+		photoMarker.setIcon(photoMarkerImageBlue);
+
+
+
+
+		showPhoto(photoMarker, title);
+	});
+}
+
+function showPhoto(photoMarker, title) {
+			var photo_id = title;
+			$.post(
+				'/show_photo',
+				{
+					id : photo_id
+				},
+				function(data) {
+					//TODO infobox style and fix close
+
+					var showPhotoContent = document.createElement("div");
+					showPhotoContent.id = 'infobox_show_photo';
+					showPhotoContent.innerHTML = data;
+					var showPhotoInfoBoxMyOptions = {
+						content: showPhotoContent
+						,disableAutoPan: false
+						,maxWidth: 0
+						,pixelOffset: new google.maps.Size(-140, 0)
+						,zIndex: null
+						,boxStyle: { 
+							// opacity: 0.9,
+							width: "280px"
+						}
+						,closeBoxMargin: "2px"
+						,closeBoxURL: "../images/close.png"
+						,infoBoxClearance: new google.maps.Size(1, 1)
+						,isHidden: false
+						,pane: "floatPane"
+						,enableEventPropagation: false
+					};
+					var showPhotoInfoBox = new InfoBox(showPhotoInfoBoxMyOptions);
+					photoInfoBoxes.push(showPhotoInfoBox);
+					showPhotoInfoBox.open(map, photoMarker);
+					// zmusic formularz do wspolpracy
+				}
+			);
+
+
+
+
+
+
+}
+
 // ładowanie wszystkich tras na mapę
 function loadStartMarkers(user_id, route_type) {
 
@@ -701,7 +844,7 @@ function loadStartMarkers(user_id, route_type) {
 			mc = new MarkerClusterer(map, homeMarkers, mcOptions);
 		}
 	});
-};
+}
 
 function loadLastRoutes(last_route_type, user_id) {
 	$.post(
@@ -712,7 +855,7 @@ function loadLastRoutes(last_route_type, user_id) {
 			$('#last_route_container').html(data);
 		}
 	);
-};
+}
 
 function createStartMarker(pos, title, title_route, route_distance, user_name) {
 	sMarkerImage = new google.maps.MarkerImage(
@@ -769,7 +912,7 @@ function createStartMarker(pos, title, title_route, route_distance, user_name) {
 
 	addListenersToMarker(sMarker, infoBox, sMarkerTitle);
 
-};
+}
 function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
 	google.maps.event.addListener(sMarker, "mouseover", function() {
 		// sMarker.setIcon(sMarkerImageHover);
@@ -810,7 +953,7 @@ function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
 		});
 	});
 
-};
+}
 
 
 function loadRouteToHome(id) {
@@ -827,7 +970,7 @@ function loadRouteToHome(id) {
 		polyline.setPath(path);
 	});
 
-};
+}
 
 
 // przerabia path (polyline.getPath()) na string (do bazy)
@@ -864,7 +1007,7 @@ function pathFromString(string, pathT) {
 			bounds.extend(point);
 		}
 	return bounds;
-};
+}
 
 
 function initializeMap(){
@@ -1036,7 +1179,7 @@ function deletePath() {
 	console.log("Usun sciezke z: " + num);
 	console.log(markers);
 	console.log(polyline.getPath().length);
-};
+}
 
 
 function setFirstMarker(marker) {
@@ -1054,7 +1197,7 @@ function setLastMarker() {
 		lastMarker.setIcon(finishMarkerImage);
 		lastMarker.setTitle('Koniec trasy');
 	}
-};
+}
 
 
 function editMarkerC(marker, polyline, num) {
@@ -1083,7 +1226,7 @@ function editMarkerC(marker, polyline, num) {
 		addDistanceToPage(polyline);
 	});
 	setLastMarker();
-};
+}
 
 function calculateDistance(polyline) {
 	var polylineLength = polyline.getPath().getLength();
