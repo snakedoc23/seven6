@@ -36,6 +36,12 @@ end
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
+
+gem 'rspec-rails', :group => [:test, :development]
+
+group :development, :test do
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'spork', '> 0.9.0.rc'
+  gem 'guard-spork'
+end
