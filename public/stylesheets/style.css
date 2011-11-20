@@ -323,7 +323,7 @@ button[type=submit], input[type='submit'] {
     background: #bb3133;
     border: 1px solid #cf5759; }
 
-input[type="text"], input[type="password"], textarea {
+input[type="text"], input[type="password"], textarea, select {
   width: 276px;
   color: #283a43;
   font-size: 14px;
@@ -691,7 +691,7 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
     margin-top: 7px;
     width: 185px;
     font-size: 14px; }
-  #user-form input[type="text"], #user-form input[type="password"] {
+  #user-form input[type="text"], #user-form input[type="password"], #user-form select {
     width: 210px;
     margin-left: 195px;
     margin-bottom: 15px; }

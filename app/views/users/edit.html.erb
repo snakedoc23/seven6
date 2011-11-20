@@ -20,6 +20,11 @@
 					<%= f.text_field :place, :placeholder => "Miejscowość" %>
 				</div>
 
+				<div class="form-field">
+					<%= f.label :gender, "Płeć:" %>
+					<%= f.select :gender, { :Mężczyzna => :true, :Kobieta => :false}%>
+				</div>
+
 				<div class="form-btn">
 					<%= f.submit "Zapisz", :class => "btn-big" %>
 				</div>
