@@ -3,7 +3,7 @@
 </div>
 <div id="photo_info">
   <h3><%= @photo.title %></h3>
-  <% if @photo.description %>
+  <% if !@photo.description.blank? %>
     <h5>Opis zdjęcia:</h5>
     <p class="description"><%= @photo.description %></p>
   <% end %>

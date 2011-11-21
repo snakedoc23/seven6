@@ -142,5 +142,103 @@ describe 'User' do
 
   end
 
+  describe 'wyszukiwanie' do
+    before(:each) do
+      @u1 = Factory(:user)
+      @u2 = Factory(:user, :username => 'test2' ,:email => "test2@example.com")
+
+    end
+    it 'zwraca tylko wyszukiwanego uzytkownika' do
+      result = User.search("test2")
+      result.should == [@u2]
+    end
+    it 'zwraca tablice z dwaoma uzytkownikami' do
+      result = User.search("test")
+      result.should be_include(@u1) && be_include(@u2)
+    end
+
+  end
+
+  describe 'obserwowanie' do
+    before(:each) do
+      @u1 = Factory(:user)
+      @u2 = Factory(:user, :username => 'test2' ,:email => "test2@example.com")
+    end
+    it 'metoda follow' do
+      @u1.should respond_to(:follow)
+    end
+    it 'dodaje do obserwowanych' do
+      @u1.follow(@u2)
+      @u1.following.size.should == 1
+    end
+    it 'jest obserwowany' do
+      @u1.follow(@u2)
+      @u2.followers.size.should == 1
+    end
+    it 'metoda following?' do
+      @u1.follow(@u2)
+      @u1.following?(@u2).should be_true
+      @u2.following?(@u1).should be_false
+    end
+    it 'przestaje obserwowac' do
+      @u1.follow(@u2)
+      @u1.following?(@u2).should be_true
+      @u1.unfollow(@u2)
+      @u1.following?(@u2).should be_false
+      @u1.following.size.should == 0
+      @u2.followers.size.should == 0
+    end
+  end
+
+  describe 'trasy' do
+    before(:each) do
+      @user = Factory(:user)
+      @route = Factory(:route, :user => @user)
+    end
+    it 'posiada trase' do
+      @user.routes.size.should == 1
+    end
+    it 'total_routes' do
+      @user.total_routes.should == 1
+    end
+    it 'total_routes' do
+      @user.total_distance.should == 3
+    end
+    it 'pokaz wszystkie trasy' do
+      @user.show_all_routes.should == ["40.808291,-74.025858|40.806212,-74.0147|40.798675,-74.014357|40.789708,-74.017104"]
+    end
+  end
+
+  describe 'przejazdy' do
+    
+  end
+
+
 
 end
+# == Schema Information
+#
+# Table name: users
+#
+#  id                      :integer         not null, primary key
+#  username                :string(255)
+#  name                    :string(255)
+#  email                   :string(255)
+#  age                     :integer
+#  place                   :string(255)
+#  gender                  :boolean
+#  created_at              :datetime
+#  updated_at              :datetime
+#  encrypted_password      :string(255)
+#  salt                    :string(255)
+#  admin                   :boolean
+#  total_routes            :integer
+#  total_distance          :integer
+#  avatar_name             :string(255)
+#  avatar_content_type     :string(255)
+#  avatar_data             :binary
+#  total_workouts          :integer
+#  total_workouts_distance :float
+#  total_workouts_time     :integer
+#
+
