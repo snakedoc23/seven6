@@ -23,8 +23,6 @@ class CommentsController < ApplicationController
 		else
 			render :text => "NOK"
 		end
-		
-		
 	end
 
 	def delete

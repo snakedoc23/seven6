@@ -1,5 +1,4 @@
 <%= render 'shared/without_map' %>
-		
 		<div id="user-form">
 			<%= form_for(:session, :url => sessions_path) do |f| %>
 				<div class="form-field">
@@ -14,7 +13,6 @@
 					<%= f.submit "Zaloguj", :class => "btn-big" %>
 				</div>
 			<% end %>
-			
 				<p>Nie masz konta? <%= link_to "Zarejestruj się", signup_path, :id => 'signup_link' %></p>
 		</div>
 	</div>

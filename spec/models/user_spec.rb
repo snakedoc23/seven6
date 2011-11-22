@@ -99,6 +99,14 @@ describe 'User' do
     @user.should_not be_valid
   end
 
+  it 'usuwanie' do
+    @user.save
+    @user.id.should == 1
+    lambda do
+      @user.destroy
+    end.should change(User, :count).by(-1)
+  end
+
   it 'posiada nie pusty encrypted_password' do
     @user.save
     @user.encrypted_password.should_not be_blank
@@ -120,6 +128,23 @@ describe 'User' do
     @user.save
     @user.correct_password?('test1234').should be_false
   end
+  describe 'educja' do
+    before do
+      @user.save
+    end
+    it 'zmiana nazwy' do
+      @user.save
+      @user.username.should == "test"
+      @user.username = '123'
+      @user.username.should == '123'
+    end
+    it 'dodanie nazwy i miejscowosci' do
+      @user.update_attributes(:place => "Test", :name => "Tester")
+      @user.place.should == "Test"
+      @user.name.should == "Tester"
+    end
+  end
+
   describe 'logowanie' do
     before do
       @user.save

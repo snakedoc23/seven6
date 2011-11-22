@@ -3,7 +3,6 @@
 		<div id="aside-content">
 			<%= render 'shared/search_place' %>
 			<h2 class="title-aside clear"><%= @title_header %></h2>
-			
 			<div id="route-show">
 				<%= render 'route_show' %>
 			</div><!-- /route-show -->
@@ -12,9 +11,7 @@
 				<%= link_to "Edytuj", edit_route_path(@route), :id => "edit-route-btn" %>
 				<%= link_to "Usuń", @route, :method => :delete, :confirm => "Czy aby na pewno", :id => "remove-route-btn" %>
 			<% end %>
-			
-				
-				<%= link_to (image_tag "chart-icon.png"), "#", :id => "show-elevation" %>
+			<%= link_to (image_tag "chart-icon.png"), "#", :id => "show-elevation" %>
 			<div class="route-show-options">
 				<%# link_to "Komentarze (#{Comment.route_comments(@route.id).size})", "#", :id => "show-comments", :class => "btn-base" %>
 				<% if current_user %>
@@ -30,9 +27,7 @@
 			</div>
 			<div id="route_actions">
 				<%= link_to "Komentarze (#{@route.total_comments || 0 })", "#", :id => "show-comments" %>
-
 				<%= link_to "Przejazdy (#{@route.workouts.count})", "#", :id => 'show-workouts' %>
-				
 				<% if @route.climbs_string %>
 					<%= link_to "Podjazdy (#{@route.climbs.count})", "#", :id => "show-climbs" %>
 				<% else %>
@@ -48,7 +43,6 @@
 			<div id="workouts-container">
 				<%= render 'workouts' %>
 			</div><!-- /climbs-container -->
-
 		</div><!-- aside-content -->
 	</div><!-- aside -->
 	<div id="map"></div>

@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
-
   def avatar
     @user = User.find(params[:id])
     send_data(@user.avatar_data,
@@ -20,7 +19,6 @@ class UsersController < ApplicationController
     # @users = User.paginate(:page => params[:page], :per_page => 20)
     @title_header = "Uzytkownicy"
     @users = User.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 20)
-
   end
   
   def show
@@ -39,26 +37,20 @@ class UsersController < ApplicationController
     @likes = Rating.likes(@user.id)
 
     @following_routes = @user.following_routes.first(3)
-
-
   end
-
 
   def user_last_routes
     @user = User.find(params[:user_id])
     if params[:last_route_type] == "added"
       @routes = Route.find_all_by_user_id @user.id, :order => "created_at DESC", :limit => 6
       render :partial => 'last_routes_added'
-
     elsif params[:last_route_type] == "favorite"
-      
       @favorite_routes = []
       @likes = Rating.likes(@user.id)
       @likes.each do |rat|
         @favorite_routes.push rat.route
       end
       render :partial => 'last_routes_favorite'
-
     elsif params[:last_route_type] == "following"
       @following_routes = @user.following_routes.first(3)
       render :partial => 'last_routes_following'
@@ -69,7 +61,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title_header_top = "Przejechane"
     @title_header = @user.username.to_s
-    
     @workouts = @user.workouts.order('created_at DESC')
   end
 
@@ -77,7 +68,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title_header_top = "Wszystkie trasy"
     @title_header = @user.username.to_s
-    
     @routes = @user.routes.search(params[:search]).order(sort_column + " " + sort_direction)
   end
 
@@ -105,14 +95,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title_header_top = "Trasy obserwowanych"
     @title_header = "przez #{@user.username.to_s}"
-    
     @routes = []
     @user.following.each do |followed|
       followed.routes.each do |route|
         @routes.push route
       end
     end
-
   end
 
   def followers
@@ -122,26 +110,20 @@ class UsersController < ApplicationController
     @users = @user.followers.order(sort_column + " " + sort_direction)
   end
   
-
   def show_stats
     @user = User.find(params[:user_id])
     @routes = @user.routes.order('created_at ASC')
-
     @total_routes   = Array.new
     @total_distance = Array.new
     # @total_time     = Array.new
     @total_climb_up = Array.new
-
     @offset = params[:offset].to_i
-
     @days_since_first = (Time.now.to_date - @routes.first.created_at.to_date).to_i + 1
-
     if params[:period] == "day"
       7.times {@total_routes.push(0) }
       7.times {@total_distance.push(0) }
       # 7.times {@total_time.push(0) }
       7.times {@total_climb_up.push(0) }
-      
       @routes.each do |route|
         7.times do |i|
           if route.created_at.to_date == (i + @offset * 7).days.ago.to_date
@@ -153,13 +135,11 @@ class UsersController < ApplicationController
         end
       end
       render :partial => 'stats_day'
-
     elsif params[:period] == "month"
       5.times {@total_routes.push(0) }
       5.times {@total_distance.push(0) }
       # 5.times {@total_time.push(0) }
       5.times {@total_climb_up.push(0) }
-
       @routes.each do |route|
         5.times do |i|
           if route.created_at.month == (i + @offset * 5).month.ago.month
@@ -171,7 +151,6 @@ class UsersController < ApplicationController
         end
       end
       render :partial => 'stats_month'
-
     elsif params[:period] == "week"
       5.times {@total_routes.push(0) }
       5.times {@total_distance.push(0) }
@@ -188,14 +167,12 @@ class UsersController < ApplicationController
         end
       end
       render :partial => 'stats_week'
-
     end
   end
 
   def stats
     @user = User.find(params[:id])
   end
-
 
   def new
     @title_header_top = "Rejestracja w"
@@ -241,7 +218,6 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "Uzytkownik zostal usuniety"
     redirect_to users_path
-    
   end
 
   def show_all_routes
@@ -268,5 +244,4 @@ class UsersController < ApplicationController
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
-
 end

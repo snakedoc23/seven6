@@ -1,11 +1,9 @@
 <%if @likes.empty? %>
-
 <div id="without-map">
 	<%= form_tag routes_path, :method => 'get', :id => "search-route" do %>
 		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
 		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
 	<% end %>
-
 	<h2 class="h2-top clear"><%= @title_header_top %></h2>
 	<div class="h2-bg">
 		<h2><%= link_to @user.username, user_path(@user) %></h2>
@@ -15,9 +13,6 @@
 			<p>Nie masz ulubionch tras...</p>
 			<%= link_to "Wszystkie trasy", routes_path %>
 		</div>
-
-
-
 
 <% else %>
 <%= render 'routes' %>

@@ -8,16 +8,10 @@ class User < ActiveRecord::Base
   has_many :ratings, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   has_many :rated_routes, :through => :ratings, :source => :route, :dependent => :destroy
-
-
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
-
   has_many :reverse_relationships, :foreign_key => "followed_id", :class_name => "Relationship", :dependent => :destroy
   has_many :followers, :through => :reverse_relationships, :source => :follower
-
-
-  # mount_uploader :avatar, AvatarUploader
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
@@ -69,7 +63,6 @@ class User < ActiveRecord::Base
     end
   end
   
-
   def correct_password?(submitted_password)
     self.encrypted_password == encrypt(submitted_password)
   end
@@ -85,7 +78,6 @@ class User < ActiveRecord::Base
     user = find_by_id(id)
     (user && user.salt == cookie_salt) ? user : nil
   end
-
 
   def following?(followed)
     relationships.find_by_followed_id(followed)
@@ -107,9 +99,7 @@ class User < ActiveRecord::Base
       end
     end
     @following_routes.sort! { |x,y| y.created_at <=> x.created_at }
-    
   end
-
     
   private
     def encrypt_password
@@ -131,10 +121,6 @@ class User < ActiveRecord::Base
       Digest::SHA2.hexdigest(string)
     end
 end
-
-
-
-
 
 
 # == Schema Information

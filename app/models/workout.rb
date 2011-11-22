@@ -57,13 +57,11 @@ class Workout < ActiveRecord::Base
     end
   end
 
-
   def pulse_edit
     if pulse_avg
       "#{pulse_avg.round}/#{pulse_max.round}"
     end
   end
-
 
   def time_string_edit
     if total_time
@@ -79,9 +77,7 @@ class Workout < ActiveRecord::Base
       self.avg_speed = (self.route.distance * 3600 / self.total_time).round(2)
     end
   end
-
 end
-
 
 # == Schema Information
 #

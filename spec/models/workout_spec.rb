@@ -56,9 +56,6 @@ describe 'Workout' do
     it 'calculate_avg_speed' do
       @w.avg_speed.should == 16.98
     end
-
   end
 
 end
-
-# test time string valid

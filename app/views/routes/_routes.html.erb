@@ -39,7 +39,6 @@
 					<li class="5">5</li>
 				</ul>
 			</td>
-
 			<td class="created_at"><%= time_ago_in_words(route.created_at) %></td>
 			<td class="user"><%= link_to route.user.username, user_path(route.user) %></td>
 			<td class="workouts"><%= route.total_workouts || 0 %></td>

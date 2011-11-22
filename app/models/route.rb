@@ -26,8 +26,6 @@ class Route < ActiveRecord::Base
                                               :message => "Avg/Max" }, 
                                  :allow_blank => true
 
-
-
   before_save :split_pulse, :add_start_and_finish, :total_time_calculate, :calculate_altitude
   after_save :add_total_distance_and_total_routes_to_user, :add_workout
 
@@ -96,10 +94,8 @@ class Route < ActiveRecord::Base
         start_el = climb_array[1]
         end_pos = climb_array[2]
         end_el = climb_array[3]
-
         length = end_pos.to_f - start_pos.to_f
         grade = ((end_el.to_f - start_el.to_f) * 100 / length).round(1)
-        
         climbs_array.push Hash[ :grade, grade, :length, length, :start_pos, start_pos.to_f, :start_el, start_el.to_f.round(1), :end_pos, end_pos.to_f, :end_el, end_el.to_f.round(1) ]
       end
       climbs_array
@@ -123,11 +119,9 @@ class Route < ActiveRecord::Base
     self.finish_lat_lng = self.coordinates_string.split("|").last
   end
 
-
   def calculate_altitude
     self.altitude = (self.max_altitude - self.min_altitude).round(2)
   end
-
 
   def total_time_calculate
     if time_string.to_f > 0
@@ -148,15 +142,12 @@ class Route < ActiveRecord::Base
     "#{pulse_avg.round}/#{pulse_max.round}"
   end
 
-
   def split_pulse
     if pulse
       self.pulse_avg = self.pulse.split("/").first.to_f
       self.pulse_max = self.pulse.split("/").last.to_f
     end
   end
-
-
 
   def time_string_edit
     self.time_to_string
@@ -194,9 +185,7 @@ class Route < ActiveRecord::Base
     while path_array.length > 70
       path_array = reductionPath(path_array)
     end
-
     coordinates_string_temp = ""
-
     path_array.each do |pos|
       # pos_array = pos.split(",")
       # lat = pos_array[0].to_f.round(6).to_s
@@ -205,7 +194,6 @@ class Route < ActiveRecord::Base
       # coordinates_string_temp += "|#{lat},#{lng}"
       coordinates_string_temp += "|#{pos}"
     end
-
     "http://maps.googleapis.com/maps/api/staticmap?path=color:0xc84446ff|weight:2#{coordinates_string_temp}&size=79x79&sensor=false"
   end
 
@@ -215,11 +203,9 @@ class Route < ActiveRecord::Base
 
   def reduced_coordinates_string
     path_array = coordinates_string.split("|")
-
     while path_array.length > 70
       path_array = reductionPath(path_array)
     end
-
     coordinates_string_temp = ""
     path_array.each do |pos|
       if coordinates_string_temp == ""
@@ -234,10 +220,8 @@ class Route < ActiveRecord::Base
   private
     def reductionPath(path) #Redukcja tablicy by wyslac do google (patrz application.js)
       path_length = path.length
-
       x = (path_length.to_f / (path_length.to_f - 70)).ceil
       reucedPath = [];
-
       path_length.times do |i|
         if ((i + 1) % x != 0)
           reucedPath.push(path[i])
@@ -245,13 +229,7 @@ class Route < ActiveRecord::Base
       end
       reucedPath
     end
-
 end
-
-
-
-
-
 
 
 # == Schema Information

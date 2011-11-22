@@ -15,7 +15,6 @@ class RoutesController < ApplicationController
   def show
     @route = Route.find(params[:id])
     @title_header = "Trasa"
-
     if current_user
       if @rating = current_user.ratings.find_by_route_id(params[:id])
         @rating
@@ -32,12 +31,8 @@ class RoutesController < ApplicationController
 
   # ajax post ze strony glownej i show users po wszystki trasy jako markery
   def start_markers
-
-    # @user = User.find(params[:user_id])
     @markers = []
-
     if params[:route_type] == 'added'
-
       if params[:user_id] == "0" 
         Route.all.each do |route|
           r = []
@@ -59,7 +54,6 @@ class RoutesController < ApplicationController
           @markers.push r
         end
       end
-
     elsif params[:route_type] == 'favorite'
       @user = User.find(params[:user_id])
       Rating.likes(@user.id).each do |rat|
@@ -71,7 +65,6 @@ class RoutesController < ApplicationController
         r.push rat.route.user.username
         @markers.push r
       end
-
     elsif params[:route_type] == 'following'
       @user = User.find(params[:user_id])
       @user.following_routes.each do |route|
@@ -83,9 +76,7 @@ class RoutesController < ApplicationController
         r.push route.user.username
         @markers.push r
       end
-
     end 
-
     render :json => @markers
   end
 
@@ -105,7 +96,6 @@ class RoutesController < ApplicationController
       render 'new'
     end
   end
-
 
   def edit
     @route = Route.find(params[:id])
@@ -127,7 +117,6 @@ class RoutesController < ApplicationController
     Route.find(params[:id]).destroy
     flash[:success] = "Trasa zostala usunieta"
     redirect_to user_path(current_user)
-    
   end
 
   private
@@ -183,7 +172,4 @@ class RoutesController < ApplicationController
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
-
 end
-
-
