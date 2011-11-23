@@ -1,5 +1,5 @@
 <div id="photo_img">
-<%= image_tag (url_for(:controller => :photos, :action => :photo_file, :id => @photo.id)), :size => "400x300" %>
+<%= link_to (image_tag (url_for(:controller => :photos, :action => :photo_file, :id => @photo.id)), :size => "400x300", :alt => @photo.title), url_for(:controller => :photos, :action => :photo_file, :id => @photo.id), :class => "fancybox", :rel => "group" %>
 </div>
 <div id="photo_info">
   <h3><%= @photo.title %></h3>
