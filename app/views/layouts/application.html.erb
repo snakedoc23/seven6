@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <title>Seven6</title>
-	<meta charset="UTF-8">
-  <%= stylesheet_link_tag "style" %>
-  <%= javascript_include_tag :defaults, "http://www.google.com/jsapi", "http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry", "jquery-ui-1.8.16.custom.min", "infobox", "markerclusterer_packed", "rating", "comment", "edit_user", "route_ajax", "stats", "highcharts", "climbs", "workouts" %>
-  <%= csrf_meta_tag %>
+<title>Seven6</title>
+<meta charset="UTF-8">
+<%= stylesheet_link_tag "style" %>
+<%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js", "jquery_ujs", "http://www.google.com/jsapi", "http://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry", "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js", "infobox", "markerclusterer_packed", "jquery.fancybox", "highcharts", "rating", "comment", "edit_user", "route_ajax", "stats", "climbs", "workouts", "application" %>
+<%= csrf_meta_tag %>
 </head>
 <body>
 	<div id="ajax-status"></div><!-- /ajax-status -->

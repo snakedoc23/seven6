@@ -736,11 +736,14 @@ function showPhoto(photoMarker, title) {
 				,infoBoxClearance: new google.maps.Size(1, 1)
 				,isHidden: false
 				,pane: "floatPane"
-				,enableEventPropagation: false
+				,enableEventPropagation: true
 			};
 			var showPhotoInfoBox = new InfoBox(showPhotoInfoBoxMyOptions);
 			photoInfoBoxes.push(showPhotoInfoBox);
 			showPhotoInfoBox.open(map, photoMarker);
+
+			console.log(data);
+			$('.fancybox').fancybox({'type' : 'image', 'padding' : '5'});
 
 			google.maps.event.addListener(showPhotoInfoBox, 'closeclick', function() {
 				photoMarker.setIcon(photoMarkerImage);
