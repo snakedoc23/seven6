@@ -744,6 +744,12 @@ function showPhoto(photoMarker, title) {
 
 			console.log(data);
 			$('.fancybox').fancybox({'type' : 'image', 'padding' : '5'});
+			
+			// hack wywolanie slidera po najechaniu na infoboxa
+			$("#infobox_show_photo").live('mouseover',function(){
+				$("#infobox_show_photo").die();
+				$("#photo_img").slides();
+			});
 
 			google.maps.event.addListener(showPhotoInfoBox, 'closeclick', function() {
 				photoMarker.setIcon(photoMarkerImage);

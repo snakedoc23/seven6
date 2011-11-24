@@ -1340,11 +1340,11 @@ table.big-table tbody tr:hover {
 PAGINATION
 
 */
-.pagination {
+#without-map .pagination {
   width: 300px;
   margin: auto;
   margin-top: 10px; }
-  .pagination * {
+  #without-map .pagination * {
     width: 24px;
     height: 24px;
     display: block;
@@ -1358,7 +1358,7 @@ PAGINATION
     text-align: center;
     font-size: 11px;
     color: #283a43; }
-  .pagination .previous_page {
+  #without-map .pagination .previous_page {
     width: 70px;
     background: #f9f9f9;
     /* for non-css3 browsers */
@@ -1369,7 +1369,7 @@ PAGINATION
     background: -moz-linear-gradient(top, #f9f9f9, #eaeaea);
     /* for firefox 3.6+ */
     background: linear-gradient(top, #f9f9f9, #eaeaea); }
-  .pagination .current {
+  #without-map .pagination .current {
     background: #cf5759;
     /* for non-css3 browsers */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
@@ -1381,9 +1381,9 @@ PAGINATION
     background: linear-gradient(top, #cf5759, #bb3f41);
     border-color: #cf5759;
     color: #fff; }
-    .pagination .current:hover {
+    #without-map .pagination .current:hover {
       background: #cf5759; }
-  .pagination a {
+  #without-map .pagination a {
     background: #f9f9f9;
     /* for non-css3 browsers */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
@@ -1393,9 +1393,9 @@ PAGINATION
     background: -moz-linear-gradient(top, #f9f9f9, #eaeaea);
     /* for firefox 3.6+ */
     background: linear-gradient(top, #f9f9f9, #eaeaea); }
-    .pagination a:hover {
+    #without-map .pagination a:hover {
       background: #f9f9f9; }
-  .pagination .next_page {
+  #without-map .pagination .next_page {
     width: 70px; }
 
 footer {
@@ -1992,6 +1992,32 @@ ul.rating li {
     height: 300px;
     background: #c84446;
     box-shadow: 0px 0px 4px #333; }
+    #infobox_show_photo #photo_img .slides_container {
+      overflow: hidden;
+      width: 400px;
+      height: 300px; }
+      #infobox_show_photo #photo_img .slides_container img {
+        width: 400px;
+        height: 300px;
+        display: block; }
+    #infobox_show_photo #photo_img .pagination {
+      margin: 16px auto 0;
+      width: 30px; }
+    #infobox_show_photo #photo_img .pagination li {
+      float: left;
+      margin: 0 1px;
+      list-style: none; }
+    #infobox_show_photo #photo_img .pagination li a {
+      display: block;
+      width: 12px;
+      height: 0;
+      padding-top: 12px;
+      background-image: url(../images/pagination.png);
+      background-position: 0 0;
+      float: left;
+      overflow: hidden; }
+    #infobox_show_photo #photo_img .pagination li.current a {
+      background-position: 0 -12px; }
   #infobox_show_photo #photo_info {
     float: left;
     margin-top: -3px;
@@ -2006,7 +2032,9 @@ ul.rating li {
     #infobox_show_photo #photo_info p span {
       font-weight: 900; }
   #infobox_show_photo .edit_photo_link {
-    clear: both; }
+    clear: both;
+    margin-left: 20px;
+    font-size: 12px; }
 
 #infobox {
   width: 280px;

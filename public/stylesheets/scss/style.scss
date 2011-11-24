@@ -884,7 +884,7 @@ PAGINATION
 
 */
 
-.pagination {
+#without-map .pagination {
 
 	width: 300px;
 	margin: auto;
@@ -1695,6 +1695,40 @@ ul.rating {
 		height: 300px;
 		background: $red;
 		box-shadow: 0px 0px 4px #333;
+
+		.slides_container {
+			overflow:hidden;
+			width: 400px;
+			height: 300px;
+			img {
+				width: 400px;
+				height: 300px;
+				display: block
+			}
+		}
+		.pagination {
+			margin:16px auto 0;
+			width:30px;
+		}
+		.pagination li {
+			float:left;
+			margin:0 1px;
+			list-style:none;
+		}
+		.pagination li a {
+			display:block;
+			width:12px;
+			height:0;
+			padding-top:12px;
+			background-image:url(../images/pagination.png);
+			background-position:0 0;
+			float:left;
+			overflow:hidden;
+		}
+		.pagination li.current a {
+			background-position:0 -12px;
+		}
+
 	}
 	#photo_info {
 		float: left;
@@ -1716,6 +1750,8 @@ ul.rating {
 	}
 	.edit_photo_link {
 		clear: both;
+		margin-left: 20px;
+		font-size: 12px;
 	}
 }
 

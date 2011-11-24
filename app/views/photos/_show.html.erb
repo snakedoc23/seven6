@@ -1,5 +1,9 @@
 <div id="photo_img">
-<%= link_to (image_tag (url_for(:controller => :photos, :action => :photo_file, :id => @photo.id)), :size => "400x300", :alt => @photo.title), url_for(:controller => :photos, :action => :photo_file, :id => @photo.id), :class => "fancybox", :rel => "group" %>
+  <div class="slides_container">
+  
+  <%= link_to (image_tag (url_for(:controller => :photos, :action => :photo_file, :id => @photo.id)), :size => "400x300", :alt => @photo.title), url_for(:controller => :photos, :action => :photo_file, :id => @photo.id), :class => "fancybox", :rel => "group" %>
+  <%= link_to (image_tag (url_for(:controller => :photos, :action => :photo_file, :id => @photo.id)), :size => "400x300", :alt => @photo.title), url_for(:controller => :photos, :action => :photo_file, :id => @photo.id), :class => "fancybox", :rel => "group" %>
+  </div>
 </div>
 <div id="photo_info">
   <h3><%= @photo.title %></h3>
