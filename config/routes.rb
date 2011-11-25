@@ -60,7 +60,7 @@ Seven6::Application.routes.draw do
   post '/new_photo'        => 'photos#new'
   post '/create_photo'     => 'photos#create'
   post '/photo_markers'    => 'photos#markers'
-  post '/show_photo'        => 'photos#show'
+  post '/show_photo'       => 'photos#show'
 
   get "pages/home"
   get "pages/test"

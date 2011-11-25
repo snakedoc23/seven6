@@ -42,4 +42,10 @@ class PhotosController < ApplicationController
               )
   end
 
+  def destroy
+    Photo.find(params[:id]).destroy
+    flash[:success] = "Zdjecie zostalo usuniete"
+    redirect_to :back
+  end
+
 end

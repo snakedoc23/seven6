@@ -1,3 +1,4 @@
+<div id="infobox_show_photo">
 <div id="photo_img">
   <div class="slides_container">
   
@@ -6,18 +7,21 @@
   </div>
 </div>
 <div id="photo_info">
-  <h3><%= @photo.title %></h3>
-  <% if !@photo.description.blank? %>
-    <h5>Opis zdjęcia:</h5>
-    <p class="description"><%= @photo.description %></p>
+
+
+  <%= form_for @photo do |f| %>
+    <%= f.label :title, "Tytuł zdjęcia:" %>
+    <%= f.text_field :title, :placeholder => "Tytuł" %>
+    <%= f.label :description, "Opis zdjęcia:" %>
+    <%= f.text_area :description, :rows => 3, :placeholder => "Opis zdjęcia..." %>
+
+    <%= f.submit "Edytuj zdjęcie" %>
   <% end %>
   <p class="user"><span>Użytkownik: </span><%= link_to @photo.user.username, user_path(@photo.user) %></p>
   <p class="route"><span>Trasa: </span><%= @photo.route.title %></p>
   <p class="coordinates"><span>Współrzędne: </span><%= @photo.lat_lng %></p>
+
+
+</div>
 </div>
 
-<% if current_user && current_user == @photo.user %>
-<div class="edit_photo_link">
-  <%= link_to "Usuń", @photo, :method => :delete, :confirm => "Czy aby na pewno" %>
-</div>
-<% end %>

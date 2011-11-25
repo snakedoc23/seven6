@@ -85,6 +85,14 @@ $(document).ready(function(){
 			}
 		});
 	}
+	// // edit photo
+	// $('#edit_photo_btn').live('click', function() {
+	// 	var photo_id = $('#photo_id').val();
+	// 	console.log(photo_id);
+	// 	$.post('/edit_photo', {id : photo_id}, function(data) {
+			
+	// 	});
+	// });
 
 	// dodawanie zdjec
 	$('#add-photo').click(function(){
@@ -192,15 +200,32 @@ $(document).ready(function(){
     });
 
 
+  
+
 	mapWidth = $(document).width() - $('#aside').outerWidth();
 	$('#map').width(mapWidth);
 	$('#map').height($(window).height() - 63);
 	$('#aside').css('min-height', ($(window).height() - 63));
+	if($('#map').height() < $('#aside').height()) {
+		$('#map').height($('#aside').height());
+	}
+	$('#aside').resize(function() {
+		if($('#map').height() < $('#aside').height()) {
+			$('#map').height($('#aside').height());
+		}
+	});
+
 
 	$(window).resize(function() {
 		$('#map').width($(window).width() - $('#aside').outerWidth());
 		$('#map').height($(window).height() - 63);
 		$('#aside').css('min-height', ($(window).height() - 63));
+
+	if($('#map').height() < $('#aside').height()) {
+		$('#map').height($('#aside').height());
+	}
+
+
 	});
 
 	$(".flash").click(function(){$(".flash").slideUp('slow')});
