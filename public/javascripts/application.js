@@ -1,3 +1,4 @@
+
 var directionsDisplay;
 var directionsService;
 var elevator;
@@ -165,28 +166,40 @@ $(document).ready(function(){
 
 	// pokaz wszystkie trasy usera na mapie
 	$('#show_all_routes_btn').click(function(){
-		var userId = $('#user_id').val();
-		$.post('/show_all_routes', {user_id : userId}, function(coordinates_array) {
-			
-			var newBounds = new google.maps.LatLngBounds();
-			for (var i = 0; i < coordinates_array.length; i++) {
-				var poly = new google.maps.Polyline({
-					strokeColor: '#283A43',
-					strokeOpacity: .6,
-					strokeWeight: 5,
-					map: map
-				});
-				var path1 = new Array();
-				var bounds = pathFromString(coordinates_array[i], path1);
-				poly.setPath(path1);
-				allPolylines.push(poly);
 
-				newBounds.extend(bounds.getNorthEast());
-				newBounds.extend(bounds.getSouthWest());
+		if($('#show_all_routes_btn').text() == "Ukryj wszystkie trasy") {
+			clearAllUserRoutes();
+		} else {
+			var userId = $('#user_id').val();
+			$.post('/show_all_routes', {user_id : userId}, function(coordinates_array) {
+				
+				var newBounds = new google.maps.LatLngBounds();
+				for (var i = 0; i < coordinates_array.length; i++) {
+					var poly = new google.maps.Polyline({
+						strokeColor: '#283A43',
+						strokeOpacity: .6,
+						strokeWeight: 5,
+						map: map
+					});
+					var path1 = new Array();
+					var bounds = pathFromString(coordinates_array[i], path1);
+					poly.setPath(path1);
+					allPolylines.push(poly);
 
-			};
-			map.fitBounds(newBounds);
-		});
+					//funkcja dodaje click event do kazdej trasy by pokazac co to za trasa
+					addListenerToAllPolylines(poly);
+
+					newBounds.extend(bounds.getNorthEast());
+					newBounds.extend(bounds.getSouthWest());
+
+				};
+				map.fitBounds(newBounds);
+			});
+			$('#show_all_routes_btn').text("Ukryj wszystkie trasy");
+		}
+
+
+
 		return false;
 	});
 
@@ -397,10 +410,8 @@ $(document).ready(function(){
 			$(this).addClass("selected");
 
 			var id = $(this).parent().attr("id").split("-")[2];
-			console.log(id);
-			for(var i = 0; i < allPolylines.length; i++) {
-				allPolylines[i].setMap(null);
-			}
+			// console.log(id);
+			clearAllUserRoutes();
 
 			// ładuje trase na mapie i zmienia marker nizej 
 			loadRouteToHome(id);
@@ -787,6 +798,29 @@ function showPhoto(photoMarker, title) {
 	);
 }
 
+function addListenerToAllPolylines(poly) {
+	google.maps.event.addListener(poly, "click", function() {
+		for(var i = 0; i < allPolylines.length; i++) {
+			homeInfoBoxes[i].close();
+			if (allPolylines[i] == poly) {
+				homeInfoBoxes[i].open(map, homeMarkers[i]);
+			}
+		}
+	});
+}
+
+function clearAllUserRoutes() {
+	for(var i = 0; i < allPolylines.length; i++) {
+		if(homeInfoBoxes[i]) {
+			homeInfoBoxes[i].close();
+		}
+		allPolylines[i].setMap(null);
+	}
+	allPolylines = [];
+	$('#show_all_routes_btn').text("Wszystkie trasy");
+}
+
+
 // ładowanie wszystkich tras na mapę
 function loadStartMarkers(user_id, route_type) {
 
@@ -933,9 +967,7 @@ function addListenersToMarker(sMarker, infoBox, sMarkerTitle) {
 		}
 		sMarker.setIcon(sMarkerImageHover);
 		loadRouteToHome(sMarkerTitle);
-		for(var i = 0; i < allPolylines.length; i++) {
-			allPolylines[i].setMap(null);
-		}
+		clearAllUserRoutes();
 
 		// zaznaczenie wybranej trasy na liscie jesli tam jest 
 		$('.route-img').removeClass("selected");
