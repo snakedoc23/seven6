@@ -15,3 +15,9 @@ Factory.define :route do |route|
   route.min_altitude 50.00
   route.association :user
 end
+
+Factory.define :comment do |route|
+  route.content "test"
+  route.association :user
+  route.association :route
+end
