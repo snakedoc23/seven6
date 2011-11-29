@@ -8,3 +8,5 @@
 			<% if signed_in? %>
 			<li><%= link_to "Profil", user_path(current_user), :class => is_selected?(user_path(current_user)) %></li>
 			<% end %>
+
+      <li><%= link_to "Kontakt", contact_path, :class => is_selected?(contact_path) %></li>

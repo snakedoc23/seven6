@@ -522,7 +522,7 @@ form#search-place, form#search-user, form#search-route {
 	}
 }
 .field_with_errors {
-	input[type="text"], input[type="password"]{
+	input[type="text"], input[type="password"], textarea {
 		border-color: $red;
 	}
 }
@@ -939,7 +939,7 @@ footer {
 	border-top: 2px solid $blue;
 		
 	#footer-inner {
-		width: 960px;
+		// width: 960px;
 		.footer-col {
 			padding-top: 15px;
 			padding-bottom: 30px;
@@ -2279,52 +2279,57 @@ ul.rating {
 
 
 #contact_container {
+	
+	margin:auto;
+	margin-top: 30px;
+	width: 388px;
 
-	margin-left: 30px;
-	width: 505px;
-	form {
-		.footer-form-col1 {
-			float: left;
-			width: 200px;
-			input[type="text"], textarea {
-				width: 150px;
-				margin-bottom: 10px;
-			}
-		}
+	#new_contact {
 		label {
 			float: left;
-			width: 37px;
-			line-height: 33px;
-			font-size: 13px;
-			padding-right: 7px;
 			text-align: right;
+			margin-top: 7px;
+			width: 80px;
+			font-size: 14px;
 		}
-		.footer-form-col2 {
-			float: left;
-			label {
-				width: 80px;
-				margin-left: -87px;
-				margin-top: 75px;
-			}
-		 	textarea {
-				width: 275px;
-				margin-bottom: 10px;
-				@include rounded(4px);
-				padding: 7px;
-				font-size: 14px;
-				height: 120px;
-			}
-			input[type="submit"] {
-				width: 275px;
-				border: 1px solid lighten($blue, 7%);
-				@include gradient(lighten($blue, 7%), $blue);
-				&:hover {
-					background: lighten($blue, 7%);
-				}
-				&:active {
-					background: $blue;
-				}
-			}
-		}			
+		input, textarea {
+			width: 210px;
+			margin-left: 89px;
+			margin-bottom: 15px;
+		}
 	}
+	// form {
+	// 	width: 200px;
+	// 	input[type="text"], textarea {
+	// 		width: 150px;
+	// 		margin-bottom: 10px;
+	// 	}
+	// 	label {
+	// 		float: left;
+	// 		width: 37px;
+	// 		line-height: 33px;
+	// 		font-size: 13px;
+	// 		padding-right: 7px;
+	// 		text-align: right;
+	// 	}
+	//  	textarea {
+	// 		width: 275px;
+	// 		margin-bottom: 10px;
+	// 		@include rounded(4px);
+	// 		padding: 7px;
+	// 		font-size: 14px;
+	// 		height: 120px;
+	// 	}
+	// 	input[type="submit"] {
+	// 		width: 275px;
+	// 		border: 1px solid lighten($blue, 7%);
+	// 		@include gradient(lighten($blue, 7%), $blue);
+	// 		&:hover {
+	// 			background: lighten($blue, 7%);
+	// 		}
+	// 		&:active {
+	// 			background: $blue;
+	// 		}
+	// 	}			
+	// }
 }

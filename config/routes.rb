@@ -28,13 +28,13 @@ Seven6::Application.routes.draw do
   end
 
   match 'photos/photo_file', :to => 'photos#photo_file'
-
   
   match '/signout', :to => 'sessions#destroy'
   match '/signin',  :to => 'sessions#new'
   match '/signup',  :to => 'users#new'
   match '/',        :to => 'pages#home'
   match '/test',    :to => 'pages#test' 
+  match 'contact',  :to => 'contacts#new'
 
   post '/show_all_routes'  => 'users#show_all_routes'
   
