@@ -61,6 +61,571 @@ var mapWidth;
 
 $(document).ready(function(){
 
+
+  $('#show-workouts').click(function() {
+    $('#route_actions a.selected').removeClass('selected');
+    $('#show-workouts').addClass('selected');
+    $('#comments-container').hide();
+    $('#climbs-container').hide();
+
+    if($('#workouts-container').is(":visible")) {
+      $('#workouts-container').slideUp("slow");
+      $('#route_actions a.selected').removeClass('selected');
+    } else {
+      $('#workouts-container').slideDown('slow');
+    }
+    return false;
+  });
+
+  $('#add_workout_btn').click(function(){
+    $('#add_workout_btn').hide();
+    $('#add-workout').slideDown('slow');
+    return false;
+  });
+
+  // sprawdzanie poprawności czasu 
+  $('#workout_time_string').focus(function(){
+    $('#workout_time_string').keyup(function(){
+      var time_string = $('#workout_time_string').val();
+      var timeRegex = /\d{1,3}\D\d{1,2}\D?\d{0,2}/;
+      var timeRegexOk = time_string.match(timeRegex)
+      if (timeRegexOk == time_string) {
+        var time_s = "";
+        var time_a = [];
+        for(var i = 0; i < time_string.length; i++) {
+          var c = time_string.charAt(i);
+          if(c.match(/\d/)) {
+            time_s += c;
+          } else {
+            time_s += ":"
+          }
+        }
+        time_a = time_s.split(":");
+        total_time_sec = 0;
+        if(time_a[2] != "" && time_a[2] != null) {
+          total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60 + parseFloat(time_a[2]);
+        } else {
+          total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60;
+          time_a[2] = "0";
+        }
+        if(total_time_sec > 0) {
+          distance = $('#route_distance').val();
+          avg_speed = Math.round(distance * 3600 / total_time_sec * 100) / 100;
+          $("#avg_speed_val").html(avg_speed);
+          $("#total-time-show-h").html(time_a[0]);
+          $("#total-time-show-m").html(time_a[1]);
+          $("#total-time-show-s").html(time_a[2]);
+        }
+        $('#error-explanation-time').hide();
+        $('#workout_time_string').css("border-color", "#D5D8D9");
+      } else {
+        $('#error-explanation-time').show();
+        $('#workout_time_string').css("border-color", "#C84446");
+      }
+    });
+  });
+  //ukrywanie podpowiedzi gdy pole zostaje wyczyszczone
+  $('#workout_time_string').blur(function(){
+    if($('#workout_time_string').val() == "") {
+      $('#error-explanation-time').hide();
+      $('#workout_time_string').css("border-color", "#D5D8D9");
+    }
+  });
+
+  //Poprawność tętna
+  $('#workout_pulse').blur(function() {
+    var pulse = $('#workout_pulse').val();
+    var pulseRegex = /\d{2,3}\/\d{2,3}/;
+    var pulseRegexOk = pulse.match(pulseRegex);
+    if(pulse == pulseRegexOk || $('#workout_pulse').val() == "") {
+      $("#error-explanation-pulse").hide();
+      $('#workout_pulse').css("border-color", "#D5D8D9");
+    } else {
+      $("#error-explanation-pulse").show();
+      $('#workout_pulse').css("border-color", "#C84446");
+    }
+  });
+
+  //Poprawność prędkość maksymalna
+  $('#workout_max_speed').blur(function() {
+    var max_speed = $('#workout_max_speed').val();
+    var max_speedRegex = /\d{1,3}.?\d{0,4}/;
+    var max_speedRegexOk = max_speed.match(max_speedRegex);
+    if((max_speed == max_speedRegexOk || $('#workout_max_speed').val() == "") && max_speed < 200) {
+      $("#error-explanation-max-speed").hide();
+      $('#workout_max_speed').css("border-color", "#D5D8D9");
+    } else {
+      $("#error-explanation-max-speed").show();
+      $('#workout_max_speed').css("border-color", "#C84446");
+    }
+  });
+
+  //Poprawność temperatury
+  $('#workout_temperature').blur(function() {
+    var temperature = $('#workout_temperature').val();
+    var temperatureRegex = /\d{1,2}.?\d{0,1}/;
+    var temperatureRegexOk = temperature.match(temperatureRegex);
+    if(temperature == temperatureRegexOk || $('#workout_temperature').val() == "") {
+      $("#error-explanation-temperature").hide();
+      $('#workout_temperature').css("border-color", "#D5D8D9");
+    } else {
+      $("#error-explanation-temperature").show();
+      $('#workout_temperature').css("border-color", "#C84446");
+    }
+  });
+
+  // dodawanie przejazdu
+  var route_id = $('#route_id').val();
+  $('#workout_submit').click(function() {
+    var time_string = $("#workout_time_string").val();
+    var max_speed = $("#workout_max_speed").val();
+    var pulse = $("#workout_pulse").val();
+    var temperature = $("#workout_temperature").val();
+    var description = $("#workout_description").val();
+    $.post(
+      '/create_workout', {
+        route_id : route_id,
+        time_string : time_string,
+        max_speed : max_speed,
+        pulse : pulse,
+        temperature : temperature,
+        description : description
+      },
+      function(data) {
+        console.log(data);
+        $('#workouts-list').append(data);
+        updateWorkoutsNum(1);
+      }
+    );
+    $("#workout_time_string").val("");
+    $("#workout_max_speed").val("");
+    $("#workout_pulse").val("");
+    $("#workout_temperature").val("");
+    $("#workout_description").val("");
+
+    $('#add-workout').hide();
+    $('#add_workout_btn').show();
+    return false;
+  });
+
+  //edit
+  $('p.workout-meta .edit_workout').live('click', function(){
+    // $('p.workout-meta .edit_workout').die();
+    // alert("test ok");
+    var id_a = $(this).attr("id").split('_');
+    var id = id_a[2];
+    var workout_body = $(this).parent().parent().children('ul');
+    var edit_workout_btn = $(this);
+    console.log(id);
+    $.post(
+      '/edit_workout',
+      { workout_id : id },
+      function(data) {
+        workout_body.html(data);
+        edit_workout_btn.hide();
+        workout_body.parent().children('.workout-description').remove();
+        $('#workout_submit').click(function(){
+          var time_string = $('#workout_time_string_edit').val();
+          var max_speed = $('#workout_max_speed').val();
+          var pulse = $('#workout_pulse_edit').val();
+          var temperature = $('#workout_temperature').val();
+          var description = $('#workout_description').val();
+          $.post(
+            '/update_workout',
+            {
+              workout_id : id,
+              time_string : time_string,
+              max_speed : max_speed,
+              pulse : pulse,
+              temperature : temperature,
+              description : description
+            },
+            function(data) {
+              workout_body.parent().parent().html(data);
+            }
+          );
+          return false;
+        });
+        $('.deleteWorkoutBtn').live('click', function() {
+          $('.edit_workout').die();
+          $(this).parent().parent().parent().parent().remove();
+            $.post(
+            '/delete_workout',
+            { workout_id : id },
+            function(data) {
+              console.log(data);
+              updateWorkoutsNum(-1);
+            }
+          );
+          return false;
+        });
+      }
+    );
+
+    // element do zamiany
+    // console.log($(this).parent().parent().children('ul'));
+    var test = "32 (32)".split("(")[1].replace(")", "");
+    return false;
+  });
+
+  var offset = 0;
+  var period = "";
+
+  // TODO
+  // id offset 0 to wylacz previous button
+
+  $('#stats_next_btn').click(function() {
+    offset += 1;
+    $.post(
+      '/show_stats',
+      {user_id : user_id, period : period, offset : offset },
+      function(data) {
+        $('#script_chart').html(data);
+      }
+    );
+    return false;
+  });
+  $('#stats_previous_btn').click(function() {
+    offset -= 1;
+    $.post(
+      '/show_stats',
+      {user_id : user_id, period : period, offset : offset },
+      function(data) {
+        $('#script_chart').html(data);
+      }
+    );
+    return false;
+  });
+  var user_id = $('#user_id').val();
+  if($('#charts_container').length) {
+    $('#stats_day_btn').addClass('selected');
+    period = "day";
+    $.post(
+      '/show_stats',
+      {user_id : user_id, period : period, offset : offset},
+      function(data) {
+        $('#script_chart').html(data);
+      }
+    );
+  }
+  $('#stats_day_btn').click(function() {
+    $('#stats_actions a.selected').removeClass('selected');
+    $('#stats_day_btn').addClass('selected');
+    offset = 0;
+    period = "day";
+    $.post(
+      '/show_stats',
+      {user_id : user_id, period : period, offset : offset},
+      function(data) {
+        $('#script_chart').html(data);
+      }
+    );
+    return false;
+  });
+  $('#stats_month_btn').click(function() {
+    $('#stats_actions a.selected').removeClass('selected');
+    $('#stats_month_btn').addClass('selected');
+    offset = 0;
+    period = "month";
+    $.post(
+      '/show_stats',
+      {user_id : user_id, period : period, offset : offset},
+      function(data) {
+        $('#script_chart').html(data);
+      }
+    );
+    return false;
+  });
+  $('#stats_week_btn').click(function() {
+    $('#stats_actions a.selected').removeClass('selected');
+    $('#stats_week_btn').addClass('selected');
+    offset = 0;
+    period = "week";
+    $.post(
+      '/show_stats',
+      {user_id : user_id, period : period, offset : offset},
+      function(data) {
+        $('#script_chart').html(data);
+      }
+    );
+    return false;
+  });
+    $('#distance_slider').slider({
+      range: true,
+      min: 0,
+      max: 100,
+      values: [0, 100],
+      slide: function(event, slider) {
+        if(slider.values[1] == 100) {
+          $('#distance_range').text(slider.values[0] + ' km - ' + slider.values[1] + '+ km');
+        } else {
+          $('#distance_range').text(slider.values[0] + ' km - ' + slider.values[1] + ' km');
+        }
+      }
+    });
+    if($('#distance_min').val()) {
+      $('#distance_slider').slider( "option", "values", [$('#distance_min').val(),$('#distance_max').val()] );
+    }
+    if($('#distance_slider').slider("values", 1) == '100') {
+      $('#distance_range').text($('#distance_slider').slider("values", 0) + ' km - ' + $('#distance_slider').slider("values", 1) + '+ km');
+    } else {
+      $('#distance_range').text($('#distance_slider').slider("values", 0) + ' km - ' + $('#distance_slider').slider("values", 1) + ' km');
+    }
+
+    //altitude
+    $('#altitude_slider').slider({
+      range: true,
+      min: 0,
+      max: 400,
+      values: [0, 400],
+      slide: function(event, slider) {
+        if(slider.values[1] == 400) {
+          $('#altitude_range').text(slider.values[0] + ' m - ' + slider.values[1] + '+ m');
+        } else {
+          $('#altitude_range').text(slider.values[0] + ' m - ' + slider.values[1] + ' m');
+        }
+      }
+    });
+    if($('#altitude_min').val()) {
+      $('#altitude_slider').slider( "option", "values", [$('#altitude_min').val(),$('#altitude_max').val()] );
+    }
+    if($('#altitude_slider').slider("values", 1) == '400') {
+      $('#altitude_range').text($('#altitude_slider').slider("values", 0) + ' m - ' + $('#altitude_slider').slider("values", 1) + '+ m');
+    } else {
+      $('#altitude_range').text($('#altitude_slider').slider("values", 0) + ' m - ' + $('#altitude_slider').slider("values", 1) + ' m');
+    }
+
+    $('#routes_filter_reset').click(function() {
+      $('#altitude_slider').slider( "option", "values", [0,400] );
+      $('#distance_slider').slider( "option", "values", [0,100] );
+      $('#route_road').attr('checked', false);
+      return false;
+    });
+
+    if($('#road').val() == 1) {
+      $('#route_road').attr('checked', true);
+    }
+
+    $('#routes_filter_btn').click(function() {
+      var href = $(this).attr("href");
+      var paramsArray = href.split("?")[1].split("&");
+      var newHref = href.split("?")[0] + "?"
+      for(var i in paramsArray) {
+        if (paramsArray[i].indexOf('distance_max') != -1) {
+          newHref += 'distance_max=' + $('#distance_slider').slider("values", 1) + '&';
+        } else if(paramsArray[i].indexOf('distance_min') != -1) {
+          newHref += 'distance_min=' + $('#distance_slider').slider("values", 0) + '&';
+        } else if(paramsArray[i].indexOf('altitude_max') != -1) {
+          newHref += 'altitude_max=' + $('#altitude_slider').slider("values", 1) + '&';
+        } else if(paramsArray[i].indexOf('altitude_min') != -1) {
+          newHref += 'altitude_min=' + $('#altitude_slider').slider("values", 0) + '&';
+        } else {
+          newHref += paramsArray[i] + '&';
+        }
+      }
+      if($('#route_road').attr('checked')) {
+        newHref += 'road=1';
+      } else {
+        newHref += 'road=0';
+      }
+      console.log(newHref);
+      
+      $(this).attr("href", newHref);
+    });
+
+  // ustalanie ikonek dla wartosci z bazy
+  var value = $('#route_rating_value').val();
+  update_rating(value, '#rating li a');
+  var route_id = $('#route_id').val();
+
+  $('#rating li a').mouseover(function() {
+    var hoverVal = $(this).html();
+    $('#rating li a:lt(' + hoverVal + ')').addClass('select');
+  });
+  $('#rating li a').mouseout(function() {
+    var hoverVal = $(this).html();
+    $('#rating li a:lt(' + hoverVal + ')').removeClass('select');
+  });
+  $('#rating li a').click(function() {
+    var selectVal = $('#user_rating_value').val();
+    $('#rating li a:lt(' + selectVal + ')').addClass('select');
+    var rating_value = parseFloat($(this).html());
+    $.post('/add_rating', {route_id : route_id, value : rating_value }, function(avg_rating) {
+      update_rating(avg_rating, '#rating li a');
+    });
+    return false;
+  });
+  // zaznaczenie gwiazdeg gdy user wczesniej glosowal
+  if($('#user_rating_value')) {
+    var selectVal = $('#user_rating_value').val();
+    $('#rating li a:lt(' + selectVal + ')').addClass('select');
+  }
+  if($('#user_rating_like').val() == "true") {
+    $('#add-favorite span').html("Usuń z ulubionych");
+    $('#add-favorite a').addClass("liked");
+  }
+  var like = $('#user_rating_like').val();
+  $('#add-favorite a').click(function() {
+    like = $('#user_rating_like').val();
+    if(like) { // jesli jest true 
+      like = null;
+      $('#add-favorite span').html("Dodaj do ulubionych");
+      $('#add-favorite a').removeClass("liked");
+    } else {
+      like = true;
+      $('#add-favorite span').html("Usuń z ulubionych");
+      $('#add-favorite a').addClass("liked");
+    }
+    // console.log(like);
+    $('#user_rating_like').val(like);
+    $.post('/add_like', {route_id : route_id, like : like }, function(data) {
+    });
+    return false;
+  });
+  //index oceny
+  update_index_rating();
+
+  $('#avatar_actions_update').bind('click', function() {
+    if($('#avatar_form').is(':visible')) {
+      $('#avatar_form').slideUp("slow");
+    } else {
+      $('#avatar_form').slideDown('slow');
+    }
+    return false;
+  });
+
+  $('#show-comments').click(function() {
+    $('#route_actions a.selected').removeClass('selected');
+    $('#show-comments').addClass('selected');
+    $('#climbs-container').slideUp();
+    $('#workouts-container').slideUp();
+
+    if($('#comments-container').is(":visible")) {
+      $('#comments-container').slideUp("slow");
+      $('#route_actions a.selected').removeClass('selected');
+    } else {
+      $('#comments-container').slideDown('slow');
+      // $(this).css('background', '#caced0');
+    }
+    return false;
+  });
+
+  //edit
+  $('p.comment-meta a.edit_comment').live('click', function() {
+    // $(this).unbind('click');
+    // console.log($(this).attr("id"));
+    var id_a = $(this).attr("id").split('_');
+    var id = id_a[1];
+    console.log(id);
+    $(this).css('display', 'none');
+
+    var cBody = $(this).parent().parent().children()
+    var oldContent = $(cBody[1]).html();
+    console.log(oldContent);
+    var editForm = "<a href='#' class='deleteCommentBtn'>Usuń komentarz</a><textarea id='newCommentContent'>"+ oldContent +"</textarea><a href='#' class='editCommentBtn'>Zapisz</a>"
+    $(cBody[1]).html(editForm);
+    
+    $('.editCommentBtn').live('click', function() {
+      $('.editCommentBtn').die();
+      var newContent = $('#newCommentContent').val();
+
+      $(cBody[1]).html(newContent);
+      
+      //postem na serwer newContent id
+      $.post(
+        '/edit_comment',
+        {comment_id : id, content : newContent },
+        function(data) {
+          console.log(data);
+
+        }
+      );
+      
+      console.log("zmien id:" +id+" content:" + newContent);
+
+      // przywraca przycisk edit
+      $('#edit_'+id).css('display', 'inline');
+      return false;
+    });
+
+    $('.deleteCommentBtn').live('click', function() {
+      $('.editCommentBtn').die();
+      var li = $(this).parent().parent().parent().remove();
+      $.post(
+        '/delete_comment',
+        {comment_id : id },
+        function(data) {
+          console.log(data);
+          updateCommentsNum(-1);
+        }
+      );
+      return false;
+    });
+    return false;
+  });
+
+  var route_id = $('#route_id').val();
+  $('#add-comment-btn').click(function() {
+    var content = $('#comment_content').val();
+    $.post(
+      '/create_comment',
+      {route_id : route_id, content : content },
+      function(data) {
+        $('#comments-list').append(data);
+        updateCommentsNum(1);
+      }
+    );
+    $('#comment_content').val("");
+    return false;
+  });
+
+  $('#show-climbs').click(function() {
+    $('#route_actions a.selected').removeClass('selected');
+    $('#show-climbs').addClass('selected');
+    $('#comments-container').hide();
+    $('#workouts-container').hide();
+
+    if($('#climbs-container').is(":visible")) {
+      $('#climbs-container').slideUp("slow");
+      $('#route_actions a.selected').removeClass('selected');
+      $("#elevation-chart").slideUp();
+    } else {
+      $('#climbs-container').slideDown('slow');
+    
+      // pokaz wykres i obicz elevation 
+
+      if(!$('#elevation-chart').is(":visible")) {
+        $("#elevation-chart").slideDown();
+        $("#elevation-chart").width(mapWidth - 1);
+
+        // redukcja tablicy do 190 elementow 
+        if (path.length > 190) {
+          var reucedPath = new google.maps.MVCArray();
+          reucedPath = path;
+          var ca = 0;
+          while (reucedPath.length > 190) {
+             reucedPath = reductionPath(reucedPath);
+          }
+          console.log("Do wywalenia: "+  (path.length - 190));
+          // console.log("Nowa: " + reucedPath);
+          // console.log("Stara: " + path);
+          console.log(reucedPath.length);
+        }
+
+        // wywolanie funkcji do stworzenia profilu wysokosciowego
+        if(reucedPath) {
+          createElevation(reucedPath);
+          console.log("reduced");
+        } else {
+          createElevation(path);
+        }
+      }
+    }
+    return false;
+  });
+
+
+
   // pokaz zdjecie
   if($('#route_photos').length) {
     var route_id = $('#route_id').val();
@@ -1375,3 +1940,115 @@ function centerMap(address) {
     }
   });
 }
+
+function updateCommentsNum(value) {
+  var commentsNum = parseFloat($('#comments-container h3').html().split(" ")[0]);
+  console.log(commentsNum);
+  $('#comments-container h3').html(commentsNum + value +" "+$('#comments-container h3').html().split(" ")[1]);
+  $('#show-comments').html("Komentarze (" + (commentsNum + value) + ")");
+}
+
+function updateWorkoutsNum(value) {
+  var workoutsNum = parseFloat($('#workouts-container h3').html().split("(")[1].replace(")", ""));
+  // console.log(workoutsNum);
+  $('#workouts-container h3').html("Przejazdy (" + (value + workoutsNum) + ")");
+  $('#show-workouts').html("Przejazdy (" + (value + workoutsNum) + ")");
+};
+
+// aktualizacja gwiazdek
+function update_rating(value, target) {
+  $(target).removeClass('full-fill');
+  $(target).removeClass('half-fill');
+  if(value > 4.75) {
+    $(target +':lt(5)').addClass('full-fill');
+  } else if(value > 4.25) {
+    $(target + ':lt(4)').addClass('full-fill');
+    $(target + '.5').addClass('half-fill');
+  } else if(value > 3.75) {
+    $(target + ':lt(4)').addClass('full-fill');
+  } else if(value > 3.25) {
+    $(target + ':lt(3)').addClass('full-fill');
+    $(target + '.4').addClass('half-fill');
+  } else if(value > 2.75) {
+    $(target + ':lt(3)').addClass('full-fill');
+  } else if(value > 2.25) {
+    $(target + ':lt(2)').addClass('full-fill');
+    $(target + '.3').addClass('half-fill');
+  } else if(value > 1.75) {
+    $(target + ':lt(2)').addClass('full-fill');
+  } else if(value > 1.25) {
+    $(target + ':lt(1)').addClass('full-fill');
+    $(target + '.2').addClass('half-fill');
+  } else if(value > 0.75) {
+    $(target + '.1').addClass('full-fill');
+  }
+}
+
+function update_index_rating() {
+  $('ul.rating').each(function(i) {
+    z = $('ul.rating')[i];
+    value = $(z).children().first().html();
+    if(parseFloat(value) > 4.75) {
+      $(z).children().each(function(index) {
+        $(this).addClass('full-fill');
+      });
+    } else if(parseFloat(value) > 4.25) {
+      $(z).children().each(function(index) {
+        if(index < 5) {
+          $(this).addClass('full-fill');
+        } else if (index == 5) {
+          $(this).addClass('half-fill');
+        }
+      });
+    } else if(parseFloat(value) > 3.75) {
+      $(z).children().each(function(index) {
+        if(index < 5) {
+          $(this).addClass('full-fill');
+        }
+      });
+    } else if(parseFloat(value) > 3.25) {
+      $(z).children().each(function(index) {
+        if(index < 4) {
+          $(this).addClass('full-fill');
+        } else if (index == 4) {
+          $(this).addClass('half-fill');
+        }
+      });
+    } else if(parseFloat(value) > 2.75) {
+      $(z).children().each(function(index) {
+        if(index < 4) {
+          $(this).addClass('full-fill');
+        }
+      });
+    } else if(parseFloat(value) > 2.25) {
+      $(z).children().each(function(index) {
+        if(index < 3) {
+          $(this).addClass('full-fill');
+        } else if (index == 3) {
+          $(this).addClass('half-fill');
+        }
+      });
+    } else if(parseFloat(value) > 1.75) {
+      $(z).children().each(function(index) {
+        if(index < 3) {
+          $(this).addClass('full-fill');
+        }
+      });
+    } else if(parseFloat(value) > 1.25) {
+      $(z).children().each(function(index) {
+        if(index < 2) {
+          $(this).addClass('full-fill');
+        } else if (index == 2) {
+          $(this).addClass('half-fill');
+        }
+      });
+    } else if(parseFloat(value) > 0.75) {
+      $(z).children().each(function(index) {
+        if(index < 2) {
+          $(this).addClass('full-fill');
+        }
+      });
+    }
+  });
+}
+

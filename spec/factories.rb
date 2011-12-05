@@ -16,8 +16,14 @@ Factory.define :route do |route|
   route.association :user
 end
 
-Factory.define :comment do |route|
-  route.content "test"
-  route.association :user
-  route.association :route
+Factory.define :comment do |comment|
+  comment.content "test"
+  comment.association :user
+  comment.association :route
+end
+
+Factory.define :rating do |rating|
+  rating.value 4
+  rating.association :user
+  rating.association :route
 end

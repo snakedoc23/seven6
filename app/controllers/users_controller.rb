@@ -146,7 +146,7 @@ class UsersController < ApplicationController
             @total_routes[i] += 1
             @total_distance[i] += route.distance.round(2)
             # @total_time[i] += route.total_time
-            @total_climb_up[i] += route.total_climb_up.round(2)
+            @total_climb_up[i] += route.total_climb_up.round(2) if route.total_climb_up
           end
         end
       end
@@ -162,7 +162,7 @@ class UsersController < ApplicationController
             @total_routes[i] += 1
             @total_distance[i] += route.distance.round(2)
             # @total_time[i] += route.total_time
-            @total_climb_up[i] += route.total_climb_up.round(2)
+            @total_climb_up[i] += route.total_climb_up.round(2) if route.total_climb_up
           end
         end
       end

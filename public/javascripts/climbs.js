@@ -16,8 +16,6 @@ jQuery(document).ready(function() {
 			// pokaz wykres i obicz elevation 
 
 			if(!$('#elevation-chart').is(":visible")) {
-			
-
 				$("#elevation-chart").slideDown();
 				$("#elevation-chart").width(mapWidth - 1);
 
@@ -44,14 +42,6 @@ jQuery(document).ready(function() {
 				}
 			}
 		}
-
-
-
-
-
-
-
 		return false;
-
 	});
 });

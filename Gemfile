@@ -45,4 +45,5 @@ group :development, :test do
   gem 'guard-spork'
   gem 'factory_girl_rails'
   gem 'fuubar'
+  gem 'growl'
 end
