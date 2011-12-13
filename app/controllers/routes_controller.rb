@@ -4,6 +4,10 @@ class RoutesController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
+  def compare
+    @routes = Route.all
+  end
+
   def index
     @routes = Route.where('distance > ? AND distance < ? AND altitude > ? AND altitude < ? AND surface LIKE ?', distance_min, distance_max, altitude_min, altitude_max, only_road)
                    .search(params[:search]).order(sort_column + " " + sort_direction)

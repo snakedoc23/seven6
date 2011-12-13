@@ -2,6 +2,8 @@ Seven6::Application.routes.draw do
 
   root :to => "pages#home"
 
+  get 'routes/compare'
+  
   resources :users do
     member do
       get 'edit_password'

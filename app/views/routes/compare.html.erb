@@ -1,0 +1,23 @@
+<div id="with-map">
+  <div id="aside">
+    <div id="aside-content">
+      <%= render 'shared/search_place' %>
+      <h2 class="title-aside clear">Porównaj trasy</h2>
+      
+      <%= select_tag "trasy", options_from_collection_for_select(@routes, "id", "title") %>
+      <ul>
+      <% @routes.each do |route| %>
+        <li><%= "#{route.id}: #{route.title}, (#{route.distance}km)" %></li>  
+      <% end %>
+      </ul>
+
+    </div><!-- aside-content -->
+  </div><!-- aside -->
+  <div id="map"></div>
+</div>
+
+
+
+form
+  select 1
+  select 2
