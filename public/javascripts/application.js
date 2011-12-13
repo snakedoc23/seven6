@@ -54,12 +54,105 @@ var photoInfoBoxes = [];
 var allPolylines = [];
 
 var mc;
+var compareRoutes = [];
+
 
 google.load("visualization", "1", {packages: ["corechart"]});
 
 var mapWidth;
 
 $(document).ready(function(){
+
+  // porownanie tras
+  if($('#compare_routes').length) {
+    $('#compare_routes').submit(function() {
+      $.ajax({
+        type: "POST",
+        url: "/compare_routes",
+        data: {
+          first_route_id : $('#first').val(),
+          second_route_id : $('#second').val(),
+        },
+        dataType: "json",
+        success: function(routes) {
+
+          if(compareRoutes.length){
+            for(var i = 0; i < compareRoutes.length; i++) {
+              compareRoutes[i].setMap(null);
+            }
+          }
+          console.log(routes[0].route);
+
+          // var bounds = new google.maps.LatLngBounds();
+          // for(var i = 0; i < routes.length; i++) {
+          //   var route = new google.maps.Polyline({
+          //     strokeColor: '#c84446',
+          //     strokeOpacity: .6,
+          //     strokeWeight: 5,
+          //     map: map
+          //   });
+          //   var path = [];
+          //   var boundsTmp = pathFromString(routes[i].route.coordinates_string, path);
+          //   bounds.extend(boundsTmp.getNorthEast());
+          //   bounds.extend(boundsTmp.getSouthWest());  
+          //   compareRoutes.push(route);   
+          // }
+
+          $('#route_title_1').html("<a href=\"/routes/" + routes[0].route.id + "\">" + routes[0].route.title + "</a>");
+          $('#route_title_2').html("<a href=\"/routes/" + routes[1].route.id + "\">" + routes[1].route.title + "</a>");
+
+          $('#route_distance_1').text(routes[0].route.distance);
+          $('#route_distance_2').text(routes[1].route.distance);
+          $('#route_altitude_1').text(Math.round((routes[0].route.max_altitude - routes[0].route.min_altitude) * 100)/ 100);
+          $('#route_altitude_2').text(Math.round((routes[1].route.max_altitude - routes[1].route.min_altitude) * 100)/ 100);
+          
+          $('#route_surface_1').text(routes[0].route.surface);
+          $('#route_surface_2').text(routes[1].route.surface);
+
+          $('#route_rating_1').text(routes[0].route.rating);
+          $('#route_rating_2').text(routes[1].route.rating);
+
+          $('#route_date_1').text(routes[0].route.updated_at.split('T')[0]);
+          $('#route_date_2').text(routes[1].route.updated_at.split('T')[0]);
+
+          $('#route_workouts_1').text(routes[0].route.total_workouts);
+          $('#route_workouts_2').text(routes[1].route.total_workouts);
+
+          $('#route_comments_1').text(routes[0].route.total_comments);
+          $('#route_comments_2').text(routes[1].route.total_comments);
+
+          $('#compare_table').show();
+
+          var route1 = new google.maps.Polyline({
+            strokeColor: '#c84446',
+            strokeOpacity: .6,
+            strokeWeight: 5,
+            map: map
+          });
+          var route2 = new google.maps.Polyline({
+            strokeColor: '#283A43',
+            strokeOpacity: .6,
+            strokeWeight: 5,
+            map: map
+          });
+
+          var path1 = new Array();
+          var path2 = new Array();
+          var bounds1 = pathFromString(routes[0].route.coordinates_string, path1);
+          var bounds2 = pathFromString(routes[1].route.coordinates_string, path2);
+          route1.setPath(path1);
+          route2.setPath(path2);
+          compareRoutes.push(route1);
+          compareRoutes.push(route2);
+          bounds1.extend(bounds2.getNorthEast());
+          bounds1.extend(bounds2.getSouthWest());
+          map.fitBounds(bounds1);
+        }
+      });
+
+      return false;
+    });
+  }
 
   // pokaz zdjecie
   if($('#route_photos').length) {

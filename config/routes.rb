@@ -3,7 +3,7 @@ Seven6::Application.routes.draw do
   root :to => "pages#home"
 
   get 'routes/compare'
-  
+
   resources :users do
     member do
       get 'edit_password'
@@ -63,6 +63,8 @@ Seven6::Application.routes.draw do
   post '/create_photo'     => 'photos#create'
   post '/photo_markers'    => 'photos#markers'
   post '/show_photo'       => 'photos#show'
+
+  post '/compare_routes'   => 'routes#compare_routes'
 
   get "pages/home"
   get "pages/test"

@@ -4,8 +4,16 @@ class RoutesController < ApplicationController
 
   helper_method :sort_column, :sort_direction
 
+
   def compare
-    @routes = Route.all
+    @routes = Route.all(:order => "created_at DESC")
+  end
+
+  def compare_routes
+    @routes = []
+    @routes.push Route.find(params[:first_route_id])
+    @routes.push Route.find(params[:second_route_id])
+    render :json => @routes
   end
 
   def index

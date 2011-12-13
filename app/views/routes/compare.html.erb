@@ -3,21 +3,100 @@
     <div id="aside-content">
       <%= render 'shared/search_place' %>
       <h2 class="title-aside clear">Porównaj trasy</h2>
-      
-      <%= select_tag "trasy", options_from_collection_for_select(@routes, "id", "title") %>
-      <ul>
+
+      <div id="compare_container">
+
+
+        <%= form_tag "compare_routes", :id => "compare_routes" do %>
+        <div class="first_route">
+          <%= label_tag "first", "Wypierz pierwszą trasę" %>
+          <%= select_tag "first", options_from_collection_for_select(@routes, "id", "title") %>
+        </div>
+        <div class="second_route">
+          <%= label_tag "second", "Wypierz drugą trasę" %>
+          <%= select_tag "second", options_from_collection_for_select(@routes, "id", "title") %>
+        </div>
+        <div class="clear"></div>
+          <%= submit_tag "Porównaj", :class => 'btn-base', :id => 'compare_btn' %>
+        <% end %>
+
+
+        <table id="compare_table">
+          <thead>
+            <tr>
+              <th>Trasa 1</th>
+              <th>Trasa 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2">Tytuł trasy</td>
+            </tr>
+            <tr>
+              <td id="route_title_1">Test</td>
+              <td id="route_title_2">Test</td>
+            </tr>
+            <tr>
+              <td colspan="2">Dystans</td>
+            </tr>
+            <tr>
+              <td id="route_distance_1">0</td>
+              <td id="route_distance_2">0</td>
+            </tr>
+            <tr>
+              <td colspan="2">Wzniesienia</td>
+            </tr>
+            <tr>
+              <td id="route_altitude_1">0</td>
+              <td id="route_altitude_2">0</td>
+            </tr>
+            <tr>
+              <td colspan="2">Nawierzchnia</td>
+            </tr>
+            <tr>
+              <td id="route_surface_1">0</td>
+              <td id="route_surface_2">0</td>
+            </tr>
+            <tr>
+              <td colspan="2">Ocena</td>
+            </tr>
+            <tr>
+              <td id="route_rating_1">0</td>
+              <td id="route_rating_2">0</td>
+            </tr>
+            <tr>
+              <td colspan="2">Data dodania</td>
+            </tr>
+            <tr>
+              <td id="route_date_1">0</td>
+              <td id="route_date_2">0</td>
+            </tr>
+            <tr>
+              <td colspan="2">Komentarze</td>
+            </tr>
+            <tr>
+              <td id="route_comments_1">0</td>
+              <td id="route_comments_2">0</td>
+            </tr>
+            <tr>
+              <td colspan="2">Przejazdy</td>
+            </tr>
+            <tr>
+              <td id="route_workouts_1">0</td>
+              <td id="route_workouts_2">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+<!--       <ul>
       <% @routes.each do |route| %>
         <li><%= "#{route.id}: #{route.title}, (#{route.distance}km)" %></li>  
       <% end %>
-      </ul>
+      </ul> -->
 
     </div><!-- aside-content -->
   </div><!-- aside -->
   <div id="map"></div>
 </div>
 
-
-
-form
-  select 1
-  select 2

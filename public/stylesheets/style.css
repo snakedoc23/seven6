@@ -2553,3 +2553,95 @@ ul.rating li {
     width: 210px;
     margin-left: 89px;
     margin-bottom: 15px; }
+
+#compare_container {
+  margin-left: 30px;
+  margin-top: 20px;
+  width: 310px; }
+
+#compare_routes label {
+  text-align: center; }
+#compare_routes #first, #compare_routes #second {
+  width: 150px;
+  padding: 4px;
+  margin-top: 6px; }
+#compare_routes .first_route {
+  width: 150px;
+  float: left; }
+#compare_routes .second_route {
+  width: 150px;
+  float: right; }
+#compare_routes #compare_btn {
+  margin-bottom: 23px;
+  font-size: 13px;
+  width: 84px;
+  margin: auto;
+  display: block;
+  background: #354d59;
+  /* for non-css3 browsers */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+  /* for IE */
+  background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+  /* for webkit browsers */
+  background: -moz-linear-gradient(top, #354d59, #283a43);
+  /* for firefox 3.6+ */
+  background: linear-gradient(top, #354d59, #283a43); }
+  #compare_routes #compare_btn:hover {
+    background: #cf5759;
+    /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+    /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#cf5759), to(#bb3f41));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #cf5759, #bb3f41);
+    /* for firefox 3.6+ */
+    background: linear-gradient(top, #cf5759, #bb3f41); }
+
+#compare_table {
+  display: none;
+  text-align: center;
+  width: 310px;
+  margin-top: 10px;
+  font-size: 13px;
+  margin-bottom: 10px; }
+  #compare_table thead tr th {
+    width: 154px;
+    background: #283a43;
+    background: #354d59;
+    /* for non-css3 browsers */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+    /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#354d59), to(#283a43));
+    /* for webkit browsers */
+    background: -moz-linear-gradient(top, #354d59, #283a43);
+    /* for firefox 3.6+ */
+    background: linear-gradient(top, #354d59, #283a43);
+    color: white;
+    border: 1px solid #caced0;
+    padding: 3px 2px; }
+    #compare_table thead tr th:first-child {
+      background: #d06061;
+      /* for non-css3 browsers */
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to');
+      /* for IE */
+      background: -webkit-gradient(linear, left top, left bottom, from(#d06061), to(#c84446));
+      /* for webkit browsers */
+      background: -moz-linear-gradient(top, #d06061, #c84446);
+      /* for firefox 3.6+ */
+      background: linear-gradient(top, #d06061, #c84446); }
+  #compare_table tbody tr {
+    padding-bottom: 5px; }
+    #compare_table tbody tr:nth-child(even) {
+      background: white; }
+    #compare_table tbody tr:nth-child(odd) {
+      background: #f8f8f8;
+      text-align: center;
+      font-weight: 900;
+      border-top: 1px solid #283a43; }
+    #compare_table tbody tr td {
+      padding: 3px 2px; }
+      #compare_table tbody tr td:first-child {
+        border-left: 1px solid #caced0;
+        border-right: 1px solid #caced0; }
+      #compare_table tbody tr td:last-child {
+        border-right: 1px solid #caced0; }
