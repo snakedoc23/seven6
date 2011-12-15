@@ -6,7 +6,6 @@
 
       <div id="compare_container">
 
-
         <%= form_tag "compare_routes", :id => "compare_routes" do %>
         <div class="first_route">
           <%= label_tag "first", "Wypierz pierwszą trasę" %>
@@ -19,7 +18,6 @@
         <div class="clear"></div>
           <%= submit_tag "Porównaj", :class => 'btn-base', :id => 'compare_btn' %>
         <% end %>
-
 
         <table id="compare_table">
           <thead>
@@ -88,12 +86,6 @@
           </tbody>
         </table>
       </div>
-
-<!--       <ul>
-      <% @routes.each do |route| %>
-        <li><%= "#{route.id}: #{route.title}, (#{route.distance}km)" %></li>  
-      <% end %>
-      </ul> -->
 
     </div><!-- aside-content -->
   </div><!-- aside -->

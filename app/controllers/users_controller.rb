@@ -29,11 +29,12 @@ class UsersController < ApplicationController
     @routes = Route.last_three(@user.id)
     @routes = Route.find_all_by_user_id @user.id, :order => "created_at DESC", :limit => 3
     @workouts_total_distance = 0
-    @total_time = 0
+    @total_time_sec = 0
     @workouts_all.each do |workout|
       @workouts_total_distance += workout.route.distance
-      @total_time += workout.total_time
+      @total_time_sec += workout.total_time
     end
+    @total_time = time_to_string(@total_time_sec)
     @likes = Rating.likes(@user.id)
 
     @following_routes = @user.following_routes.first(3)
@@ -226,6 +227,14 @@ class UsersController < ApplicationController
   end
   
   private
+  
+    def time_to_string(total_time)
+      if total_time
+        h_time = (total_time / 3600 ).floor
+        m_time = ((total_time - (h_time * 3600)) / 60).round
+        "#{h_time}h #{m_time}m"
+      end
+    end
     
     def correct_user
       @user = User.find(params[:id])

@@ -1,8 +1,11 @@
 			<li><%= link_to "Start", root_path, :class => is_selected?(root_path) %></li>
 
-			<li><%= link_to "Znajdź trasę", routes_path, :class => is_selected?(test_path) %></li>
+			<!-- <li><%= link_to "Znajdź trasę", routes_path, :class => is_selected?(test_path) %></li> -->
 			<li><%= link_to "Dodaj trasę", new_route_path, :class => is_selected?(new_route_path) %></li>
 			<li><%= link_to "Trasy", routes_path, :class => is_selected?(routes_path) %></li>
+			
+			<li><%= link_to "Porównaj trasy", routes_compare_path, :class => is_selected?(routes_compare_path) %></li>
+
 			<li><%= link_to "Użytkownicy", users_path, :class => is_selected?(users_path) %></li>
 			
 			<% if signed_in? %>

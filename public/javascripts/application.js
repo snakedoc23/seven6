@@ -56,7 +56,6 @@ var allPolylines = [];
 var mc;
 var compareRoutes = [];
 
-
 google.load("visualization", "1", {packages: ["corechart"]});
 
 var mapWidth;
@@ -109,8 +108,14 @@ $(document).ready(function(){
           $('#route_surface_1').text(routes[0].route.surface);
           $('#route_surface_2').text(routes[1].route.surface);
 
-          $('#route_rating_1').text(routes[0].route.rating);
-          $('#route_rating_2').text(routes[1].route.rating);
+          if(routes[0].route.rating == 0) {
+            $('#route_rating_1').text("Brak ocen");
+            $('#route_rating_2').text("Brak ocen");
+          } else {
+            $('#route_rating_1').text(routes[0].route.rating);
+            $('#route_rating_2').text(routes[1].route.rating);
+          }
+
 
           $('#route_date_1').text(routes[0].route.updated_at.split('T')[0]);
           $('#route_date_2').text(routes[1].route.updated_at.split('T')[0]);

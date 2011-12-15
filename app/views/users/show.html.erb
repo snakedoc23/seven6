@@ -61,14 +61,14 @@
 				<td><%= @user.total_workouts_distance.round %> km</td>
 			</tr>
 			<% end %>
-			<% if @total_time > 0 %>
+			<% if @total_time_sec > 0 %>
 			<tr>
 				<td>Czas na rowerze:</td>
-				<td><%= Time.at(@total_time).utc.strftime("%Hh %Mm") %></td>
+				<td><%= @total_time %></td>
 			</tr>
 			<tr>
 				<td>Średnia prędkość:</td>
-				<td><%= (@workouts_total_distance * 3600 / @total_time).round %> km/h</td>
+				<td><%= (@workouts_total_distance * 3600 / @total_time_sec).round %> km/h</td>
 			</tr>
 			<% end %>
 			<tr>
