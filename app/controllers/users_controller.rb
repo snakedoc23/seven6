@@ -43,11 +43,11 @@ class UsersController < ApplicationController
   def user_last_routes
     @user = User.find(params[:user_id])
     if params[:last_route_type] == "added"
-      @routes = Route.find_all_by_user_id @user.id, :order => "created_at DESC", :limit => 6
+      @routes = Route.find_all_by_user_id @user.id, :order => "created_at DESC", :limit => 3
       render :partial => 'last_routes_added'
     elsif params[:last_route_type] == "favorite"
       @favorite_routes = []
-      @likes = Rating.likes(@user.id)
+      @likes = Rating.likes(@user.id).limit(3)
       @likes.each do |rat|
         @favorite_routes.push rat.route
       end

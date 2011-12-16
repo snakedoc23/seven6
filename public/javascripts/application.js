@@ -191,7 +191,7 @@ $(document).ready(function(){
   $('#add-photo').click(function(){
     //TODO podpowiedz 'kilknij na mapie w miejsce gdzie chcesz dodac zdjecie'
     photoMarkerImageBlue = new google.maps.MarkerImage(
-      '../images/markers_p_b.png',
+      '/images/markers_p_b.png',
       new google.maps.Size(34, 49),
       new google.maps.Point(0, 0)
     );
@@ -314,6 +314,10 @@ $(document).ready(function(){
     if($('#map').height() < $('#aside').height()) {
       $('#map').height($('#aside').height());
     }
+  });
+
+  $('#map').resize(function() {
+    $("#elevation-chart").css('top', '' + ($('#map').height() - 200 + 62).toString() + 'px');
   });
 
   // pokaz okienko z informacjami o bledach i ukryj po 5 sekundach
@@ -454,13 +458,13 @@ $(document).ready(function(){
       var startMarkerPos = path[0];
       var finishMarkerPos = path[path.length - 1]
       startMarkerImage = new google.maps.MarkerImage(
-        '../images/markers.png',
+        '/images/markers.png',
         new google.maps.Size(15, 27),
         new google.maps.Point(0, 0),
         new google.maps.Point(7.5, 26)
       );
       finishMarkerImage = new google.maps.MarkerImage(
-        '../images/markers.png',
+        '/images/markers.png',
         new google.maps.Size(15, 27),
         new google.maps.Point(15, 0),
         new google.maps.Point(7.5, 26)
@@ -482,7 +486,9 @@ $(document).ready(function(){
       $("#show-elevation").click(function(){
         if($("#elevation-chart").is(':visible')) {
           $("#elevation-chart").hide();
+          // chartMarker.setMap(null);
         } else {
+          $("#elevation-chart").css('top', '' + ($('#map').height() - 200 + 62).toString() + 'px');
           $("#elevation-chart").slideDown();
           $("#elevation-chart").width(mapWidth - 1);
 
@@ -749,12 +755,12 @@ $(document).ready(function(){
 
 function createPhotoMarker(pos, title) {
   photoMarkerImage = new google.maps.MarkerImage(
-    '../images/markers_p.png',
+    '/images/markers_p.png',
     new google.maps.Size(34, 49),
     new google.maps.Point(0, 0)
   );
   photoMarkerImageBlue = new google.maps.MarkerImage(
-    '../images/markers_p_b.png',
+    '/images/markers_p_b.png',
     new google.maps.Size(34, 49),
     new google.maps.Point(0, 0)
   );
@@ -925,12 +931,12 @@ function loadLastRoutes(last_route_type, user_id) {
 
 function createStartMarker(pos, title, title_route, route_distance, user_name) {
   sMarkerImage = new google.maps.MarkerImage(
-    '../images/markers_h.png',
+    '/images/markers_h.png',
     new google.maps.Size(34, 49),
     new google.maps.Point(0, 0)
   );
   sMarkerImageHover = new google.maps.MarkerImage(
-    '../images/markers_h.png',
+    '/images/markers_h.png',
     new google.maps.Size(34, 49),
     new google.maps.Point(34, 0)
   );
@@ -1069,25 +1075,25 @@ function initializeMap(){
 
 function drawRoute(map, polyline){
   shadow = new google.maps.MarkerImage(
-    '../images/shadow.png',
+    '/images/shadow.png',
     null,
     null,
     new google.maps.Point(8, 2)
   );
   startMarkerImage = new google.maps.MarkerImage(
-    '../images/markers.png',
+    '/images/markers.png',
     new google.maps.Size(15, 27),
     new google.maps.Point(0, 0),
     new google.maps.Point(7.5, 26)
   );
   pointMarkerImage = new google.maps.MarkerImage(
-    '../images/markers.png',
+    '/images/markers.png',
     new google.maps.Size(13, 13),
     new google.maps.Point(30, 0),
     new google.maps.Point(6.5, 6.5)
   );
   finishMarkerImage = new google.maps.MarkerImage(
-    '../images/markers.png',
+    '/images/markers.png',
     new google.maps.Size(15, 27),
     new google.maps.Point(15, 0),
     new google.maps.Point(7.5, 26)
@@ -1440,7 +1446,7 @@ function plotElevation(results, status) {
         fontName: "Helvetica Neue"
       });
       sMarkerImage = new google.maps.MarkerImage(
-        '../images/markers_e.png',
+        '/images/markers_e.png',
         new google.maps.Size(34, 49),
         new google.maps.Point(0, 0)
       );
