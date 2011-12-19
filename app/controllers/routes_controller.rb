@@ -1,7 +1,6 @@
 class RoutesController < ApplicationController
 
   before_filter :authenticate, :only => [:new, :create, :edit, :update]
-
   helper_method :sort_column, :sort_direction
 
   def compare
@@ -27,7 +26,6 @@ class RoutesController < ApplicationController
     @route = Route.find(params[:id])
     @user = @route.user
     @tags = @route.tags
-    @title_header = "Trasa"
     if current_user
       if @rating = current_user.ratings.find_by_route_id(params[:id])
         @rating
@@ -94,7 +92,6 @@ class RoutesController < ApplicationController
   end
 
   def new
-    @title_header = "Nowa Trasa"
     @route = Route.new
     @route_file = RouteFile.new
   end
@@ -112,7 +109,6 @@ class RoutesController < ApplicationController
 
   def edit
     @route = Route.find(params[:id])
-    @title_header = "Edytuj trase"
   end
   
   def update

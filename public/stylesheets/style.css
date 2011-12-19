@@ -826,14 +826,17 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
     float: right;
     margin-right: 30px;
     margin-top: 10px; }
+  #without-map h2 {
+    text-align: center;
+    padding-bottom: 10px; }
+    #without-map h2 span {
+      color: #c84446; }
   #without-map .h2-bg {
     background: #283a43;
     height: 35px; }
     #without-map .h2-bg h2 {
       color: white;
-      margin: auto;
-      display: block;
-      width: 235px;
+      text-align: center;
       line-height: 30px; }
       #without-map .h2-bg h2 a {
         color: white; }
@@ -880,11 +883,9 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
   width: 210px; }
 
 .h2-top {
-  display: block;
-  width: 235px;
   text-transform: uppercase;
-  margin: auto;
-  line-height: 26px; }
+  line-height: 26px;
+  text-align: center; }
 
 #user-form {
   width: 560px;

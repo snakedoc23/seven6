@@ -10,13 +10,8 @@
 		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
 		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
 	<% end %>
-
-	<h2 class="h2-top clear"><%= @title_header_top %></h2>
-	<div class="h2-bg">
-		<h2><%= @title_header %></h2>	
-	</div>
+	<h2 class="clear">Wszystkie trasy</h2>
 	<div id="content">
-
 		<div id="filters">
 			<div id="distance_filter" class="filter_div">
 				<h4>Długość trasy</h4>

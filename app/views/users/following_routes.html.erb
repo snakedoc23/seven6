@@ -1,3 +1,11 @@
+<div id="without-map">
+  <%= form_tag routes_user_path(@user), :method => 'get', :id => "search-route" do %>
+    <%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
+    <%= submit_tag "Search", :id => "search-btn", :name => nil %>
+  <% end %>
+
+  <h2 class="clear">Trasy użytkoników obserwowanych przez: <%= link_to @user.username, user_path(@user) %></h2>
+  <div id="content">
 <%= render 'routes' %>
 <%= link_to raw("&larr; Powrót"), following_user_path(@user), :id => "backto_user", :class => "btn-base" %>
 	</div> <!-- END content -->

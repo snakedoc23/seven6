@@ -1,5 +1,7 @@
-<%= render 'shared/without_map' %>
-		
+<div id="without-map">
+	<%= render 'shared/search_title' %>
+	<h2 class="clear">Zarejestruj się</h2>
+	<div id="content">
 		<div id="user-form">
 			<%= form_for(@user) do |f| %>
 				<%= render 'shared/error_messages', :object => f.object %>

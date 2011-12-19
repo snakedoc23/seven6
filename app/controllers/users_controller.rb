@@ -60,22 +60,16 @@ class UsersController < ApplicationController
 
   def workouts
     @user = User.find(params[:id])
-    @title_header_top = "Przejechane"
-    @title_header = @user.username.to_s
     @workouts = @user.workouts.order('created_at DESC')
   end
 
   def routes
     @user = User.find(params[:id])
-    @title_header_top = "Wszystkie trasy"
-    @title_header = @user.username.to_s
     @routes = @user.routes.search(params[:search]).order(sort_column + " " + sort_direction)
   end
 
   def favorite_routes
     @user = User.find(params[:id])
-    @title_header_top = "Ulubione trasy"
-    @title_header = @user.username.to_s
     @routes = []
     @likes = Rating.likes(@user.id)
     @likes.each do |rat|
@@ -86,16 +80,11 @@ class UsersController < ApplicationController
 
   def following
     @user = User.find(params[:id])
-    @title_header_top = "Obserwowani"
-    @title_header = "przez #{@user.username.to_s}"
     @users = @user.following.order(sort_column + " " + sort_direction)
   end
 
   def following_routes
-    # wszystie trasy obserwowanych uzytkownikow @routes
     @user = User.find(params[:id])
-    @title_header_top = "Trasy obserwowanych"
-    @title_header = "przez #{@user.username.to_s}"
     @routes = []
     @user.following.each do |followed|
       followed.routes.each do |route|
@@ -106,8 +95,6 @@ class UsersController < ApplicationController
 
   def followers
     @user = User.find(params[:id])
-    @title_header_top = "Obserwuja"
-    @title_header = @user.username.to_s
     @users = @user.followers.order(sort_column + " " + sort_direction)
   end
   
@@ -176,8 +163,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    @title_header_top = "Rejestracja w"
-    @title_header = "76rowerow.pl"
     @user = User.new
   end
   
@@ -194,14 +179,10 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
-    @title_header_top = "Edytuj profil"
-    @title_header = @user.username.to_s
   end
 
   def edit_password
     @user = User.find(params[:id])
-    @title_header_top = "Zmien haslo"
-    @title_header = @user.username.to_s
   end
   
   def update

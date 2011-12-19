@@ -1,14 +1,3 @@
-<div id="without-map">
-	<%= form_tag routes_user_path(@user), :method => 'get', :id => "search-route" do %>
-		<%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
-		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
-	<% end %>
-
-	<h2 class="h2-top clear"><%= @title_header_top %></h2>
-	<div class="h2-bg">
-		<h2><%= link_to @user.username, user_path(@user) %></h2>	
-	</div>
-	<div id="content">
 		<div class="routes-index-table">
 			<%# render 'routes/routes' %>
 		<table class="routes-index big-table">

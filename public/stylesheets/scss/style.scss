@@ -339,14 +339,22 @@ form#search-place, form#search-user, form#search-route {
 		margin-right: 30px;
 		margin-top: 10px;
 	}
+	h2 {
+		text-align: center;
+		padding-bottom: 10px;
+		span {
+			color: $red;
+		}
+	}
 	.h2-bg {
 		background: $blue;
 		height: 35px;
 		h2 {
 			color: white;
-			margin: auto;
-			display: block;
-			width: 235px;
+			// margin: auto;
+			// display: block;
+			// width: 235px;
+			text-align: center;
 			line-height: 30px;
 			a {
 				color: white;
@@ -388,11 +396,12 @@ form#search-place, form#search-user, form#search-route {
 	width: 210px;
 }
 .h2-top {
-	display: block;
-	width: 235px;
+	// display: block;
+	// width: 235px;
 	text-transform: uppercase;
-	margin: auto;
+	// margin: auto;
 	line-height: 26px;
+	text-align: center;
 }
 #user-form {
 	width: 560px;

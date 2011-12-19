@@ -4,13 +4,8 @@
     <%= submit_tag "Search", :id => "search-btn", :name => nil %>
   <% end %>
 
-  <h2 class="h2-top clear"></h2>
-  <div class="h2-bg">
-    <h2></h2>  
-  </div>
+  <h2 class="clear">Wszystkie tagi użytkownika: <%= link_to @user.username, user_path(@user) %></h2>
   <div id="content">
-    <h3>Wszystkie tagi użytkonika</h3>
-
     
 
 

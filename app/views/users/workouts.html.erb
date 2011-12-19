@@ -4,15 +4,10 @@
 		<%= submit_tag "Search", :id => "search-btn", :name => nil %>
 	<% end %>
 
-	<h2 class="h2-top clear"><%= @title_header_top %></h2>
-	<div class="h2-bg">
-		<h2><%= link_to @user.username, user_path(@user) %></h2>	
-	</div>
+	<h2 class="clear">Trasy przejechane przez: <%= link_to @user.username, user_path(@user) %></h2>
 	<div id="content">
 		<div class="routes-index-table">
-			<%# render 'routes/routes' %>
-
-					<table class="routes-index big-table">
+		<table class="routes-index big-table">
 			<thead>
 				<tr>
 					<th></th>

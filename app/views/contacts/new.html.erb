@@ -1,25 +1,26 @@
-<%= render 'shared/without_map' %>
-
-<div id="contact_container">
-	<%= form_for @contact do |f| %>
-		<%= render 'shared/error_messages', :object => f.object %>
-		<div class="form-field">
-			<%= f.label :name, 'Imię:' %>
-			<%= f.text_field :name, :placeholder => 'Imię' %>
+<div id="without-map">
+	<%= render 'shared/search_title' %>
+	<h2 class="clear">Kontakt</h2>
+	<div id="content">
+		<div id="contact_container">
+			<%= form_for @contact do |f| %>
+				<%= render 'shared/error_messages', :object => f.object %>
+				<div class="form-field">
+					<%= f.label :name, 'Imię:' %>
+					<%= f.text_field :name, :placeholder => 'Imię' %>
+				</div>
+				<div class="form-field">
+					<%= f.label :email, 'Email:' %>
+					<%= f.text_field :email, :placeholder => 'adres@email.com' %>
+				</div>
+				<div class="form-field">
+					<%= f.label :content, 'Wiadomość:' %>
+					<%= f.text_area :content, :rows => 5, :placeholder => 'Wiadomość...' %>
+				</div>
+				<div class="form-btn">
+					<%= f.submit "Wyślij" %>
+				</div>
+			<% end %>
 		</div>
-		<div class="form-field">
-			<%= f.label :email, 'Email:' %>
-			<%= f.text_field :email, :placeholder => 'adres@email.com' %>
-		</div>
-		<div class="form-field">
-			<%= f.label :content, 'Wiadomość:' %>
-			<%= f.text_area :content, :rows => 5, :placeholder => 'Wiadomość...' %>
-		</div>
-		<div class="form-btn">
-			<%= f.submit "Wyślij" %>
-		</div>
-	<% end %>
-</div>
-
-</div>
+	</div>
 </div>

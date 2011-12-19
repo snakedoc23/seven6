@@ -1,6 +1,5 @@
 class ContactsController < ApplicationController
 	def new
-    @title_header = "Kontakt"
 		@contact = Contact.new
 		if current_user
 			@contact.name = current_user.username

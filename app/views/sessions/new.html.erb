@@ -1,4 +1,8 @@
-<%= render 'shared/without_map' %>
+<div id="without-map">
+	<%= render 'shared/search_title' %>
+	<h2 class="clear">Zaloguj się</h2>
+
+<div id="content">
 		<div id="user-form">
 			<%= form_for(:session, :url => sessions_path) do |f| %>
 				<div class="form-field">

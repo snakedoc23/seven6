@@ -4,10 +4,8 @@
     <%= submit_tag "Search", :id => "search-btn", :name => nil %>
   <% end %>
 
-  <h2 class="h2-top clear">Trasy <%= link_to @user.username, user_path(@user) %></h2>
-  <div class="h2-bg">
-    <h2><%= @tag.name %></h2>  
-  </div>
+  <h2 class="clear">Trasy użytkonika: <%= link_to @user.username, user_path(@user) %> oznaczone jako <span><%= @tag.name %></span></h2>
+
   <div id="content">
     <div class="routes-index-table">
       <%# render 'routes/routes' %>

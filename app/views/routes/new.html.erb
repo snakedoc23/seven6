@@ -1,45 +1,41 @@
-<%= render 'shared/with_map' %>
+<div id="with-map">
+	<div id="aside">
+		<div id="aside-content">
+		<%= render 'shared/search_place' %>
+		<h2 class="title-aside clear">Dodaj trasę</h2>
 	
-<% if @route.errors.any? %>
-	<div id="error_explanation_route">
-		<% if @route.errors.count == 1 %>
-			<h3>Formularz zawiera jeden błąd:</h3>
-		<% else%>
-			<h3>Formularz zawiera kilka błędów:</h3>
+		<% if @route.errors.any? %>
+			<div id="error_explanation_route">
+				<% if @route.errors.count == 1 %>
+					<h3>Formularz zawiera jeden błąd:</h3>
+				<% else%>
+					<h3>Formularz zawiera kilka błędów:</h3>
+				<% end %>
+				<ul>
+					<% @route.errors.full_messages.each do |msg| %>
+					<li><%= msg %></li>
+					<% end %>
+				</ul>
+			</div>
 		<% end %>
-		<ul>
-			<% @route.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-			<% end %>
-		</ul>
-	</div>
-<% end %>
-
 	<div id="route-new">
-		
 		<div id="route-new-draw">
 			<%= link_to "Rysuj", "#", :id => "draw-route-btn", :class => "btn-base" %>
 			<span>lub</span>
 			<%= link_to "Wgraj z pliku", "#", :id => "upload-file-btn" %>
-
-
 			<div id="draw-controls" class="route-new-options">
 				<%= link_to "Przyciągaj do dróg", "#", :id => "snap" %>
 				<%= link_to "Usuń wszystki punkty", "#", :id => "delete-path" %>
 			</div>
-
 			<div id="upload-form" class="route-new-options">
 				<%= form_for(@route_file,
 							:html => { :multipart => true, :id => "upload_file" }) do |form| %>
 					<%= form.file_field :uploaded_file %>
 					<%= submit_tag "Wyślij" %>
 				<% end %>
-
 			</div>
-
 		</div><!-- /route-new-draw -->
 		<p class='distance'><span class="label">Dystans:</span><span class="value">0</span> <span class="km">km</span></p>
-
 		<div id="route-form">
 		<%= form_for(@route) do |f| %>
 				<%= f.hidden_field :coordinates_string %>
@@ -65,19 +61,16 @@
 				<%= f.label :surface, "Nawierzchnia:" %>
 				<%= f.select :surface, {:mieszana => "mieszana", :asfalt => "asfalt", :leśna => "leśna" }%>
 			</div>
-
 			<div class="form-field">
 				<%= f.label :tag_names, "Tagi:" %>
 				<%= f.text_field :tag_names %>
 			</div>
-
 			<%= link_to "Pokaż dodatkowe opcje", "#", :id => "show-extra" %>
 			<div id="route-new-extra">
 				<div class="form-field">
 					<%= f.label :time_string, "Czas:" %>
 					<%= f.text_field :time_string, :placeholder => "00:00:00" %>
 					<span id="total-time-show"><span id="total-time-show-h">0</span>h <span id="total-time-show-m">0</span>m <span id="total-time-show-s">0</span>s</span>
-
 					<p id="error-explanation-time" class="error-explanation">Godziny minuty sekundy</p>
 					<div class="clear"></div>
 				</div>
@@ -88,7 +81,6 @@
 				</div>
 				<p class='avg_speed'><span class="label">Średnia:</span><span class="value">0</span> <span class="km"> km/h</span></p>
 				<%= f.hidden_field :avg_speed %>
-
 				<div class="form-field">
 					<%= f.label :pulse, "Tętno:" %>
 					<%= f.text_field :pulse, :placeholder => "120/150" %>
@@ -99,20 +91,14 @@
 					<%= f.text_field :temperature, :placeholder => "25" %>
 					<p class="error-explanation">Liczba stopni (. nie ,)</p>
 				</div>
-
 			</div>
-			
-
-			
 			<div class="form-btn">
 				<%= f.submit "Zapisz Trasę", :class => "btn-big" %>
 			</div>
-
 		<% end %>
 		</div><!-- /route-form -->
 	</div><!-- /route-new -->
 	</div><!-- aside-content -->
 	</div><!-- aside -->
 	<div id="map"></div>
-
 </div>
