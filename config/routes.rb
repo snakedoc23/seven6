@@ -1,5 +1,9 @@
 Seven6::Application.routes.draw do
 
+  get "tags/index"
+
+  get "tags/show"
+
   root :to => "pages#home"
 
   get 'routes/compare'
@@ -15,6 +19,9 @@ Seven6::Application.routes.draw do
       get 'following_routes'
       get 'stats'
       get 'avatar'
+
+      resources :tags
+
     end
   end
   resources :route_files

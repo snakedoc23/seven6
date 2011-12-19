@@ -1,0 +1,70 @@
+<div id="without-map">
+  <%= form_tag routes_user_path(@user), :method => 'get', :id => "search-route" do %>
+    <%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
+    <%= submit_tag "Search", :id => "search-btn", :name => nil %>
+  <% end %>
+
+  <h2 class="h2-top clear">Trasy <%= link_to @user.username, user_path(@user) %></h2>
+  <div class="h2-bg">
+    <h2><%= @tag.name %></h2>  
+  </div>
+  <div id="content">
+    <div class="routes-index-table">
+      <%# render 'routes/routes' %>
+    <table class="routes-index big-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th><%= 'Nazwa'%></th>
+          <th><%= 'Dystans' %></th>
+          <th><%= 'Wzniesienia' %></th>
+          <th><%= 'Nawierzchnia' %></th>
+          <th><%= 'Ocena' %></th>
+          <th><%= 'Data dodania' %></th>
+          <th class="workout"><span></span></th>
+          <th class="like"><span></span></th>
+          <th class="comments"><span>></span></th>
+          <th class="tags">Tagi</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% i = 0 %>
+      <% if params[:page] %>
+      <% i = i + ((params[:page].to_i - 1) * 10) %>
+      <% end %>
+      <% @routes.each do |route| %>
+        <tr>
+          <td><%= i += 1 %></td>
+          <td class="title"><%= link_to route.title, route_path(route) %></td>
+          <td class="distance"><%= route.distance %> km</td>
+          <td class="altitude"><%= route.altitude %> m</td>
+          <td class="surface"><%= route.surface%></td>
+          <td class="rating">
+            
+            <ul class="rating <%= route.id %>">
+              <li class="val"><%= route.rating %></li>
+              <li class="1">1</li>
+              <li class="2">2</li>
+              <li class="3">3</li>
+              <li class="4">4</li>
+              <li class="5">5</li>
+            </ul>
+          </td>
+          
+          <td class="created_at"><%= l route.created_at, :format => "%y.%m.%d %H:%I" %></td>
+          <td class="workouts"><%= route.total_workouts || 0 %></td>
+          <td class="like"><%= route.show_total_likes %></td>
+          <td class="comments"><%= route.show_total_comments %></td>
+          <td class="tags">
+            <% route.tags.each do |tag| %>
+              <%= link_to tag.name, "/users/#{@user.id}/tags/#{tag.id}" %>
+            <% end %>
+          </td> 
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    </div> <!-- END routes-index-table -->
+    <%= link_to raw("&larr; Powrót"), user_path(@user), :id => "backto_user", :class => "btn-base" %>
+  </div> <!-- END content -->
+</div> <!-- END without-map -->

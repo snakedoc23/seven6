@@ -61,5 +61,10 @@
 					</li>
 				</div>
 				<% end %> 
+					<li class="tags">
+					<% @tags.each do |tag| %>
+							<%= link_to tag.name, "/users/#{@user.id}/tags/#{tag.id}" %>
+					<% end %>
+					</li>
 
 		</ul>

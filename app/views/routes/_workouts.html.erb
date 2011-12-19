@@ -14,7 +14,7 @@
 				<% if workout.max_speed %>
 				Max: <%= workout.max_speed %> km/h
 				<% end %>
-				<% if workout.pulse_avg %>
+				<% if workout.pulse_avg.to_f > 0 %>
 					<span>Tętno: <%= workout.pulse_avg.round %>/<%= workout.pulse_max.round %></span>
 				<% end %>
 				</li>

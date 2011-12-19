@@ -25,6 +25,8 @@ class RoutesController < ApplicationController
 
   def show
     @route = Route.find(params[:id])
+    @user = @route.user
+    @tags = @route.tags
     @title_header = "Trasa"
     if current_user
       if @rating = current_user.ratings.find_by_route_id(params[:id])

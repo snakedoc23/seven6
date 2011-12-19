@@ -61,3 +61,15 @@ describe Comment do
     Comment.all.size.should == 0
   end
 end
+# == Schema Information
+#
+# Table name: comments
+#
+#  id         :integer         not null, primary key
+#  content    :text
+#  created_at :datetime
+#  updated_at :datetime
+#  user_id    :integer
+#  route_id   :integer
+#
+

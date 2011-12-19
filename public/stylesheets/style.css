@@ -1290,7 +1290,7 @@ table.big-table tbody tr {
       min-width: 66px; }
     table.big-table tbody tr td.created_at, table.big-table tbody tr td.user {
       min-width: 95px; }
-    table.big-table tbody tr td.like, table.big-table tbody tr td.comments {
+    table.big-table tbody tr td.like, table.big-table tbody tr td.comments, table.big-table tbody tr td.workouts {
       text-align: center; }
     table.big-table tbody tr td.rating {
       min-width: 91px; }
@@ -1343,6 +1343,14 @@ table.big-table tbody tr:hover {
       background: url(../images/workout-icon.png) no-repeat; }
     .routes-index-table table.routes-index tr th.like a, .routes-index-table table.routes-index tr th.comments a, .routes-index-table table.routes-index tr th.workout a {
       background: none; }
+    .routes-index-table table.routes-index tr td.tags a {
+      padding: 2px 8px 1px;
+      margin: 0px;
+      color: white;
+      background: #c84446; }
+      .routes-index-table table.routes-index tr td.tags a:hover {
+        background: white;
+        color: #c84446; }
   .routes-index-table .pagination {
     margin: 20px auto; }
 
@@ -1670,6 +1678,20 @@ footer {
           top: 9px;
           position: relative;
           background: url(../images/arrows.png) no-repeat; }
+      #route-show ul.route-show li.tags {
+        line-height: 21px;
+        display: block;
+        padding: 5px;
+        padding-left: 8px;
+        width: 267px; }
+        #route-show ul.route-show li.tags a {
+          padding: 2px 8px 1px;
+          margin: 0px;
+          color: white;
+          background: #c84446; }
+          #route-show ul.route-show li.tags a:hover {
+            background: white;
+            color: #c84446; }
     #route-show ul.route-show div.altitude-extra {
       display: none; }
       #route-show ul.route-show div.altitude-extra li:last-child {

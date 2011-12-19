@@ -1,13 +1,17 @@
 class Route < ActiveRecord::Base
   # attr_accessible :title, :description, :distance, :surface
   attr_accessor :pulse, :time_string, :pulse_edit, :time_string_edit, :total_time, :max_speed, :avg_speed, :pulse_avg, :pulse_max, :temperature
-  
+  attr_writer :tag_names
+
   belongs_to :user
   has_many :workouts, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :ratings, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   has_many :raters, :through => :ratings, :source => :user, :dependent => :destroy
+  has_many :taggings, :dependent => :destroy
+  has_many :tags, :through => :taggings
+  
 
   # mount_uploader :static_map, StaticMapUploader
   # mount_uploader :route_file, RouteFileUploader
@@ -27,12 +31,16 @@ class Route < ActiveRecord::Base
                                  :allow_blank => true
 
   before_save :split_pulse, :add_start_and_finish, :total_time_calculate, :calculate_altitude
-  after_save :add_total_distance_and_total_routes_to_user, :add_workout
+  after_save :add_total_distance_and_total_routes_to_user, :add_workout, :assign_tags
 
   # default_scope :order => 'created_at DESC'
 
   scope :user_routes, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC") }
   scope :last_three, lambda {|id| find_all_by_user_id(id, :order => "created_at DESC", :limit => 3) }
+
+  def tag_names
+    @tag_names || tags.map{|t| t.name }.join(', ')
+  end
 
   def show_total_comments
     if total_comments
@@ -229,6 +237,15 @@ class Route < ActiveRecord::Base
       end
       reucedPath
     end
+
+    def assign_tags
+      if tag_names
+        self.tags = tag_names.split(/\s*\,\s*/).map do |name|
+          self.user.tags.find_or_create_by_name(name)
+        end
+      end
+    end
+
 end
 
 

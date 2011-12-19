@@ -83,7 +83,11 @@
 				<td class="followers">Obserwujący:</td>
 				<td><%= link_to @user.followers.size, followers_user_path(@user) %></td>
 			</tr>
-			
+
+			<tr>
+				<td class="followers">Tagi:</td>
+				<td><%= link_to @user.tags.size, "/users/#{@user.id}/tags" %></td>
+			</tr>
 		</table>
 		
 		<%= link_to "Statystyki", stats_user_path(@user), :class => "user-stats-btn btn-base" %>

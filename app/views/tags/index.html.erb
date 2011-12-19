@@ -1,0 +1,21 @@
+<div id="without-map">
+  <%= form_tag routes_user_path(@user), :method => 'get', :id => "search-route" do %>
+    <%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
+    <%= submit_tag "Search", :id => "search-btn", :name => nil %>
+  <% end %>
+
+  <h2 class="h2-top clear"></h2>
+  <div class="h2-bg">
+    <h2></h2>  
+  </div>
+  <div id="content">
+    <h3>Wszystkie tagi użytkonika</h3>
+
+    
+
+
+    
+
+    <%= link_to raw("&larr; Powrót"), user_path(@user), :id => "backto_user", :class => "btn-base" %>
+  </div> <!-- END content -->
+</div> <!-- END without-map -->

@@ -12,3 +12,16 @@ describe Rating do
     @rating.route.should == @route
   end
 end
+# == Schema Information
+#
+# Table name: ratings
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  route_id   :integer
+#  value      :integer
+#  like       :boolean
+#  created_at :datetime
+#  updated_at :datetime
+#
+
