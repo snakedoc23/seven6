@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @title_header = "Profil #{@user.username}"
+    @title_header = "Profil"
     @routes_all = Route.user_routes(@user.id)
     @workouts_all = Workout.where(:user_id => @user.id)
     @routes = Route.last_three(@user.id)

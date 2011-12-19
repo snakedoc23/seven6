@@ -175,7 +175,7 @@ class Route < ActiveRecord::Base
       self.rating = sum.to_f / total.to_f
     else
       self.rating = 0
-    end 
+    end
   end
 
   # Static Google Maps + redukcja punktow i samych wspolzednych

@@ -737,7 +737,7 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
       #aside .routes-list li .route .route-info ul {
         padding-top: 3px; }
         #aside .routes-list li .route .route-info ul .profile-image {
-          width: 56px;
+          width: 58px;
           height: 18px;
           float: right; }
           #aside .routes-list li .route .route-info ul .profile-image.green {
@@ -751,14 +751,14 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
         #aside .routes-list li .route .route-info ul li {
           font-size: 12px;
           line-height: 20px; }
-      #aside .routes-list li .route .route-info .comment-likes {
+      #aside .routes-list li .route .route-info .num-icons {
         float: left;
         width: 200px;
         height: 17px; }
-        #aside .routes-list li .route .route-info .comment-likes li {
+        #aside .routes-list li .route .route-info .num-icons li {
           float: left;
-          width: 100px; }
-          #aside .routes-list li .route .route-info .comment-likes li .comment-icon {
+          width: 70px; }
+          #aside .routes-list li .route .route-info .num-icons li .comment-icon {
             background: url(../images/comment-icon.png) 0 -14px no-repeat;
             width: 14px;
             height: 14px;
@@ -766,10 +766,18 @@ form#search-place input[type="submit"], form#search-user input[type="submit"], f
             float: left;
             margin-top: 2px;
             margin-right: 2px; }
-          #aside .routes-list li .route .route-info .comment-likes li:last-child {
+          #aside .routes-list li .route .route-info .num-icons li:last-child {
             width: 30px; }
-          #aside .routes-list li .route .route-info .comment-likes li .like-icon {
+          #aside .routes-list li .route .route-info .num-icons li .like-icon {
             background: url(../images/like-icon.png) 0 -14px no-repeat;
+            width: 14px;
+            height: 14px;
+            display: block;
+            float: left;
+            margin-top: 2px;
+            margin-right: 2px; }
+          #aside .routes-list li .route .route-info .num-icons li .workout-icon {
+            background: url(../images/workout-icon.png) 0 -14px no-repeat;
             width: 14px;
             height: 14px;
             display: block;
@@ -1273,7 +1281,7 @@ table.big-table tbody tr {
     table.big-table tbody tr td.title {
       min-width: 160px; }
     table.big-table tbody tr td.distance {
-      min-width: 58px; }
+      min-width: 68px; }
     table.big-table tbody tr td.altitude {
       min-width: 58px; }
     table.big-table tbody tr td.time {
@@ -1630,7 +1638,7 @@ footer {
         float: left;
         font-weight: bold; }
       #route-show ul.route-show li .td {
-        width: 110px;
+        width: 118px;
         float: left; }
         #route-show ul.route-show li .td img {
           position: relative;

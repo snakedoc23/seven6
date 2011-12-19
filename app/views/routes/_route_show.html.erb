@@ -22,10 +22,9 @@
 					<div class="th">Nawierzchnia:</div>
 					<div class="td"><%= @route.surface%></div>
 				</li>
-				
 				<li>
 					<div class="th">Autor:</div>
-					<div class="td"><%= link_to @route.user.username, user_path(@route.user) %></div>
+					<div class="td"><%= link_to truncate(@route.user.username, :length => 18), user_path(@route.user) %></div>
 				</li>
 				<li>
 					<div class="th">Data dodania:</div>
