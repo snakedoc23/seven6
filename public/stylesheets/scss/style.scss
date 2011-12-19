@@ -858,7 +858,7 @@ table.big-table {
 		.comments, .like {
 			// width: 22px;
 		}
-		tr th.comments span, tr th.like span {
+		tr th.comments span, tr th.like span, tr th.workout span {
 			width: 14px;
 			height: 14px;
 			
@@ -869,12 +869,13 @@ table.big-table {
 		}
 		tr th.comments span { background: url(../images/comment-icon.png) no-repeat; }
 		tr th.like span { background: url(../images/like-icon.png) no-repeat; }
+		tr th.workout span { background: url(../images/workout-icon.png) no-repeat; }
 		tr {
 			td {
 
 			}
 		}
-		tr th.like, tr th.comments {
+		tr th.like, tr th.comments, tr th.workout {
 			a {
 				background: none;
 			}

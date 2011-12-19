@@ -12,7 +12,8 @@
 			<th class="ajax"><%= sortable 'Ocena', 'rating' %></th>
 			<th class="ajax"><%= sortable 'Data dodania', 'created_at' %></th>
 			<th class="ajax"><%= sortable 'Użytkownik', 'user_id' %></th>
-			<th class="ajax"><%= sortable 'Przejazdy', 'total_workouts' %></th>
+			<!-- <th class="ajax"><%= sortable 'Przejazdy', 'total_workouts' %></th> -->
+			<th class="ajax workout"><span><%= sortable '', 'total_workouts' %></span></th>
 			<th class="ajax like"><span><%= sortable '', 'total_likes' %></span></th>
 			<th class="ajax comments"><span><%= sortable '', 'total_comments' %></span></th>
 		</tr>

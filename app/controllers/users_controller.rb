@@ -69,7 +69,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title_header_top = "Wszystkie trasy"
     @title_header = @user.username.to_s
-    @routes = @user.routes.search(params[:search]).order(sort_column + " " + sort_direction)
+    @routes = @user.routes.search(params[:search]).order("LOWER(#{sort_column})" + " " + sort_direction)
   end
 
   def favorite_routes
