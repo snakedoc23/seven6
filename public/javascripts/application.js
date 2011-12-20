@@ -418,6 +418,11 @@ $(document).ready(function(){
     $('#users_all_tags_btn').css('background', 'none');
   });
  
+  $('#users_following_btn').mouseover(function() {
+    $('#users_all_tags').slideUp();
+    $('#users_all_tags_btn').css('background', 'none');
+  });
+
   // back button 
   $('#last_routes_back').live('click', function() {
     $('#last_routes_menu').slideDown();
