@@ -366,6 +366,72 @@ $(document).ready(function(){
     var user_id = $('#user_id').val();
     loadStartMarkers(user_id, 'added');
   }
+
+
+
+  // users_page new menu
+  $('#users_added_btn').bind('click', function() {
+    var user_id = $('#user_id').val();
+    loadStartMarkers(user_id, 'added');
+    loadLastRoutes("added", user_id);
+    $('#last_route_container').slideDown();
+    $('#last_routes_menu').slideUp();
+    return false;
+  });
+  
+  $('#users_workouts_btn').bind('click', function() {
+    var user_id = $('#user_id').val();
+    loadStartMarkers(user_id, 'workouts');
+    loadLastRoutes("workouts", user_id);
+    $('#last_route_container').slideDown();
+    $('#last_routes_menu').slideUp();
+    return false;
+  });
+
+  $('#users_favorite_btn').bind('click', function() {
+    var user_id = $('#user_id').val();
+    loadStartMarkers(user_id, 'favorite');
+    loadLastRoutes("favorite", user_id);
+    $('#last_route_container').slideDown();
+    $('#last_routes_menu').slideUp();
+    return false;
+  });
+
+  $('#users_following_btn').bind('click', function() {
+    var user_id = $('#user_id').val();
+    loadStartMarkers(user_id, 'following');
+    loadLastRoutes("following", user_id);
+    $('#last_route_container').slideDown();
+    $('#last_routes_menu').slideUp();
+    return false;
+  });
+
+
+  // show tags list
+  $('#users_all_tags_btn').mouseover(function() {
+    $('#users_all_tags').slideDown();
+    $('#users_all_tags_btn').css('background', '#fff');
+  });
+
+  $('#users_all_tags').mouseleave(function() {
+    $('#users_all_tags').slideUp();
+    $('#users_all_tags_btn').css('background', 'none');
+  });
+ 
+  // back button 
+  $('#last_routes_back').live('click', function() {
+    $('#last_routes_menu').slideDown();
+    $('#last_route_container').hide();
+    return false;
+  });
+
+  if($('#users_all_tags').length) {
+    $('#users_all_tags').hide();
+    $('#users_all_tags').css('top', $('#map').height() + 51 - $('#users_all_tags').height());
+  }
+  
+
+
   // users_page
   $('#last_routes_added_btn').bind('click', function() {
     var user_id = $('#user_id').val();

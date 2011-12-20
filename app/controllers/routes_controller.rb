@@ -65,6 +65,17 @@ class RoutesController < ApplicationController
           @markers.push r
         end
       end
+    elsif params[:route_type] == 'workouts'
+      @user = User.find(params[:user_id])
+      @user.workouts.each do |workout|
+        r = []
+        r.push workout.route.id
+        r.push workout.route.start_lat_lng
+        r.push workout.route.title
+        r.push workout.route.distance
+        r.push workout.route.user.username
+        @markers.push r
+      end
     elsif params[:route_type] == 'favorite'
       @user = User.find(params[:user_id])
       Rating.likes(@user.id).each do |rat|

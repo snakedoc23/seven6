@@ -9,6 +9,11 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     @routes = @tag.routes
     @user = @tag.user
+
+    @distance = 0;
+    @tag.routes.each do |route|
+      @distance += route.distance
+    end
   end
   
 end

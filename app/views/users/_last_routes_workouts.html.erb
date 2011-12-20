@@ -1,0 +1,6 @@
+<h3>Przejechane trasy</h3>
+<%= link_to "Powrót", "#", :id => "last_routes_back" %>
+<div id="user-last-routes" class="routes-list">
+  <%= render 'routes/last_routes', :routes => @workouts %>
+</div> <!-- END last-routes -->
+<%= link_to "Więcej", workouts_user_path(@user), :class => "btn-base", :id => "last-routes-more" %>

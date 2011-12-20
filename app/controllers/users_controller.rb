@@ -38,6 +38,9 @@ class UsersController < ApplicationController
     @likes = Rating.likes(@user.id)
 
     @following_routes = @user.following_routes.first(3)
+
+    @tags = @user.tags
+
   end
 
   def user_last_routes
@@ -45,6 +48,14 @@ class UsersController < ApplicationController
     if params[:last_route_type] == "added"
       @routes = Route.find_all_by_user_id @user.id, :order => "created_at DESC", :limit => 3
       render :partial => 'last_routes_added'
+    elsif params[:last_route_type] == "workouts"
+      @workouts = []
+      @users_workouts = Workout.where(:user_id => @user.id)
+      @user.workouts.last(3).each do |w|
+        @workouts.push w.route
+      end
+
+      render :partial => 'last_routes_workouts'
     elsif params[:last_route_type] == "favorite"
       @favorite_routes = []
       @likes = Rating.likes(@user.id).limit(3)

@@ -554,8 +554,8 @@ textarea:-moz-placeholder {
   visibility: hidden; }
 
 body {
-  background: url("../images/bg.gif");
-  /*	background: #fafafa;*/ }
+  background: #fafafa;
+  background: url(/images/bg.gif); }
 
 ::-moz-selection {
   background: #c84446;
@@ -1346,7 +1346,8 @@ table.big-table tbody tr:hover {
       background: none; }
     .routes-index-table table.routes-index tr td.tags a {
       padding: 2px 8px 1px;
-      margin: 0px;
+      margin: -1px;
+      line-height: 20px;
       color: white;
       background: #c84446; }
       .routes-index-table table.routes-index tr td.tags a:hover {
@@ -2678,3 +2679,78 @@ ul.rating li {
         border-right: 1px solid #caced0; }
       #compare_table tbody tr td:last-child {
         border-right: 1px solid #caced0; }
+
+#last_routes_menu {
+  padding-bottom: 10px; }
+  #last_routes_menu ul li:first-child a {
+    border-top: 1px solid #caced0; }
+  #last_routes_menu ul li a {
+    border-bottom: 1px solid #caced0;
+    display: block;
+    padding: 14px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #283a43;
+    padding-left: 30px;
+    line-height: 22px;
+    height: 22px; }
+    #last_routes_menu ul li a:hover {
+      text-decoration: none;
+      background: white; }
+    #last_routes_menu ul li a .last_routes_ico {
+      background: url(/images/last_routes_ico.png) no-repeat;
+      height: 22px;
+      width: 31px;
+      display: block;
+      float: right;
+      margin-right: 30px; }
+    #last_routes_menu ul li a span:first-child {
+      float: left; }
+
+#last_routes_back {
+  border-bottom: 1px solid #caced0;
+  display: block;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-size: 13px;
+  color: #2B3A43;
+  line-height: 22px;
+  text-align: center; }
+  #last_routes_back:hover {
+    text-decoration: none;
+    background: white; }
+
+#last_route_container {
+  display: none; }
+  #last_route_container h3 {
+    border-bottom: 1px solid #c84446;
+    color: #c84446;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 24px;
+    text-align: center; }
+
+#users_all_tags {
+  background: url(/images/bg.gif);
+  position: absolute;
+  z-index: 1;
+  top: 630px;
+  left: 371px;
+  min-width: 150px;
+  border: 1px solid #caced0; }
+  #users_all_tags ul li a {
+    border-bottom: 1px solid #caced0;
+    display: block;
+    padding: 10px;
+    font-size: 12px;
+    color: #283a43; }
+    #users_all_tags ul li a:hover {
+      text-decoration: none;
+      background: white; }
+    #users_all_tags ul li a span.tag_name {
+      padding: 2px 8px 1px;
+      margin: 0px;
+      color: white;
+      background: #c84446; }
+  #users_all_tags ul li:last-child a {
+    border: none; }
