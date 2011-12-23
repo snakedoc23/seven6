@@ -6,7 +6,7 @@
 
   <h2 class="clear">Wszystkie tagi użytkownika: <%= link_to @user.username, user_path(@user) %></h2>
   <div id="content">
-  
+    
     <ul>
     <% @tags.each do |tag| %>
       <li><%= link_to tag.name, "/users/#{@user.id}/tags/#{tag.id}" %> <%= tag.routes.size %></li>

@@ -241,7 +241,7 @@ class Route < ActiveRecord::Base
     def assign_tags
       if tag_names
         self.tags = tag_names.split(/\s*\,\s*/).map do |name|
-          self.user.tags.find_or_create_by_name(name)
+          self.user.tags.find_or_create_by_name(name.strip)
         end
       end
     end

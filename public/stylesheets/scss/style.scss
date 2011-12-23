@@ -703,7 +703,8 @@ table.user-numbers {
 	}
 	tr {
 		&:hover {
-			background: #f2f2f2;
+			// background: #f2f2f2;
+			background: #fff;
 		}
 	}
 	margin-bottom: 20px;
@@ -967,8 +968,10 @@ footer {
 	// background: $blue;
 	width: 100%;
 	border-top: 2px solid $blue;
+
 		
 	#footer-inner {
+		// display: none;
 		// width: 960px;
 		.footer-col {
 			padding-top: 15px;
@@ -1078,6 +1081,7 @@ footer {
 		}
 
 		nav ul#footer-nav {
+			// display: none;
 			height: 32px;
 			// padding-left: 30px;
 			padding: 5px 0;
@@ -2568,6 +2572,16 @@ ul.rating {
 		}
 	}
 }
-
+.tag_statistics {
+	margin-bottom: 12px;
+	margin-left: 45px;
+	span {
+		margin-right: 10px;
+		font-weight: bold;
+		.value {
+			color: $red;
+		}
+	}
+}
 
 

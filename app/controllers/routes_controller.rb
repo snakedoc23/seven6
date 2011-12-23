@@ -98,6 +98,18 @@ class RoutesController < ApplicationController
         r.push route.user.username
         @markers.push r
       end
+    else
+      tag_name = params[:route_type]
+      @user = User.find(params[:user_id])
+      @user.tags.find_by_name(tag_name).routes.each do |route|
+        r = []
+        r.push route.id
+        r.push route.start_lat_lng
+        r.push route.title
+        r.push route.distance
+        r.push route.user.username
+        @markers.push r
+      end
     end 
     render :json => @markers
   end

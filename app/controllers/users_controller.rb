@@ -54,7 +54,6 @@ class UsersController < ApplicationController
       @user.workouts.last(3).each do |w|
         @workouts.push w.route
       end
-
       render :partial => 'last_routes_workouts'
     elsif params[:last_route_type] == "favorite"
       @favorite_routes = []
@@ -66,6 +65,12 @@ class UsersController < ApplicationController
     elsif params[:last_route_type] == "following"
       @following_routes = @user.following_routes.first(3)
       render :partial => 'last_routes_following'
+    # jesli nie pasuje do powyzszych to jest tagiem (bug jesli tag sie nazywa np. added -> wystarczy dodac cos unikalnego to tych nazw w js i tutaj)
+    else
+      @tag_name = params[:last_route_type]
+      @tag = @user.tags.find_by_name(@tag_name)
+      @routes = @user.tags.find_by_name(@tag_name).routes.last(3)
+      render :partial => 'last_routes_tags'
     end 
   end
 

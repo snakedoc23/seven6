@@ -3,7 +3,7 @@ var directionsService;
 var elevator;
 var geocoder;
 var snap;
-var path = new Array();
+var path = [];
 var markers = [];
 
 //zmienna okresla czy rysowac wykres tak by nie byl generowany gdy go nie widac
@@ -141,8 +141,8 @@ $(document).ready(function(){
             map: map
           });
 
-          var path1 = new Array();
-          var path2 = new Array();
+          var path1 = [];
+          var path2 = [];
           var bounds1 = pathFromString(routes[0].route.coordinates_string, path1);
           var bounds2 = pathFromString(routes[1].route.coordinates_string, path2);
           route1.setPath(path1);
@@ -267,7 +267,7 @@ $(document).ready(function(){
             strokeWeight: 5,
             map: map
           });
-          var path1 = new Array();
+          var path1 = [];
           var bounds = pathFromString(coordinates_array[i], path1);
           poly.setPath(path1);
           allPolylines.push(poly);
@@ -401,6 +401,17 @@ $(document).ready(function(){
     var user_id = $('#user_id').val();
     loadStartMarkers(user_id, 'following');
     loadLastRoutes("following", user_id);
+    $('#last_route_container').slideDown();
+    $('#last_routes_menu').slideUp();
+    return false;
+  });
+
+  $('.tag_link').bind('click', function() {
+    var user_id = $('#user_id').val();
+    var tag_name = $(this).attr('id').split('_')[1];
+    // console.log(tag_name);
+    loadLastRoutes(tag_name, user_id);
+    loadStartMarkers(user_id, tag_name);
     $('#last_route_container').slideDown();
     $('#last_routes_menu').slideUp();
     return false;
@@ -966,18 +977,18 @@ function loadStartMarkers(user_id, route_type) {
         gridSize: 50,
         maxZoom: 14,
         styles: [{
-          url: "../images/cluster_1n.png",
+          url: "/images/cluster_1n.png",
           height: 35,
           width: 35,
           textColor: "white"
         }, {
-          url: "../images/cluster_2n.png",
+          url: "/images/cluster_2n.png",
           height: 48,
           width: 48,
           textColor: "white",
           textSize: 13
         }, {
-          url: "../images/cluster_3n.png",
+          url: "/images/cluster_3n.png",
           height: 56,
           width: 56,
           textColor: "white",

@@ -1210,7 +1210,7 @@ table.user-numbers {
     font-size: 13px;
     padding-bottom: 2px; }
   table.user-numbers tr:hover {
-    background: #f2f2f2; }
+    background: #fff; }
 
 .user-stats-btn {
   float: right;
@@ -2754,3 +2754,12 @@ ul.rating li {
       background: #c84446; }
   #users_all_tags ul li:last-child a {
     border: none; }
+
+.tag_statistics {
+  margin-bottom: 12px;
+  margin-left: 45px; }
+  .tag_statistics span {
+    margin-right: 10px;
+    font-weight: bold; }
+    .tag_statistics span .value {
+      color: #c84446; }
