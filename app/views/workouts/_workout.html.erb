@@ -5,7 +5,7 @@
 		<div class="workout-info">
 			<h4><%= link_to @workout.user.username, user_path(@workout.user) %><span><%= l @workout.created_at, :format => "%y.%m.%d %H:%I" %></span></h4>
 			<ul>
-				<li>Czas: <%= @workout.time_to_string %><span>Średnia:<%= @workout.avg_speed %> km/h</span></li>
+				<li>Czas: <%= @workout.time_to_string %><span>Średnia: <%= @workout.avg_speed %> km/h</span></li>
 				
 				<li>
 				<% if @workout.max_speed %>

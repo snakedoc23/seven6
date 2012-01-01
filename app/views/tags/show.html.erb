@@ -9,7 +9,7 @@
       <div class="tag_statistics">
         <span>Liczba tras: <span class="value"><%= @routes.size %></span></span>
         <span>Łączny dystans: <span class="value"><%= @distance %> km</span></span>
-        <span>Liczba przejazdów użytonika: <span class="value"><%= @workouts_sum %></span></span>
+        <span>Liczba przejazdów użytkonika: <span class="value"><%= @workouts_sum %></span></span>
         <% if @workouts_sum > 0 %>
           <span>Czas przejazdów: <span class="value"><%= time_to_string(@workouts_time) %></span></span>
           <span>Średnia przejazdów: <span class="value"><%= @avg_speed %> km/h</span></span>

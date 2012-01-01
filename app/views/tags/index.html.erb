@@ -3,19 +3,15 @@
     <%= text_field_tag :search, params[:search], :placeholder => "Szukaj trasę", :id => "search-text" %>
     <%= submit_tag "Search", :id => "search-btn", :name => nil %>
   <% end %>
-
   <h2 class="clear">Wszystkie tagi użytkownika: <%= link_to @user.username, user_path(@user) %></h2>
   <div id="content">
-    
-    <ul>
-    <% @tags.each do |tag| %>
-      <li><%= link_to tag.name, "/users/#{@user.id}/tags/#{tag.id}" %> <%= tag.routes.size %></li>
-    <% end %>
-
-    </ul>
-
-
-    
+    <div id="tags">
+      <ul>
+      <% @tags.each do |tag| %>
+        <li><%= link_to "#{tag.name} #{tag.routes.size}", "/users/#{@user.id}/tags/#{tag.id}" %></li>
+      <% end %>
+      </ul>
+    </div><!-- /tags -->
 
     <%= link_to raw("&larr; Powrót"), user_path(@user), :id => "backto_user", :class => "btn-base" %>
   </div> <!-- END content -->

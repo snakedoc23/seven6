@@ -60,11 +60,12 @@
 						<div class="td"><%= @route.max_altitude.round(2) %> m</div>
 					</li>
 				</div>
-				<% end %> 
+				<% end %>
+				<% if @tags.size > 0%>
 					<li class="tags">
 					<% @tags.each do |tag| %>
 							<%= link_to tag.name, "/users/#{@user.id}/tags/#{tag.id}" %>
 					<% end %>
 					</li>
-
+				<% end %>
 		</ul>

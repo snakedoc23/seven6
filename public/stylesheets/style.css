@@ -2763,3 +2763,12 @@ ul.rating li {
     font-weight: bold; }
     .tag_statistics span .value {
       color: #c84446; }
+
+#tags {
+  text-align: center;
+  margin: 10px 0 20px; }
+  #tags ul li a {
+    color: #283a43;
+    font-size: 14px;
+    padding-top: 5px;
+    display: block; }

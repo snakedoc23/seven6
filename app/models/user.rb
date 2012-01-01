@@ -28,6 +28,9 @@ class User < ActiveRecord::Base
   
   before_save :encrypt_password
 
+  scope :top_distance, lambda { order("total_distance DESC").limit(5) }
+  scope :top_routes, lambda { order("total_routes DESC").limit(5) }
+
   def show_all_routes
     reduced_array = Array.new
     routes.each { |route| reduced_array.push route.reduced_coordinates_string }

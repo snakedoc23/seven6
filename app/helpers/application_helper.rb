@@ -27,4 +27,10 @@ module ApplicationHelper
     end
   end
 
+  def top_users
+    User.top_distance
+  end
+  def top_users_routes
+    User.top_routes
+  end
 end
