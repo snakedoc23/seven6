@@ -5,17 +5,21 @@
 			<h3>o 76rowerów</h3>
 			<p>Serwis umożliwia zarządzanie trasami rowerowymi, możesz przeglądać trasy, które znajdują się aktualnie w serwisie, dodawać nowe. Dodatkowo gdy założysz konto masz dostęp do statystyk, możesz dodawać trasy jako ulubione, komentować trasy innych a nawet dodać innych użytkowników do obserwowanych dzięki czemu będziesz wiedział o wszystkich dodanych przez nich trasach.</p>
 		</div>
- 		<div id="footer-top-distance" class="footer-col">
+ 		<div class="footer-col footer-top">
 			<h3>Najwięcej kilometrów</h3>
-				<% top_users.each do |user| %>
-					<p><%= link_to "#{user.username} (#{user.total_distance} km)", user_path(user.id) %></p>
-				<% end %>
+			<ul>
+			<% top_users.each do |user| %>
+				<li><%= link_to "#{user.username} (#{user.total_distance} km)", user_path(user.id) %></li>
+			<% end %>
+			</ul>
 		</div> 
- 		<div id="footer-top-routes"  class="footer-col">
+ 		<div class="footer-col footer-top">
 			<h3>Najwięcej dodanych tras</h3>
-				<% top_users_routes.each do |user| %>
-					<p><%= link_to "#{user.username} (#{user.total_routes})", user_path(user.id) %></p>
-				<% end %>
+			<ul>
+			<% top_users_routes.each do |user| %>
+				<li><%= link_to "#{user.username} (#{user.total_routes})", user_path(user.id) %></li>
+			<% end %>
+			</ul>
 		</div> 
 	</div><!-- /footer-inner -->
 	<div id="footer-bottom">

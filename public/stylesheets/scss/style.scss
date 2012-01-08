@@ -986,13 +986,16 @@ footer {
 			    line-height: 24px;
 			    margin-bottom: 10px;
 			    text-align: center;
-			    margin-left: 30px;
+			    
 			}
 		}
 		#footer-about {
 			width: 340px;
 			padding-right: 30px;
 			border-right: 1px solid $blue;
+			h3 {
+				margin-left: 30px;
+			}
 			p {
 				line-height: 1.5em;
 				margin-left: 30px;
@@ -2594,6 +2597,20 @@ ul.rating {
 			font-size: 14px;
 			padding-top: 5px;
 			display: block;
+		}
+	}
+}
+
+
+.footer-top {
+	width: 250px;
+	padding-left: 30px;
+	padding-right: 30px;
+	ul {
+		li {
+			a {
+				color: $blue;
+			}
 		}
 	}
 }

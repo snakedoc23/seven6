@@ -1432,12 +1432,13 @@ footer {
       font-weight: normal;
       line-height: 24px;
       margin-bottom: 10px;
-      text-align: center;
-      margin-left: 30px; }
+      text-align: center; }
   footer #footer-inner #footer-about {
     width: 340px;
     padding-right: 30px;
     border-right: 1px solid #283a43; }
+    footer #footer-inner #footer-about h3 {
+      margin-left: 30px; }
     footer #footer-inner #footer-about p {
       line-height: 1.5em;
       margin-left: 30px; }
@@ -2772,3 +2773,10 @@ ul.rating li {
     font-size: 14px;
     padding-top: 5px;
     display: block; }
+
+.footer-top {
+  width: 250px;
+  padding-left: 30px;
+  padding-right: 30px; }
+  .footer-top ul li a {
+    color: #283a43; }
