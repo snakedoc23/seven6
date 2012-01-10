@@ -16,6 +16,7 @@ gem 'nokogiri'
 group :development do
 	gem 'annotate'
 	gem 'faker'
+  gem "rails-erd"
 end
 # Use unicorn as the web server
 # gem 'unicorn'
