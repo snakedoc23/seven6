@@ -18,8 +18,6 @@ class RoutesController < ApplicationController
     @routes = Route.where('distance > ? AND distance < ? AND altitude > ? AND altitude < ? AND surface LIKE ?', distance_min, distance_max, altitude_min, altitude_max, only_road)
                    .search(params[:search]).order(sort_column + " " + sort_direction)
                    .paginate(:page => params[:page], :per_page => 10)
-    
-    @title_header = "Wszystkie trasy"
   end
 
   def show
