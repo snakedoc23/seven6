@@ -56,7 +56,7 @@ var allPolylines = [];
 var mc;
 var compareRoutes = [];
 
-google.load("visualization", "1", {packages: ["corechart"]});
+// google.load("visualization", "1", {packages: ["corechart"]});
 
 var mapWidth;
 

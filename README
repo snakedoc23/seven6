@@ -1,1 +1,3 @@
-My first Rails project
+76 - trasy rowerowe
+Aplikacja internetowa pozwalająca na no dodawanie, wyszukiwanie i zarządzanie trasami rowerowymi.
+Aplikacja została napisana w Ruby on Rails oraz korzysta z Google Maps API
