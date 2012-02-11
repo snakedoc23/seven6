@@ -8,7 +8,7 @@ gem 'rails', '3.0.10'
 gem 'sqlite3'
 gem 'sass'
 gem 'will_paginate'
-gem "jquery-rails"
+gem 'jquery-rails'
 gem 'carrierwave'
 
 gem 'nokogiri'
@@ -16,7 +16,7 @@ gem 'nokogiri'
 group :development do
 	gem 'annotate'
 	gem 'faker'
-  gem "rails-erd"
+  gem 'rails-erd'
 end
 # Use unicorn as the web server
 # gem 'unicorn'
