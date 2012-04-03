@@ -608,6 +608,16 @@ $(document).ready(function(){
 
   // DODAWANIE TRASY
 
+  // TAGIT
+  if($('ul#tags').length) {
+    $('ul#tags').tagit({
+      allowSpaces: true,
+      availableTags: $('ul#tags').data('tags'),
+      singleField: true,
+      singleFieldNode: $('#route_tag_names')
+    });
+  }
+
   // walidacja czasu 
   $('#route_time_string').focus(function(){
     $('#route_time_string').keyup(function(){

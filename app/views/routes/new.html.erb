@@ -63,7 +63,8 @@
 			</div>
 			<div class="form-field">
 				<%= f.label :tag_names, "Tagi:" %>
-				<%= f.text_field :tag_names %>
+				<ul id="tags" data-tags="<%= @tags %>"></ul>
+				<%= f.hidden_field :tag_names %>
 			</div>
 			<%= link_to "Pokaż dodatkowe opcje", "#", :id => "show-extra" %>
 			<div id="route-new-extra">

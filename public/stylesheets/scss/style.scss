@@ -2587,7 +2587,6 @@ ul.rating {
 	}
 }
 
-
 #tags {
 	text-align: center;
 	margin: 10px 0 20px;
@@ -2601,7 +2600,6 @@ ul.rating {
 	}
 }
 
-
 .footer-top {
 	width: 250px;
 	padding-left: 30px;
@@ -2613,4 +2611,74 @@ ul.rating {
 			}
 		}
 	}
+}
+
+// TAGIT
+ul#tags {
+  overflow: hidden;
+  margin: 0;
+}
+ul#tags input {
+  overflow: hidden;
+}
+ul.tagit li {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0;
+}
+ul.tagit li.tagit-choice {
+  padding: .2em 18px .2em .5em;
+  position: relative;
+  line-height: inherit;
+  border: 1px solid lightGrey;
+  background: $red;
+  color: white;
+  &:hover {
+  	background: white;
+  	color: $red;
+  	.ui-icon-close {
+  		background-position: -7px;
+  	}
+  }
+}
+ul.tagit li.tagit-choice .tagit-close {
+	cursor: pointer;
+	position: absolute;
+	right: .1em;
+	top: 50%;
+	margin-top: -8px;
+	.text-icon {
+		display: none;
+	}
+}
+.ui-icon-close {
+  display: block;
+  width: 7px;
+  height: 7px;
+  background: url(/images/tag_close.png) no-repeat;
+  margin-top: 5px;
+	margin-right: 3px;
+}
+
+/*pole z propozycjami*/
+ul.ui-autocomplete {
+  border: 1px solid $grey;
+  position: absolute;
+  cursor: default;
+  padding-top: 2px;
+  background: white;
+  border-radius: 4px;
+  margin-top: 2px;
+  padding-bottom: 2px;
+	.ui-state-hover, .ui-state-active {
+		background: $red;
+	 	color: white;	
+	 }
+  li.ui-menu-item {
+  	a {
+  		padding: .2em .4em;
+  		line-height: 1.5em;
+  		display: block;
+  	}
+  }
 }

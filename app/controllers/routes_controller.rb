@@ -115,6 +115,10 @@ class RoutesController < ApplicationController
   def new
     @route = Route.new
     @route_file = RouteFile.new
+    @tags = []
+    current_user.tags.each do |tag|
+      @tags.push tag.name
+    end
   end
 
   def create

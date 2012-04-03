@@ -2780,3 +2780,63 @@ ul.rating li {
   padding-right: 30px; }
   .footer-top ul li a {
     color: #283a43; }
+
+ul#tags {
+  overflow: hidden;
+  margin: 0; }
+
+ul#tags input {
+  overflow: hidden; }
+
+ul.tagit li {
+  display: block;
+  float: left;
+  margin: 2px 5px 2px 0; }
+
+ul.tagit li.tagit-choice {
+  padding: .2em 18px .2em .5em;
+  position: relative;
+  line-height: inherit;
+  border: 1px solid lightGrey;
+  background: #c84446;
+  color: white; }
+  ul.tagit li.tagit-choice:hover {
+    background: white;
+    color: #c84446; }
+    ul.tagit li.tagit-choice:hover .ui-icon-close {
+      background-position: -7px; }
+
+ul.tagit li.tagit-choice .tagit-close {
+  cursor: pointer;
+  position: absolute;
+  right: .1em;
+  top: 50%;
+  margin-top: -8px; }
+  ul.tagit li.tagit-choice .tagit-close .text-icon {
+    display: none; }
+
+.ui-icon-close {
+  display: block;
+  width: 7px;
+  height: 7px;
+  background: url(/images/tag_close.png) no-repeat;
+  margin-top: 5px;
+  margin-right: 3px; }
+
+/*pole z propozycjami*/
+ul.ui-autocomplete {
+  border: 1px solid #caced0;
+  position: absolute;
+  cursor: default;
+  padding-top: 2px;
+  background: white;
+  border-radius: 4px;
+  margin-top: 2px;
+  padding-bottom: 2px; }
+  ul.ui-autocomplete .ui-state-hover, ul.ui-autocomplete .ui-state-active {
+    background: #c84446;
+    color: white; }
+  ul.ui-autocomplete li.ui-menu-item a {
+    padding: .2em .4em;
+    line-height: 1.5em;
+    display: block; }
