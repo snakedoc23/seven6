@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111219151822) do
+ActiveRecord::Schema.define(:version => 20120407095748) do
 
   create_table "comments", :force => true do |t|
     t.text     "content"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(:version => 20111219151822) do
     t.string   "static_map_name"
     t.string   "static_map_content_type"
     t.binary   "static_map_data"
-    t.string   "climbs_string"
+    t.text     "climbs_string",           :limit => 255
     t.integer  "total_workouts"
     t.integer  "total_comments"
     t.integer  "total_ratings"
