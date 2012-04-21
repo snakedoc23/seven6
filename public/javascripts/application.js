@@ -362,7 +362,7 @@ $(document).ready(function(){
     loadStartMarkers(0, 'added');
   }
   // user_show_page
-  if($('#user-last-routes').length) {
+  if($('#last_routes_menu').length) {
     var user_id = $('#user_id').val();
     loadStartMarkers(user_id, 'added');
   }
@@ -498,6 +498,7 @@ $(document).ready(function(){
         if(homeMarkers[i].getTitle() == id) {
           homeMarkers[i].setIcon(sMarkerImageHover);
           homeInfoBoxes[i].open(map, homeMarkers[i]);
+          if (map.getZoom > 13) map.setZoom(13);
         }
       }
     });
@@ -607,181 +608,131 @@ $(document).ready(function(){
 
 
   // DODAWANIE TRASY
+  if ($('#route-new').length) {
 
-  // TAGIT
-  if($('ul#tags').length) {
-    $('ul#tags').tagit({
-      allowSpaces: true,
-      availableTags: $('ul#tags').data('tags'),
-      singleField: true,
-      singleFieldNode: $('#route_tag_names')
-    });
-  }
+    if ($('#current_user_place').length) {
+      centerMap($('#current_user_place').data('place'));
+      map.setZoom(13);
+    };
 
-  // walidacja czasu 
-  $('#route_time_string').focus(function(){
-    $('#route_time_string').keyup(function(){
-      var time_string = $('#route_time_string').val();
-      var timeRegex = /\d{1,3}\D\d{1,2}\D?\d{0,2}/;
-      var timeRegexOk = time_string.match(timeRegex)
-      if (timeRegexOk == time_string) {
-        var time_s = "";
-        var time_a = [];
-        for(var i = 0; i < time_string.length; i++) {
-          var c = time_string.charAt(i);
-          if(c.match(/\d/)) {
-            time_s += c;
-          } else {
-            time_s += ":"
+    // TAGIT
+    if($('ul#tags').length) {
+      $('ul#tags').tagit({
+        allowSpaces: true,
+        availableTags: $('ul#tags').data('tags'),
+        singleField: true,
+        singleFieldNode: $('#route_tag_names')
+      });
+    }
+
+    // walidacja czasu 
+    $('#route_time_string').focus(function(){
+      $('#route_time_string').keyup(function(){
+        var time_string = $('#route_time_string').val();
+        var timeRegex = /\d{1,3}\D\d{1,2}\D?\d{0,2}/;
+        var timeRegexOk = time_string.match(timeRegex)
+        if (timeRegexOk == time_string) {
+          var time_s = "";
+          var time_a = [];
+          for(var i = 0; i < time_string.length; i++) {
+            var c = time_string.charAt(i);
+            if(c.match(/\d/)) {
+              time_s += c;
+            } else {
+              time_s += ":"
+            }
           }
-        }
-        time_a = time_s.split(":");
-        total_time_sec = 0;
-        if(time_a[2] != "" && time_a[2] != null) {
-          total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60 + parseFloat(time_a[2]);
+          time_a = time_s.split(":");
+          total_time_sec = 0;
+          if(time_a[2] != "" && time_a[2] != null) {
+            total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60 + parseFloat(time_a[2]);
+          } else {
+            total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60;
+            time_a[2] = "0";
+          }
+          if(total_time_sec > 0) {
+            avg_speed = Math.round(distance * 3600 / total_time_sec * 100) / 100;
+            $("p.avg_speed .value").html(avg_speed);
+            $("#total-time-show-h").html(time_a[0]);
+            $("#total-time-show-m").html(time_a[1]);
+            $("#total-time-show-s").html(time_a[2]);
+          }
+          $('#error-explanation-time').hide();
+          $('#route_time_string').css("border-color", "#D5D8D9");
         } else {
-          total_time_sec = parseFloat(time_a[0]) * 3600 +  parseFloat(time_a[1]) * 60;
-          time_a[2] = "0";
+          $('#error-explanation-time').show();
+          $('#route_time_string').css("border-color", "#C84446");
         }
-        if(total_time_sec > 0) {
-          avg_speed = Math.round(distance * 3600 / total_time_sec * 100) / 100;
-          $("p.avg_speed .value").html(avg_speed);
-          $("#total-time-show-h").html(time_a[0]);
-          $("#total-time-show-m").html(time_a[1]);
-          $("#total-time-show-s").html(time_a[2]);
-        }
+      });
+    });
+    // ukrywanie podpowiedzi gdy pole zostaje wyczyszczone
+    $('#route_time_string').blur(function(){
+      if($('#route_time_string').val() == "") {
         $('#error-explanation-time').hide();
         $('#route_time_string').css("border-color", "#D5D8D9");
-      } else {
-        $('#error-explanation-time').show();
-        $('#route_time_string').css("border-color", "#C84446");
       }
     });
-  });
-  // ukrywanie podpowiedzi gdy pole zostaje wyczyszczone
-  $('#route_time_string').blur(function(){
-    if($('#route_time_string').val() == "") {
-      $('#error-explanation-time').hide();
-      $('#route_time_string').css("border-color", "#D5D8D9");
-    }
-  });
 
-  // waidacja tetna
-  $('#route_pulse').blur(function() {
-    var pulse = $('#route_pulse').val();
-    var pulseRegex = /\d{2,3}\/\d{2,3}/;
-    var pulseRegexOk = pulse.match(pulseRegex);
-    if(pulse == pulseRegexOk || $('#route_pulse').val() == "") {
-      $("#error-explanation-pulse").hide();
-      $('#route_pulse').css("border-color", "#D5D8D9");
-    } else {
-      $("#error-explanation-pulse").show();
-      $('#route_pulse').css("border-color", "#C84446");
-    }
-  });
-
-  // walidacja predkosci max
-  $('#route_max_speed').blur(function() {
-    var max_speed = $('#route_max_speed').val();
-    var max_speedRegex = /\d{1,3}.?\d{0,4}/;
-    var max_speedRegexOk = max_speed.match(max_speedRegex);
-    if((max_speed == max_speedRegexOk || $('#route_max_speed').val() == "") && max_speed < 200) {
-      $("#error-explanation-max-speed").hide();
-      $('#route_max_speed').css("border-color", "#D5D8D9");
-    } else {
-      $("#error-explanation-max-speed").show();
-      $('#route_max_speed').css("border-color", "#C84446");
-    }
-  });
-
-  // routes/new -> dodatkowe opcje 
-  $('#route-new-extra').hide();
-  $('#show-extra').click(function() {
-    $('#route-new-extra').slideToggle('slow', function() {
-      if($('#show-extra').html() == "Pokaż dodatkowe opcje") {
-        $('#show-extra').html("Ukryj dodatkowe opcje");
+    // waidacja tetna
+    $('#route_pulse').blur(function() {
+      var pulse = $('#route_pulse').val();
+      var pulseRegex = /\d{2,3}\/\d{2,3}/;
+      var pulseRegexOk = pulse.match(pulseRegex);
+      if(pulse == pulseRegexOk || $('#route_pulse').val() == "") {
+        $("#error-explanation-pulse").hide();
+        $('#route_pulse').css("border-color", "#D5D8D9");
       } else {
-        $('#show-extra').html("Pokaż dodatkowe opcje");
+        $("#error-explanation-pulse").show();
+        $('#route_pulse').css("border-color", "#C84446");
       }
     });
-    return false;
-  });
 
-  // pokaz formularz do dodawania pliku
-  $('#upload-file-btn').bind('click', function(){
-    if($('#draw-controls').is(':visible')) {
-      $('#draw-controls').slideUp('slow');
-    }
-    if($('#upload-form').is(':visible')) {
-      $('#upload-form').slideUp('slow');
-    } else {
-      $('#upload-form').slideDown('slow');
-    }
-    return false;
-  });
-
-  // stworz trase po uploadzie z pliku
-  if($("#route_coordinates_string").val()) {
-    var bounds = pathFromString($("#route_coordinates_string").val(), path);
-    map.fitBounds(bounds);
-    polyline.setPath(path);
-    addDistanceToPage(polyline);
-    // redukcja tablicy do 190 elementow 
-    if (path.length > 190) {
-      var reucedPath = new google.maps.MVCArray();
-      reucedPath = path;
-      var ca = 0;
-      while (reucedPath.length > 190) {
-         reucedPath = reductionPath(reucedPath);
+    // walidacja predkosci max
+    $('#route_max_speed').blur(function() {
+      var max_speed = $('#route_max_speed').val();
+      var max_speedRegex = /\d{1,3}.?\d{0,4}/;
+      var max_speedRegexOk = max_speed.match(max_speedRegex);
+      if((max_speed == max_speedRegexOk || $('#route_max_speed').val() == "") && max_speed < 200) {
+        $("#error-explanation-max-speed").hide();
+        $('#route_max_speed').css("border-color", "#D5D8D9");
+      } else {
+        $("#error-explanation-max-speed").show();
+        $('#route_max_speed').css("border-color", "#C84446");
       }
-    }
-    // wywolanie funkcji do stworzenia profilu wysokosciowego
-    if(reucedPath) {
-      createElevation(reucedPath);
-    } else {
-      createElevation(path);
-    }
-  }
+    });
 
-  //przyciski do rysowania
-  $('#draw-controls').hide();
-  $('#draw-route-btn').bind('click', function(){
-    if($('#upload-form').is(':visible')) {
-      $('#upload-form').slideUp('slow');
-    }
-    if($('#draw-controls').is(':visible')) {
-      $('#draw-controls').slideUp('slow');
-    } else {
-      $('#draw-controls').slideDown('slow');
-      if(route == null)
-      route = drawRoute(map, polyline);
-    }
+    // routes/new -> dodatkowe opcje 
+    $('#route-new-extra').hide();
+    $('#show-extra').click(function() {
+      $('#route-new-extra').slideToggle('slow', function() {
+        if($('#show-extra').html() == "Pokaż dodatkowe opcje") {
+          $('#show-extra').html("Ukryj dodatkowe opcje");
+        } else {
+          $('#show-extra').html("Pokaż dodatkowe opcje");
+        }
+      });
       return false;
     });
-    $('#delete-path').bind('click', function(){
-    deletePath(path);
-    return false;
-  });
 
+    // pokaz formularz do dodawania pliku
+    $('#upload-file-btn').bind('click', function(){
+      if($('#draw-controls').is(':visible')) {
+        $('#draw-controls').slideUp('slow');
+      }
+      if($('#upload-form').is(':visible')) {
+        $('#upload-form').slideUp('slow');
+      } else {
+        $('#upload-form').slideDown('slow');
+      }
+      return false;
+    });
 
-  // przycisk przyciafaj do drog
-  $("#snap").click(function(event){
-    event.preventDefault();
-    if(snap === 0) {
-      snap = 1;
-      $("#snap").css("color", "#283A43");
-      $("#snap").text("Wyłącz przyciąganie");
-    } else {
-      snap = 0;
-      $("#snap").css("color", "#C84446");
-      $("#snap").text("Przyciągaj do dróg");
-    }
-  });
-
-  //wysyłanie nowej trasy
-  $("#route_submit").click(function() {
-    newRoute = 1;
-    if(path.length > 1) {
+    // stworz trase po uploadzie z pliku
+    if($("#route_coordinates_string").val()) {
+      var bounds = pathFromString($("#route_coordinates_string").val(), path);
+      map.fitBounds(bounds);
+      polyline.setPath(path);
+      addDistanceToPage(polyline);
       // redukcja tablicy do 190 elementow 
       if (path.length > 190) {
         var reucedPath = new google.maps.MVCArray();
@@ -790,22 +741,78 @@ $(document).ready(function(){
         while (reucedPath.length > 190) {
            reucedPath = reductionPath(reucedPath);
         }
-        // console.log("Do wywalenia: "+  (path.length - 190));
-        // console.log(reucedPath.length);
       }
       // wywolanie funkcji do stworzenia profilu wysokosciowego
       if(reucedPath) {
         createElevation(reucedPath);
-        // console.log("reduced");
       } else {
         createElevation(path);
       }
     }
-    // console.log(stringPath);
-    // console.log($("#route_coordinates_string").val());
-    return false;
-  });
-  
+
+    //przyciski do rysowania
+    $('#draw-controls').hide();
+    $('#draw-route-btn').bind('click', function(){
+      if($('#upload-form').is(':visible')) {
+        $('#upload-form').slideUp('slow');
+      }
+      if($('#draw-controls').is(':visible')) {
+        $('#draw-controls').slideUp('slow');
+      } else {
+        $('#draw-controls').slideDown('slow');
+        if(route == null)
+        route = drawRoute(map, polyline);
+      }
+        return false;
+      });
+      $('#delete-path').bind('click', function(){
+      deletePath(path);
+      return false;
+    });
+
+
+    // przycisk przyciafaj do drog
+    $("#snap").click(function(event){
+      event.preventDefault();
+      if(snap === 0) {
+        snap = 1;
+        $("#snap").css("color", "#283A43");
+        $("#snap").text("Wyłącz przyciąganie");
+      } else {
+        snap = 0;
+        $("#snap").css("color", "#C84446");
+        $("#snap").text("Przyciągaj do dróg");
+      }
+    });
+
+    //wysyłanie nowej trasy
+    $("#route_submit").click(function() {
+      newRoute = 1;
+      if(path.length > 1) {
+        // redukcja tablicy do 190 elementow 
+        if (path.length > 190) {
+          var reucedPath = new google.maps.MVCArray();
+          reucedPath = path;
+          var ca = 0;
+          while (reucedPath.length > 190) {
+             reucedPath = reductionPath(reucedPath);
+          }
+          // console.log("Do wywalenia: "+  (path.length - 190));
+          // console.log(reucedPath.length);
+        }
+        // wywolanie funkcji do stworzenia profilu wysokosciowego
+        if(reucedPath) {
+          createElevation(reucedPath);
+          // console.log("reduced");
+        } else {
+          createElevation(path);
+        }
+      }
+      // console.log(stringPath);
+      // console.log($("#route_coordinates_string").val());
+      return false;
+    });
+  }
 
   //EDIT ROUTE
     //> walidacje zrobic i automatycznie uzupełniać avg jak w new
@@ -1006,6 +1013,25 @@ function loadStartMarkers(user_id, route_type) {
         }]
       };
       mc = new MarkerClusterer(map, homeMarkers, mcOptions);
+
+      // centrowanie mapy na miejscowosc podana w profilu
+
+
+        if(homeMarkers.length) {
+          var bounds = new google.maps.LatLngBounds();
+          for (var i = 0; i < homeMarkers.length; i++) {
+            bounds.extend(homeMarkers[i].getPosition());
+          }
+          map.fitBounds(bounds);
+          if (map.getZoom() > 18) map.setZoom(18);
+        } else {
+          if($('.home_place').length) {
+            centerMap($('.home_place').text().split(':')[1].trim());
+            map.setZoom(13);
+          }
+        }
+      
+
     }
   });
 }
@@ -1158,8 +1184,8 @@ function pathFromString(string, pathT) {
 
 function initializeMap(){
   var map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 13,
-      center: new google.maps.LatLng(50.263888, 19.029007),
+      zoom: 6,
+      center: new google.maps.LatLng(49.7, 20.12),
       mapTypeId: google.maps.MapTypeId.ROADMAP
   });
   return map;

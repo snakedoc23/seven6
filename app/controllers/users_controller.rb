@@ -249,5 +249,6 @@ class UsersController < ApplicationController
     
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? "#{params[:direction]} NULLS LAST" : "desc NULLS LAST"
+      # %w[asc desc].include?(params[:direction]) ? "#{params[:direction]}" : "desc"
     end
 end

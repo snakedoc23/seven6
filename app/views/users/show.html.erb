@@ -10,7 +10,7 @@
 				<ul>
 					<% if @user.name %><li>Imię: <%= @user.name %></li><% end %>
 					<% if @user.age %><li>Wiek: <%= @user.age %></li><% end %>
-					<% if @user.place %><li>Miejscowość: <%= @user.place %></li><% end %>
+					<% if @user.place %><li class="home_place">Miejscowość: <%= @user.place %></li><% end %>
 					<% if !@user.gender.nil? %><li>Płeć: <%= @user.gender ? "mężczyzna" : 'kobieta' %></li><% end %>
 					<% if correct_user? %>
 					<li class="edit-user"><%= link_to "Edytuj swoje dane", edit_user_path(@user) %></li>
@@ -118,7 +118,7 @@
 
 		<%# render 'last_routes_added' %>
 	</div>
-	<div class="clear"></div>
+	<div class="clear routes-list"></div>
 
 	</div>
 	</div>
