@@ -204,6 +204,8 @@ class RoutesController < ApplicationController
     end
     
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+      # %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+      %w[asc desc].include?(params[:direction]) ? "#{params[:direction]} NULLS LAST" : "desc NULLS LAST"
+
     end
 end
